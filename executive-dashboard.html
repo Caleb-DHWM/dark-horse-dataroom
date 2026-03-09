@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Caleb Caraway — Executive Dashboard</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #21262d;
+  --gold: #c8a025;
+  --gold-dim: #a07a10;
+  --text: #e6edf3;
+  --sub: #8b949e;
+  --green: #3fb950;
+  --yellow: #d29922;
+  --red: #f85149;
+  --blue: #58a6ff;
+  --purple: #bc8cff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 14px; }
+.header { background: var(--surface); border-bottom: 1px solid var(--gold); padding: 14px 16px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
+.header-left h1 { font-size: 13px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+.header-left p { font-size: 11px; color: var(--sub); margin-top: 2px; }
+.updated { font-size: 11px; color: var(--sub); text-align: right; }
+.container { max-width: 900px; margin: 0 auto; padding: 16px; }
+section { margin-bottom: 28px; }
+h2 { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 400px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.card.gold { border-color: var(--gold); }
+.card.alert { border-color: var(--red); }
+.card.warn { border-color: var(--yellow); }
+.card.ok { border-color: var(--green); }
+.kpi-label { font-size: 10px; color: var(--sub); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; }
+.kpi-sub { font-size: 11px; color: var(--sub); margin-top: 5px; }
+.kpi-value.green { color: var(--green); }
+.kpi-value.gold { color: var(--gold); }
+.kpi-value.red { color: var(--red); }
+.kpi-value.yellow { color: var(--yellow); }
+.kpi-value.blue { color: var(--blue); }
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; color: var(--sub); font-weight: 600; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+td { padding: 8px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; border-radius: 4px; padding: 2px 7px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.badge.green { background: rgba(63,185,80,0.15); color: var(--green); }
+.badge.red { background: rgba(248,81,73,0.15); color: var(--red); }
+.badge.yellow { background: rgba(210,153,34,0.15); color: var(--yellow); }
+.badge.blue { background: rgba(88,166,255,0.15); color: var(--blue); }
+.badge.gold { background: rgba(200,160,37,0.15); color: var(--gold); }
+.badge.purple { background: rgba(188,140,255,0.15); color: var(--purple); }
+.badge.gray { background: rgba(139,148,158,0.15); color: var(--sub); }
+.entity-tag { font-size: 10px; color: var(--sub); }
+.investor-name { font-weight: 600; color: var(--text); }
+.amount { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.rate { color: var(--gold); font-weight: 600; }
+.note { font-size: 11px; color: var(--sub); margin-top: 4px; }
+.alert-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.alert-item:last-child { border-bottom: none; }
+.alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-body strong { display: block; font-size: 13px; color: var(--text); }
+.alert-body span { font-size: 11px; color: var(--sub); }
+.progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; }
+.progress-fill { height: 100%; border-radius: 2px; background: var(--gold); }
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.scroll-x { overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>🐎 Dark Horse Wealth Management</h1>
+    <p>Executive Dashboard — Caleb Caraway</p>
+  </div>
+  <div class="updated">Updated<br>March 9, 2026</div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════ SECTION: KPI SUMMARY ═══════════════════════ -->
+<section>
+  <h2>📊 Portfolio Summary</h2>
+  <div class="grid-4">
+    <div class="card gold">
+      <div class="kpi-label">Total Confirmed AUM</div>
+      <div class="kpi-value gold">$1.549M</div>
+      <div class="kpi-sub">$1,549,202.93 — GHL Closed Won<br>CCP + KV Pipelines</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Gross Monthly Cash Flow</div>
+      <div class="kpi-value green">$19,300</div>
+      <div class="kpi-sub">KV interest: DHWM $12K + CH $7.3K<br>Less MT Rentals: -$1,500 → Net $17,800</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">KV Total Exposure</div>
+      <div class="kpi-value blue">$386,000</div>
+      <div class="kpi-sub">DHWM $240K + Caraway Holdings $146K<br>5%/mo (60% annualized)</div>
+    </div>
+    <div class="card warn">
+      <div class="kpi-label">Empower Consulting (Eyad)</div>
+      <div class="kpi-value yellow">~$208K</div>
+      <div class="kpi-sub">Friendly receivable — no enforcement<br>5%/30 days default interest accruing</div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;" class="grid-4">
+    <div class="card">
+      <div class="kpi-label">Calvin Caraway Loan (DHWM owes)</div>
+      <div class="kpi-value red">$106,000</div>
+      <div class="kpi-sub">6% flat — due ~April 27, 2026<br>Total payback: $112,360</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Field Futures — Equity Held</div>
+      <div class="kpi-value blue">6% equity</div>
+      <div class="kpi-sub">$200K invested (Tranche 1)<br>+$200K Tranche 3 → 8% total</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Funds in Formation</div>
+      <div class="kpi-value" style="font-size:16px;">3 active</div>
+      <div class="kpi-sub">Quarter Horse ($30M max)<br>Draft Horse · Arabian Capital</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">SEC Registration Threshold</div>
+      <div class="kpi-value" style="font-size:16px;">$150M</div>
+      <div class="kpi-sub">ERA exemption holds until $150M AUM<br>Target: $100M Draft Horse by EOY</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: ALERTS ═══════════════════════ -->
+<section>
+  <h2>🚨 Active Alerts &amp; Action Required</h2>
+  <div class="card alert">
+
+    <div class="alert-item">
+      <div class="alert-icon">🔴</div>
+      <div class="alert-body">
+        <strong>KV Caraway Holdings — $95K + $13K PAST MATURITY</strong>
+        <span>AMEX BBP $95K matured Mar 2 · Chase Ink $13K matured Mar 3. Kamboj should have returned principal. Contact Sanjit Sergill (COO) immediately to confirm principal return on both contracts.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">🔴</div>
+      <div class="alert-body">
+        <strong>Corinthian Reg D Amendment — OVERDUE since Nov 8, 2025</strong>
+        <span>Form D amendment required annually. Still actively raising. Dori Karjian must file with SEC EDGAR immediately. Reference: dori-legal-punch-list email #2.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">🔴</div>
+      <div class="alert-body">
+        <strong>$90K Brother Loan — NO WRITTEN CONTRACT</strong>
+        <span>5%/month, interest-only, 12 months. Verbal only. Dori must draft retroactive agreement immediately. This + 4 other informal arrangements = potential Reg D exposure across all 5.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>Gary Byrum Addendum 3 — Matures March 27, 2026 ($25,000)</strong>
+        <span>Notice window closed — auto-rollover applies. Confirm Gary has not requested exit. Document rollover with Dori Karjian for clean records. Monthly interest continues ($3,800/mo total).</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>KV US Bank $10K — Matures March 10, 2026 (Caraway Holdings)</strong>
+        <span>Principal return expected from Kamboj. Prepare for receipt.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>Calvin Caraway $106K — Due ~April 27, 2026</strong>
+        <span>DHWM borrowed $106K at 6% flat on Jan 27, 2026. Total payback: $112,360. Ensure liquidity to repay. 49 days remaining.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>Corinthian Ownership Structure — Wrong</strong>
+        <span>CCP LLC currently under Caraway Holdings. Must transfer to DHWM LLC. Dori handling. Fix before next investor conversation.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>QHCP — Fund Administrator Not Named</strong>
+        <span>Quarter Horse Capital Partners PPM is live (Feb 27, 2026) but fund administrator is TBD. REQUIRED before distributing final PPM to investors.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>Field Futures — Definitive Agreements Not Yet Executed</strong>
+        <span>$200K invested / 6% equity. Several key protections were removed from term sheet (personal guaranty, drag-along, cognovit, auto equity acceleration). Must address in Definitive Agreements. UCC-1 not yet filed.</span>
+      </div>
+    </div>
+
+    <div class="alert-item">
+      <div class="alert-icon">ℹ️</div>
+      <div class="alert-body">
+        <strong>$200K Mining Equity Loan (Stateside) — Usury Analysis Pending</strong>
+        <span>2%+/month rate via Stateside Resources. No Reg D, no equity stake, balloon structure. Dori reviewing usury exposure.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: CORINTHIAN INVESTORS ═══════════════════════ -->
+<section>
+  <h2>🏦 Corinthian Capital Fund — Investor Registry</h2>
+  <div class="scroll-x">
+  <table>
+    <thead>
+      <tr>
+        <th>Investor</th>
+        <th>Principal</th>
+        <th>Rate</th>
+        <th>Monthly Int.</th>
+        <th>Term / Maturity</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="investor-name">Gary Byrum</div>
+          <div class="entity-tag">William Garrett Byrum Sr. · DOB 3/10/52</div>
+          <div class="entity-tag">wgbs72@gmail.com · (817) 846-0294</div>
+        </td>
+        <td class="amount">$190,000</td>
+        <td class="rate">24%/yr</td>
+        <td class="amount">$3,800</td>
+        <td>14 tranches · 12-mo each<br><span style="color:var(--sub);font-size:11px;">Auto-rollover confirmed (60-day notice)</span></td>
+        <td><span class="badge yellow">Active</span></td>
+        <td class="note">2 tranches past maturity → auto-rolled ✅<br>Addendum 3: matures Mar 27 ⚠️<br>Addendum 4: Apr 25 · Addendum 5: May 29</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Rachel Sanders / MT Rentals</div>
+          <div class="entity-tag">3512 Lakota Ct, Granbury TX 76048</div>
+        </td>
+        <td class="amount">$45,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Also has separate DHWM PBLA ($100K at 18%/yr)<br>+ IGWT trust top-up → ~28% effective yield</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Jim Nakis / Coral Stone Trust</div>
+        </td>
+        <td class="amount">$300,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Source: Andrew Gilbaugh (Atlas)</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Will Smith / Omni Risen Trust</div>
+        </td>
+        <td class="amount">$100,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Source: Andrew Gilbaugh (Atlas)</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Dan Cornwell</div>
+        </td>
+        <td class="amount">$105,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>4 tranches</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">$105K across 4 addendums (GHL confirmed)</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Joe Parks + Family</div>
+          <div class="entity-tag">Joe Parks IRA · IRA 2 · Trad IRA · Cathye Parks · Dave Parks</div>
+        </td>
+        <td class="amount">$290,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>Multiple IRA + personal accounts</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Family group; most complex investor structure. Sub docs needed.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Gary Byrum IRA</div>
+          <div class="entity-tag">Separate IRA account</div>
+        </td>
+        <td class="amount">$190,112</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Separate from personal $190K</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Caraway Family (Trust + IRA)</div>
+          <div class="entity-tag">Caraway Tr · CM Caraway · C Caraway IRA · Calvin Caraway</div>
+        </td>
+        <td class="amount">$98,913</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Family group; Calvin also has $106K DHWM loan outstanding</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Robert Allen</div>
+        </td>
+        <td class="amount">$50,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Source: Grant Smith · Additional $500K in commit stage</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">International Student Foundation (ISF)</div>
+        </td>
+        <td class="amount">$100,000</td>
+        <td class="rate">TBD</td>
+        <td class="amount">TBD</td>
+        <td>TBD</td>
+        <td><span class="badge green">Active</span></td>
+        <td class="note">Non-profit entity investor</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">William Blake Boothe</div>
+        </td>
+        <td class="amount">$80,000</td>
+        <td class="rate">TBD</td>
+        <td>—</td>
+        <td>~Feb 25, 2026</td>
+        <td><span class="badge gray">Exited</span></td>
+        <td class="note">Principal returned Feb 2026. No longer in AUM.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div style="margin-top:12px;" class="grid-3">
+    <div class="card">
+      <div class="kpi-label">Total AUM (GHL Closed Won)</div>
+      <div class="kpi-value gold">$1,549,203</div>
+      <div class="kpi-sub">CCP Pipeline $445K + KV Pipeline $1,104K</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Pipeline — Commit Stage</div>
+      <div class="kpi-value blue">$511,210</div>
+      <div class="kpi-sub">Gary Byrum IRA 3 $11K + Robert Allen 2 $500K</div>
+    </div>
+    <div class="card warn">
+      <div class="kpi-label">100-Investor Cap (3c1)</div>
+      <div class="kpi-value yellow">~35 entries</div>
+      <div class="kpi-sub">GHL Closed Won entries. Unique investor count unverified. Alert at 90. Request NAV ledger.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: GARY BYRUM MATURITY SCHEDULE ═══════════════════════ -->
+<section>
+  <h2>📅 Gary Byrum — Maturity Schedule (All 14 Tranches)</h2>
+  <div class="scroll-x">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Effective Date</th>
+        <th>Amount</th>
+        <th>Cumulative</th>
+        <th>Maturity Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Feb 6, 2025</td><td class="amount">$25,000</td><td>$25,000</td><td>Feb 6, 2026</td><td><span class="badge green">Auto-Rolled ✅</span></td></tr>
+      <tr><td>2</td><td>Feb 20, 2025</td><td class="amount">$25,000</td><td>$50,000</td><td>Feb 20, 2026</td><td><span class="badge green">Auto-Rolled ✅</span></td></tr>
+      <tr style="background:rgba(210,153,34,0.05)"><td>3</td><td>Mar 27, 2025</td><td class="amount">$25,000</td><td>$75,000</td><td><strong>Mar 27, 2026</strong></td><td><span class="badge yellow">18 days ⚠️</span></td></tr>
+      <tr><td>4</td><td>Apr 25, 2025</td><td class="amount">$15,000</td><td>$90,000</td><td>Apr 25, 2026</td><td><span class="badge blue">49 days</span></td></tr>
+      <tr><td>5</td><td>May 29, 2025</td><td class="amount">$10,000</td><td>$100,000</td><td>May 29, 2026</td><td><span class="badge blue">83 days</span></td></tr>
+      <tr><td>6</td><td>Jun 19, 2025</td><td class="amount">$10,000</td><td>$110,000</td><td>Jun 19, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>7</td><td>Jul 15, 2025</td><td class="amount">$10,000</td><td>$120,000</td><td>Jul 15, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>8</td><td>Aug 22, 2025</td><td class="amount">$10,000</td><td>$130,000</td><td>Aug 22, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>9</td><td>Sep 17, 2025</td><td class="amount">$10,000</td><td>$140,000</td><td>Sep 17, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>10</td><td>Oct 8, 2025</td><td class="amount">$10,000</td><td>$150,000</td><td>Oct 8, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>11</td><td>Nov 20, 2025</td><td class="amount">$10,000</td><td>$160,000</td><td>Nov 20, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>12</td><td>Dec 11, 2025</td><td class="amount">$10,000</td><td>$170,000</td><td>Dec 11, 2026</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>13</td><td>Jan 16, 2026</td><td class="amount">$10,000</td><td>$180,000</td><td>Jan 16, 2027</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>14</td><td>Feb 6, 2026</td><td class="amount">$10,000</td><td>$190,000</td><td>Feb 6, 2027</td><td><span class="badge green">Active</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:8px;">All tranches subject to 10-year auto-rollover unless Gary provides 60-day written notice. Monthly interest: $3,800/mo ($45,600/yr). 24% per annum, simple interest, unsecured.</div>
+</section>
+
+<!-- ═══════════════════════ SECTION: KV PORTFOLIO ═══════════════════════ -->
+<section>
+  <h2>⚡ Kamboj Ventures — Full Position Register</h2>
+  <div style="margin-bottom:10px;" class="grid-2">
+    <div class="card">
+      <div class="kpi-label">DHWM → KV (4 contracts)</div>
+      <div class="kpi-value blue">$240,000</div>
+      <div class="kpi-sub">$12,000/month gross interest inflow</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Caraway Holdings → KV (5 contracts)</div>
+      <div class="kpi-value blue">$146,000</div>
+      <div class="kpi-sub">$7,300/month gross interest<br>⚠️ $118K past/near maturity</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">DHWM Contracts</h3>
+  <div class="scroll-x">
+  <table>
+    <thead>
+      <tr><th>Lender</th><th>Principal</th><th>Date</th><th>Monthly Int.</th><th>Maturity</th><th>Source Investor</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DHWM (Caleb personal)</td><td class="amount">$10,000</td><td>Dec 24, 2025</td><td>$500</td><td>Dec 24, 2026</td><td>Caleb's capital</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>DHWM</td><td class="amount">$100,000</td><td>Jan 20, 2026</td><td>$5,000</td><td>Jan 20, 2027</td><td>Michelle Northcutt (Mel Mel)</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>DHWM</td><td class="amount">$100,000</td><td>Jan 9, 2026</td><td>$5,000</td><td>Jan 9, 2027</td><td>MT Rentals (Rachel Sanders PBLA)</td><td><span class="badge green">Active</span></td></tr>
+      <tr><td>DHWM</td><td class="amount">$30,000</td><td>Jan 30, 2026</td><td>$1,500</td><td>Jan 30, 2027</td><td>DHWM operating capital</td><td><span class="badge green">Active</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">Caraway Holdings Contracts</h3>
+  <div class="scroll-x">
+  <table>
+    <thead>
+      <tr><th>Source Card</th><th>Principal</th><th>Date</th><th>Monthly Int.</th><th>Maturity</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(248,81,73,0.05)"><td>AMEX Business Plus</td><td class="amount">$95,000</td><td>Feb 27, 2025</td><td>$4,750</td><td><strong>Mar 2, 2026</strong></td><td><span class="badge red">PAST MATURITY 🔴</span></td></tr>
+      <tr style="background:rgba(248,81,73,0.05)"><td>Chase Ink</td><td class="amount">$13,000</td><td>Mar 3, 2025</td><td>$650</td><td><strong>Mar 3, 2026</strong></td><td><span class="badge red">PAST MATURITY 🔴</span></td></tr>
+      <tr style="background:rgba(210,153,34,0.05)"><td>US Bank Platinum</td><td class="amount">$10,000</td><td>Mar 10, 2025</td><td>$500</td><td><strong>Mar 10, 2026</strong></td><td><span class="badge yellow">Due 1 day ⚠️</span></td></tr>
+      <tr style="background:rgba(210,153,34,0.05)"><td>BofA Card</td><td class="amount">$15,000</td><td>Mar 28, 2025</td><td>$750</td><td>Mar 28, 2026</td><td><span class="badge yellow">19 days ⚠️</span></td></tr>
+      <tr><td>IGWT / Chase Ink Cash</td><td class="amount">$13,000</td><td>Jul 4, 2025</td><td>$650</td><td>Jul 4, 2026</td><td><span class="badge green">Active</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:8px;">All KV contracts: 5%/month (60% annualized) · Kamboj Ventures Inc., Modesto CA · Signatory: Sanjit Sergill (COO &amp; Co-Founder) · Governed by California law ⚠️ (usury review pending with Dori)</div>
+</section>
+
+<!-- ═══════════════════════ SECTION: LENDING BOOK ═══════════════════════ -->
+<section>
+  <h2>💵 DHWM Lending Book — Receivables &amp; Payables</h2>
+  <h3 style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">DHWM as Lender (Receivables)</h3>
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>Borrower</th><th>Amount</th><th>Rate</th><th>Date</th><th>Maturity</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="investor-name">Empower Consulting Group LLC</div>
+          <div class="entity-tag">Eyad Abbas (owner) · Miami FL · Personal friend of Caleb</div>
+        </td>
+        <td class="amount">~$208K outstanding<br><span style="color:var(--sub);font-size:11px;">($205K lent · $15K repaid Jan 29)</span></td>
+        <td>3% flat (original)<br>5%/30 days default</td>
+        <td>Dec 12, 2025</td>
+        <td>Jan 26, 2026<br><span style="color:var(--red);font-size:11px;">IN DEFAULT</span></td>
+        <td><span class="badge yellow">Friendly · No enforcement</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">MT Rentals LLC (Rachel Sanders)</div>
+          <div class="entity-tag">PBLA — DHWM as borrower from Rachel</div>
+        </td>
+        <td class="amount">$100,000</td>
+        <td>18%/yr ($1,500/mo)</td>
+        <td>Jan 12, 2026</td>
+        <td>Jan 12, 2027 (auto-renews)</td>
+        <td><span class="badge blue">Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="font-size:11px;color:var(--red);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">DHWM as Borrower (Payables)</h3>
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>Lender</th><th>Amount</th><th>Rate</th><th>Date</th><th>Maturity</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr style="background:rgba(248,81,73,0.05)">
+        <td>
+          <div class="investor-name">Calvin Caraway</div>
+          <div class="entity-tag">716 Waugh Apt 1208, Houston TX 77019</div>
+        </td>
+        <td class="amount">$106,000</td>
+        <td class="rate">6% flat</td>
+        <td>Jan 27, 2026</td>
+        <td><strong>~Apr 27, 2026</strong></td>
+        <td><span class="badge red">Due in 49 days — $112,360 total</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Caleb's Brother (name TBD)</div>
+          <div class="entity-tag">Not Calvin Caraway — separate sibling</div>
+        </td>
+        <td class="amount">$90,000</td>
+        <td class="rate">5%/mo interest-only</td>
+        <td>Mar 2026</td>
+        <td>12 months</td>
+        <td><span class="badge red">NO CONTRACT — Verbal only 🔴</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Mining Equity Lender (via Stateside)</div>
+        </td>
+        <td class="amount">$200,000</td>
+        <td class="rate">2%+/mo</td>
+        <td>2026</td>
+        <td>Balloon</td>
+        <td><span class="badge yellow">Usury review pending — Dori</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: DEAL TRACKER ═══════════════════════ -->
+<section>
+  <h2>🔭 Investment Deal Tracker</h2>
+  <div class="scroll-x">
+  <table>
+    <thead>
+      <tr><th>Deal</th><th>Entity</th><th>Invested</th><th>Equity / Return</th><th>Status</th><th>Key Item</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="investor-name">Field Futures Texas</div>
+          <div class="entity-tag">Silver mining · Llano-Burnet Region, TX<br>670 acres · Mark Hinds (CEO, Kenobi) · mark@kenobi.io</div>
+        </td>
+        <td>Stateside Resources LLC</td>
+        <td class="amount">$200,000 (Tranche 1)</td>
+        <td><span class="badge gold">6% equity (vested)</span></td>
+        <td><span class="badge yellow">Active — Tranche 3 pending</span></td>
+        <td class="note">Tranche 3 ($200K) → +2% = 8% total.<br>Definitive Agreements not yet executed.<br>UCC-1 not filed. Board seat at signing.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Centuri LLC</div>
+          <div class="entity-tag">Mag-lev wind turbine + composite material<br>Adil Kassam contact · adil@centuri.energy</div>
+        </td>
+        <td>TBD</td>
+        <td class="amount">Unknown</td>
+        <td>—</td>
+        <td><span class="badge blue">Under review</span></td>
+        <td class="note">$1.4B valuation (DCF, pre-revenue).<br>Kenobi Group = 50% owner (same as Field Futures).<br>$5B in LOIs · 5 patents filed.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Falcon Copper Corp.</div>
+          <div class="entity-tag">7 copper projects · MT/NV/AZ · Rio Tinto + Freeport JVs<br>CEO: Matt Hornor (ex-Ivanhoe Mines)</div>
+        </td>
+        <td>TBD</td>
+        <td class="amount">Unknown</td>
+        <td>10% OID + Series B Preferred</td>
+        <td><span class="badge blue">Under review</span></td>
+        <td class="note">$8–30M bridge · 9-mo maturity · Converts at IPO.<br>FAST-41 designation. Crescat Capital lead investor.<br>Japan's JBIC #1 critical minerals project.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="investor-name">Galloper Gold (CSE: BOOM)</div>
+          <div class="entity-tag">Glover Island, Newfoundland<br>CEO: Hratch Jabrayan</div>
+        </td>
+        <td>TBD</td>
+        <td class="amount">Unknown</td>
+        <td>Public equity</td>
+        <td><span class="badge blue">Under review</span></td>
+        <td class="note">178,800 oz gold resource (58.2K Indicated + 120.6K Inferred).<br>OTC: GGDCF · FRA: W9F</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: FUNDS ═══════════════════════ -->
+<section>
+  <h2>📈 Active Fund Offerings</h2>
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="kpi-label">🐎 Quarter Horse Capital Partners</div>
+      <div class="kpi-value green">$0 / $30M</div>
+      <div class="kpi-sub">Max offering: $30,000,000 · Reg D 506(c)</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="divider"></div>
+      <div style="font-size:11px;color:var(--sub);">
+        <b style="color:var(--text);">Strategy:</b> Multi-mandate private credit (RE, gold/silver, mining, aviation, energy, fine art, KV program)<br>
+        <b style="color:var(--text);">Yields:</b> 9% ($10M) → 17% ($50M+) — same scale as Draft Horse<br>
+        <b style="color:var(--text);">Min:</b> $200,000 · <b style="color:var(--text);">Term:</b> 3 years<br>
+        <b style="color:var(--text);">PPM dated:</b> Feb 27, 2026 · Entity formed ~2025
+      </div>
+      <div class="tag-row">
+        <span class="badge red">Fund Admin TBD 🔴</span>
+        <span class="badge yellow">Grant Bio Incomplete ⚠️</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kpi-label">🐴 Draft Horse Capital Partners</div>
+      <div class="kpi-value yellow">Docs in Progress</div>
+      <div class="kpi-sub">Reg D 506(c) · Section 3(c)(1)</div>
+      <div class="divider"></div>
+      <div style="font-size:11px;color:var(--sub);">
+        <b style="color:var(--text);">Strategy:</b> Structured credit · PE-backed borrowers · Jet-secured + UCC-1<br>
+        <b style="color:var(--text);">PE Sponsor:</b> CONFIDENTIAL (also part-owns charter aviation co.)<br>
+        <b style="color:var(--text);">Yields:</b> 9% ($10M) → 17% ($50M+)<br>
+        <b style="color:var(--text);">Adil equity:</b> 20% → 25% ($10M) → 30% ($25M) → 40% ($50M)<br>
+        <b style="color:var(--text);">Lockup:</b> 3 years hard
+      </div>
+      <div class="tag-row">
+        <span class="badge red">PPM + SA pending Dori 🔴</span>
+        <span class="badge blue">No capital deployed yet</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kpi-label">🏜️ Arabian Capital Partners</div>
+      <div class="kpi-value yellow">In Design</div>
+      <div class="kpi-sub">Reg D 506(c) · Section 3(c)(7) Qualified Purchasers</div>
+      <div class="divider"></div>
+      <div style="font-size:11px;color:var(--sub);">
+        <b style="color:var(--text);">Strategy:</b> Physical precious metals + strategic commodity trade finance<br>
+        <b style="color:var(--text);">Min:</b> $5,000,000 (institutional) · <b style="color:var(--text);">Target AUM:</b> $50M–$5B<br>
+        <b style="color:var(--text);">Yields:</b> 14% ($5–25M) → 20% ($500M+)<br>
+        <b style="color:var(--text);">Infrastructure:</b> TX Noble Metals license · Dubai buyers (8+ MT gold/mo) · LBMA refinery<br>
+        <b style="color:var(--text);">Target LPs:</b> ADIA, GIC, ADQ, Temasek, ICD, PIF, NBIM (via Adil)
+      </div>
+      <div class="tag-row">
+        <span class="badge gold">Entities not yet formed</span>
+        <span class="badge purple">$4.9T addressable AUM</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="kpi-label">🔴 Corinthian Capital Fund</div>
+      <div class="kpi-value gold">$1,549,203 AUM</div>
+      <div class="kpi-sub">Max offering: $20M · Reg D 506(b)</div>
+      <div class="divider"></div>
+      <div style="font-size:11px;color:var(--sub);">
+        <b style="color:var(--text);">Strategy:</b> Private debt — PE-backed borrowers + KV program<br>
+        <b style="color:var(--text);">Rate to investors:</b> 24%/yr (Gary Byrum) · others TBD<br>
+        <b style="color:var(--text);">Min investment:</b> $50K (current) · was $15K before Jul 2025 supplement<br>
+        <b style="color:var(--text);">Atlas revenue share:</b> 65% of profits from non-Exhibit B investors<br>
+        <b style="color:var(--text);">Atlas removal right:</b> Atlas can remove CH as Manager (100% non-Manager vote)
+      </div>
+      <div class="tag-row">
+        <span class="badge red">Reg D amendment overdue 🔴</span>
+        <span class="badge yellow">Ownership transfer pending ⚠️</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: LEGAL PUNCH LIST ═══════════════════════ -->
+<section>
+  <h2>⚖️ Legal Punch List — Dori Karjian (Scale LLP)</h2>
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>Item</th><th>Entity</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Corinthian Reg D Form D amendment</b> — overdue since Nov 8, 2025</td>
+        <td>Corinthian Capital Fund</td>
+        <td><span class="badge red">CRITICAL</span></td>
+        <td>Dori to file with SEC EDGAR immediately</td>
+      </tr>
+      <tr>
+        <td><b>$90K brother loan contract</b> — verbal only, no written agreement</td>
+        <td>DHWM</td>
+        <td><span class="badge red">CRITICAL</span></td>
+        <td>Dori to draft retroactive agreement</td>
+      </tr>
+      <tr>
+        <td><b>5 informal lending arrangements</b> — potential Reg D exposure across all</td>
+        <td>DHWM</td>
+        <td><span class="badge red">CRITICAL</span></td>
+        <td>Dori to assess regulatory exposure</td>
+      </tr>
+      <tr>
+        <td><b>Draft Horse Capital Partners</b> — full fund package (PPM, SA, Reg D 506c/3c1)</td>
+        <td>Draft Horse</td>
+        <td><span class="badge yellow">HIGH</span></td>
+        <td>Dori in progress — Google Doc provided</td>
+      </tr>
+      <tr>
+        <td><b>Adil Kassam equity structure</b> — 20%→40% milestone tiers, avoid asset-based compensation trap</td>
+        <td>Draft Horse WM</td>
+        <td><span class="badge yellow">HIGH</span></td>
+        <td>Dori to draft language</td>
+      </tr>
+      <tr>
+        <td><b>Corinthian ownership transfer</b> — Caraway Holdings → DHWM</td>
+        <td>Corinthian Capital Partners</td>
+        <td><span class="badge yellow">HIGH</span></td>
+        <td>Dori to amend OA + assignment docs</td>
+      </tr>
+      <tr>
+        <td><b>DHWM Operating Agreement</b> — currently copy-paste of Caraway Holdings OA</td>
+        <td>DHWM</td>
+        <td><span class="badge yellow">HIGH</span></td>
+        <td>Dori to draft proper new OA</td>
+      </tr>
+      <tr>
+        <td><b>$200K mining loan (Stateside)</b> — 2%+/mo, bridge structure, usury analysis needed</td>
+        <td>Stateside Resources</td>
+        <td><span class="badge yellow">HIGH</span></td>
+        <td>Dori reviewing usury + securities issues</td>
+      </tr>
+      <tr>
+        <td><b>Art consignment agreement</b> — 3rd deal (brother-in-law), 50% net proceeds</td>
+        <td>DHWM</td>
+        <td><span class="badge blue">MEDIUM</span></td>
+        <td>Awaiting Dori's blessing on structure</td>
+      </tr>
+      <tr>
+        <td><b>Commercial loan agreement template</b> — general-purpose bridge loan template</td>
+        <td>DHWM</td>
+        <td><span class="badge blue">MEDIUM</span></td>
+        <td>Existing template provided to Dori</td>
+      </tr>
+      <tr>
+        <td><b>Field Futures Definitive Agreements</b> — restore removed protections</td>
+        <td>Stateside Resources</td>
+        <td><span class="badge blue">MEDIUM</span></td>
+        <td>Must negotiate with Mark Hinds (Kenobi)</td>
+      </tr>
+      <tr>
+        <td><b>Quarter Horse Reg D 506(c)</b> — Form D filing confirmation needed</td>
+        <td>Quarter Horse</td>
+        <td><span class="badge blue">MEDIUM</span></td>
+        <td>Confirm with Dori whether filed</td>
+      </tr>
+      <tr>
+        <td><b>KV usury analysis</b> — California 60%/yr rate enforceability</td>
+        <td>DHWM / Caraway Holdings</td>
+        <td><span class="badge blue">MEDIUM</span></td>
+        <td>Pending</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: ENTITY MAP ═══════════════════════ -->
+<section>
+  <h2>🏗️ Entity Structure</h2>
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>Entity</th><th>Type</th><th>Owner / Manager</th><th>Role</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Caraway Holdings LLC</b></td>
+        <td>Texas LLC</td>
+        <td>IGWT Trust (95%) + Caleb (5%) · Manager: Caleb</td>
+        <td>Top-level holding entity</td>
+        <td><span class="badge green">Active</span></td>
+      </tr>
+      <tr>
+        <td><b>Dark Horse Wealth Management LLC</b></td>
+        <td>Texas LLC</td>
+        <td>Caraway Holdings</td>
+        <td>Family office · governing umbrella</td>
+        <td><span class="badge green">Active</span></td>
+      </tr>
+      <tr>
+        <td><b>Corinthian Capital Partners LLC</b></td>
+        <td>Texas LLC</td>
+        <td>Caraway Holdings 75% + Atlas Wealth Trust 25%</td>
+        <td>Fund manager for CCF</td>
+        <td><span class="badge yellow">Transfer to DHWM pending</span></td>
+      </tr>
+      <tr>
+        <td><b>Corinthian Capital Fund LLC</b></td>
+        <td>Texas LLC (formed Aug 1, 2024)</td>
+        <td>Corinthian Capital Partners LLC (sole member)</td>
+        <td>Investor-facing fund · Promissory Notes</td>
+        <td><span class="badge green">Active · $1.549M AUM</span></td>
+      </tr>
+      <tr>
+        <td><b>Quarter Horse WM LLC</b> → <b>Quarter Horse Capital Partners LLC</b></td>
+        <td>Texas LLCs</td>
+        <td>DHWM → QHWM → QHCP</td>
+        <td>Private credit fund · $30M max</td>
+        <td><span class="badge yellow">PPM live · $0 raised · Admin TBD</span></td>
+      </tr>
+      <tr>
+        <td><b>Draft Horse WM LLC</b> → <b>Draft Horse Capital Partners LLC</b></td>
+        <td>Texas LLCs</td>
+        <td>DHWM → DHWM2 → DHCP</td>
+        <td>Institutional private credit</td>
+        <td><span class="badge yellow">Docs in progress · $0 raised</span></td>
+      </tr>
+      <tr>
+        <td><b>Stateside Resources LLC</b></td>
+        <td>Texas LLC (formed Feb 22, 2026)</td>
+        <td>DHWM</td>
+        <td>Mineral rights + commodities</td>
+        <td><span class="badge green">Active · Holds 6% Field Futures</span></td>
+      </tr>
+      <tr>
+        <td><b>Arabian Capital Partners LLC</b></td>
+        <td>Not yet formed</td>
+        <td>TBD (via Arabian WM → DHWM)</td>
+        <td>Physical metals + commodity trade finance</td>
+        <td><span class="badge gray">Concept · In design</span></td>
+      </tr>
+      <tr>
+        <td><b>Aera Investment Bank</b></td>
+        <td>External firm</td>
+        <td>N/A — advisory relationship only</td>
+        <td>Senior Advisor (since Feb 2026)</td>
+        <td><span class="badge blue">Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: KEY CONTACTS ═══════════════════════ -->
+<section>
+  <h2>📇 Key Contacts</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="kpi-label">Legal</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">Dori Karjian — Scale LLP</div>
+      <div class="note">All securities, fund formation, Reg D, OA work. Primary counsel for all matters as of 2025. (Patel Law Group is no longer counsel.)</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">CPA / Tax</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">Terri Jones — Intuitive Enterprises</div>
+      <div class="note">"In God We Trust" trust CPA. Deposit/expense register on file. Bob Yurglich (Cherry &amp; Beckaert) referenced as potential fund auditor.</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Fund Administrator (Corinthian)</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">NAV Fund Services (NAV Consultants)</div>
+      <div class="note">Transfer agency email: transfer.agency@navconsulting.net · Fax: 1.630.596.8555 · "Sanjit" in spreadsheet refers to Kamboj's Sanjit Sergill — NOT NAV.</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Atlas Wealth Group (CCP Partner)</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">Stone Dorough + Andrew Gilbaugh</div>
+      <div class="note">Stone@atlaswealthus.com · 2516 Rambling Road, Celina TX 75009 · 25% of CCP · 65% of profits from non-Exhibit B investors · CAN unilaterally remove Caraway Holdings as CCP Manager</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Field Futures — Operator</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">Mark Hinds — Kenobi Group</div>
+      <div class="note">mark@kenobi.io · +1 (916) 869-5918 · Kenobi = 50% owner of Centuri AND Field Futures</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Adil Kassam — Business Partner</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">adil@centuri.energy · +16507979790</div>
+      <div class="note">Full principal authority equal to Caleb. 20%→40% equity in Draft Horse WM (milestone). SWF relationships: ADIA, GIC, ADQ, Temasek, ICD, PIF, NBIM</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Grant Smith — Trustee Successor / Key Man</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">+12815073830</div>
+      <div class="note">Listed in QHCP PPM · Trustee Successor of "In God We Trust" trust · Full successor authority to Caleb for all entities</div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Empower Consulting (Friendly Debtor)</div>
+      <div style="font-size:13px;color:var(--text);font-weight:700;margin:4px 0;">Eyad Abbas — Personal friend of Caleb</div>
+      <div class="note">851 NE 1st Ave Unit 2601, Miami FL 33132 · ~$208K outstanding · DO NOT enforce · DO NOT file UCC-1 · Track default interest only</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION: DATA ROOMS ═══════════════════════ -->
+<section>
+  <h2>🔗 Fund Data Rooms &amp; Documents</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="kpi-label">GitHub Pages — Live Data Rooms</div>
+      <div style="font-size:13px;margin:6px 0;"><a href="https://caleb-dhwm.github.io/dark-horse-dataroom/m.html" target="_blank">🔗 All Data Rooms Index (Mobile)</a></div>
+      <div style="font-size:13px;margin:6px 0;"><a href="https://caleb-dhwm.github.io/dark-horse-dataroom/index.html" target="_blank">🔗 Full Data Room Site</a></div>
+      <div style="font-size:13px;margin:6px 0;"><a href="https://caleb-dhwm.github.io/dark-horse-dataroom/Quarter%20Horse%20Capital%20Partners/quarter-horse-data-room.html" target="_blank">🐎 Quarter Horse Data Room</a></div>
+      <div style="font-size:13px;margin:6px 0;"><a href="https://caleb-dhwm.github.io/dark-horse-dataroom/Draft%20Horse%20Capital%20Partners/draft-horse-data-room.html" target="_blank">🐴 Draft Horse Data Room</a></div>
+      <div style="font-size:13px;margin:6px 0;"><a href="https://caleb-dhwm.github.io/dark-horse-dataroom/Arabian%20Capital%20Partners/arabian-capital-data-room.html" target="_blank">🏜️ Arabian Capital Data Room</a></div>
+    </div>
+    <div class="card">
+      <div class="kpi-label">Backbone Infrastructure Credit Fund I</div>
+      <div style="font-size:12px;color:var(--sub);margin-top:6px;">Listed in GitHub repo. Data room files present.</div>
+      <div class="divider"></div>
+      <div class="kpi-label">SOP Library (Internal)</div>
+      <div style="font-size:12px;color:var(--sub);margin-top:6px;">Live at /Users/toby/caleb-ops/SOPs/ · Master Key Man SOP, Process Index, and all entity SOPs built March 9, 2026</div>
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center;color:var(--sub);font-size:10px;padding:24px 0 40px;border-top:1px solid var(--border);margin-top:16px;">
+  Dark Horse Wealth Management LLC · 1211 Explorer Ln, Granbury TX 76049 · (281) 770-0716<br>
+  CONFIDENTIAL — Authorized Recipients Only · Dashboard maintained by Toby (AI Chief of Staff)<br>
+  Last updated: March 9, 2026 · Data sourced from executed documents, GHL CRM, and investor sub docs
+</div>
+
+</div><!-- end container -->
+</body>
+</html>
