@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabian Capital Partners — Sovereign Pitch Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d0f14;
+    --navy-mid: #111420;
+    --navy-card: #1a1e2a;
+    --gold: #c9a84c;
+    --gold-light: #e2c06a;
+    --gold-pale: #f5e6b0;
+    --amber: #e8962a;
+    --text: #e0e2ea;
+    --muted: #7a8090;
+    --border: rgba(201,168,76,0.2);
+    --border-light: rgba(201,168,76,0.1);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── SLIDES ── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    background: var(--navy);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 80px;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* Gradient slides */
+  .slide-gradient {
+    background: linear-gradient(135deg, #0d0f14 0%, #141220 40%, #1a1208 100%);
+  }
+  .slide-gradient-dark {
+    background: linear-gradient(160deg, #0d0f14 0%, #13110a 60%, #1c1505 100%);
+  }
+
+  /* ── SLIDE COUNTER ── */
+  .counter {
+    position: fixed;
+    bottom: 22px;
+    right: 28px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    z-index: 100;
+  }
+  .counter span { color: var(--gold); }
+
+  /* ── NAV BUTTONS ── */
+  .nav-btn {
+    position: fixed;
+    bottom: 18px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 15px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: background 0.15s, transform 0.1s;
+    user-select: none;
+  }
+  .nav-btn:hover { background: rgba(201,168,76,0.22); transform: scale(1.07); }
+  .nav-prev { left: 28px; }
+  .nav-next { left: 76px; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+
+  /* ── COMMON SLIDE ELEMENTS ── */
+  .slide-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .slide-title {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .slide-title .grad {
+    background: linear-gradient(135deg, var(--gold-light), var(--amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .slide-sub {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 700px;
+  }
+  .gold-rule {
+    width: 56px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    border-radius: 2px;
+    margin: 18px 0;
+  }
+
+  /* ── SLIDE 1: COVER ── */
+  .cover-logo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cover-logo::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .cover-main {
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .cover-main .gold-text {
+    background: linear-gradient(135deg, #e2c06a 0%, #c9a84c 45%, #e8962a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .cover-type {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .cover-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .cover-badge {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+  }
+  .cover-disclaimer {
+    font-size: 10px;
+    color: var(--muted);
+    border-top: 1px solid var(--border-light);
+    padding-top: 18px;
+    max-width: 700px;
+  }
+
+  /* ── CONTENT CARDS ── */
+  .card-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .card-grid-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .card-gold {
+    background: rgba(201,168,76,0.06);
+    border-color: var(--border);
+  }
+  .card-icon { font-size: 28px; margin-bottom: 10px; }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .card-body { font-size: 12.5px; color: #9098aa; line-height: 1.6; }
+  .card-stat {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+
+  /* ── PROBLEM SLIDE ── */
+  .problem-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .need-card {
+    background: rgba(255,60,60,0.06);
+    border: 1px solid rgba(255,80,80,0.15);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .need-title { font-size: 13px; font-weight: 700; color: #e07070; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+  .need-x { font-size: 16px; }
+  .need-body { font-size: 12px; color: #7a8090; line-height: 1.5; }
+  .solution-hint {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--gold-light);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 8px;
+  }
+  .flow-step {
+    flex: 1;
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--amber);
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 2;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-num { font-size: 9px; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .flow-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+  .flow-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+  .flow-gap { width: 24px; flex-shrink: 0; }
+
+  /* ── TABLE STYLES ── */
+  .deck-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .deck-table th {
+    background: rgba(201,168,76,0.1);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .deck-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.06);
+    color: var(--text);
+    vertical-align: middle;
+  }
+  .deck-table tr:last-child td { border-bottom: none; }
+  .deck-table tr:nth-child(even) td { background: rgba(255,255,255,0.018); }
+  .deck-table .hl { color: var(--gold-light); font-weight: 700; }
+  .deck-table .green { color: #8acc70; font-weight: 600; }
+  .deck-table .red { color: #cc7070; }
+  .deck-table-wrap {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .hero-row td { background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(232,150,42,0.12)) !important; font-weight: 700; }
+  .hero-row td:nth-child(2) { color: var(--gold-light) !important; font-size: 16px; }
+
+  /* ── BIG NUMBER ── */
+  .big-number-block {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(232,150,42,0.12));
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .big-number-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+  }
+  .bn-label { font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .bn-math { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.3; letter-spacing: -0.02em; }
+  .bn-math .eq { color: var(--amber); }
+  .bn-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .stat-row-3 { grid-template-columns: repeat(3, 1fr); }
+  .stat-row-4 { grid-template-columns: repeat(4, 1fr); }
+  .stat-box-s {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .stat-box-s .sv { font-size: 28px; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .stat-box-s .sl { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
+
+  /* ── FEE COMPARISON ── */
+  .fee-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .fee-card {
+    background: var(--navy-card);
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .fee-card-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .fee-card-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .fee-card-type { font-size: 10px; color: var(--muted); }
+  .fee-card-body { padding: 12px 0; }
+  .fee-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .fee-row:last-child { border-bottom: none; }
+  .fee-key { color: var(--muted); }
+  .fee-val-none { color: #8acc70; font-weight: 700; }
+  .fee-val-bad { color: #cc8a70; font-weight: 600; }
+  .fee-card.featured { border: 1px solid var(--border); }
+  .fee-card.featured .fee-card-header { background: rgba(201,168,76,0.08); }
+
+  /* ── PROCESS STEPS ── */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--navy-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .ps-num {
+    width: 32px; height: 32px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .ps-body {}
+  .ps-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .ps-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SLIDE: INFRASTRUCTURE ── */
+  .infra-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 11px;
+    margin-top: 8px;
+  }
+  .infra-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .infra-card-icon { font-size: 24px; margin-bottom: 8px; }
+  .infra-card-title { font-size: 12.5px; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
+  .infra-card-body { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+  .infra-card-stat { font-size: 18px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
+
+  /* ── LIQUIDITY ── */
+  .liq-timeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 20px;
+  }
+  .liq-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding-top: 16px;
+  }
+  .liq-step::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background: var(--border);
+  }
+  .liq-step:last-child::before { display: none; }
+  .liq-dot {
+    width: 16px; height: 16px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index: 2;
+  }
+  .liq-label { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .liq-desc { font-size: 10px; color: var(--muted); line-height: 1.45; padding: 0 6px; }
+
+  /* ── FOOTER CONF NOTE ── */
+  .slide-conf {
+    position: absolute;
+    bottom: 16px;
+    left: 80px;
+    font-size: 9px;
+    color: #3a4050;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SLIDE 14 LEGAL ── */
+  .legal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .legal-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .legal-title { font-size: 12px; font-weight: 700; color: var(--gold-light); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .legal-body { font-size: 11.5px; color: #8090a4; line-height: 1.6; }
+  .legal-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 9px;
+    border-radius: 3px;
+    margin-top: 8px;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1: COVER
+  ══════════════════════════════════════ -->
+  <div class="slide slide-gradient active" id="slide-1">
+    <div class="cover-logo">Arabian Wealth Management LLC &nbsp;·&nbsp; A Dark Horse Wealth Management Company</div>
+    <div class="cover-main">Arabian Capital<br><span class="gold-text">Partners</span></div>
+    <div class="cover-type">Sovereign-Grade Commodity Credit &nbsp;|&nbsp; Physical Asset Backed</div>
+    <div class="cover-badges">
+      <span class="cover-badge">U.S.-Domiciled</span>
+      <span class="cover-badge">LBMA-Certified</span>
+      <span class="cover-badge">Physical Asset Backed</span>
+      <span class="cover-badge">14–20% Fixed Annual Yield</span>
+      <span class="cover-badge">Zero Fees</span>
+      <span class="cover-badge">Monthly Distributions</span>
+    </div>
+    <div class="cover-disclaimer">
+      <strong>CONFIDENTIAL.</strong> For Qualified Purchasers only under Section 3(c)(7) of the Investment Company Act of 1940. Reg D Rule 506(c). This presentation does not constitute an offer to sell or solicitation of an offer to buy any security. Not for public distribution. Fixed yield rates are contractual — not projections. Refer to PPM for definitive terms.
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2: THE SOVEREIGN CAPITAL MOMENT
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-eyebrow">The Sovereign Capital Moment</div>
+    <div class="slide-title">The World Is Buying <span class="grad">Gold Again</span></div>
+    <div class="gold-rule"></div>
+    <div class="card-grid card-grid-3" style="margin-top: 8px;">
+      <div class="card card-gold">
+        <div class="card-icon">🏦</div>
+        <div class="card-stat">1,044+</div>
+        <div class="card-label">Metric Tons / Year</div>
+        <div class="card-title">Central Bank Gold Buying at 50-Year Highs</div>
+        <div class="card-body">Global central banks purchased over 1,000 metric tons of gold in each of the past two consecutive years — the highest sustained pace since the end of the Bretton Woods system. (World Gold Council, 2024.)</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">🌍</div>
+        <div class="card-stat">GCC → Hard Assets</div>
+        <div class="card-label">SWF Reallocation</div>
+        <div class="card-title">SWFs Diversifying Away from Real Estate</div>
+        <div class="card-body">Sovereign wealth funds across the GCC are actively reducing real estate concentration in favor of liquid, yield-generating hard asset strategies that offer monthly income and defined liquidity. Demand for institutional-grade physical commodity vehicles is structurally growing.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">🇺🇸</div>
+        <div class="card-stat">Safe Haven</div>
+        <div class="card-label">Geopolitical Demand</div>
+        <div class="card-title">U.S.-Domiciled Hard Assets in Demand</div>
+        <div class="card-body">Geopolitical fragmentation is driving unprecedented demand for U.S.-domiciled, physically-backed, USD-denominated hard asset vehicles. This category commands a significant premium — and institutional-grade supply at sovereign scale is extremely limited.</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3: THE PROBLEM
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-eyebrow">The Problem</div>
+    <div class="slide-title">What Sovereign Allocators <span class="grad">Need But Can't Find</span></div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 15px; color: var(--muted); margin-bottom: 20px; line-height: 1.6;">
+      Sovereign wealth funds require a very specific combination of attributes in alternative allocations. No conventional single vehicle delivers all four simultaneously.
+    </div>
+    <div class="problem-row">
+      <div class="need-card">
+        <div class="need-title"><span class="need-x">✕</span>High Yield</div>
+        <div class="need-body">Traditional fixed income returns 3–6%. Private equity returns are illiquid, correlated, and fee-heavy. Credit funds charge 1.5–2% management plus 15–20% carry. None offer 14–20% with daily NAV pricing and monthly income.</div>
+      </div>
+      <div class="need-card">
+        <div class="need-title"><span class="need-x">✕</span>Capital Protection</div>
+        <div class="need-body">Equity-backed credit funds hold paper collateral. Real estate is illiquid and geographically concentrated. Most alternatives hold no physical, globally-liquid, 24/7-priced collateral that can be liquidated in days — not months.</div>
+      </div>
+    </div>
+    <div class="problem-row">
+      <div class="need-card">
+        <div class="need-title"><span class="need-x">✕</span>Low Correlation</div>
+        <div class="need-body">Most high-yield instruments — leveraged loans, high-yield bonds, private credit — are correlated to credit cycles and equity markets. Physical commodity trade finance has near-zero correlation to public markets.</div>
+      </div>
+      <div class="need-card">
+        <div class="need-title"><span class="need-x">✕</span>Monthly Income</div>
+        <div class="need-body">Virtually all private equity and credit structures distribute annually or quarterly at best. Sovereign entities with institutional spending mandates require predictable, recurring, monthly cash flow — a requirement almost no alternative fund meets.</div>
+      </div>
+    </div>
+    <div class="solution-hint">
+      Arabian Capital Partners was purpose-built to deliver all four — simultaneously.
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4: OUR SOLUTION
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-eyebrow">Our Solution</div>
+    <div class="slide-title">Two Tranches. One Fixed Contractual Yield. <span class="grad">Zero Fees.</span></div>
+    <div class="gold-rule"></div>
+    <div class="card-grid card-grid-2" style="margin-bottom: 16px;">
+      <div class="card card-gold">
+        <div class="card-label">Tranche A — 70% of Capital</div>
+        <div class="card-title" style="font-size: 18px;">Physical Commodity<br>Trade Finance</div>
+        <div class="card-body" style="margin-top: 10px;">Purchase gold, silver, and strategic minerals at wholesale/spot pricing. Hold in LBMA-certified custody (Brinks / Transguard). Sell to confirmed institutional buyers in Dubai and Sharjah at spot + 3–5% gross margin. 3–5 business day cycles. 12–20 cycles per month possible.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-label">Tranche B — 30% of Capital</div>
+        <div class="card-title" style="font-size: 18px;">Commodity-Backed<br>Private Credit</div>
+        <div class="card-body" style="margin-top: 10px;">Short-duration secured lending to commodity producers and dealers, collateralized by physical gold and silver held in LBMA vault custody. Near-zero default risk through physical collateral enforcement. Supplemental yield driver with identical physical asset backstop.</div>
+      </div>
+    </div>
+    <div class="stat-row stat-row-4">
+      <div class="stat-box-s">
+        <div class="sv">14–20%</div>
+        <div class="sl">Fixed Annual Yield</div>
+      </div>
+      <div class="stat-box-s">
+        <div class="sv">Monthly</div>
+        <div class="sl">Distributions</div>
+      </div>
+      <div class="stat-box-s">
+        <div class="sv">$0</div>
+        <div class="sl">Management Fees</div>
+      </div>
+      <div class="stat-box-s">
+        <div class="sv">Physical</div>
+        <div class="sl">Asset Collateral</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5: HOW TRADE FINANCE WORKS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-eyebrow">How Trade Finance Works</div>
+    <div class="slide-title">A <span class="grad">3–5 Day</span> Revenue Cycle, Repeated Up to 20× Monthly</div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 14px; color: var(--muted); margin-bottom: 24px;">Capital is never sitting idle. Each trade cycle completes in 3–5 business days, generating margin immediately — then the cycle repeats.</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">Step 1</div>
+        <div class="flow-title">Source</div>
+        <div class="flow-desc">Identify gold, silver, or strategic mineral inventory at wholesale / spot pricing. Sourced from Ghana, Uganda, Fiji, Malaysia, UAE, Europe.</div>
+      </div>
+      <div class="flow-gap"></div>
+      <div class="flow-step">
+        <div class="flow-num">Step 2</div>
+        <div class="flow-title">Purchase & Certify</div>
+        <div class="flow-desc">Acquire physical metal. Route through LBMA-certified re-refinery in Dubai. Confirm Good Delivery standards.</div>
+      </div>
+      <div class="flow-gap"></div>
+      <div class="flow-step">
+        <div class="flow-num">Step 3</div>
+        <div class="flow-title">LBMA Custody</div>
+        <div class="flow-desc">Physical metal held in Brinks / Transguard LBMA-certified vaults. Full insurance and chain-of-custody documentation maintained.</div>
+      </div>
+      <div class="flow-gap"></div>
+      <div class="flow-step">
+        <div class="flow-num">Step 4</div>
+        <div class="flow-title">Sell to Buyer</div>
+        <div class="flow-desc">Deliver to confirmed institutional buyer in Dubai or Sharjah at spot + 3–5% gross margin. 8+ metric tons/month combined capacity.</div>
+      </div>
+      <div class="flow-gap"></div>
+      <div class="flow-step">
+        <div class="flow-num">Step 5</div>
+        <div class="flow-title">Distribute & Repeat</div>
+        <div class="flow-desc">Proceeds returned to fund. Monthly distributions to investors. Capital re-deployed immediately into next cycle.</div>
+      </div>
+    </div>
+    <div style="margin-top: 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;">
+      <div class="card" style="padding: 14px 18px;">
+        <div class="card-stat" style="font-size: 24px;">3–5 Days</div>
+        <div class="card-label">Cycle Duration</div>
+      </div>
+      <div class="card" style="padding: 14px 18px;">
+        <div class="card-stat" style="font-size: 24px;">12–20×</div>
+        <div class="card-label">Cycles Per Month</div>
+      </div>
+      <div class="card" style="padding: 14px 18px;">
+        <div class="card-stat" style="font-size: 24px;">3–5%</div>
+        <div class="card-label">Gross Margin Per Cycle</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6: THE INFRASTRUCTURE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-eyebrow">The Infrastructure</div>
+    <div class="slide-title">What <span class="grad">Already Exists</span> — Operational Today</div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 14px; color: var(--muted); margin-bottom: 20px;">This is not a plan — it is existing, operational infrastructure ready to scale with investor capital.</div>
+    <div class="infra-items">
+      <div class="infra-card">
+        <div class="infra-card-icon">🏅</div>
+        <div class="infra-card-stat">8+ MT / mo</div>
+        <div class="infra-card-title">Confirmed Institutional Buyers</div>
+        <div class="infra-card-body">2 confirmed buyers in Dubai and Sharjah. Combined 8+ metric tons of gold per month buyer capacity. Contracted relationships, not prospective pipeline.</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-card-icon">🔐</div>
+        <div class="infra-card-stat">LBMA-Certified</div>
+        <div class="infra-card-title">Brinks &amp; Transguard Custody</div>
+        <div class="infra-card-body">LBMA Good Delivery custody at Brinks (international) and Transguard (UAE). Full chain-of-custody, insurance, and independent audit trail on every trade.</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-card-icon">✈️</div>
+        <div class="infra-card-stat">Emirates</div>
+        <div class="infra-card-title">Emirates Sky Cargo Logistics</div>
+        <div class="infra-card-body">Institutional commodity freight on established UAE-Texas corridor. Bonded, insured international delivery for every physical shipment.</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-card-icon">⚖️</div>
+        <div class="infra-card-stat">Active License</div>
+        <div class="infra-card-title">TX Wholesale Noble Metals Broker</div>
+        <div class="infra-card-body">Texas Wholesale Noble Metals Broker license held by Stateside Resources LLC — operational, current, and compliant for all U.S. commodity transactions.</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-card-icon">🔬</div>
+        <div class="infra-card-stat">Dubai-Based</div>
+        <div class="infra-card-title">LBMA Re-Refinery Access</div>
+        <div class="infra-card-body">LBMA-certified re-refinery in Dubai processes all incoming metal to Good Delivery specification. Responsible sourcing documentation generated at this stage.</div>
+      </div>
+      <div class="infra-card">
+        <div class="infra-card-icon">⛏️</div>
+        <div class="infra-card-stat">4,431 ppm</div>
+        <div class="infra-card-title">Field Futures Texas Silver Asset</div>
+        <div class="infra-card-body">670-acre silver ore body, Llano County TX. 4,431 ppm silver concentration confirmed by 3 independent laboratory analyses. Long-term commodity credit collateral base.</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7: COMMODITY CREDIT TRANCHE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-eyebrow">Tranche B — Commodity-Backed Private Credit</div>
+    <div class="slide-title">Secured Lending. <span class="grad">Physical Collateral.</span> No Equity Risk.</div>
+    <div class="gold-rule"></div>
+    <div class="card-grid card-grid-2" style="margin-bottom: 16px;">
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Loan Types</div>
+        <div class="card" style="padding: 14px 18px; margin-bottom: 10px;">
+          <div class="card-title">Working Capital Facilities</div>
+          <div class="card-body">Short-term revolving lines secured by physical commodity inventory. Borrowers are commodity producers, refiners, and dealers with LBMA-compliant operations.</div>
+        </div>
+        <div class="card" style="padding: 14px 18px; margin-bottom: 10px;">
+          <div class="card-title">Trade Finance Bridge Loans</div>
+          <div class="card-body">30–90 day bridge financing for commodity transactions in transit, secured by LBMA custody receipts on specific shipments or inventory lots.</div>
+        </div>
+        <div class="card" style="padding: 14px 18px;">
+          <div class="card-title">Secured Commodity Credit Lines</div>
+          <div class="card-body">Medium-duration secured credit facilities for commodity businesses requiring liquidity against proven LBMA-certified asset bases.</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Collateral &amp; Oversight</div>
+        <div class="card card-gold" style="padding: 18px 20px; margin-bottom: 10px;">
+          <div class="card-title">Physical Gold &amp; Silver Collateral</div>
+          <div class="card-body">All loans collateralized by physical LBMA-certified gold or silver. Metal held in Brinks / Transguard custody — third-party custody receipts required for every credit extension. No paper collateral.</div>
+        </div>
+        <div class="card card-gold" style="padding: 18px 20px; margin-bottom: 10px;">
+          <div class="card-title">LBMA Vault Oversight</div>
+          <div class="card-body">Independent vault confirmation from LBMA-certified custodian required before any credit is extended. Custodian holds metal; borrower cannot access without Fund authorization.</div>
+        </div>
+        <div class="card card-gold" style="padding: 18px 20px;">
+          <div class="card-title">Enforcement Advantage</div>
+          <div class="card-body">Physical gold is globally liquid and 24/7 priced. Default-to-recovery timeline is days — not the months or years typical of real estate or equity collateral.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8: $1B DEPLOYMENT PLAN
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-eyebrow">Capital Deployment at Scale</div>
+    <div class="slide-title">The <span class="grad">$1 Billion</span> Deployment Plan</div>
+    <div class="gold-rule"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+      <div>
+        <div class="deck-table-wrap" style="margin-bottom: 16px;">
+          <table class="deck-table">
+            <tr><th>Tranche</th><th>Allocation</th><th>Capital</th><th>Strategy</th></tr>
+            <tr><td>A — Trade Finance</td><td class="hl">70%</td><td class="hl">$700M</td><td>Physical commodity cycles</td></tr>
+            <tr><td>B — Private Credit</td><td class="hl">30%</td><td class="hl">$300M</td><td>Commodity-secured loans</td></tr>
+            <tr style="background: rgba(201,168,76,0.06);"><td style="font-weight:700; color:#fff;">Total Deployment</td><td class="hl">100%</td><td class="hl">$1,000M</td><td style="color: var(--gold);">20% fixed yield tier</td></tr>
+          </table>
+        </div>
+        <div class="deck-table-wrap">
+          <table class="deck-table">
+            <tr><th>Yield Calculation</th><th>Amount</th></tr>
+            <tr><td>Total Capital</td><td class="hl">$1,000,000,000</td></tr>
+            <tr><td>Fixed Annual Yield</td><td class="hl">20.00%</td></tr>
+            <tr><td>Annual Investor Income</td><td class="hl">$200,000,000</td></tr>
+            <tr class="hero-row"><td style="color:#fff; font-weight:700;">Monthly Distribution</td><td>$16,666,667</td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="big-number-block">
+          <div class="bn-label">Fixed Contractual Yield — $1B Commitment</div>
+          <div class="bn-math">$1,000,000,000<br><span class="eq">→</span> $200,000,000 / year<br><span class="eq">→</span> $16,666,667 / month</div>
+          <div class="bn-note">20% fixed annual yield (contractual rate — not a projection). Monthly distributions on or before last business day of each month.</div>
+        </div>
+        <div style="margin-top: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 8px; padding: 16px 18px; font-size: 12.5px; color: #8090a4; line-height: 1.6;">
+          The 20% yield tier applies to all commitments of $500M or more. The Fund retains all earnings generated above the contractual investor yield — there are no management fees, performance fees, or administrative fees of any kind charged to investors.
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9: TIERED YIELD STRUCTURE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-9">
+    <div class="slide-eyebrow">Tiered Yield Structure</div>
+    <div class="slide-title">The More You Commit, <span class="grad">The Higher Your Fixed Yield</span></div>
+    <div class="gold-rule"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+      <div>
+        <div class="deck-table-wrap">
+          <table class="deck-table">
+            <tr><th>Commitment Tier</th><th>Annual Yield</th><th>Monthly</th><th>Annual @ Floor</th></tr>
+            <tr class="hero-row"><td>$500M+</td><td>20.00%</td><td>1.667%</td><td>$100M+</td></tr>
+            <tr><td>$250M – $500M</td><td class="hl">19.00%</td><td class="green">1.583%</td><td>$47.5M</td></tr>
+            <tr><td>$100M – $250M</td><td class="hl">18.00%</td><td class="green">1.500%</td><td>$18.0M</td></tr>
+            <tr><td>$50M – $100M</td><td class="hl">17.00%</td><td class="green">1.417%</td><td>$8.5M</td></tr>
+            <tr><td>$25M – $50M</td><td class="hl">16.00%</td><td class="green">1.333%</td><td>$4.0M</td></tr>
+            <tr><td>$5M – $25M</td><td class="hl">14.00%</td><td class="green">1.167%</td><td>$0.7M</td></tr>
+          </table>
+        </div>
+        <div style="font-size: 10.5px; color: var(--muted); margin-top: 8px; font-style: italic;">Yields are contractual fixed rates — not projections or performance estimates. Tiers fixed at time of subscription. Refer to PPM for complete terms.</div>
+      </div>
+      <div>
+        <div class="big-number-block" style="margin-bottom: 16px;">
+          <div class="bn-label">Sovereign Scale Reference — Fixed Contractual Yield</div>
+          <div class="bn-math" style="font-size: 24px;">$1,000,000,000 <span class="eq">→</span><br>$200,000,000 / year <span class="eq">→</span><br>$16,666,667 / month</div>
+          <div class="bn-note">At 20% fixed annual yield (commitments $500M+). Contractual rate, not a projection.</div>
+        </div>
+        <div class="card" style="padding: 18px 20px;">
+          <div class="card-title">Why Tiered Yield?</div>
+          <div class="card-body">Larger commitments enable larger trade cycle volumes, reducing per-unit sourcing costs and increasing buyer utilization efficiency. The Fund passes a portion of these economies directly to larger investors through higher contractual yield tiers. The Fund retains all earnings above the fixed yield rate — zero fees charged to investors of any kind.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 10: ZERO FEE STRUCTURE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-10">
+    <div class="slide-eyebrow">Fee Structure</div>
+    <div class="slide-title">We Charge <span class="grad">Zero Fees.</span> Full Stop.</div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;">Unlike virtually every other alternative fund structure, Arabian Capital Partners charges no fees of any kind. The Fund retains earnings above the fixed investor yield as its compensation — perfectly aligned incentives.</div>
+    <div class="fee-compare">
+      <div class="fee-card featured">
+        <div class="fee-card-header">
+          <div class="fee-card-name" style="color: var(--gold-light);">Arabian Capital Partners</div>
+          <div class="fee-card-type">Physical Commodity Trade Finance</div>
+        </div>
+        <div class="fee-card-body">
+          <div class="fee-row"><span class="fee-key">Management Fee</span><span class="fee-val-none">NONE</span></div>
+          <div class="fee-row"><span class="fee-key">Performance / Carry</span><span class="fee-val-none">NONE</span></div>
+          <div class="fee-row"><span class="fee-key">Administrative Fee</span><span class="fee-val-none">NONE</span></div>
+          <div class="fee-row"><span class="fee-key">Subscription Fee</span><span class="fee-val-none">NONE</span></div>
+          <div class="fee-row"><span class="fee-key">Redemption Fee</span><span class="fee-val-none">NONE</span></div>
+          <div class="fee-row"><span class="fee-key">Investor Yield</span><span style="color: var(--gold-light); font-weight: 700;">14–20% Fixed / Year</span></div>
+          <div class="fee-row"><span class="fee-key">Distributions</span><span style="color: var(--gold-light); font-weight: 700;">Monthly</span></div>
+        </div>
+      </div>
+      <div class="fee-card">
+        <div class="fee-card-header">
+          <div class="fee-card-name">Typical PE / Buyout Fund</div>
+          <div class="fee-card-type">Private Equity</div>
+        </div>
+        <div class="fee-card-body">
+          <div class="fee-row"><span class="fee-key">Management Fee</span><span class="fee-val-bad">1.5–2.0% / year</span></div>
+          <div class="fee-row"><span class="fee-key">Performance / Carry</span><span class="fee-val-bad">20% of profits</span></div>
+          <div class="fee-row"><span class="fee-key">Administrative Fee</span><span class="fee-val-bad">0.1–0.3% / year</span></div>
+          <div class="fee-row"><span class="fee-key">Subscription Fee</span><span class="fee-val-bad">Sometimes</span></div>
+          <div class="fee-row"><span class="fee-key">Redemption Fee</span><span class="fee-val-bad">Often gated</span></div>
+          <div class="fee-row"><span class="fee-key">Investor Return</span><span style="color: #cc8a70;">Variable / Projected</span></div>
+          <div class="fee-row"><span class="fee-key">Distributions</span><span style="color: #cc8a70;">Annual / Irregular</span></div>
+        </div>
+      </div>
+      <div class="fee-card">
+        <div class="fee-card-header">
+          <div class="fee-card-name">Typical Credit Fund</div>
+          <div class="fee-card-type">Private Credit / CLO</div>
+        </div>
+        <div class="fee-card-body">
+          <div class="fee-row"><span class="fee-key">Management Fee</span><span class="fee-val-bad">1.0–1.5% / year</span></div>
+          <div class="fee-row"><span class="fee-key">Performance / Carry</span><span class="fee-val-bad">15–20% of profits</span></div>
+          <div class="fee-row"><span class="fee-key">Administrative Fee</span><span class="fee-val-bad">0.1–0.25% / year</span></div>
+          <div class="fee-row"><span class="fee-key">Subscription Fee</span><span class="fee-val-bad">Sometimes</span></div>
+          <div class="fee-row"><span class="fee-key">Redemption Fee</span><span class="fee-val-bad">Lockup periods</span></div>
+          <div class="fee-row"><span class="fee-key">Investor Return</span><span style="color: #cc8a70;">8–12% typical net</span></div>
+          <div class="fee-row"><span class="fee-key">Distributions</span><span style="color: #cc8a70;">Quarterly</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 11: CAPITAL PROTECTION
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-11">
+    <div class="slide-eyebrow">Capital Protection</div>
+    <div class="slide-title">Your Capital Is Backed by <span class="grad">Physical Gold.</span></div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 15px; color: var(--muted); margin-bottom: 22px; line-height: 1.6;">Unlike equity, paper credit, or real estate collateral, physical gold is the world's most liquid and universally recognized hard asset — priced 24 hours per day, 7 days per week across global OTC markets.</div>
+    <div class="card-grid card-grid-2" style="margin-bottom: 16px;">
+      <div class="card card-gold">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Globally Liquid, 24/7 Priced</div>
+        <div class="card-body">Physical LBMA Good Delivery gold trades continuously across London, New York, Hong Kong, Dubai, and Zurich OTC markets. There is no liquidity risk on collateral — a forced sale can be executed within hours, not months.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">🔐</div>
+        <div class="card-title">LBMA-Certified, Institutionally Held</div>
+        <div class="card-body">All physical metal meets LBMA Good Delivery standards — the global institutional benchmark. Held by Brinks Security and Transguard in LBMA-certified vault facilities with full insurance and independent custody receipts.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Complete Chain of Custody</div>
+        <div class="card-body">Every bar is documented through the LBMA Responsible Sourcing Program. Chain-of-custody records accompany all metal from sourcing through sale — designed to meet the most rigorous due diligence standards including NBIM's ESG framework.</div>
+      </div>
+      <div class="card card-gold">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Rapid Enforcement — Days, Not Months</div>
+        <div class="card-body">In a default scenario, physical gold collateral can be seized from LBMA custody and liquidated in the spot market within days. Compare this to real estate (12–18 months), private equity (years), or unsecured credit (legal proceedings).</div>
+      </div>
+    </div>
+    <div style="background: rgba(201,168,76,0.06); border: 1px solid var(--border); border-radius: 8px; padding: 16px 22px; font-size: 13px; color: #a0a8b4;">
+      <strong style="color: var(--gold-light);">Responsible Sourcing:</strong> All sourcing operates under LBMA Responsible Sourcing standards — covering conflict-mineral compliance, chain-of-custody documentation, and LBMA-certified re-refinery processing — designed to meet the ESG due diligence requirements of NBIM and equivalent institutional frameworks.
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 12: ANNUAL LIQUIDITY WINDOW
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-12">
+    <div class="slide-eyebrow">Liquidity</div>
+    <div class="slide-title">Annual Redemption Window. <span class="grad">Funded by Short-Cycle Trade Finance.</span></div>
+    <div class="gold-rule"></div>
+    <div style="font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6;">Investors retain the right to redeem at each annual anniversary — a 30-day notice window. Liquidity is funded by the Fund's short-cycle trade finance operations, not by capital calls on other investors.</div>
+    <div class="liq-timeline">
+      <div class="liq-step">
+        <div class="liq-dot"></div>
+        <div class="liq-label">Subscription Date</div>
+        <div class="liq-desc">Investor commits capital, subscribes at applicable yield tier, wire received.</div>
+      </div>
+      <div class="liq-step">
+        <div class="liq-dot"></div>
+        <div class="liq-label">Monthly Distributions</div>
+        <div class="liq-desc">Fixed yield paid monthly through all holding periods. Continues through redemption notice period.</div>
+      </div>
+      <div class="liq-step">
+        <div class="liq-dot" style="background: var(--amber);"></div>
+        <div class="liq-label">Year 1 Anniversary<br>30-Day Window Opens</div>
+        <div class="liq-desc">Investor may submit redemption notice. 30-day window. No notice = auto-renewal into next 2-year term.</div>
+      </div>
+      <div class="liq-step">
+        <div class="liq-dot"></div>
+        <div class="liq-label">Settlement</div>
+        <div class="liq-desc">Redemption funded from trade finance cycle liquidity. Short 3–5 day cycles enable near-term settlement.</div>
+      </div>
+      <div class="liq-step">
+        <div class="liq-dot" style="background: var(--amber);"></div>
+        <div class="liq-label">Year 2 Anniversary<br>Second Window</div>
+        <div class="liq-desc">Second annual redemption opportunity at Year 2. Same mechanics apply.</div>
+      </div>
+    </div>
+    <div style="margin-top: 28px;" class="card-grid card-grid-3">
+      <div class="card" style="padding: 15px 18px;">
+        <div class="card-title">2-Year Revolving Term</div>
+        <div class="card-body">Fund term is 2 years, automatically renewing unless investor exercises the annual redemption right within the 30-day window.</div>
+      </div>
+      <div class="card" style="padding: 15px 18px;">
+        <div class="card-title">No Capital Call Risk</div>
+        <div class="card-body">Redemptions funded from operational trade finance cycles — not from capital calls on remaining investors. Clean, ring-fenced liquidity source.</div>
+      </div>
+      <div class="card" style="padding: 15px 18px;">
+        <div class="card-title">Monthly Income Through Redemption</div>
+        <div class="card-body">Monthly distributions continue through the entire notice and settlement period — investors receive full yield until capital is returned.</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 13: WHY DARK HORSE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-13">
+    <div class="slide-eyebrow">The Team</div>
+    <div class="slide-title">Why <span class="grad">Dark Horse</span></div>
+    <div class="gold-rule"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px;">
+      <div>
+        <div class="card card-gold" style="padding: 22px; margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Principal</div>
+          <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">Caleb Caraway</div>
+          <div style="font-size: 12px; color: var(--gold); margin-bottom: 12px; font-weight: 600;">CEO, Dark Horse Wealth Management</div>
+          <div style="font-size: 12.5px; color: #8090a4; line-height: 1.6; margin-bottom: 12px;">
+            Manages a $541M+ personal investment portfolio spanning institutional-grade real estate, private credit, commodity markets, and venture. Personally operates Stateside Resources LLC — the Texas Wholesale Noble Metals Broker entity that underlies Arabian Capital's trade finance infrastructure.
+          </div>
+          <div style="font-size: 12px; color: var(--gold-light); font-weight: 600;">$541M+ Personal Portfolio</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Platform Advantages</div>
+        <div class="card" style="padding: 15px 18px; margin-bottom: 10px;">
+          <div class="card-title">Existing Commodity Infrastructure</div>
+          <div class="card-body">Confirmed buyers, LBMA custody relationships, Emirates Sky Cargo logistics, and TX Noble Metals Broker license are all operational — not aspirational. Capital can be deployed immediately upon subscription.</div>
+        </div>
+        <div class="card" style="padding: 15px 18px; margin-bottom: 10px;">
+          <div class="card-title">Multi-Entity Wealth Platform</div>
+          <div class="card-body">Dark Horse Wealth Management operates a growing ecosystem of funds and investment entities — including Corinthian Capital Partners, Quarter Horse Wealth Management, Draft Horse Capital, and Stateside Resources — providing diversified deal flow and cross-platform operational leverage.</div>
+        </div>
+        <div class="card" style="padding: 15px 18px;">
+          <div class="card-title">Aligned Principal Capital</div>
+          <div class="card-body">Principal operates his own capital through the same commodity infrastructure that serves the Fund. No principal-agent problem — Caleb's capital and investor capital face identical operational conditions.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 14: SERVICE PROVIDERS + LEGAL
+  ══════════════════════════════════════ -->
+  <div class="slide" id="slide-14">
+    <div class="slide-eyebrow">Legal Structure &amp; Service Providers</div>
+    <div class="slide-title">Institutional-Grade <span class="grad">Legal &amp; Operational Infrastructure</span></div>
+    <div class="gold-rule"></div>
+    <div class="legal-grid" style="margin-bottom: 16px;">
+      <div class="legal-card">
+        <div class="legal-title">📋 Securities Structure</div>
+        <div class="legal-body">
+          Offered under <strong style="color: var(--text);">Regulation D, Rule 506(c)</strong> — general solicitation permitted; requires third-party verification of all investors. Fund relies on <strong style="color: var(--text);">Section 3(c)(7)</strong> of the Investment Company Act of 1940, permitting unlimited Qualified Purchasers without SEC registration.
+          <br><br>
+          <span class="legal-badge">Reg D 506(c)</span>
+          <span class="legal-badge">Section 3(c)(7)</span>
+        </div>
+      </div>
+      <div class="legal-card">
+        <div class="legal-title">✅ Qualified Purchaser Requirement</div>
+        <div class="legal-body">
+          All investors must qualify as <strong style="color: var(--text);">"Qualified Purchasers"</strong> under Section 2(a)(51) of the Investment Company Act — individuals with $5M+ in investments; institutions with $25M+ in investments. <strong style="color: var(--text);">Sovereign wealth funds qualify categorically.</strong> Third-party verification required. Coordinated by SCALE LLP / Dori Karjian.
+        </div>
+      </div>
+      <div class="legal-card">
+        <div class="legal-title">🔍 LBMA &amp; Regulatory Oversight</div>
+        <div class="legal-body">All physical commodity operations comply with LBMA Responsible Sourcing Program requirements — covering conflict-mineral compliance, third-party audit, chain-of-custody documentation, and LBMA-certified re-refinery processing. Designed to meet NBIM, GIC, and equivalent institutional ESG due diligence frameworks.</div>
+      </div>
+      <div class="legal-card">
+        <div class="legal-title">⚖️ Texas Governing Law</div>
+        <div class="legal-body">Fund governed by the laws of the State of Texas. Texas Wholesale Noble Metals Broker license (Stateside Resources LLC) provides licensed infrastructure for all U.S. commodity transactions. All disputes subject to Texas jurisdiction per Fund governing documents.</div>
+      </div>
+    </div>
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Service Providers</div>
+    <div style="display: grid; grid-template-columns: repeat(6,1fr); gap: 9px;">
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Securities Counsel</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">SCALE LLP<br><span style="color: var(--muted); font-size: 10.5px; font-weight: 500;">Dori Karjian</span></div>
+      </div>
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Audit &amp; Tax</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">Spicer<br>Jeffries LLP</div>
+      </div>
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Fund Admin / NAV</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">NAV Fund<br>Services</div>
+      </div>
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Banking</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">Axos<br>Bank</div>
+      </div>
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Primary Custodian</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">Brinks<br>Security</div>
+      </div>
+      <div style="background: var(--navy-card); border: 1px solid var(--border-light); border-radius: 7px; padding: 12px; text-align: center;">
+        <div style="font-size: 8.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">UAE Custodian</div>
+        <div style="font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3;">Trans-<br>guard</div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 15: NEXT STEPS
+  ══════════════════════════════════════ -->
+  <div class="slide slide-gradient-dark" id="slide-15">
+    <div class="slide-eyebrow">Next Steps</div>
+    <div class="slide-title">The Investment <span class="grad">Process</span></div>
+    <div class="gold-rule"></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <div class="ps-body">
+            <div class="ps-title">Execute NDA</div>
+            <div class="ps-desc">Non-disclosure agreement executed between allocating institution and Arabian Wealth Management LLC. Coordinated by SCALE LLP / Dori Karjian.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <div class="ps-body">
+            <div class="ps-title">Data Room Access</div>
+            <div class="ps-desc">Full data room provided: PPM, audited financials, LBMA custody documentation, trade infrastructure evidence, legal opinions, NAV reporting samples, service provider confirmations.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <div class="ps-body">
+            <div class="ps-title">QP Verification</div>
+            <div class="ps-desc">Qualified Purchaser verification completed by SCALE LLP. Required under Rule 506(c) and Section 3(c)(7). Sovereign wealth funds qualify categorically — institutional documentation package provided.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">4</div>
+          <div class="ps-body">
+            <div class="ps-title">Subscription Documents</div>
+            <div class="ps-desc">Subscription agreement and LLC agreement executed. Yield tier locked at committed capital level at time of subscription.</div>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">5</div>
+          <div class="ps-body">
+            <div class="ps-title">Wire &amp; Confirmation</div>
+            <div class="ps-desc">Capital wired to Axos Bank fund account. Written confirmation issued. NAV Fund Services establishes investor account. First monthly distribution begins within 30 days of capital deployment.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="big-number-block" style="margin-bottom: 20px;">
+          <div class="bn-label">Ready to Deploy — Infrastructure is Operational</div>
+          <div class="bn-math" style="font-size: 22px;">$1,000,000,000 <span class="eq">→</span><br>$200,000,000 / year <span class="eq">→</span><br>$16,666,667 / month</div>
+          <div class="bn-note">Fixed Contractual Yield (20% tier, $500M+). Monthly. No fees.</div>
+        </div>
+        <div style="background: var(--navy-card); border: 1px solid var(--border); border-radius: 10px; padding: 22px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px;">Contact — Institutional Inquiries</div>
+          <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Arabian Wealth Management LLC</div>
+          <div style="font-size: 12.5px; color: var(--muted); line-height: 1.7;">
+            A Dark Horse Wealth Management Company<br>
+            Texas Governing Law<br><br>
+            <strong style="color: var(--gold-light);">Caleb Caraway</strong><br>
+            CEO, Dark Horse Wealth Management<br><br>
+            <strong style="color: var(--text);">Verified Qualified Purchasers Only</strong><br>
+            Section 3(c)(7) | Reg D Rule 506(c)
+          </div>
+        </div>
+        <div style="margin-top: 12px; font-size: 9.5px; color: #3a4050; line-height: 1.7;">
+          <strong style="color: #50586a;">CONFIDENTIAL.</strong> Not for public distribution. This presentation does not constitute an offer to sell or solicitation of an offer to buy any security. Fixed yield rates are contractual — not projections. All investments involve risk including possible loss of principal. Refer to PPM for definitive terms. © 2026 Arabian Wealth Management LLC.
+        </div>
+      </div>
+    </div>
+    <div class="slide-conf">Arabian Capital Partners LLC — Confidential | March 2026</div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- CONTROLS -->
+<div class="counter">Slide <span id="curSlide">1</span> / <span id="totSlide">15</span></div>
+<button class="nav-btn nav-prev" onclick="changeSlide(-1)">&#8592;</button>
+<button class="nav-btn nav-next" onclick="changeSlide(1)">&#8594;</button>
+
+<script>
+  const TOTAL = 15;
+  let current = 1;
+
+  function showSlide(n) {
+    if (n < 1) n = 1;
+    if (n > TOTAL) n = TOTAL;
+    document.getElementById('slide-' + current).classList.remove('active');
+    current = n;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.getElementById('curSlide').textContent = current;
+    document.getElementById('progressBar').style.width = ((current / TOTAL) * 100) + '%';
+  }
+
+  function changeSlide(dir) { showSlide(current + dir); }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); changeSlide(-1); }
+    if (e.key === 'Home') showSlide(1);
+    if (e.key === 'End') showSlide(TOTAL);
+  });
+
+  // Initialize progress bar
+  document.getElementById('progressBar').style.width = ((1 / TOTAL) * 100) + '%';
+  document.getElementById('totSlide').textContent = TOTAL;
+</script>
+
+</body>
+</html>

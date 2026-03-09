@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Horse Fund Family — Investor FAQ</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #0d0f14;
+    --navy-mid:  #131720;
+    --navy-card: #1a1e2a;
+    --navy-row:  #161a24;
+    --gold:      #c9a84c;
+    --gold-lt:   #e2c06a;
+    --gold-dk:   #8a6d2f;
+    --text:      #dde2ea;
+    --muted:     #7a8698;
+    --border:    rgba(201,168,76,0.18);
+    --border-lt: rgba(201,168,76,0.08);
+    --red:       #c05a5a;
+    --green:     #4caf80;
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 14px;
+    line-height: 1.72;
+  }
+
+  /* ── CONFIDENTIALITY BANNER ── */
+  .conf-banner {
+    background: rgba(201,168,76,0.07);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    padding: 9px 48px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: rgba(13,15,20,0.98);
+    border-bottom: 2px solid var(--gold-dk);
+    padding: 28px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo-block { display: flex; align-items: center; gap: 16px; }
+  .logo-emblem {
+    width: 50px; height: 50px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Arial, sans-serif; font-weight: 800; font-size: 16px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+    flex-shrink: 0;
+  }
+  .logo-text { }
+  .logo-entity {
+    font-family: Arial, sans-serif; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold-dk); margin-bottom: 3px;
+  }
+  .logo-name {
+    font-family: Arial, sans-serif; font-size: 18px;
+    font-weight: 800; color: var(--gold); letter-spacing: 0.04em;
+  }
+  .header-right { text-align: right; }
+  .doc-type {
+    font-family: Arial, sans-serif; font-size: 9px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 5px;
+  }
+  .doc-title {
+    font-family: Arial, sans-serif; font-size: 20px;
+    font-weight: 700; color: var(--text); margin-bottom: 8px;
+  }
+  .badge-row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .badge {
+    font-family: Arial, sans-serif; font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--gold-dk);
+    color: var(--gold);
+  }
+  .badge-conf {
+    background: rgba(192,80,80,0.07);
+    border-color: rgba(192,80,80,0.35);
+    color: #c07070;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page-wrap { max-width: 1020px; margin: 0 auto; padding: 48px 52px 80px; }
+
+  /* ── PREAMBLE ── */
+  .preamble {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--gold-dk);
+    border-radius: 5px;
+    padding: 20px 26px;
+    font-family: Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 48px;
+  }
+  .preamble strong { color: var(--gold-lt); }
+
+  /* ── FUND SECTION DIVIDERS ── */
+  .fund-divider {
+    display: flex; align-items: center; gap: 18px;
+    margin: 56px 0 32px;
+  }
+  .fund-divider-line { flex: 1; height: 1px; background: var(--gold-dk); }
+  .fund-divider-label {
+    font-family: Arial, sans-serif; font-size: 11px;
+    font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); white-space: nowrap;
+    padding: 6px 18px;
+    border: 1px solid var(--gold-dk);
+    border-radius: 3px;
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* ── TOPIC GROUP ── */
+  .topic-group { margin-bottom: 36px; }
+  .topic-label {
+    font-family: Arial, sans-serif; font-size: 9px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-dk);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-lt);
+    margin-bottom: 16px;
+  }
+
+  /* ── FAQ ITEM ── */
+  .faq-item {
+    background: var(--navy-card);
+    border: 1px solid var(--border-lt);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .faq-item:hover { border-color: rgba(201,168,76,0.25); }
+  .faq-q {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 16px 22px 14px;
+    cursor: default;
+  }
+  .faq-num {
+    font-family: Arial, sans-serif; font-size: 11px;
+    font-weight: 700; color: var(--gold-dk);
+    min-width: 26px; padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .faq-question {
+    font-family: Arial, sans-serif; font-size: 13px;
+    font-weight: 700; color: var(--gold-lt);
+    line-height: 1.45; flex: 1;
+  }
+  .faq-a {
+    padding: 0 22px 18px 64px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.78;
+    border-top: 1px solid var(--border-lt);
+    padding-top: 14px;
+    margin: 0 22px;
+    margin-bottom: 4px;
+  }
+  .faq-a p + p { margin-top: 10px; }
+  .faq-a strong { color: var(--gold-lt); }
+  .faq-a em { color: var(--muted); }
+
+  /* ── RISK NOTE ── */
+  .risk-note {
+    background: rgba(192,80,80,0.06);
+    border-left: 3px solid rgba(192,80,80,0.45);
+    border-radius: 0 4px 4px 0;
+    padding: 10px 16px;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #c09090;
+    line-height: 1.65;
+  }
+  .risk-note strong { color: #d08080; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: rgba(201,168,76,0.06);
+    border-left: 3px solid var(--gold-dk);
+    border-radius: 0 4px 4px 0;
+    padding: 10px 16px;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .callout strong { color: var(--gold-lt); }
+
+  /* ── COLLATERAL LIST ── */
+  .collateral-list {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    font-family: Arial, sans-serif;
+    font-size: 12.5px;
+  }
+  .collateral-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border-lt);
+  }
+  .collateral-list li:last-child { border-bottom: none; }
+  .cl-num {
+    font-weight: 700; color: var(--gold);
+    min-width: 22px; font-size: 12px;
+    flex-shrink: 0; padding-top: 1px;
+  }
+  .cl-text { color: var(--text); line-height: 1.55; }
+  .cl-text strong { color: var(--gold-lt); }
+
+  /* ── SUBSCRIBE STEPS ── */
+  .sub-steps {
+    margin: 10px 0 0;
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: Arial, sans-serif; font-size: 12.5px;
+  }
+  .sub-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--navy-mid);
+    border: 1px solid var(--border-lt);
+    border-radius: 4px;
+    padding: 10px 14px;
+  }
+  .sub-step-n {
+    font-weight: 800; color: var(--gold);
+    font-size: 13px; min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ── FUND QUICK REF ── */
+  .fund-quick-ref {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-bottom: 48px;
+  }
+  .fqr-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+  .fqr-label {
+    font-family: Arial, sans-serif; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold-dk); margin-bottom: 6px;
+  }
+  .fqr-name {
+    font-family: Arial, sans-serif; font-size: 13px;
+    font-weight: 700; color: var(--gold);
+    margin-bottom: 12px; line-height: 1.35;
+  }
+  .fqr-row {
+    display: flex; justify-content: space-between;
+    font-family: Arial, sans-serif; font-size: 11px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-lt);
+  }
+  .fqr-row:last-child { border-bottom: none; }
+  .fqr-k { color: var(--muted); }
+  .fqr-v { color: var(--text); font-weight: 600; text-align: right; }
+  .fqr-v.gold { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    background: rgba(13,15,20,0.97);
+    border-top: 1px solid var(--border-lt);
+    padding: 16px 52px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    color: #454d60;
+    line-height: 1.7;
+  }
+  .page-footer strong { color: #60697a; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; color: #111; font-size: 12px; }
+    .conf-banner { background: #fffdf0; color: #7a6020; border-color: #c9a84c; }
+    .page-header { background: white; border-color: #c9a84c; }
+    .logo-name { color: #8a6d2f; }
+    .logo-entity, .doc-type { color: #888; }
+    .doc-title { color: #111; }
+    .badge { background: #f5f0e0; border-color: #c9a84c; color: #7a5f28; }
+    .badge-conf { background: #fff0f0; border-color: #c06060; color: #a04040; }
+    .preamble { background: #fffdf5; border-color: #c9a84c; color: #555; }
+    .preamble strong { color: #7a5f28; }
+    .fund-divider-label { background: #f5f0e0; border-color: #c9a84c; color: #7a5f28; }
+    .fund-divider-line { background: #c9a84c; }
+    .faq-item { background: #f9f9f6; border-color: #ddd; }
+    .faq-num { color: #c9a84c; }
+    .faq-question { color: #7a5f28; }
+    .faq-a { color: #222; border-color: #ddd; }
+    .faq-a strong { color: #7a5f28; }
+    .risk-note { background: #fff5f5; color: #8a4040; border-color: #c06060; }
+    .callout { background: #fffdf0; color: #555; border-color: #c9a84c; }
+    .collateral-list li { border-color: #ddd; }
+    .cl-num { color: #c9a84c; }
+    .cl-text strong { color: #7a5f28; }
+    .fqr-card { background: #f5f5f0; border-color: #c9a84c; }
+    .fqr-name { color: #7a5f28; }
+    .fqr-v.gold { color: #7a5f28; }
+    .sub-step { background: #f5f5f0; border-color: #ddd; }
+    .sub-step-n { color: #c9a84c; }
+    .page-footer { background: #f5f5f0; color: #777; }
+    .fund-quick-ref { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- CONFIDENTIALITY BANNER -->
+<div class="conf-banner">
+  Strictly Confidential &nbsp;·&nbsp; For Qualified/Accredited Investors Only &nbsp;·&nbsp; Not an Offer to Sell or Solicitation &nbsp;·&nbsp; Refer to Definitive Offering Documents Prepared by SCALE LLP
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="logo-block">
+    <div class="logo-emblem">DH</div>
+    <div class="logo-text">
+      <div class="logo-entity">Dark Horse Wealth Management</div>
+      <div class="logo-name">Dark Horse Fund Family</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="doc-type">Investor Due Diligence Document</div>
+    <div class="doc-title">Frequently Asked Questions</div>
+    <div class="badge-row">
+      <span class="badge">All Three Funds</span>
+      <span class="badge">March 2026</span>
+      <span class="badge badge-conf">Confidential</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+
+  <!-- PREAMBLE -->
+  <div class="preamble">
+    <strong>Purpose of This Document.</strong> This FAQ is prepared by Dark Horse Wealth Management for institutional and qualified investors conducting initial and ongoing due diligence on Draft Horse Capital Partners, Quarter Horse Capital Partners, and Arabian Capital Partners. Answers are summaries only; the authoritative source for all terms, conditions, and disclosures is each fund's definitive Private Placement Memorandum (PPM), Subscription Agreement, and Operating Agreement as prepared by SCALE LLP. Where material limitations, risks, or uncertainties exist, they are disclosed explicitly. <strong>This document does not constitute an offer to sell or solicitation to buy any security.</strong> All investments involve risk, including the potential loss of principal. Prospective investors must conduct independent due diligence and consult qualified legal, tax, and financial advisors before investing.
+  </div>
+
+  <!-- FUND QUICK REFERENCE -->
+  <div class="fund-quick-ref">
+    <div class="fqr-card">
+      <div class="fqr-label">Fund I</div>
+      <div class="fqr-name">Draft Horse Capital Partners</div>
+      <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">PE-Sponsor Private Credit</span></div>
+      <div class="fqr-row"><span class="fqr-k">Yield</span><span class="fqr-v gold">9% – 17% p.a.</span></div>
+      <div class="fqr-row"><span class="fqr-k">Distribution</span><span class="fqr-v">Quarterly</span></div>
+      <div class="fqr-row"><span class="fqr-k">Minimum</span><span class="fqr-v">$200,000</span></div>
+      <div class="fqr-row"><span class="fqr-k">Term</span><span class="fqr-v">3 Years</span></div>
+      <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">Reg D 506(c) / 3(c)(1)</span></div>
+    </div>
+    <div class="fqr-card">
+      <div class="fqr-label">Fund II</div>
+      <div class="fqr-name">Quarter Horse Capital Partners</div>
+      <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">9-Asset-Class Private Credit</span></div>
+      <div class="fqr-row"><span class="fqr-k">Yield</span><span class="fqr-v gold">Target 12% – 18%+ p.a.</span></div>
+      <div class="fqr-row"><span class="fqr-k">Distribution</span><span class="fqr-v">Quarterly</span></div>
+      <div class="fqr-row"><span class="fqr-k">Minimum</span><span class="fqr-v">$500,000</span></div>
+      <div class="fqr-row"><span class="fqr-k">Target AUM</span><span class="fqr-v">$1 Billion</span></div>
+      <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">Reg D 506(c) / 3(c)(1)</span></div>
+    </div>
+    <div class="fqr-card">
+      <div class="fqr-label">Fund III</div>
+      <div class="fqr-name">Arabian Capital Partners</div>
+      <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">Commodity Trade Finance</span></div>
+      <div class="fqr-row"><span class="fqr-k">Yield</span><span class="fqr-v gold">14% – 20% p.a. (contractual)</span></div>
+      <div class="fqr-row"><span class="fqr-k">Distribution</span><span class="fqr-v">Monthly</span></div>
+      <div class="fqr-row"><span class="fqr-k">Minimum</span><span class="fqr-v">$5,000,000</span></div>
+      <div class="fqr-row"><span class="fqr-k">Structure</span><span class="fqr-v">Perpetual / Evergreen</span></div>
+      <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">Reg D 506(c) / 3(c)(7)</span></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SECTION 1: GENERAL / ALL FUNDS
+  ═══════════════════════════════════════════════ -->
+  <div class="fund-divider">
+    <div class="fund-divider-line"></div>
+    <div class="fund-divider-label">Section 1 — General &amp; All Funds</div>
+    <div class="fund-divider-line"></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">01</span>
+      <span class="faq-question">What is Dark Horse Wealth Management?</span>
+    </div>
+    <div class="faq-a">
+      Dark Horse Wealth Management LLC is a Texas-based private family office and investment management firm that serves as the governing entity for the Dark Horse Fund Family. It operates three investment vehicles — Draft Horse Capital Partners, Quarter Horse Capital Partners, and Arabian Capital Partners — each managed through dedicated, wholly owned subsidiary management entities. Dark Horse Wealth Management was founded by Caleb Caraway and maintains its principal offices in Texas. The firm does not manage capital on behalf of the general public; its fund offerings are available exclusively to accredited investors or qualified purchasers, as applicable, under Regulation D of the Securities Act of 1933.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">02</span>
+      <span class="faq-question">Who is Caleb Caraway and what is his background?</span>
+    </div>
+    <div class="faq-a">
+      Caleb Caraway serves as Managing Partner and Chief Executive Officer of Dark Horse Wealth Management and as the Principal and Chief Investment Officer of all three funds. Mr. Caraway has personally deployed capital across each of the asset classes represented in the fund family, including physical precious metals, aviation assets, fine art, private credit, and commodity trade finance, and maintains a personally disclosed portfolio exceeding $541 million in documented assets. Prospective investors may request a full principal biography as part of the due diligence package; the complete background, professional history, and co-investment disclosures are contained in each fund's Private Placement Memorandum.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">03</span>
+      <span class="faq-question">Are these funds registered with the SEC?</span>
+    </div>
+    <div class="faq-a">
+      No. None of the three funds are registered investment companies under the Investment Company Act of 1940, nor is Dark Horse Wealth Management a registered investment adviser under the Investment Advisers Act of 1940. Each fund relies on applicable exemptions from registration: Draft Horse Capital Partners and Quarter Horse Capital Partners rely on Section 3(c)(1) of the Investment Company Act; Arabian Capital Partners relies on Section 3(c)(7). The management entity files as an Exempt Reporting Advisor (ERA) with the applicable state securities authority in Texas. Investors should be aware that, as exempt funds managed by an ERA, they do not receive the same level of regulatory oversight that applies to SEC-registered investment advisers and registered investment companies.
+      <div class="risk-note"><strong>Disclosure:</strong> The absence of SEC registration means certain investor protections available to registered fund investors — including mandatory reporting, independent compliance examinations, and full Form ADV public disclosure — do not apply in the same manner. Investors should conduct independent legal review of the fund's offering documents and applicable regulatory status.</div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">04</span>
+      <span class="faq-question">What is an Exempt Reporting Advisor (ERA)?</span>
+    </div>
+    <div class="faq-a">
+      An Exempt Reporting Advisor is an investment adviser that is not required to register with the SEC under the Investment Advisers Act of 1940 but is nonetheless required to submit certain reports to the SEC (Form ADV, Parts 1 and 2) and may be subject to state-level oversight. The ERA framework was established under the Dodd-Frank Act and applies to advisers who manage solely private funds with less than $150 million in assets under management in the United States, or who advise solely venture capital funds. ERA status allows an adviser to operate with a reduced regulatory burden while still maintaining baseline reporting obligations to regulators; the fund's Form ADV filings are available on IAPD (the SEC's investment adviser public disclosure database) and will be provided in the data room upon request.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">05</span>
+      <span class="faq-question">What accounting firm audits these funds?</span>
+    </div>
+    <div class="faq-a">
+      SCALE LLP serves as securities counsel, compliance advisor, and coordinates audit and tax preparation services for the fund family. Audited financial statements are made available to investors annually and are included in the data room. Prospective investors should request the most recent audited financials and confirm the identity and credentials of the independent auditor as part of their standard due diligence process. Dark Horse Wealth Management will provide the complete auditor engagement details directly upon request under appropriate confidentiality protocols.
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">06</span>
+      <span class="faq-question">Who administers the funds and calculates NAV?</span>
+    </div>
+    <div class="faq-a">
+      NAV Fund Services serves as the third-party fund administrator for all three funds (Draft Horse, Quarter Horse, and Arabian Capital Partners), providing independent NAV calculation and investor reporting. Axos Bank provides institutional banking and capital custody services for the fund family. NAV calculation methodology, frequency, and third-party verification procedures are specified in each fund's Operating Agreement and are available in the data room. Sovereign and institutional investors are encouraged to request a complete description of the NAV calculation process, including any third-party verification, as part of their operational due diligence review.
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">07</span>
+      <span class="faq-question">Are these funds available to non-U.S. investors?</span>
+    </div>
+    <div class="faq-a">
+      The funds are structured as U.S. domestic private funds offered pursuant to Regulation D, Rule 506(c) under the Securities Act of 1933. Regulation D offerings may be made to non-U.S. persons who satisfy the applicable accredited investor or qualified purchaser standards; however, non-U.S. investors are subject to additional considerations including their home jurisdiction's securities laws, FATCA compliance, anti-money-laundering (AML) and Know Your Customer (KYC) requirements, and applicable tax treaty provisions. Sovereign wealth funds and other non-U.S. institutional investors are welcomed and have participated in comparable U.S. private fund structures, but each non-U.S. investor must confirm eligibility and obtain qualified legal advice in their home jurisdiction before subscribing. The fund's subscription documents include representations and certifications for non-U.S. investors.
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">08</span>
+      <span class="faq-question">What is the tax treatment for U.S. investors? For non-U.S. or sovereign investors?</span>
+    </div>
+    <div class="faq-a">
+      <p><strong>U.S. Investors:</strong> Each fund is structured as a Texas limited liability company taxed as a partnership for U.S. federal income tax purposes. U.S. investors receive Schedule K-1 statements annually reflecting their allocable share of fund income, gain, loss, deduction, and credit. Income from private credit and trade finance operations will generally constitute ordinary income for U.S. tax purposes; specific character may vary by asset class and holding period. Investors should consult their own tax counsel.</p>
+      <p><strong>Non-U.S. and Sovereign Investors:</strong> Non-U.S. investors may be subject to U.S. withholding taxes on certain categories of U.S.-source income, potentially at a 30% rate subject to reduction under applicable income tax treaties. Sovereign wealth funds may qualify for special treatment under the Foreign Sovereign Immunities Act and applicable U.S. tax provisions, but this determination is fact-specific and requires independent legal and tax analysis. FATCA compliance certifications (W-8BEN, W-8BEN-E, or W-8EXP as applicable) will be required at subscription.</p>
+      <div class="callout"><strong>Note:</strong> Tax treatment is complex and investor-specific. Dark Horse Wealth Management does not provide tax advice. Each investor must consult qualified U.S. and home-jurisdiction tax counsel prior to investing.</div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">09</span>
+      <span class="faq-question">Are there any conflicts of interest I should know about?</span>
+    </div>
+    <div class="faq-a">
+      There are material conflicts of interest that prospective investors should evaluate carefully. First, the Principal, Caleb Caraway, has personal capital invested across the same or similar asset classes represented in each fund, which creates potential competition for deal flow and may influence allocation decisions. Second, certain collateral assets within Quarter Horse Capital Partners — specifically the fine art portfolio — are personal assets of the Principal pledged to the fund as collateral, creating a dual role as borrower-affiliate and manager. Third, the firm manages multiple funds simultaneously with overlapping mandates, which may create allocation conflicts when deploying investor capital across vehicles. Fourth, the identity of the PE sponsor counterparty in Draft Horse Capital Partners is held confidential, which limits investors' ability to independently assess counterparty creditworthiness. All material conflicts are disclosed in full in the offering documents; investors should review the conflicts section of each PPM with independent counsel.
+      <div class="risk-note"><strong>Risk Disclosure:</strong> Conflicts of interest in private fund management can adversely affect investor returns. The absence of an independent board, third-party investment committee, or external conflict resolution mechanism is a structural risk investors should weigh against the fund's disclosed mitigants.</div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">10</span>
+      <span class="faq-question">How often do investors receive reports?</span>
+    </div>
+    <div class="faq-a">
+      Investors receive quarterly reports covering fund performance, asset-level updates, collateral status, distribution summaries, and any material developments affecting the fund. Audited annual financial statements are provided to all investors within a reasonable period following each fiscal year-end. Draft Horse Capital Partners additionally provides collateral coverage ratio updates and borrower covenant compliance summaries on a schedule specified in the fund documents. Arabian Capital Partners, given its monthly distribution structure, provides monthly distribution notices along with supporting trade finance activity summaries. Sovereign and institutional investors may negotiate for enhanced reporting frequency and direct access to the Principal for quarterly calls, subject to confidentiality protocols.
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       SECTION 2: DRAFT HORSE CAPITAL PARTNERS
+  ═══════════════════════════════════════════════ -->
+  <div class="fund-divider">
+    <div class="fund-divider-line"></div>
+    <div class="fund-divider-label">Section 2 — Draft Horse Capital Partners</div>
+    <div class="fund-divider-line"></div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">11</span>
+      <span class="faq-question">What is the investment strategy in plain English?</span>
+    </div>
+    <div class="faq-a">
+      Draft Horse Capital Partners is a single-mandate secured private credit fund that deploys a $100 million credit facility to one institutional private equity sponsor operating in the aviation sector. The fund lends against a five-layer collateral package — described in detail in Q14 — that includes operating cash flows, real estate and inventory, portfolio company equity, aviation assets registered under UCC-1 and FAA filings, and a corporate guaranty from the sponsor. Investors receive a fixed tiered yield paid quarterly, ranging from 9% to 17% per annum depending on commitment size, for a three-year term. The fund does not diversify across multiple borrowers; it is a single-credit vehicle, and that concentration is a deliberate structural choice disclosed prominently in the offering documents.
+      <div class="risk-note"><strong>Concentration Risk:</strong> This fund is structurally concentrated in a single borrower and a single industry sector. Investors who require diversification at the fund level should evaluate this risk carefully before committing capital.</div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">12</span>
+      <span class="faq-question">Who is the PE sponsor and why is their identity confidential?</span>
+    </div>
+    <div class="faq-a">
+      The identity of the PE sponsor borrower is held confidential under the terms of the credit facility agreement. The borrower is an institutional private equity firm operating a commercial charter aviation business with a documented fleet of Gulfstream G550 aircraft independently appraised at $30–$45 million per aircraft. Confidentiality is maintained at the borrower's request, which is common in relationship-sourced bilateral credit facilities where the borrower seeks to avoid public disclosure of private financing arrangements. SCALE LLP has conducted legal due diligence on the borrower's entity structure, collateral ownership, and UCC filing status. Qualifying institutional investors may, under appropriate non-disclosure agreements and at the fund's discretion, receive access to additional counterparty information as part of an enhanced due diligence process.
+      <div class="risk-note"><strong>Disclosure:</strong> Investors cannot independently verify borrower creditworthiness without access to the borrower's identity and financial statements. This is a structural limitation of this investment. The fund's five-layer collateral framework is designed to reduce reliance on borrower creditworthiness, but counterparty identity opacity is a risk that should be weighed accordingly.</div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">13</span>
+      <span class="faq-question">What happens to my investment if the PE sponsor defaults?</span>
+    </div>
+    <div class="faq-a">
+      In the event of a borrower default, the fund's enforcement process proceeds sequentially through the five-layer collateral package. Each layer is independently perfected and independently enforceable, meaning enforcement does not require all layers to be intact simultaneously. In practice, a default event triggers the following: (1) the fund accelerates the outstanding balance; (2) SCALE LLP manages the UCC-1 and FAA Registry enforcement process against the aviation assets; (3) the equity pledge allows the fund to foreclose on and take ownership of the portfolio companies; (4) real estate and inventory liens are enforced through standard secured creditor remedies; and (5) the PE sponsor guaranty creates direct recourse against the guarantor entity. The fund's stress-case recovery analysis, which is available in the data room, projects materially superior recovery rates compared to single-collateral private credit facilities at equivalent leverage. That said, no collateral structure eliminates default risk, and ultimate recovery is subject to market conditions, asset values, and legal proceedings at the time of enforcement.
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">14</span>
+      <span class="faq-question">Walk me through the five layers of collateral.</span>
+    </div>
+    <div class="faq-a">
+      The five-layer collateral architecture for Draft Horse Capital Partners was structured so that each layer is independently enforceable and structurally uncorrelated to the other layers in stress scenarios:
+      <ul class="collateral-list">
+        <li><span class="cl-num">01</span><span class="cl-text"><strong>Operating Cash Flows:</strong> The fund holds a first-priority perfected lien against the operating revenues and receivables of the borrower's business. This provides continuous debt service coverage and is the primary source of scheduled interest and principal payments.</span></li>
+        <li><span class="cl-num">02</span><span class="cl-text"><strong>Physical Real Estate &amp; Inventory:</strong> Perfected first liens against real property and tangible business inventory owned by the borrower and its portfolio companies, providing asset-level recovery independent of business performance.</span></li>
+        <li><span class="cl-num">03</span><span class="cl-text"><strong>100% Portfolio Company Equity Pledge:</strong> The fund holds a pledged security interest in 100% of the equity interests of the borrower's portfolio companies. Upon default, the fund may exercise its rights to foreclose on and take direct ownership of those entities without requiring judicial proceedings beyond the equity enforcement process.</span></li>
+        <li><span class="cl-num">04</span><span class="cl-text"><strong>Gulfstream G550 Aviation Assets — UCC-1 &amp; FAA Registry First Lien:</strong> Hard asset collateral consisting of the borrower's Gulfstream G550 fleet, each aircraft independently appraised at $30–$45 million. Liens are perfected under both UCC Article 9 (for domestic purposes) and the FAA Civil Aviation Registry (for aircraft-specific perfection). This layer represents the most liquid and globally marketable collateral position.</span></li>
+        <li><span class="cl-num">05</span><span class="cl-text"><strong>PE Sponsor Corporate Guaranty:</strong> A direct corporate guaranty from the PE sponsor entity, which has equity exposure on both sides of the transaction. This creates an additional recourse layer against the sponsor's balance sheet in the event asset-level recovery is insufficient to satisfy the outstanding obligation.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">15</span>
+      <span class="faq-question">What is the UCC-1 and how does it protect me?</span>
+    </div>
+    <div class="faq-a">
+      A UCC-1 Financing Statement is a legal document filed under Article 9 of the Uniform Commercial Code that publicly establishes a secured creditor's priority lien against a debtor's personal property collateral. Filing a UCC-1 "perfects" the security interest, meaning the creditor has a legally enforceable, publicly recorded claim that takes priority over subsequent creditors and, in most cases, survives the debtor's bankruptcy. For Draft Horse Capital Partners, SCALE LLP has filed and perfected UCC-1 financing statements against the applicable collateral on behalf of the fund, including the aviation assets, equipment, receivables, and inventory. In a default scenario, the perfected UCC-1 filing gives the fund the legal right to seize, sell, or otherwise dispose of the collateral to satisfy the outstanding debt obligation without relying on the borrower's cooperation, subject to applicable state law enforcement procedures.
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">16</span>
+      <span class="faq-question">What is the FAA Civil Aviation Registry filing and why does it matter?</span>
+    </div>
+    <div class="faq-a">
+      The FAA Civil Aviation Registry maintains the official national record of aircraft ownership and liens in the United States. Under the Federal Aviation Act and the Cape Town Convention (for international transactions), filing a security interest in a civil aircraft with the FAA Registry perfects that interest with respect to third parties globally — including in foreign jurisdictions that are signatories to the Cape Town Convention. This is critically important for aviation collateral because Gulfstream G550 aircraft are mobile assets that can be relocated internationally; FAA Registry perfection ensures the fund's lien follows the aircraft regardless of its physical location. The dual perfection under both UCC-1 and FAA Registry provides the most robust domestic and international priority position available for aircraft collateral, and is the accepted standard for sophisticated aviation finance transactions.
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">17</span>
+      <span class="faq-question">How is the yield determined and is it guaranteed?</span>
+    </div>
+    <div class="faq-a">
+      The yield paid to investors in Draft Horse Capital Partners is a tiered fixed rate ranging from 9% per annum at the minimum commitment level to 17% per annum at the highest commitment tier. These rates reflect the spread the fund earns on the credit facility it extends to the PE sponsor, after accounting for fund operating costs. The yield is fixed at subscription and does not fluctuate with market interest rates during the investment term. However, the yield is not contractually guaranteed in the way a bond coupon might be — it is dependent on the borrower's performance and the fund's ability to collect scheduled payments. If the borrower fails to make scheduled payments and collateral enforcement is required, distributions to investors may be delayed or reduced during the recovery period. The offering documents will specify the precise payment waterfall and the conditions under which distributions may be suspended.
+      <div class="risk-note"><strong>Important:</strong> The yield figures disclosed are targets based on the fund's projected operating performance, not guaranteed contractual obligations enforceable regardless of fund performance. Investors may receive less than the stated yield, including possible loss of principal, in a default scenario.</div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">18</span>
+      <span class="faq-question">Why is the term 3 years with no early redemption?</span>
+    </div>
+    <div class="faq-a">
+      The three-year term with no early redemption provision matches the maturity of the underlying credit facility extended to the PE sponsor. Private credit facilities of this structure are bilateral, relationship-sourced transactions that require capital certainty for the duration of the facility; the borrower's operational and financial planning depends on the committed capital remaining in place through the agreed term. Early redemption mechanisms would expose the fund to potential liquidity mismatches between investor redemption demands and the illiquid nature of the underlying credit asset. Investors should treat this commitment as fully illiquid for the three-year term and only commit capital they do not require access to during that period.
+      <div class="risk-note"><strong>Liquidity Risk:</strong> There is no secondary market for interests in Draft Horse Capital Partners and no early redemption mechanism. Investors must be prepared to hold their investment for the full three-year term.</div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">19</span>
+      <span class="faq-question">What does "no management fee, no carried interest" actually mean?</span>
+    </div>
+    <div class="faq-a">
+      Draft Horse Capital Partners charges no annual management fee (typically 1–2% of AUM in conventional funds) and takes no carried interest or performance allocation on investment profits. The fund's economic model is instead structured so that investors receive their full tiered yield and the fund retains the spread between the rate charged to the borrower and the rate paid to investors; the Principal's economic incentive is therefore aligned with deal performance rather than AUM growth. This structure eliminates the fee drag that reduces net investor returns in most private credit and hedge fund vehicles. Prospective investors should nonetheless verify in the offering documents that there are no alternative fees — such as origination fees, administrative fees, or subscription fees — that could reduce net returns, and should request a complete fee schedule from SCALE LLP as part of their diligence.
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">20</span>
+      <span class="faq-question">Has this type of deal been done before? What is the track record?</span>
+    </div>
+    <div class="faq-a">
+      Draft Horse Capital Partners was formed on February 23, 2026, and is currently raising its initial committed capital. The fund does not have an audited track record in its current form. The Principal has personal capital deployed in aviation-backed private credit and related asset classes; however, the formal audited institutional track record for Draft Horse Capital Partners specifically is not yet established. PE-sponsor private credit facilities secured by aviation assets are a well-established institutional strategy broadly deployed by major credit funds, business development companies, and specialized aviation finance platforms — the structural template is proven at scale. Investors evaluating this fund should assess it on the strength of the collateral architecture, the quality of the offering documentation, the identity and qualifications of the Principal, and the terms of the facility, not on an established multi-year fund performance record that does not yet exist.
+      <div class="risk-note"><strong>Track Record Disclosure:</strong> This fund has no audited multi-year institutional performance record. Investors relying on historical returns data in making this investment decision should be aware that no such data exists for this specific vehicle.</div>
+    </div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">21</span>
+      <span class="faq-question">What is the single-counterparty risk and how is it mitigated?</span>
+    </div>
+    <div class="faq-a">
+      Because Draft Horse deploys its entire $100 million capital base to a single borrower, 100% of investor capital is exposed to the credit performance of one counterparty. This is the fund's primary and most significant structural risk. It cannot be diversified away at the fund level. The mitigation framework is entirely collateral-based: five independently perfected collateral layers provide multiple, structurally uncorrelated recovery mechanisms. Additionally, the covenant framework includes minimum debt service coverage ratios, liquidity reserve requirements, collateral maintenance covenants with regular appraisal triggers, and cross-default provisions — all designed to give the fund early warning and enforcement rights before a default reaches a capital-impairment level. Investors who require counterparty diversification at the fund level should consider Quarter Horse Capital Partners, which deploys across nine distinct asset classes and multiple counterparties.
+    </div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">22</span>
+      <span class="faq-question">What is the minimum investment and how do I subscribe?</span>
+    </div>
+    <div class="faq-a">
+      The minimum investment in Draft Horse Capital Partners is $200,000. The subscription process is managed through SCALE LLP, which handles investor accreditation verification, document execution, and fund admission. The process involves (1) execution of a non-disclosure agreement; (2) receipt and review of the PPM, Operating Agreement, and Subscription Agreement; (3) completion of accreditation verification; (4) execution and delivery of the Subscription Agreement; and (5) wire of committed capital to the fund's designated account at Axos Bank. See Section 5 of this FAQ for the complete subscription process and timeline.
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       SECTION 3: QUARTER HORSE CAPITAL PARTNERS
+  ═══════════════════════════════════════════════ -->
+  <div class="fund-divider">
+    <div class="fund-divider-line"></div>
+    <div class="fund-divider-label">Section 3 — Quarter Horse Capital Partners</div>
+    <div class="fund-divider-line"></div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">23</span>
+      <span class="faq-question">How does investing across 9 asset classes reduce risk?</span>
+    </div>
+    <div class="faq-a">
+      Quarter Horse Capital Partners is structured around nine distinct asset classes, each driven by an independent economic vector, with the goal of creating a cash flow floor that holds across varied market environments. The logic is correlation-based: real estate cycle pressure does not impair charter aviation revenue; commodity price corrections do not impair structured private credit receivables; energy sector disruption does not affect fine art collateral values. When one asset class experiences stress, the other eight continue generating income, reducing the probability that a single economic event impairs the entire fund. Each asset class is additionally backed by hard-asset collateral specific to its category — first-lien real estate, allocated bullion, aircraft under UCC-1, mineral resources, JP Morgan LTV-validated art, proven energy reserves, and government-backed technology credit — providing nine independent recovery mechanisms at the portfolio level.
+    </div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">24</span>
+      <span class="faq-question">Are all 9 asset classes currently active or are some planned?</span>
+    </div>
+    <div class="faq-a">
+      Not all nine asset classes are necessarily fully deployed at the time of each investor's subscription. The fund is in an active capital-raising phase, and deployment across all nine categories scales with committed capital. The offering documents will specify which asset classes are active and generating returns at the time of subscription versus which are in pipeline or pre-deployment status. Investors should request a current deployment summary as part of their diligence and understand that yield projections assume full deployment across all nine classes, which may not be achieved immediately upon subscription. The Manager is obligated under the fund documents to disclose material changes in deployment status to investors.
+    </div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">25</span>
+      <span class="faq-question">What is the algorithmic trading allocation and what are its risks?</span>
+    </div>
+    <div class="faq-a">
+      One of the nine asset classes in Quarter Horse Capital Partners includes an allocation to systematic algorithmic trading strategies, which may operate across futures, equities, commodities, or currency markets. Algorithmic trading allocations are distinct from the fund's private credit and hard asset allocations in that they carry mark-to-market risk, are exposed to model failure and technology failure, and can produce drawdowns even in periods when other fund strategies are performing. The offering documents contain specific risk disclosures for this allocation, including maximum drawdown parameters and risk management protocols. Investors should be aware that the algorithmic component introduces a category of risk that differs materially from the collateral-backed private credit strategies that dominate the rest of the fund, and should ask specifically about position sizing, strategy independence, and the stop-loss or risk-off protocols governing this allocation.
+      <div class="risk-note"><strong>Risk Disclosure:</strong> Algorithmic trading strategies can experience rapid and significant losses. Model-based strategies may perform differently in live markets than in historical backtests. This allocation is subject to risks that do not apply to secured private credit investments.</div>
+    </div>
+  </div>
+
+  <!-- Q26 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">26</span>
+      <span class="faq-question">Tell me more about the aviation allocation — who is the charter company?</span>
+    </div>
+    <div class="faq-a">
+      The aviation allocation in Quarter Horse Capital Partners reflects the Principal's personal capital position in a commercial charter aviation partnership operating a fleet of Gulfstream G550 aircraft. The charter company's identity is held confidential consistent with the confidentiality terms of the underlying aviation partnership agreement. The fund's exposure to aviation is collateralized by perfected UCC-1 liens against the aircraft themselves, consistent with the approach used in Draft Horse Capital Partners. Revenue generated from charter operations provides the yield component attributable to this allocation, and aircraft appraised values provide the underlying collateral support. Investors seeking disclosure of the charter company's identity should note that this information is not available at the marketing stage and is subject to the same confidentiality framework that applies to the Draft Horse PE sponsor.
+    </div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">27</span>
+      <span class="faq-question">What is the fine art allocation and how is it valued?</span>
+    </div>
+    <div class="faq-a">
+      The fine art allocation in Quarter Horse Capital Partners involves the Principal's personal fine art collection, which has been disclosed as having a value in excess of $541 million and is leveraged through a credit facility at JPMorgan Chase. The art serves as collateral for credit extended within the fund structure, with JP Morgan having independently validated the loan-to-value framework under its art lending program — providing third-party institutional confirmation of the collateral's value and quality. Fine art valuation is inherently illiquid and dependent on auction market conditions, dealer assessments, and provenance documentation; values can change materially and may not be realizable on short timelines. The offering documents contain specific disclosures regarding the JP Morgan facility terms, the LTV ratios applied, and the conditions under which art collateral values are reassessed.
+      <div class="risk-note"><strong>Valuation Risk:</strong> Fine art is an illiquid asset class with subjective valuations that may not reflect realizable liquidation value. Art market conditions can deteriorate rapidly. Investors should review the full art collateral disclosure in the PPM.</div>
+    </div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">28</span>
+      <span class="faq-question">What is Field Futures Texas and the silver ore body?</span>
+    </div>
+    <div class="faq-a">
+      Field Futures Texas is a mineral resource investment in the fund's portfolio, involving a silver ore body with confirmed resource estimates verified by independent tri-laboratory analysis. The fund's investment in this asset is structured as a mineral rights or resource credit position collateralized by the documented ore body. Silver supply and demand fundamentals, including the global silver supply deficit, provide the macro backdrop for this allocation; the specific resource estimate, laboratory certifications, and collateral documentation are available in the data room. As with all mining and mineral resource investments, actual recoverable quantities may differ from estimates, and the economic viability of any resource is subject to prevailing commodity prices, extraction costs, and regulatory approvals.
+      <div class="risk-note"><strong>Resource Risk:</strong> Mineral resource estimates are technical assessments subject to geological uncertainty. Estimated resources are not the same as proven reserves. Investors should review the independent technical reports before assessing this allocation.</div>
+    </div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">29</span>
+      <span class="faq-question">What is the Structured Private Credit allocation in Quarter Horse?</span>
+    </div>
+    <div class="faq-a">
+      The Structured Private Credit allocation within Quarter Horse Capital Partners deploys capital as senior secured direct loans to identified institutional borrowers — primarily Kamboj Ventures (a PE-backed operator whose identity is disclosed under NDA to qualified investors) and the fund's affiliated SPV entities. This is a bilateral, directly negotiated private credit strategy identical in structure and underwriting philosophy to Draft Horse Capital Partners — senior secured, collateral-backed, UCC-1 perfected first-lien facilities. There are no personal credit lines, consumer loans, or business lines of credit of any kind within this allocation. All facilities are extended to institutional-grade counterparties with documented collateral, financial statements, and legal security instruments. Detailed borrower and facility information is available to institutional investors in the Tier 2 due diligence package upon NDA execution.
+    </div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">30</span>
+      <span class="faq-question">How does the $1B allocation across asset classes work?</span>
+    </div>
+    <div class="faq-a">
+      Quarter Horse Capital Partners targets $1 billion in total committed capital, allocated across nine asset classes based on the fund's allocation model. Each asset class has a target allocation percentage specified in the offering documents, with defined floors and ceilings that govern how much of the fund can be deployed into any single category. As capital is raised, it is deployed into each asset class in accordance with the allocation model, which is designed to maintain the diversification rationale of the fund. The allocation model may be adjusted within defined parameters by the Manager as market conditions, asset availability, and risk-adjusted return profiles evolve; any material deviation from disclosed allocation parameters must be disclosed to investors. The $1 billion target is aspirational, not contractual; the fund will operate with whatever capital is actually committed.
+    </div>
+  </div>
+
+  <!-- Q31 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">31</span>
+      <span class="faq-question">What happens if one asset class underperforms? Do I still get my yield?</span>
+    </div>
+    <div class="faq-a">
+      Quarter Horse Capital Partners is a portfolio-level vehicle, meaning investor distributions are funded from the aggregate cash flows generated across all nine asset classes rather than from any single class in isolation. If one asset class underperforms or fails to generate its projected return, the shortfall must be covered by excess performance from other classes or absorbed through a reduction in the aggregate distribution rate. The fund does not guarantee investors a fixed yield regardless of portfolio performance; the yield figures disclosed are targets based on the projected combined performance of the full asset class portfolio. The offering documents specify the distribution waterfall, the conditions under which distributions may be reduced, and the reserve mechanisms (if any) that buffer short-term performance variation.
+      <div class="risk-note"><strong>Yield Risk:</strong> Actual distributions to investors depend on the realized performance of the underlying asset classes and are not guaranteed at the disclosed target rate. Investors may receive distributions below the target yield if portfolio performance is below projections.</div>
+    </div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">32</span>
+      <span class="faq-question">Can the fund change its asset class allocations?</span>
+    </div>
+    <div class="faq-a">
+      The Manager has discretion to adjust allocation percentages across asset classes within the ranges specified in the fund's governing documents, without investor approval, to respond to changing market conditions, asset availability, or risk management requirements. Material changes to the fund's investment mandate — such as the addition of an entirely new asset class not contemplated in the offering documents, or the elimination of a material allocation category — would require the disclosure and, depending on the terms, potentially the consent process specified in the Operating Agreement. Investors should review the Manager's discretionary authority provisions carefully and understand the conditions under which they would have a right to object to, or exit following, a material strategy change.
+    </div>
+  </div>
+
+  <!-- Q33 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">33</span>
+      <span class="faq-question">How is the fine art leveraged at JP Morgan and is that disclosed?</span>
+    </div>
+    <div class="faq-a">
+      The fine art collection is leveraged through JPMorgan Chase's art lending program, under which JP Morgan has independently assessed the collection and provided a credit facility using the art as collateral at an approved loan-to-value ratio. This facility is disclosed in the offering documents as part of the fund's liability and collateral disclosures. JP Morgan's art lending program is one of the most established institutional art finance facilities in the world; the firm's LTV determination reflects its own independent assessment of the collection's value and marketability. The terms of the JP Morgan facility — including the outstanding balance, LTV ratio, interest rate, and any margin call or collateral maintenance provisions — are material to investors and are contained in the fund's full disclosure documents available in the data room.
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       SECTION 4: ARABIAN CAPITAL PARTNERS
+  ═══════════════════════════════════════════════ -->
+  <div class="fund-divider">
+    <div class="fund-divider-line"></div>
+    <div class="fund-divider-label">Section 4 — Arabian Capital Partners</div>
+    <div class="fund-divider-line"></div>
+  </div>
+
+  <!-- Q34 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">34</span>
+      <span class="faq-question">What is commodity trade finance and how does it work?</span>
+    </div>
+    <div class="faq-a">
+      Commodity trade finance is a form of structured credit in which a lender or fund provides capital to facilitate the purchase, transportation, storage, and sale of physical commodities. In Arabian Capital Partners, the fund purchases physical gold, silver, and strategic minerals from verified global sources at wholesale or spot market pricing, takes custody through LBMA Good Delivery-certified vaults, and sells to confirmed institutional buyers at spot plus a margin — capturing the spread as the fund's primary return mechanism. The trade finance cycle — purchase, custody, sale — is designed to be short in duration, which is why the fund structure allows for monthly distributions; capital is recycled continuously through successive trade cycles. This strategy differs fundamentally from buy-and-hold precious metals ownership in that return is generated by the trading spread and financing margin rather than by commodity price appreciation.
+    </div>
+  </div>
+
+  <!-- Q35 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">35</span>
+      <span class="faq-question">Where does the physical gold come from?</span>
+    </div>
+    <div class="faq-a">
+      Arabian Capital Partners sources physical gold from verified global suppliers, including mining operators, refineries, and commodity trading counterparties that meet the fund's due diligence and compliance standards. All gold accepted into the fund's custody chain is required to meet LBMA Good Delivery specifications — the globally recognized standard for gold bars acceptable in the London interbank bullion market — ensuring provenance documentation, purity standards, and chain-of-custody integrity. Specific supplier identities, geographic sourcing regions, and supply chain documentation are maintained in the fund's compliance records and available to qualifying investors under appropriate confidentiality protocols. The fund's responsible sourcing policy and ESG framework address conflict mineral concerns specifically; see Q43.
+    </div>
+  </div>
+
+  <!-- Q36 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">36</span>
+      <span class="faq-question">How is the gold custody handled — is it safe?</span>
+    </div>
+    <div class="faq-a">
+      Physical gold held by Arabian Capital Partners is custodied through Brink's and Transguard — two of the world's leading physical asset custody and logistics providers — in LBMA Good Delivery-certified vault facilities. Both custodians operate segregated allocated storage, meaning the fund's gold is physically separated and identified, rather than co-mingled with other clients' holdings. This segregated structure ensures that the fund's gold cannot be subject to the custody provider's insolvency proceedings as a general creditor claim. Custody insurance, vault certifications, and periodic audit rights are included in the custody arrangements; documentation is available in the data room. Investors should nonetheless be aware that physical gold custody, while highly secure, is not risk-free — physical loss, theft, or force majeure events, though covered by insurance up to policy limits, represent residual risks.
+    </div>
+  </div>
+
+  <!-- Q37 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">37</span>
+      <span class="faq-question">What does LBMA-certified mean and why does it matter?</span>
+    </div>
+    <div class="faq-a">
+      The London Bullion Market Association (LBMA) is the international trade association for the professional OTC gold and silver market. LBMA Good Delivery status is awarded to refiners that meet the association's strict criteria for bar size, purity (minimum 99.5% fine for gold), physical specifications, and documentation standards. Gold bars on the LBMA Good Delivery List are the globally accepted standard for settlement in professional bullion markets, including sales to central banks, sovereign wealth funds, and institutional buyers. The significance for Arabian Capital Partners investors is threefold: (1) LBMA certification ensures the gold is immediately marketable at institutional spot prices without a discount or delay for quality verification; (2) it provides documentary proof of provenance and chain-of-custody meeting international compliance standards; and (3) it satisfies the procurement standards of the broadest possible universe of institutional buyers, supporting the fund's trade finance revenue model.
+    </div>
+  </div>
+
+  <!-- Q38 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">38</span>
+      <span class="faq-question">What happens to my capital if a buyer fails to pay?</span>
+    </div>
+    <div class="faq-a">
+      Buyer default risk is a specific operational risk in commodity trade finance that Arabian Capital Partners manages through several structural mechanisms. First, the fund does not release physical custody of gold until confirmed payment is received; the trade settlement protocol is designed to prevent the simultaneous loss of both the gold and the receivable. Second, the fund works with pre-vetted institutional buyers through established counterparty verification processes, reducing the probability of buyer default. Third, trade credit insurance may be employed for certain transactions to provide additional receivable protection. In the event of a buyer default where gold has already been transferred, the fund's recourse is against the buyer under the sale contract; recovery timelines and outcomes in such cases are uncertain and may adversely affect the fund's short-term liquidity and distribution timing. The complete buyer default protocol is specified in the offering documents.
+    </div>
+  </div>
+
+  <!-- Q39 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">39</span>
+      <span class="faq-question">What is a Qualified Purchaser and how do I qualify?</span>
+    </div>
+    <div class="faq-a">
+      A Qualified Purchaser (QP) is defined under Section 2(a)(51) of the Investment Company Act of 1940. Natural persons qualify if they own not less than $25,000,000 in investments (as defined in the Act). Institutional investors — including trusts, companies, and other entities — qualify if they own and invest on a discretionary basis not less than $100,000,000 in investments. Family-owned entities may qualify under specific provisions. Sovereign wealth funds and central banks generally qualify under the institutional threshold. The QP standard is higher than the "accredited investor" standard and provides access to 3(c)(7) funds like Arabian Capital Partners, which have no limit on the number of beneficial owners (unlike 3(c)(1) funds, which are capped at 100). Qualification must be certified at the time of subscription and is subject to verification by SCALE LLP. Investors must provide supporting documentation; the specific requirements are set out in the Subscription Agreement.
+    </div>
+  </div>
+
+  <!-- Q40 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">40</span>
+      <span class="faq-question">What is the difference between 3(c)(1) and 3(c)(7)?</span>
+    </div>
+    <div class="faq-a">
+      Section 3(c)(1) and Section 3(c)(7) are two separate exemptions from the definition of "investment company" under the Investment Company Act of 1940, each with different eligibility and capacity constraints. <strong>3(c)(1)</strong> exempts funds with no more than 100 beneficial owners and no public offering; it requires investors to meet the accredited investor standard (generally $1M net worth or $200K+ income). <strong>3(c)(7)</strong> exempts funds that limit participation exclusively to Qualified Purchasers (minimum $25M in investments for individuals, $100M for institutions); it imposes no numerical cap on the number of beneficial owners, allowing the fund to scale to an unlimited number of investors. Draft Horse Capital Partners and Quarter Horse Capital Partners operate under 3(c)(1); Arabian Capital Partners operates under 3(c)(7), which supports its larger scale ambitions and requires the higher QP eligibility threshold.
+    </div>
+  </div>
+
+  <!-- Q41 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">41</span>
+      <span class="faq-question">Why does Arabian Capital have monthly distributions when the others are quarterly?</span>
+    </div>
+    <div class="faq-a">
+      Monthly distributions in Arabian Capital Partners are a function of the underlying trade finance cycle. Each trade cycle — from gold purchase through custody to institutional sale — is structured to complete within a short timeframe (typically 30 days or less), generating income that is immediately available for distribution rather than accruing over a quarter. The fund's design mirrors the cash flow profile of its underlying strategy: short-duration, high-frequency commodity transactions generate recurring monthly income that flows directly to investors. This structure distinguishes Arabian Capital from the private credit funds (Draft Horse and Quarter Horse), which are backed by longer-duration credit facilities where income accrues over quarterly periods before payment.
+    </div>
+  </div>
+
+  <!-- Q42 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">42</span>
+      <span class="faq-question">What is the annual liquidity window and how do I redeem?</span>
+    </div>
+    <div class="faq-a">
+      Arabian Capital Partners provides investors with one annual liquidity window during which redemption requests may be submitted. The window, its specific dates, notice requirements, redemption procedures, and applicable redemption restrictions — including pro-rata reduction if aggregate redemption requests exceed available liquidity — are specified in the fund's Operating Agreement. Despite the monthly distribution structure, the fund is not a daily-liquidity vehicle; investors should treat their commitment as illiquid between annual windows. The perpetual/evergreen structure of the fund means there is no fixed maturity date at which capital is automatically returned; continued participation is the default unless the investor elects to redeem during an annual window. Investors should plan their capital allocation accordingly and request the specific window calendar and redemption procedures from the fund administrator.
+    </div>
+  </div>
+
+  <!-- Q43 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">43</span>
+      <span class="faq-question">How does the fund address ESG concerns, particularly for LBMA sourcing?</span>
+    </div>
+    <div class="faq-a">
+      Arabian Capital Partners addresses responsible sourcing through adherence to LBMA Responsible Sourcing standards, which require participating entities to conduct due diligence on the origin of gold and the supply chain in accordance with the OECD Due Diligence Guidance for Responsible Supply Chains of Minerals from Conflict-Affected and High-Risk Areas. The fund's sourcing protocols require documentary evidence that gold purchased has not originated from conflict zones, has not been produced through forced or child labor, and has been extracted and refined in compliance with applicable environmental standards. The fund's full responsible sourcing and ESG policy is a discrete section of the data room and available for review. Sovereign wealth funds and institutional investors with formal ESG mandates or responsible investment policies should review this section specifically and may request additional disclosure regarding supplier due diligence processes and any third-party ESG certification of the fund's sourcing practices.
+    </div>
+  </div>
+
+  <!-- Q44 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">44</span>
+      <span class="faq-question">Is the 20% yield at $500M+ contractual or a target?</span>
+    </div>
+    <div class="faq-a">
+      Arabian Capital Partners discloses its investor yield as a <strong>fixed contractual annual rate</strong>, not a projected return — specifically 14% to 20% per annum tiered by commitment size, with the 20% rate applicable at commitments of $500 million and above. The characterization as "contractual" reflects that the yield obligation is defined in the subscription and distribution terms of the fund governing documents as a fixed payment obligation, as distinct from a best-efforts target or performance projection. However, investors should be precise: even a contractually defined yield is only as reliable as the fund's ability to generate the underlying cash flows to fund it. If the fund's trade finance operations fail to generate sufficient spread income to cover the contractual yield obligation, distributions could be delayed, suspended, or reduced — this is an inherent risk in any fund structure. The full conditions and limitations of the contractual yield obligation are set forth in the Operating Agreement and should be reviewed with independent counsel.
+      <div class="callout"><strong>For clarity:</strong> "Contractual" in this context means the yield rate is defined and fixed in the governing documents, not that it is unconditionally guaranteed regardless of fund performance. All yield figures remain subject to fund performance and operational execution.</div>
+    </div>
+  </div>
+
+  <!-- Q45 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">45</span>
+      <span class="faq-question">How is Arabian Capital different from the other two funds?</span>
+    </div>
+    <div class="faq-a">
+      Arabian Capital Partners differs from Draft Horse and Quarter Horse across five dimensions: (1) <strong>Eligibility</strong> — QP-only (3(c)(7)) versus accredited investor (3(c)(1)); (2) <strong>Asset class</strong> — physical commodity trade finance and commodity-backed credit versus PE-sponsor private credit and diversified multi-asset credit; (3) <strong>Distribution frequency</strong> — monthly versus quarterly; (4) <strong>Minimum investment</strong> — $5,000,000 versus $200,000 and $500,000; and (5) <strong>Fund structure</strong> — perpetual/evergreen with annual liquidity windows versus fixed three-year term. Arabian Capital is the highest-minimum, highest-yield, most operationally intensive vehicle in the fund family, designed for institutional and sovereign allocators with large capital bases who seek hard-asset-backed, yield-focused exposure to the physical commodity finance market. The monthly distribution and contractual yield framework are designed to align with the cash flow requirements of sovereign wealth funds and large institutional treasury allocations.
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       SECTION 5: SUBSCRIPTION & PROCESS
+  ═══════════════════════════════════════════════ -->
+  <div class="fund-divider">
+    <div class="fund-divider-line"></div>
+    <div class="fund-divider-label">Section 5 — Subscription &amp; Process</div>
+    <div class="fund-divider-line"></div>
+  </div>
+
+  <!-- Q46 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">46</span>
+      <span class="faq-question">How do I begin the investment process?</span>
+    </div>
+    <div class="faq-a">
+      To initiate the subscription process, a prospective investor should contact Dark Horse Wealth Management directly to express interest and identify the fund or funds being evaluated. The fund's securities counsel, SCALE LLP, will then provide the applicable non-disclosure agreement (NDA), the offering document package, and the accreditation or qualified purchaser verification package. The complete process from initial expression of interest through funding typically takes two to four weeks for institutional investors, depending on the complexity of KYC/AML documentation and the investor's internal approval process. Sovereign wealth funds and institutions with formal investment committee processes may require additional time; this is accommodated and expected.
+      <div class="sub-steps">
+        <div class="sub-step"><span class="sub-step-n">1</span><span>Contact Dark Horse Wealth Management to express interest and identify fund(s)</span></div>
+        <div class="sub-step"><span class="sub-step-n">2</span><span>Execute NDA; receive full PPM, term sheet, and data room access</span></div>
+        <div class="sub-step"><span class="sub-step-n">3</span><span>Complete diligence; attend principal call if requested</span></div>
+        <div class="sub-step"><span class="sub-step-n">4</span><span>Complete accreditation / QP verification via SCALE LLP</span></div>
+        <div class="sub-step"><span class="sub-step-n">5</span><span>Execute Subscription Agreement and fund documentation</span></div>
+        <div class="sub-step"><span class="sub-step-n">6</span><span>Wire committed capital; receive confirmation of fund admission</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q47 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">47</span>
+      <span class="faq-question">What documents will I need to provide?</span>
+    </div>
+    <div class="faq-a">
+      Documentation requirements vary by investor type (individual, institutional, sovereign, non-U.S.) and by fund (accredited investor versus qualified purchaser). At a minimum, all investors should expect to provide: (1) entity formation and governing documents (for institutional investors); (2) documentation supporting accredited investor or qualified purchaser status (financial statements, custodial account statements, or equivalent); (3) AML/KYC documentation including beneficial ownership information, government-issued identification for controlling persons, and source of funds documentation; (4) applicable IRS withholding forms (W-9 for U.S. persons; W-8BEN, W-8BEN-E, W-8EXP, or other applicable W-8 series for non-U.S. persons and sovereigns); and (5) executed Subscription Agreement and investor questionnaire. Sovereign wealth funds may also need to provide authorization documentation confirming the signatory's authority to invest and the fund's investment policy or mandate as it pertains to private fund investments. SCALE LLP will provide a complete KYC/AML checklist specific to each investor's profile upon initiation of the subscription process.
+    </div>
+  </div>
+
+  <!-- Q48 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">48</span>
+      <span class="faq-question">How long does the subscription process take?</span>
+    </div>
+    <div class="faq-a">
+      For institutional and sovereign investors, the subscription process typically requires two to four weeks from initial document receipt through formal fund admission, assuming complete and timely delivery of required KYC/AML documentation and prompt execution of subscription documents. The primary variables that affect timeline are: (1) the investor's internal investment committee or board approval process; (2) the completeness and complexity of KYC/AML documentation (which can be more extensive for sovereign entities and non-U.S. institutional investors); and (3) any legal review the investor's counsel requires. Dark Horse Wealth Management and SCALE LLP will accommodate institutional timelines and can coordinate directly with the investor's legal counsel to facilitate parallel processing. Once all documentation is complete and wire confirmation is received, the investor receives formal notice of admission to the fund.
+    </div>
+  </div>
+
+  <!-- Q49 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">49</span>
+      <span class="faq-question">How do I wire funds and to what account?</span>
+    </div>
+    <div class="faq-a">
+      Wire instructions are provided by SCALE LLP upon execution of the Subscription Agreement and will specify the fund's designated account at its banking institution — Axos Bank for Draft Horse Capital Partners; specific instructions for Quarter Horse and Arabian Capital will be provided in their respective subscription packages. Wiring instructions will include the ABA routing number, account number, account name, and any reference information required for proper allocation. Investors are advised to verify wire instructions directly with SCALE LLP via established communication channels — specifically, never act on wire instructions received in an unsolicited email without independent telephone verification, as wire fraud via email compromise is a known risk in private investment transactions. Capital should only be wired after the Subscription Agreement is fully executed and the fund has confirmed its readiness to accept the wire.
+      <div class="risk-note"><strong>Wire Fraud Alert:</strong> Always verify wire instructions by telephone with a known contact at SCALE LLP before initiating any transfer. Do not rely solely on emailed wire instructions, which are a common target for business email compromise fraud.</div>
+    </div>
+  </div>
+
+  <!-- Q50 -->
+  <div class="faq-item">
+    <div class="faq-q">
+      <span class="faq-num">50</span>
+      <span class="faq-question">When do I receive my first distribution?</span>
+    </div>
+    <div class="faq-a">
+      Distribution timing depends on the fund and the investor's subscription date relative to the fund's distribution schedule. For <strong>Draft Horse Capital Partners</strong> and <strong>Quarter Horse Capital Partners</strong>, distributions are paid quarterly; an investor whose capital is admitted and deployed before the end of a distribution period will receive their first distribution at the close of that period, pro-rated for the time capital was deployed during the period. For <strong>Arabian Capital Partners</strong>, distributions are paid monthly; given the short trade cycle, investors can typically expect their first monthly distribution approximately 30 days following confirmed fund admission and capital deployment. The specific calculation methodology for the first distribution — including any initial period proration and minimum deployment threshold — is contained in the Operating Agreement of each fund. Investors should request the distribution calendar and calculation methodology as part of their final diligence before execution.
+    </div>
+  </div>
+
+
+</div><!-- end page-wrap -->
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <strong>IMPORTANT DISCLOSURES:</strong> This document is prepared by Dark Horse Wealth Management LLC for the exclusive use of the identified recipient in connection with a potential investment in one or more funds in the Dark Horse Fund Family. This document does not constitute an offer to sell or solicitation of an offer to purchase any security. Interests in Draft Horse Capital Partners LLC, Quarter Horse Capital Partners LLC, and Arabian Capital Partners LLC are offered solely pursuant to their respective definitive Private Placement Memoranda prepared by SCALE LLP. Offers and sales are made only to Accredited Investors (Draft Horse and Quarter Horse) or Qualified Purchasers (Arabian Capital) as applicable. Past performance is not indicative of future results. All investments involve risk, including the potential loss of principal. All yield figures are targets or contractual rates as specified; neither category constitutes a guarantee of return. This document may not be reproduced, distributed, or disclosed to any third party without the prior written consent of Dark Horse Wealth Management LLC. &nbsp;|&nbsp; <strong>Prepared by:</strong> Dark Horse Wealth Management LLC, Texas &nbsp;|&nbsp; <strong>Securities Counsel:</strong> SCALE LLP &nbsp;|&nbsp; <strong>March 2026</strong>
+</div>
+
+</body>
+</html>

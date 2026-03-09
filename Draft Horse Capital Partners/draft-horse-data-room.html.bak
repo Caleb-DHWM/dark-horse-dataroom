@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Horse Capital Partners — Confidential Investor Data Room</title>
+<style>
+  /* ============================================================
+     RESET & BASE
+  ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:        #080c18;
+    --navy-mid:    #0e1624;
+    --navy-light:  #16213a;
+    --navy-card:   #1a2840;
+    --gold:        #c9a84c;
+    --gold-light:  #e8c87a;
+    --gold-dim:    #7a5f28;
+    --gold-xdim:   #4a3a18;
+    --silver:      #8fa3b8;
+    --silver-light:#c8d8e8;
+    --white:       #f0f4f8;
+    --text:        #cdd8e6;
+    --text-muted:  #6a88a0;
+    --border:      rgba(201,168,76,0.2);
+    --border-dim:  rgba(255,255,255,0.07);
+    --green:       #22c55e;
+    --red:         #f87171;
+    --amber:       #fbbf24;
+    --sidebar-w:   268px;
+    --header-h:    64px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Georgia', serif;
+    color: var(--white);
+    line-height: 1.25;
+    font-weight: normal;
+    letter-spacing: 0.02em;
+  }
+
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { color: var(--gold-light); }
+  strong { color: var(--white); font-weight: bold; }
+  em { color: var(--gold-light); font-style: italic; }
+
+  /* ============================================================
+     DISCLAIMER BAR
+  ============================================================ */
+  .disclaimer-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(8,12,24,0.97);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 7px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    text-align: center;
+    z-index: 1000;
+    line-height: 1.4;
+  }
+  .disclaimer-bar strong { color: var(--gold); font-size: 9.5px; }
+
+  /* ============================================================
+     HEADER
+  ============================================================ */
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: rgba(8,12,24,0.98);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px 0 calc(var(--sidebar-w) + 28px);
+    z-index: 900;
+    backdrop-filter: blur(10px);
+  }
+  .header-logo { display: flex; align-items: center; gap: 14px; }
+  .header-emblem {
+    width: 38px; height: 38px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--gold);
+    font-family: 'Arial', sans-serif; font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(201,168,76,0.06);
+  }
+  .header-name {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--silver-light);
+  }
+  .header-name span { color: var(--gold); }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .header-badge {
+    font-family: 'Arial', sans-serif;
+    font-size: 9px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+    padding: 4px 10px; border-radius: 2px;
+  }
+
+  /* ============================================================
+     SIDEBAR
+  ============================================================ */
+  .sidebar {
+    position: fixed;
+    top: var(--header-h); left: 0;
+    width: var(--sidebar-w);
+    height: calc(100vh - var(--header-h) - 32px);
+    background: var(--navy-mid);
+    border-right: 1px solid var(--border-dim);
+    overflow-y: auto; padding: 20px 0; z-index: 800;
+  }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  .sidebar-section-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 8.5px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold-dim);
+    padding: 14px 18px 5px; margin-top: 6px;
+  }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 18px; cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+    font-family: 'Arial', sans-serif;
+    font-size: 11.5px; letter-spacing: 0.03em; color: var(--silver);
+  }
+  .sidebar-item:hover {
+    background: rgba(201,168,76,0.06);
+    color: var(--gold-light); border-left-color: var(--gold-dim);
+  }
+  .sidebar-item.active {
+    background: rgba(201,168,76,0.1);
+    color: var(--gold); border-left-color: var(--gold);
+  }
+  .sidebar-num {
+    font-size: 9.5px; color: var(--gold-dim);
+    min-width: 18px; font-family: 'Arial', sans-serif; font-weight: 700;
+  }
+  .sidebar-item.active .sidebar-num { color: var(--gold); }
+
+  /* ============================================================
+     MAIN CONTENT
+  ============================================================ */
+  .main {
+    margin-left: var(--sidebar-w);
+    margin-top: var(--header-h);
+    padding: 52px 64px 88px;
+    min-height: calc(100vh - var(--header-h));
+  }
+
+  .section {
+    display: none;
+    animation: fadeIn 0.28s ease;
+    max-width: 1020px;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================================================
+     SECTION HEADER
+  ============================================================ */
+  .section-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 22px; margin-bottom: 38px;
+  }
+  .section-number {
+    font-family: 'Arial', sans-serif; font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold-dim); margin-bottom: 8px;
+  }
+  .section-title { font-size: 30px; color: var(--white); letter-spacing: 0.03em; }
+  .section-subtitle {
+    font-family: 'Arial', sans-serif; font-size: 13px;
+    color: var(--silver); margin-top: 6px; letter-spacing: 0.04em;
+  }
+  .gold-rule { width: 60px; height: 2px; background: var(--gold); margin: 18px 0 0; }
+
+  /* ============================================================
+     CARDS & BLOCKS
+  ============================================================ */
+  .card {
+    background: var(--navy-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 5px; padding: 28px 32px; margin-bottom: 24px;
+  }
+  .card-gold { border-color: var(--border); border-left: 4px solid var(--gold); }
+  .card h3 {
+    font-size: 17px; color: var(--gold-light);
+    margin-bottom: 15px; letter-spacing: 0.04em;
+  }
+  .card h4 {
+    font-family: 'Arial', sans-serif; font-size: 10.5px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--silver-light); margin-bottom: 10px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px; margin-bottom: 30px;
+  }
+  .stat-box {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    padding: 22px 20px; border-radius: 5px; text-align: center;
+  }
+  .stat-value {
+    font-size: 28px; color: var(--gold);
+    font-family: 'Georgia', serif; line-height: 1.1; margin-bottom: 7px;
+  }
+  .stat-label {
+    font-family: 'Arial', sans-serif; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+  }
+
+  /* ============================================================
+     TABLES
+  ============================================================ */
+  table { width: 100%; border-collapse: collapse; font-family: 'Arial', sans-serif; font-size: 12.5px; margin-bottom: 24px; }
+  thead tr { background: var(--navy-light); border-bottom: 2px solid var(--gold-dim); }
+  thead th { padding: 11px 14px; text-align: left; color: var(--gold); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; }
+  tbody tr { border-bottom: 1px solid var(--border-dim); transition: background 0.1s; }
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 11px 14px; color: var(--text); vertical-align: middle; }
+  tbody td:first-child { color: var(--silver-light); }
+  .td-gold { color: var(--gold) !important; font-weight: 700; }
+  .td-green { color: var(--green) !important; font-weight: 700; }
+  .td-red { color: var(--red) !important; }
+  .td-highlight { background: rgba(201,168,76,0.07); }
+  .check { color: var(--green); }
+  .cross { color: var(--red); }
+  .partial { color: var(--amber); }
+
+  /* ============================================================
+     YIELD BARS
+  ============================================================ */
+  .yield-tier { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .yield-label { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--silver); min-width: 170px; }
+  .yield-bar-wrap {
+    flex: 1; height: 30px; background: var(--navy-light);
+    border-radius: 3px; overflow: hidden;
+    border: 1px solid var(--border-dim);
+  }
+  .yield-bar {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold) 80%, var(--gold-light));
+    display: flex; align-items: center; padding-left: 10px;
+    transition: width 0.9s ease;
+  }
+  .yield-pct {
+    font-family: 'Arial', sans-serif; font-size: 12.5px;
+    font-weight: 700; color: var(--navy); white-space: nowrap;
+  }
+
+  /* ============================================================
+     TIMELINE / PROCESS STEPS
+  ============================================================ */
+  .process-steps {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative; padding-left: 42px;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; left: 15px; top: 22px; bottom: 22px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--gold-dim), transparent);
+  }
+  .process-step { position: relative; padding: 14px 0; }
+  .process-step::before {
+    content: attr(data-n);
+    position: absolute; left: -42px; top: 14px;
+    width: 30px; height: 30px;
+    background: var(--navy-card); border: 2px solid var(--gold);
+    border-radius: 50%;
+    font-family: 'Arial', sans-serif; font-size: 11px;
+    font-weight: 700; color: var(--gold); text-align: center; line-height: 26px;
+  }
+  .process-step h4 {
+    font-family: 'Arial', sans-serif; font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 6px;
+  }
+  .process-step p { font-size: 13.5px; color: var(--text); line-height: 1.65; }
+
+  /* ============================================================
+     RISK FACTORS
+  ============================================================ */
+  .risk-item {
+    border-left: 3px solid var(--gold-dim);
+    padding: 16px 22px; margin-bottom: 16px;
+    background: rgba(8,12,24,0.55); border-radius: 0 4px 4px 0;
+  }
+  .risk-item h4 {
+    font-family: 'Arial', sans-serif; font-size: 11.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 9px;
+  }
+  .risk-item p { font-size: 13px; color: var(--text); line-height: 1.7; }
+
+  /* ============================================================
+     CALLOUTS
+  ============================================================ */
+  .callout {
+    background: rgba(201,168,76,0.07);
+    border-left: 4px solid var(--gold);
+    padding: 16px 22px; border-radius: 0 4px 4px 0;
+    margin: 22px 0; font-size: 14px; color: var(--silver-light); line-height: 1.7;
+  }
+  .callout strong { color: var(--gold); }
+  .callout-critical {
+    background: rgba(201,168,76,0.1);
+    border: 2px solid var(--gold);
+    padding: 22px 26px; border-radius: 5px;
+    margin: 22px 0; font-size: 14.5px; color: var(--silver-light); line-height: 1.75;
+  }
+  .callout-critical strong { color: var(--gold-light); }
+  .info-box {
+    background: rgba(8,12,24,0.6);
+    border: 1px solid var(--border-dim);
+    padding: 14px 20px; border-radius: 4px; margin: 18px 0;
+    font-family: 'Arial', sans-serif; font-size: 11.5px;
+    color: var(--text-muted); line-height: 1.7;
+  }
+  .info-box strong { color: var(--silver-light); }
+
+  /* ============================================================
+     TAGS
+  ============================================================ */
+  .tag {
+    display: inline-block;
+    font-family: 'Arial', sans-serif; font-size: 9.5px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px; margin: 3px 3px 3px 0;
+  }
+  .tag-gold { background: rgba(201,168,76,0.14); color: var(--gold); border: 1px solid var(--gold-dim); }
+  .tag-blue { background: rgba(100,160,220,0.1); color: #7eb8d8; border: 1px solid rgba(100,160,220,0.2); }
+  .tag-green { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .tag-red { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+
+  /* ============================================================
+     LAYOUT HELPERS
+  ============================================================ */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  @media (max-width: 800px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+
+  .content p { margin-bottom: 15px; }
+  .content ul { margin: 12px 0 15px 26px; }
+  .content ul li { margin-bottom: 7px; color: var(--text); font-size: 14px; line-height: 1.65; }
+  .content ol { margin: 12px 0 15px 26px; }
+  .content ol li { margin-bottom: 8px; color: var(--text); font-size: 14px; line-height: 1.65; }
+
+  .label-val-list { list-style: none; padding: 0; }
+  .label-val-list li {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid var(--border-dim);
+    font-family: 'Arial', sans-serif; font-size: 12.5px;
+  }
+  .label-val-list li:last-child { border-bottom: none; }
+  .label-val-list .lv-label { color: var(--text-muted); }
+  .label-val-list .lv-val { color: var(--white); text-align: right; max-width: 58%; }
+
+  /* ============================================================
+     COVER PAGE
+  ============================================================ */
+  .cover-wrap {
+    min-height: calc(100vh - var(--header-h) - 100px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 10px;
+  }
+  .cover-eyebrow {
+    font-family: 'Arial', sans-serif; font-size: 11px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .cover-title {
+    font-size: 54px; color: var(--white);
+    letter-spacing: 0.04em; line-height: 1.08; margin-bottom: 14px;
+  }
+  .cover-tagline {
+    font-size: 20px; color: var(--silver);
+    font-style: italic; margin-bottom: 36px; letter-spacing: 0.02em;
+  }
+  .cover-meta-row {
+    display: flex; gap: 44px; flex-wrap: wrap; margin-bottom: 42px;
+  }
+  .cover-meta-item { display: flex; flex-direction: column; gap: 5px; }
+  .cover-meta-label {
+    font-family: 'Arial', sans-serif; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim);
+  }
+  .cover-meta-val { font-family: 'Arial', sans-serif; font-size: 14px; color: var(--silver-light); }
+  .cover-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    margin: 34px 0;
+  }
+  .cover-confidential {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    padding: 20px 26px; max-width: 720px; border-radius: 2px;
+  }
+  .cover-confidential-title {
+    font-family: 'Arial', sans-serif; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 9px;
+  }
+  .cover-confidential p {
+    font-family: 'Arial', sans-serif; font-size: 11.5px;
+    color: var(--text-muted); line-height: 1.7;
+  }
+
+  /* ============================================================
+     CIO LETTER
+  ============================================================ */
+  .cio-letter {
+    background: linear-gradient(135deg, rgba(26,40,64,0.9) 0%, rgba(8,12,24,0.4) 100%);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    padding: 44px 50px;
+    border-radius: 5px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .cio-letter::before {
+    content: '\201C';
+    position: absolute;
+    top: 20px; left: 36px;
+    font-size: 80px; color: rgba(201,168,76,0.12);
+    font-family: 'Georgia', serif; line-height: 1;
+  }
+  .cio-letter-para {
+    font-size: 15.5px; color: var(--text);
+    line-height: 1.85; margin-bottom: 22px;
+    text-indent: 0;
+  }
+  .cio-letter-para:first-of-type::first-letter {
+    font-size: 42px; font-family: 'Georgia', serif;
+    color: var(--gold); float: left; line-height: 0.75;
+    margin-right: 8px; margin-top: 8px;
+  }
+  .cio-letter-sig {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .cio-letter-sig-name {
+    font-size: 18px; color: var(--white);
+    letter-spacing: 0.04em; margin-bottom: 4px;
+  }
+  .cio-letter-sig-title {
+    font-family: 'Arial', sans-serif; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+  }
+
+  /* ============================================================
+     FIVE-LAYER COLLATERAL
+  ============================================================ */
+  .layer-stack {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative; padding-left: 0;
+  }
+  .layer-item {
+    position: relative;
+    background: var(--navy-card);
+    border: 1px solid var(--border-dim);
+    border-left: 5px solid var(--gold-dim);
+    border-radius: 0 5px 5px 0;
+    padding: 22px 28px 22px 22px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+  }
+  .layer-item:hover {
+    background: rgba(30,45,70,0.9);
+    border-left-color: var(--gold);
+    transform: translateX(3px);
+  }
+  .layer-item.layer-1 { border-left-color: #22c55e; }
+  .layer-item.layer-2 { border-left-color: #3b82f6; }
+  .layer-item.layer-3 { border-left-color: #8b5cf6; }
+  .layer-item.layer-4 { border-left-color: var(--gold); }
+  .layer-item.layer-5 { border-left-color: #ef4444; background: rgba(30,45,70,0.6); border-color: rgba(201,168,76,0.25); }
+  .layer-badge {
+    font-family: 'Arial', sans-serif; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 7px; font-weight: 700;
+  }
+  .layer-1 .layer-badge { color: #22c55e; }
+  .layer-2 .layer-badge { color: #3b82f6; }
+  .layer-3 .layer-badge { color: #8b5cf6; }
+  .layer-4 .layer-badge { color: var(--gold); }
+  .layer-5 .layer-badge { color: #ef4444; }
+  .layer-title { font-size: 17px; color: var(--white); margin-bottom: 10px; }
+  .layer-body { font-size: 13.5px; color: var(--text); line-height: 1.7; }
+  .layer-connector {
+    height: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--border), var(--border));
+    margin: 0 auto; display: block;
+  }
+
+  /* ============================================================
+     DEPLOYMENT MODEL
+  ============================================================ */
+  .deploy-flow {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .deploy-tier {
+    background: var(--navy-card);
+    border: 1px solid var(--border-dim);
+    border-left: 4px solid var(--gold-dim);
+    padding: 18px 24px; margin-bottom: 3px;
+    display: flex; align-items: center; gap: 20px;
+    border-radius: 0 4px 4px 0;
+  }
+  .deploy-tier.tier-top {
+    border-left-color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+  .deploy-arrow {
+    text-align: center; color: var(--gold-dim);
+    font-size: 18px; padding: 4px 0;
+  }
+  .deploy-label {
+    font-family: 'Arial', sans-serif; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 4px;
+  }
+  .deploy-value { font-size: 22px; color: var(--gold); font-family: 'Georgia', serif; }
+  .deploy-sub { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--silver); margin-top: 2px; }
+
+  /* ============================================================
+     INVESTOR MATH TABLE
+  ============================================================ */
+  .investor-math {
+    background: linear-gradient(135deg, rgba(26,40,64,0.9), rgba(8,12,24,0.4));
+    border: 2px solid var(--gold);
+    border-radius: 6px; overflow: hidden; margin-bottom: 24px;
+  }
+  .investor-math-header {
+    background: rgba(201,168,76,0.12);
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .investor-math-title {
+    font-family: 'Arial', sans-serif; font-size: 10px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    font-weight: 700;
+  }
+  .investor-math-body { padding: 24px; }
+  .math-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--border-dim);
+  }
+  .math-row:last-child { border-bottom: none; }
+  .math-row-label { font-family: 'Arial', sans-serif; font-size: 13px; color: var(--silver); }
+  .math-row-val { font-size: 18px; color: var(--gold); font-family: 'Georgia', serif; font-weight: bold; }
+  .math-row-val.big { font-size: 26px; color: var(--gold-light); }
+  .math-row.total { background: rgba(201,168,76,0.07); padding: 16px 14px; margin: 0 -24px; border-radius: 0; }
+
+  /* ============================================================
+     PROVIDER GRID
+  ============================================================ */
+  .provider-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px;
+  }
+  .provider-card {
+    background: var(--navy-card); border: 1px solid var(--border-dim);
+    border-top: 3px solid var(--gold); padding: 22px 24px; border-radius: 4px;
+  }
+  .provider-role {
+    font-family: 'Arial', sans-serif; font-size: 9px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+  .provider-name { font-size: 17px; color: var(--white); margin-bottom: 12px; letter-spacing: 0.02em; }
+  .provider-desc { font-family: 'Arial', sans-serif; font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ============================================================
+     ORG CHART
+  ============================================================ */
+  .org-chart {
+    display: flex; flex-direction: column; align-items: center; gap: 0; padding: 24px 0;
+  }
+  .org-node {
+    background: var(--navy-card); border: 1px solid var(--border);
+    padding: 14px 32px; border-radius: 4px; text-align: center; min-width: 260px;
+  }
+  .org-node.fund {
+    background: linear-gradient(135deg, var(--navy-card), rgba(201,168,76,0.08));
+    border-color: var(--gold); border-width: 2px;
+  }
+  .org-node-title { font-family: 'Arial', sans-serif; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 4px; }
+  .org-node-name { font-size: 14.5px; color: var(--white); letter-spacing: 0.03em; }
+  .org-node-sub { font-family: 'Arial', sans-serif; font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .org-connector {
+    width: 2px; height: 26px;
+    background: linear-gradient(to bottom, var(--gold-dim), var(--gold-dim));
+    position: relative;
+  }
+  .org-connector::after {
+    content: '▼'; position: absolute; bottom: -5px; left: 50%;
+    transform: translateX(-50%); color: var(--gold-dim); font-size: 8px;
+  }
+
+  /* ============================================================
+     PIPELINE BAR
+  ============================================================ */
+  .pipeline-bar {
+    background: var(--navy-light); border-radius: 4px;
+    overflow: hidden; height: 44px; margin: 16px 0;
+    border: 1px solid var(--border-dim);
+  }
+  .pipeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim) 0%, var(--gold) 60%, var(--gold-light) 100%);
+    display: flex; align-items: center; padding: 0 18px;
+    font-family: 'Arial', sans-serif; font-size: 13px;
+    font-weight: 700; color: var(--navy); width: 100%;
+    animation: growBar 1.3s ease-out;
+  }
+  @keyframes growBar { from { width: 0; } }
+
+  /* ============================================================
+     CONTACT
+  ============================================================ */
+  .contact-card {
+    background: var(--navy-card); border: 1px solid var(--border);
+    border-top: 4px solid var(--gold); padding: 38px 44px;
+    border-radius: 4px; max-width: 560px;
+  }
+  .contact-name { font-size: 24px; color: var(--white); margin-bottom: 4px; letter-spacing: 0.03em; }
+  .contact-title {
+    font-family: 'Arial', sans-serif; font-size: 11.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 26px; line-height: 1.7;
+  }
+  .contact-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 16px; font-family: 'Arial', sans-serif;
+    font-size: 13px; color: var(--text);
+  }
+  .contact-icon { color: var(--gold); font-size: 14px; min-width: 20px; text-align: center; margin-top: 1px; }
+
+  /* ============================================================
+     SECTION PAGE NOTICE
+  ============================================================ */
+  .section-page-notice {
+    font-family: 'Arial', sans-serif; font-size: 9.5px;
+    color: var(--text-muted); text-align: right; margin-top: 52px;
+    padding-top: 12px; border-top: 1px solid var(--border-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================================
+     MACRO CARD
+  ============================================================ */
+  .macro-card {
+    background: var(--navy-card); border: 1px solid var(--border-dim);
+    border-radius: 5px; padding: 24px 28px; position: relative;
+    overflow: hidden;
+  }
+  .macro-card::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle at top right, rgba(201,168,76,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .macro-card-icon { font-size: 28px; margin-bottom: 12px; }
+  .macro-card-title { font-size: 16px; color: var(--gold-light); margin-bottom: 10px; }
+  .macro-card-body { font-size: 13.5px; color: var(--text); line-height: 1.7; }
+
+  /* ============================================================
+     PRINT
+  ============================================================ */
+  @media print {
+    .sidebar, .header, .disclaimer-bar { display: none !important; }
+    .main { margin: 0; padding: 20px 40px; }
+    .section { display: block !important; page-break-before: always; }
+    .section:first-child { page-break-before: avoid; }
+    body { background: white; color: #111; }
+    .card, .stat-box, .risk-item { border-color: #ccc; background: #fafafa; }
+    .cover-title, h1, h2, h3 { color: #111; }
+    a { color: #333; }
+  }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 960px) {
+    :root { --sidebar-w: 220px; }
+    .main { padding: 36px 32px 80px; }
+    .cover-title { font-size: 38px; }
+    .cio-letter { padding: 30px 32px; }
+  }
+  @media (max-width: 680px) {
+    .sidebar { display: none; }
+    :root { --sidebar-w: 0px; }
+    .header { padding-left: 20px; }
+    .main { padding: 24px 18px 80px; }
+    .cio-letter { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="header">
+  <div class="header-logo">
+    <div class="header-emblem">DH</div>
+    <div>
+      <div class="header-name"><span>Draft Horse</span> Capital Partners</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-badge">Confidential — Accredited Investors Only</div>
+  </div>
+</header>
+
+<!-- ============================================================
+     SIDEBAR NAVIGATION
+============================================================ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-section-label">Data Room</div>
+  <div class="sidebar-item active" data-section="cover" onclick="showSection('cover',this)">
+    <span class="sidebar-num">01</span> Cover
+  </div>
+  <div class="sidebar-item" data-section="cio-letter" onclick="showSection('cio-letter',this)">
+    <span class="sidebar-num">02</span> Letter from the CIO
+  </div>
+  <div class="sidebar-item" data-section="exec-summary" onclick="showSection('exec-summary',this)">
+    <span class="sidebar-num">03</span> Executive Summary
+  </div>
+  <div class="sidebar-item" data-section="thesis" onclick="showSection('thesis',this)">
+    <span class="sidebar-num">04</span> Investment Thesis
+  </div>
+  <div class="sidebar-item" data-section="macro" onclick="showSection('macro',this)">
+    <span class="sidebar-num">05</span> Macro Tailwinds
+  </div>
+  <div class="sidebar-item" data-section="terms" onclick="showSection('terms',this)">
+    <span class="sidebar-num">06</span> Fund Terms
+  </div>
+  <div class="sidebar-item" data-section="collateral" onclick="showSection('collateral',this)">
+    <span class="sidebar-num">07</span> Five-Layer Collateral
+  </div>
+  <div class="sidebar-item" data-section="deployment" onclick="showSection('deployment',this)">
+    <span class="sidebar-num">08</span> $100M Deployment Model
+  </div>
+  <div class="sidebar-item" data-section="competitive" onclick="showSection('competitive',this)">
+    <span class="sidebar-num">09</span> Competitive Differentiation
+  </div>
+  <div class="sidebar-item" data-section="pipeline" onclick="showSection('pipeline',this)">
+    <span class="sidebar-num">10</span> Pipeline
+  </div>
+  <div class="sidebar-item" data-section="risk" onclick="showSection('risk',this)">
+    <span class="sidebar-num">11</span> Risk Factors
+  </div>
+  <div class="sidebar-item" data-section="management" onclick="showSection('management',this)">
+    <span class="sidebar-num">12</span> Management
+  </div>
+  <div class="sidebar-item" data-section="providers" onclick="showSection('providers',this)">
+    <span class="sidebar-num">13</span> Service Providers
+  </div>
+  <div class="sidebar-item" data-section="legal" onclick="showSection('legal',this)">
+    <span class="sidebar-num">14</span> Legal &amp; Compliance
+  </div>
+  <div class="sidebar-item" data-section="contact" onclick="showSection('contact',this)">
+    <span class="sidebar-num">15</span> Contact
+  </div>
+  <div style="padding:16px 18px;margin-top:14px;border-top:1px solid rgba(201,168,76,0.12);">
+    <button onclick="window.print()" style="background:transparent;border:1px solid rgba(201,168,76,0.22);color:rgba(201,168,76,0.48);font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 0;cursor:pointer;width:100%;border-radius:2px;transition:all 0.15s;" onmouseover="this.style.borderColor='rgba(201,168,76,0.6)';this.style.color='rgba(201,168,76,0.9)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.22)';this.style.color='rgba(201,168,76,0.48)'">⎙ &nbsp;Print / Export PDF</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MAIN CONTENT
+============================================================ -->
+<main class="main">
+
+  <!-- ============================================================
+       01 — COVER
+  ============================================================ -->
+  <section class="section active" id="cover">
+    <div class="cover-wrap">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+        <div style="width:52px;height:52px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--gold);font-family:'Arial',sans-serif;font-weight:800;letter-spacing:0.05em;flex-shrink:0;background:rgba(201,168,76,0.06);">DH</div>
+        <div style="flex:1;height:1px;background:linear-gradient(to right,var(--gold),transparent);"></div>
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-dim);">Dark Horse Platform · Private Credit Series</div>
+      </div>
+
+      <div class="cover-eyebrow">Confidential Investor Data Room — March 2026</div>
+      <div class="cover-title">Draft Horse<br>Capital Partners</div>
+      <div class="cover-tagline">Single-Mandate Structured Private Credit — Five-Layer Collateral Architecture — Zero Fees</div>
+
+      <div class="cover-meta-row">
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Structure</span>
+          <span class="cover-meta-val">Reg D 506(c) · §3(c)(1)</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Target Yield</span>
+          <span class="cover-meta-val" style="color:var(--gold-light);font-weight:700;">9% – 17% Tiered / Fixed</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Distributions</span>
+          <span class="cover-meta-val">Quarterly</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Investor Term</span>
+          <span class="cover-meta-val">36 Months · 100% Principal Return</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Minimum Subscription</span>
+          <span class="cover-meta-val">$200,000</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Management Fees</span>
+          <span class="cover-meta-val" style="color:var(--green);">None — Zero</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Active Pipeline</span>
+          <span class="cover-meta-val" style="color:var(--gold-light);">$100,000,000</span>
+        </div>
+        <div class="cover-meta-item">
+          <span class="cover-meta-label">Collateral</span>
+          <span class="cover-meta-val">UCC-1 · 5 Independent Layers</span>
+        </div>
+      </div>
+
+      <div class="cover-divider"></div>
+
+      <div class="cover-confidential">
+        <div class="cover-confidential-title">⚠ Confidentiality &amp; Regulatory Notice</div>
+        <p>This data room and all materials herein are strictly confidential and are provided solely for informational purposes to prospective accredited investors who have completed required verification. This document does not constitute an offer to sell, or a solicitation of an offer to buy, any securities. Any such offer will be made only through the Fund's Private Placement Memorandum prepared by SCALE LLP. Recipients may not reproduce, distribute, or disclose any portion without prior written consent of Draft Horse Capital Partners LLC. Forward-looking statements and target yields are not guarantees. All investment involves risk. Accredited investors only — Reg D 506(c).</p>
+      </div>
+
+      <div style="margin-top:28px;">
+        <span class="tag tag-gold">Reg D 506(c)</span>
+        <span class="tag tag-gold">§3(c)(1)</span>
+        <span class="tag tag-blue">UCC-1 Five-Layer Lien</span>
+        <span class="tag tag-green">Zero Fees</span>
+        <span class="tag tag-green">Quarterly Income</span>
+        <span class="tag tag-gold">Texas LLC · Est. February 2026</span>
+        <span class="tag tag-blue">Gulfstream G550 Collateral</span>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       02 — LETTER FROM THE CIO
+  ============================================================ -->
+  <section class="section" id="cio-letter">
+    <div class="section-header">
+      <div class="section-number">Section 02</div>
+      <div class="section-title">Letter from the CIO</div>
+      <div class="section-subtitle">A measured statement from Caleb Caraway on the credit philosophy, structural decisions, and alignment framework underlying Draft Horse Capital Partners</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="cio-letter">
+      <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:28px;">To Institutional Investors Evaluating Draft Horse Capital Partners</div>
+
+      <p class="cio-letter-para">I will be direct about what this fund is, what it is not, and why I structured it the way I did. Draft Horse Capital Partners is a single-mandate secured private credit vehicle. It is not diversified across multiple borrowers or strategies. It does not deploy into an origination pipeline we are building after close. It is one credit facility — $100 million — extended to a single institutional PE sponsor against a five-layer collateral package that I designed specifically to minimize recovery exposure in the event that borrower cannot or will not perform. I am describing the fund this way at the outset because institutional allocators reviewing this document deserve precision, not a narrative that defers concentration risk to footnote disclosures.</p>
+
+      <p class="cio-letter-para">The concentration is a deliberate underwriting decision, not a structural limitation. I know this borrower. I have evaluated their operations, their assets, and their incentives directly. I negotiated the lending terms, the covenant package, and the collateral architecture personally. I have equity exposure on both sides of this transaction — in the credit facility structure and in the aviation assets that serve as hard collateral. My capital is deployed alongside investor capital in the same position. I do not manage this fund from a distance, and I am not compensated by fees on committed capital. My economic interest derives entirely from the spread between what the PE sponsor pays the Fund and what the Fund pays investors. That structure means my incentive is to maximize deployment, maintain covenant compliance, and generate more spread — not to collect a management fee on capital sitting idle in a money market account.</p>
+
+      <p class="cio-letter-para">The collateral architecture requires specific attention. Five independent layers — operating cash flows, physical real estate and inventory, portfolio company equity, Gulfstream G550 aviation assets under UCC-1 perfected first lien and FAA Civil Aviation Registry notation, and a PE sponsor guaranty from an entity with equity exposure on both sides of the transaction — were constructed because I am not willing to accept a lending structure where a single asset deterioration creates material principal exposure. Each layer is independently enforceable. Each has a distinct liquidity profile and a distinct legal enforcement pathway. In a default scenario, the Fund does not need all five layers to hold — it needs one. The recovery analysis under any stress case is materially superior to single-collateral structures, which remain the market standard in middle-market private credit.</p>
+
+      <p class="cio-letter-para">On the exclusivity of the pipeline: this credit facility originated through a direct, bilateral relationship that predates the fund formation. It was not broker-sourced. It was not won through a competitive auction. The borrower is an institutional PE sponsor I know personally, who requires structured capital on terms that work for their operational planning horizon. The 36-month facility term serves both sides of the transaction — it provides the borrower with certainty for capital investment planning, and it provides the Fund with a matched-funding structure that eliminates redemption pressure and enables full deployment from day one. There is no ramp period. The deal is ready to execute upon initial close.</p>
+
+      <p class="cio-letter-para">The 17% target yield at the top commitment tier is derived from the spread the borrower is willing to pay for a direct, collateral-backed relationship-sourced facility — not from a backward calculation that begins with what sounds attractive to investors. The yield is the product of the structure, not the other way around. I have zero management fee and zero carried interest in this fund because I believe the alignment between my interests and investor interests should be absolute: I earn only when the Fund earns above the fixed investor yield. If we underperform, I underperform. That is the only model I am willing to operate under. I present Draft Horse to qualified institutional allocators as a specific, documented, collateral-secured credit opportunity with a known borrower, a fully structured facility, and a quantifiable five-layer recovery framework. I am prepared to support every element of this presentation with documentation under appropriate confidentiality protocols.</p>
+
+      <div class="cio-letter-sig">
+        <div class="cio-letter-sig-name">Caleb Caraway</div>
+        <div class="cio-letter-sig-title">CIO — Dark Horse Wealth Management &nbsp;|&nbsp; Managing Partner — Draft Horse Capital Partners LLC</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      This letter represents the personal views of the Principal and is provided for informational context only. It does not modify, supersede, or supplement the Fund's Private Placement Memorandum. All investments involve risk. Target yields are not guaranteed. Prospective investors should review the complete PPM and consult their own advisors before investing.
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       03 — EXECUTIVE SUMMARY
+  ============================================================ -->
+  <section class="section" id="exec-summary">
+    <div class="section-header">
+      <div class="section-number">Section 03</div>
+      <div class="section-title">Executive Summary</div>
+      <div class="section-subtitle">Strategy, structure, yield, collateral, pipeline, and fee model — the complete overview</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="stat-value">17%</div>
+        <div class="stat-label">Maximum Target Yield (p.a.)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">$100M</div>
+        <div class="stat-label">Active Deployment Pipeline</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">5</div>
+        <div class="stat-label">Independent Collateral Layers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Zero</div>
+        <div class="stat-label">Management Fees / Carry</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Qtrly</div>
+        <div class="stat-label">Distribution Frequency</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">36 Mo.</div>
+        <div class="stat-label">Investor Term / Matched Funding</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="card card-gold">
+        <h3>The Fund in One Paragraph</h3>
+        <p>Draft Horse Capital Partners LLC is a single-mandate structured private credit fund that deploys capital through a direct, UCC-1 secured senior lending facility to a single institutional PE sponsor. The Fund is collateralized against five independent asset layers — operating cash flows, physical real estate and inventory, 100% portfolio company equity, Gulfstream G550 aviation assets, and a PE sponsor guaranty backed by dual equity alignment. Investors receive a fixed tiered yield of 9%–17% per annum, paid quarterly, on a 36-month term with 100% principal return at maturity. The Fund charges zero management fees and zero carried interest. The borrower is already identified. The deployment is ready. The deal is waiting on investor capital, not the other way around.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Investment Strategy</h3>
+          <ul>
+            <li><strong>Single-mandate focus:</strong> One borrower relationship, one credit facility, maximum collateral depth and monitoring precision</li>
+            <li><strong>Security perfected via UCC-1:</strong> First-priority claim against five independent collateral layers</li>
+            <li><strong>Collateral-first underwriting:</strong> Every dollar lent is backed by specific, appraised, legally encumbered assets</li>
+            <li><strong>36-month matched funding:</strong> Investor lock aligns perfectly with deployment term — no maturity mismatch, no redemption pressure</li>
+            <li><strong>Zero-fee architecture:</strong> Fund retains spread above investor yield; GP incentive is to generate more, not charge more</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Structural Differentiators</h3>
+          <ul>
+            <li><strong>Dual-counterparty alignment:</strong> PE sponsor holds equity in both the borrowing entity AND the charter company — double incentive to prevent default</li>
+            <li><strong>Aviation equity income:</strong> Fund holds 40% equity per Gulfstream G550 jet, targeting 24 jets — an independent income stream above and beyond the credit spread</li>
+            <li><strong>Deployment-ready:</strong> No ramp period — first dollar in, first dollar deployed against an identified, documented facility</li>
+            <li><strong>Institutional infrastructure:</strong> NAV Fund Services, Axos Bank, Spicer Jeffries LLP, SCALE LLP — operational standard of a mature institutional fund</li>
+            <li><strong>Operator alignment:</strong> Principal deploys personal capital alongside investor capital — structural co-investment, not mere representation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>The Investor Value Proposition — Why This, Why Now</h3>
+        <p>The fundamental question for any sophisticated allocator is not "what is the yield?" — it is "what am I actually buying?" In Draft Horse, you are buying a secured, senior position in a directly negotiated private credit facility, with a counterparty who is financially incentivized not to default on both the credit AND the hard asset collateral, on a 36-month term that matches deployment duration exactly, at a fixed yield that no fee drag will erode, originated by a principal who has been doing this professionally for years and who has his own capital in the same position.</p>
+        <p>At the 17% tier — $50M+ committed — an investor receives $42,500 per quarter per $1 million invested, totaling $170,000 in annual income and $510,000 over the 3-year term, with $1,000,000 principal returned at maturity. Total value: $1,510,000 per $1 million committed. That is a 51% total return over 36 months, in a fully collateralized, no-fee, quarterly-income structure. The S&amp;P 500 delivered 29% over the last 3-year period with daily mark-to-market exposure, no income certainty, and no collateral protection. The comparison is not close.</p>
+      </div>
+
+      <div class="callout">
+        <strong>Principal Track Record:</strong> Caleb Caraway's flagship private credit vehicle, Corinthian Capital Partners, has delivered a documented 24% annual return to investors with distributions made monthly since inception. This track record is maintained at the operating entity level and is not audited by Spicer Jeffries LLP, which serves as auditor for Draft Horse Capital Partners specifically. Draft Horse is a separate, newly formed vehicle with its own independent audit and administration infrastructure. Prospective investors should not rely on Corinthian's track record as a guarantee of Draft Horse's performance.
+      </div>
+
+      <div style="background:rgba(8,12,24,0.7);border:1px solid var(--border);border-radius:5px;padding:28px 32px;margin-top:8px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Institutional Due Diligence Framework — What Is Available and When</div>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);margin-bottom:16px;">The following materials are available to qualified institutional investors at the indicated stage of the evaluation process. All materials marked "NDA Required" are provided under mutual non-disclosure agreement executed prior to document transfer.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Document / Information</th>
+              <th>Availability</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Private Placement Memorandum (PPM)</td>
+              <td class="td-gold">Available — SCALE LLP</td>
+              <td>Post-Accredited Investor Verification</td>
+            </tr>
+            <tr>
+              <td>Subscription Agreement &amp; Operating Agreement</td>
+              <td class="td-gold">Available — SCALE LLP</td>
+              <td>Post-Accredited Investor Verification</td>
+            </tr>
+            <tr>
+              <td>Borrower Identity &amp; Entity Documentation</td>
+              <td class="td-gold">Available — NDA Required</td>
+              <td>Qualified Investor IC Review Stage</td>
+            </tr>
+            <tr>
+              <td>Borrower Audited Financial Statements</td>
+              <td class="td-gold">Available — NDA Required</td>
+              <td>Qualified Investor IC Review Stage</td>
+            </tr>
+            <tr>
+              <td>Aircraft Appraisals (Independent)</td>
+              <td class="td-gold">Available — NDA Required</td>
+              <td>Qualified Investor IC Review Stage</td>
+            </tr>
+            <tr>
+              <td>UCC-1 &amp; FAA Registry Filing Documentation</td>
+              <td class="td-gold">Available at Fund Close</td>
+              <td>Post-Subscription (Public Record)</td>
+            </tr>
+            <tr>
+              <td>Credit Agreement (Redacted)</td>
+              <td class="td-gold">Available — NDA Required</td>
+              <td>Qualified Investor Advanced Diligence</td>
+            </tr>
+            <tr>
+              <td>Collateral Appraisals — Real Estate &amp; Inventory</td>
+              <td class="td-gold">Available — NDA Required</td>
+              <td>Qualified Investor Advanced Diligence</td>
+            </tr>
+            <tr>
+              <td>NAV Fund Services Administration Agreement</td>
+              <td class="td-gold">Available on Request</td>
+              <td>Any Stage</td>
+            </tr>
+            <tr>
+              <td>Spicer Jeffries Engagement Letter</td>
+              <td class="td-gold">Available on Request</td>
+              <td>Any Stage</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box" style="margin-top:0;">
+          Institutional investors conducting formal due diligence for investment committee purposes should contact the Principal directly to establish an appropriate NDA framework and due diligence data room access protocol. Legal review of all offering documents by the investor's own counsel is encouraged and expected.
+        </div>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       04 — INVESTMENT THESIS
+  ============================================================ -->
+  <section class="section" id="thesis">
+    <div class="section-header">
+      <div class="section-number">Section 04</div>
+      <div class="section-title">Investment Thesis</div>
+      <div class="section-subtitle">Why private credit, why sponsor-backed secured lending, and why the structural setup in Draft Horse is the highest-conviction expression of this thesis</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="card card-gold">
+        <h3>The Thesis in One Sentence</h3>
+        <p>Banks have permanently retreated from middle-market PE lending under Basel III/IV capital constraints; $3.9 trillion in private equity dry powder is sitting idle waiting for flexible credit solutions; and private credit managers who show up with committed capital, deep borrower relationships, and collateral discipline are capturing yield premiums at multi-decade highs — Draft Horse enters this environment with all three advantages already in place.</p>
+      </div>
+
+      <div class="card">
+        <h3>The Structural Void Banks Left Behind</h3>
+        <p>The Basel III regulatory cycle — implemented progressively from 2010 through full adoption in the mid-2020s — imposed significantly higher risk-weighted capital requirements on bank lending to middle-market and sponsor-backed borrowers. The economics of this lending category became structurally unattractive for regulated banks: the yield compression from competitive pricing, combined with elevated regulatory capital charges, made it mathematically difficult for banks to earn acceptable returns on equity. This was not a cyclical retreat — it was a permanent structural withdrawal driven by regulatory economics that will not reverse.</p>
+        <p>The void left by this withdrawal is where private credit has grown from a niche strategy to a $1.7+ trillion asset class in under a decade. The managers who moved into this space earliest — those with existing borrower relationships, deep credit expertise, and institutional-grade operations — captured the most attractive terms and the deepest collateral packages. Draft Horse enters this market not as a latecomer chasing compressed spreads, but as a collateral-disciplined direct lender with an existing $100M deployment relationship already structured and ready to execute.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Why Secured Sponsor-Backed Lending Specifically</h3>
+          <ul>
+            <li><strong>Borrower quality floor:</strong> PE sponsors are institutional operators with structured financials, professional management, and reputational equity at stake. Default carries career consequences for a sponsor, not just financial ones.</li>
+            <li><strong>Identifiable collateral:</strong> PE sponsors have specific, owned, appraised assets — not just future cash flows from speculative operations. The Fund lends against what exists, not what is projected.</li>
+            <li><strong>UCC-1 enforcement superiority:</strong> Perfected lien gives the Fund legally superior rights to collateral assets in any insolvency scenario — substantially higher recovery than unsecured creditors.</li>
+            <li><strong>Relationship monitoring:</strong> Direct sponsor relationship means real-time covenant visibility, no intermediary, and maximum early warning on any credit deterioration.</li>
+            <li><strong>No auction dynamics:</strong> Bilateral relationship means no competitive bid process, no broker fees, and no premium paid for deal access.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why the Draft Horse Structure Is the Best Expression</h3>
+          <ul>
+            <li><strong>Five-layer collateral architecture</strong> versus the industry standard of one or two — exponentially more recovery pathways in any stress scenario</li>
+            <li><strong>Dual counterparty equity alignment</strong> — same sponsor holds equity in both the borrowing entity AND the hard asset collateral company. Default is doubly painful for the sponsor.</li>
+            <li><strong>Aviation hard assets as terminal collateral</strong> — Gulfstream G550 aircraft are globally marketable, independently appraised, and maintain deep secondary market liquidity regardless of borrower's operating condition</li>
+            <li><strong>40% equity stake per jet</strong> — the Fund does not merely lend against aviation assets, it holds economic ownership. Aviation equity generates independent income above and beyond the credit spread.</li>
+            <li><strong>Zero-fee model</strong> — the structural incentive to generate more spread, not collect fees, creates superior alignment between GP and LP interests</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-critical">
+        <strong>The Core Proposition:</strong> Draft Horse Capital Partners offers accredited investors access to institutional-grade private credit yield — 9% to 17% annually, paid quarterly, secured by five independent collateral layers under perfected UCC-1 first-priority liens — with no management fee, no carried interest, no mark-to-market exposure, and an operator who deploys their own capital alongside investor capital in the same position. This combination does not exist in the public markets. It barely exists in the institutional private credit market. It is available here because the deal originated through a direct relationship, not a competitive process.
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       05 — MACRO TAILWINDS
+  ============================================================ -->
+  <section class="section" id="macro">
+    <div class="section-header">
+      <div class="section-number">Section 05</div>
+      <div class="section-title">Macro Tailwinds</div>
+      <div class="section-subtitle">Four structural forces that have made 2024–2027 the most favorable environment for secured private credit in a generation</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <p>Private credit does not operate in a vacuum. The yield premiums available in this asset class are not accidental — they are a direct function of structural forces that have reshaped capital markets over the past decade and show no sign of reversing. Draft Horse is positioned at the intersection of all four of them.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div class="macro-card">
+          <div class="macro-card-icon">🏦</div>
+          <div class="macro-card-title">Banks Are Out of Middle-Market Lending</div>
+          <div class="macro-card-body">
+            <p>Post-Basel III/IV, banks face significantly elevated risk-weighted capital requirements on middle-market and sponsor-backed loans. The math is simple and irreversible: a bank holding a $50M middle-market loan must hold more capital against it than ever before, compressing ROE to levels that make the activity economically sub-optimal. Banks are not "retreating" temporarily due to risk aversion — they are repricing the activity out of their business model permanently.</p>
+            <p style="margin-top:10px;">The resulting supply-demand imbalance is the foundational reason private credit yields are where they are. When a $10B institutional PE sponsor cannot get a bank to write a competitive middle-market facility, they turn to direct lenders. Direct lenders who have existing relationships and committed capital write the deal at premium rates. Draft Horse has both.</p>
+          </div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-card-icon">📈</div>
+          <div class="macro-card-title">Private Credit Is the Fastest-Growing Asset Class on Earth</div>
+          <div class="macro-card-body">
+            <p>Private credit AUM grew from under $500B in 2012 to over $1.7 trillion in 2024. Current projections from Preqin, BlackRock, and Apollo estimate the asset class will exceed $3.5 trillion by 2028 — driven not by speculation, but by the same structural bank withdrawal that created the initial void. Sovereign wealth funds, pension funds, insurance companies, and endowments are all allocating into private credit in scale for the first time in their institutional history.</p>
+            <p style="margin-top:10px;">Global PE dry powder currently stands at approximately $3.9 trillion. Every dollar of that dry powder eventually needs credit solutions to optimize returns. The demand side of private credit is structural, institutional, and growing. Draft Horse enters at a $100M scale against a single existing relationship — not competing for the top of the market, but capturing a specific, high-conviction opportunity within it.</p>
+          </div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-card-icon">✈️</div>
+          <div class="macro-card-title">Hard Asset Collateral Values Are Rising</div>
+          <div class="macro-card-body">
+            <p>The aviation hard assets serving as Draft Horse's Layer 4 collateral — Gulfstream G550 jets — operate in a global secondary market characterized by strong and rising demand. Business aviation activity has recovered fully from COVID-era disruptions, and large-cabin, ultra-long-range aircraft capable of transatlantic operations without refueling are in persistent structural shortage. Pre-owned G550 values have remained resilient because the supply pipeline (production ended in 2012) is fixed.</p>
+            <p style="margin-top:10px;">Commercial real estate — the brick-and-mortar component of Layer 2 — is in the early stages of recovery across key Texas markets, where the Fund's PE sponsor operates. Texas has benefited from the largest domestic population influx in the country, with commercial real estate demand following population and corporate relocation patterns. Layer 2 collateral is strengthening, not weakening.</p>
+          </div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-card-icon">🤠</div>
+          <div class="macro-card-title">Texas PE Ecosystem: The Fastest-Growing Private Capital Market in the U.S.</div>
+          <div class="macro-card-body">
+            <p>Texas has emerged as the most significant domestic competitor to New York and California for PE activity, driven by a combination of factors that are structural rather than cyclical: zero state income tax (both corporate and individual), an operator-friendly regulatory environment, a growing concentration of Fortune 500 corporate headquarters (ExxonMobil, AT&amp;T, Charles Schwab, HP, Oracle), and the largest domestic net population gain of any state in the country for four consecutive years.</p>
+            <p style="margin-top:10px;">The Draft Horse PE sponsor relationship operates within this ecosystem. Draft Horse is governed under Texas law. The PE platform, the borrower operations, the charter company, and the management entity are all rooted in one of the most economically dynamic and tax-efficient jurisdictions in the world. This is not incidental — it is a deliberate structural choice that reduces regulatory friction and optimizes the economic environment for the Fund's operations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-gold">
+        <h3>What These Tailwinds Mean for Draft Horse Investors — Concretely</h3>
+        <p>When banks retreat from middle-market lending, borrowers pay higher rates to private lenders — and those lenders pass a portion of that premium to investors in the form of elevated fixed yields. The 9%–17% yield tier structure in Draft Horse is not arbitrary — it reflects the genuine spread premium available in the current supply-constrained PE lending market, delivered through a direct relationship that eliminates intermediary friction.</p>
+        <p>When private credit AUM grows toward $3.5 trillion, the demand for direct lenders with existing borrower relationships — rather than auction-process participants — becomes more valuable, not less. Draft Horse's existing pipeline is not threatened by the growth of the asset class; it is protected by the exclusivity of the direct relationship.</p>
+        <p>When hard asset values rise, the Fund's collateral cushion expands in real terms. A G550 valued at $30–45M is worth more to enforcement than one valued at $20M. Rising Texas commercial real estate values strengthen the Layer 2 position. Macro tailwinds are working for the collateral, not against it.</p>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       06 — FUND TERMS
+  ============================================================ -->
+  <section class="section" id="terms">
+    <div class="section-header">
+      <div class="section-number">Section 06</div>
+      <div class="section-title">Fund Terms</div>
+      <div class="section-subtitle">Complete fund terms, tiered yield schedule, fee structure, and the structural case for the 36-month term</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="two-col">
+        <div class="card">
+          <h3>Fund Structure</h3>
+          <ul class="label-val-list">
+            <li><span class="lv-label">Legal Entity</span><span class="lv-val">Draft Horse Capital Partners LLC</span></li>
+            <li><span class="lv-label">Governing Law</span><span class="lv-val">State of Texas</span></li>
+            <li><span class="lv-label">Formation Date</span><span class="lv-val">February 23, 2026</span></li>
+            <li><span class="lv-label">Securities Exemption</span><span class="lv-val">Reg D Rule 506(c)</span></li>
+            <li><span class="lv-label">Fund Exclusion</span><span class="lv-val">§3(c)(1) Investment Company Act</span></li>
+            <li><span class="lv-label">Fund Structure</span><span class="lv-val">Indefinite, Open-Ended LLC</span></li>
+            <li><span class="lv-label">Managing Entity</span><span class="lv-val">Draft Horse Wealth Management LLC</span></li>
+            <li><span class="lv-label">Principal / CIO</span><span class="lv-val">Caleb Caraway</span></li>
+            <li><span class="lv-label">Securities Counsel</span><span class="lv-val">SCALE LLP / Dori Karjian</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Investor Terms</h3>
+          <ul class="label-val-list">
+            <li><span class="lv-label">Minimum Subscription</span><span class="lv-val td-gold">$200,000</span></li>
+            <li><span class="lv-label">Investor Lock-Up</span><span class="lv-val">36 Months — No Early Redemption</span></li>
+            <li><span class="lv-label">Principal Return</span><span class="lv-val">100% at Maturity</span></li>
+            <li><span class="lv-label">Distribution Frequency</span><span class="lv-val">Quarterly</span></li>
+            <li><span class="lv-label">Target Yield</span><span class="lv-val td-gold">9%–17% p.a. Fixed, Tiered</span></li>
+            <li><span class="lv-label">Management Fee</span><span class="lv-val td-green">None</span></li>
+            <li><span class="lv-label">Performance Fee / Carry</span><span class="lv-val td-green">None</span></li>
+            <li><span class="lv-label">Eligible Investors</span><span class="lv-val">Verified Accredited Only</span></li>
+            <li><span class="lv-label">Currency</span><span class="lv-val">USD</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIERED YIELD -->
+      <div class="card card-gold">
+        <h3>Tiered Annual Yield Structure</h3>
+        <p style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:22px;">Fixed target annual return by cumulative fund AUM. Rates are fixed at the prevailing tier at time of subscription. Higher commitment levels lock in higher rates for the full 36-month term.</p>
+
+        <div class="yield-tier"><span class="yield-label">Tier 1 — up to $10M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:53%"><span class="yield-pct">9.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 2 — $10M–$15M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:59%"><span class="yield-pct">10.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 3 — $15M–$20M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:65%"><span class="yield-pct">11.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 4 — $20M–$25M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:71%"><span class="yield-pct">12.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 5 — $25M–$30M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:76%"><span class="yield-pct">13.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 6 — $30M–$35M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:82%"><span class="yield-pct">14.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 7 — $35M–$50M</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:88%"><span class="yield-pct">15.0%</span></div></div></div>
+        <div class="yield-tier"><span class="yield-label">Tier 8 — $50M+</span><div class="yield-bar-wrap"><div class="yield-bar" style="width:100%"><span class="yield-pct">17.0%</span></div></div></div>
+
+        <div class="info-box" style="margin-top:20px;">
+          <strong>Important:</strong> Tiered yields are targets and are not guaranteed. Distributions are dependent on Fund performance and borrower obligations. Rates are fixed at the tier prevailing at the time of subscription and do not reset during the 36-month term. Investors do not benefit from AUM increases above their entry tier and are not penalized by AUM decreases below it — their rate is locked.
+        </div>
+      </div>
+
+      <!-- FEE STRUCTURE -->
+      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.07),rgba(8,12,24,0));border:2px solid var(--gold);border-radius:6px;padding:32px 36px;margin-bottom:24px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;">Fee Structure</div>
+        <div style="font-size:1.45rem;color:var(--gold-light);font-family:'Georgia',serif;margin-bottom:18px;">Zero. None. Fully Transparent.</div>
+        <p style="color:var(--text);font-size:14px;line-height:1.75;margin-bottom:20px;">Most private credit funds charge 1–2% annual management fees on committed capital — money you pay whether the fund performs or not — plus 10–20% carried interest on profits. A 1.5% management fee on $100M is $1.5M per year extracted from the fund before a dollar reaches investors. Draft Horse charges none of this. The Fund's economics come exclusively from the spread between what the borrower pays and what investors receive. The incentive structure is simple: generate more spread, not collect more fees.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Fee Category</th>
+              <th>Draft Horse</th>
+              <th>Typical Private Credit Fund</th>
+              <th>Typical PE Fund</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="td-highlight">
+              <td>Management Fee</td>
+              <td class="td-gold">None</td>
+              <td>1.0–2.0% annually</td>
+              <td>1.5–2.0% annually</td>
+            </tr>
+            <tr>
+              <td>Performance Fee / Carry</td>
+              <td class="td-gold">None</td>
+              <td>10–20% of profits</td>
+              <td>20% of profits</td>
+            </tr>
+            <tr class="td-highlight">
+              <td>Waterfall / Hurdle Rate</td>
+              <td class="td-gold">N/A — No Waterfall</td>
+              <td>6–8% preferred return</td>
+              <td>8% preferred return</td>
+            </tr>
+            <tr>
+              <td>Annual Fee Drag on $10M</td>
+              <td class="td-green">$0</td>
+              <td class="td-red">$150K–$200K/yr + carry</td>
+              <td class="td-red">$150K–$200K/yr + 20% carry</td>
+            </tr>
+            <tr class="td-highlight">
+              <td>Investor Fixed Return</td>
+              <td class="td-gold">9–17% (fixed, tiered)</td>
+              <td>Variable / uncertain</td>
+              <td>Variable / uncertain</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- WHY 36 MONTHS -->
+      <div class="card card-gold">
+        <h3>Why 36 Months? — The Structural Case for the 3-Year Term</h3>
+        <p>The 36-month investor commitment is a deliberate structural decision that creates alignment simultaneously across investors, the Fund, and the borrower. This is not a restriction — it is the mechanism that makes the yield achievable, and the discipline that protects every investor in the pool from the actions of every other.</p>
+        <br>
+        <div class="two-col">
+          <div>
+            <h4>What the 36-Month Term Does for Investors</h4>
+            <ul>
+              <li><strong>Rate locked at entry:</strong> Your tier rate is fixed at subscription and does not reset. In a declining rate environment, you continue earning at your locked rate. In a competitive landscape where yields compress, early investors are protected on the downside permanently.</li>
+              <li><strong>Premium for commitment:</strong> The 9%–17% yield is explicitly priced to compensate for the liquidity premium. Shorter-duration capital cannot command this yield in any comparable instrument. The term is the source of the premium, not a cost of the premium.</li>
+              <li><strong>No reinvestment risk:</strong> A defined 36-month term eliminates the compounding drag of redeploying capital at varying rates. Your return begins accruing from day one at a fixed, known rate.</li>
+              <li><strong>Tax efficiency:</strong> A qualifying 36-month hold may receive long-term capital gains treatment on appreciation for eligible investors — reducing the effective tax burden relative to ordinary income treatment on shorter-duration instruments.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>What the 36-Month Term Does for the Fund and Borrower</h4>
+            <ul>
+              <li><strong>No redemption pressure:</strong> The Fund cannot be forced to liquidate positions to meet redemptions. This enables full, immediate deployment without cash drag — every dollar earns from day one.</li>
+              <li><strong>Matched funding architecture:</strong> The Fund deploys on 36-month tranches. Matching investor duration creates a perfect asset-liability match — eliminating the maturity mismatch that has caused structural failures in other private credit vehicles.</li>
+              <li><strong>Stronger covenant negotiation:</strong> Stable committed capital enables the Fund to negotiate tighter covenants and better terms from borrowers. A fund vulnerable to redemption is a structurally weaker counterparty at the negotiating table.</li>
+              <li><strong>Borrower operational certainty:</strong> A 36-month credit facility gives the PE sponsor certainty for long-term operational planning, capital investment, and growth — which is precisely why they're willing to pay the premium rate that generates the investor yield.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:16px;">
+          <strong>Bottom Line:</strong> The 36-month term is the structural engine that makes 9%–17% yield achievable and sustainable. Investors are compensated, generously, for the stability their commitment provides. The lock-up is not a cost — it is the reason the yield exists.
+        </div>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       07 — FIVE-LAYER COLLATERAL ARCHITECTURE
+  ============================================================ -->
+  <section class="section" id="collateral">
+    <div class="section-header">
+      <div class="section-number">Section 07</div>
+      <div class="section-title">Five-Layer Collateral Architecture</div>
+      <div class="section-subtitle">This is not typical private credit. Five independent, separately enforceable collateral positions under a single UCC-1 framework.</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="callout-critical">
+        <strong>"Five Layers of Downside Protection — This Is Not Typical Private Credit"</strong><br><br>
+        Most private credit funds have one collateral layer — operating cash flows, or a real estate mortgage, or a stock pledge. Some have two. Draft Horse has five, each independently enforceable, each covering different asset classes with different liquidity profiles and different legal enforcement pathways. The Fund does not need all five to succeed. The Fund needs exactly one layer to hold in a default scenario to recover principal in full. The other four are structural redundancy that no other single-mandate fund at this scale has bothered to build.
+      </div>
+
+      <!-- LAYER STACK -->
+      <div class="layer-stack" style="margin:28px 0;">
+
+        <div class="layer-item layer-1">
+          <div class="layer-badge">Layer 1 — First Strike</div>
+          <div class="layer-title">PE Portfolio Company Cash Flows</div>
+          <div class="layer-body">
+            <p><strong>What it is:</strong> A perfected assignment of all cash flow rights and receivables generated by the PE sponsor's operating portfolio companies. Under UCC §9-607, upon a default event, the Fund delivers written notice to all of the borrower's account debtors — the entities that owe money to the borrower — redirecting all outstanding and future payments directly to the Fund.</p>
+            <p style="margin-top:10px;"><strong>Why it's powerful:</strong> Cash flow enforcement is the fastest-acting tool in the collateral package. It does not require physical seizure of assets, court intervention, or complex sale processes. The Fund intercepts income at the source, within 30–60 days of acceleration. This layer is the "first strike" in any enforcement scenario — it generates immediate cash and preserves the Fund's liquidity while longer-duration asset enforcement proceeds in parallel.</p>
+            <p style="margin-top:10px;"><strong>Monitoring:</strong> Cash flows are monitored on an ongoing basis through fund administration and direct borrower reporting covenants. Any material deviation from projected cash flow triggers a covenant review prior to any payment default.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:6px 0;color:var(--border);font-size:20px;">↓</div>
+
+        <div class="layer-item layer-2">
+          <div class="layer-badge">Layer 2 — Physical Asset Base</div>
+          <div class="layer-title">Brick-and-Mortar Real Estate &amp; Inventory</div>
+          <div class="layer-body">
+            <p><strong>What it is:</strong> UCC-1 perfected security interest against all tangible physical assets of the PE sponsor's portfolio companies — commercial and operational real estate, business inventory, equipment, fixtures, and all physical property. This encompasses every physical asset the borrower owns, from the buildings they operate in to the inventory stacked in their warehouses.</p>
+            <p style="margin-top:10px;"><strong>Why it's powerful:</strong> Physical assets are independent of operating performance. Even if cash flows compress due to a business cycle, the real estate and inventory have standalone appraised values that do not move in direct correlation to EBITDA. In a Texas commercial real estate market that is actively appreciating due to corporate relocation and population growth, this layer's value is increasing over the term of the loan, not decreasing.</p>
+            <p style="margin-top:10px;"><strong>Enforcement:</strong> Under UCC §9-610, the Fund may arrange commercially reasonable public or private disposition of encumbered inventory and personal property. Real estate disposition proceeds apply against principal and accrued interest.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:6px 0;color:var(--border);font-size:20px;">↓</div>
+
+        <div class="layer-item layer-3">
+          <div class="layer-badge">Layer 3 — Control Override</div>
+          <div class="layer-title">100% Portfolio Company Equity Pledge</div>
+          <div class="layer-body">
+            <p><strong>What it is:</strong> A pledge of 100% of the PE sponsor's equity interests in all portfolio company holdings. In a default event, the Fund does not merely claim against assets from the outside — the Fund steps into ownership control of the operating businesses themselves. This is the nuclear enforcement option: the Fund becomes the operator, with full authority to manage, restructure, or dispose of the underlying businesses in its entirety.</p>
+            <p style="margin-top:10px;"><strong>Why it's powerful:</strong> Most private credit funds get a lien against assets. Draft Horse gets ownership rights. If the PE sponsor defaults and the operating businesses are healthy — generating cash, holding valuable assets — the Fund can take control, continue operations, and extract full value over time rather than forcing a distressed fire sale. The equity pledge is a recovery-maximizing tool, not merely an enforcement mechanism.</p>
+            <p style="margin-top:10px;"><strong>Practical note:</strong> Exercise of equity pledge rights is coordinated by SCALE LLP and complies with applicable securities law governing transfer of privately-held equity interests. This layer is reserved for use when Layers 1 and 2 alone are insufficient to satisfy the outstanding obligation.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:6px 0;color:var(--border);font-size:20px;">↓</div>
+
+        <div class="layer-item layer-4">
+          <div class="layer-badge">Layer 4 — Hard Asset Terminal Value</div>
+          <div class="layer-title">Gulfstream G550 Aviation Fleet — UCC-1 &amp; FAA Registry Perfected First Lien</div>
+          <div class="layer-body">
+            <p><strong>What it is:</strong> A perfected first-priority security interest in a fleet of Gulfstream G550 large-cabin, ultra-long-range business jets operated by the charter company in which the PE sponsor holds equity. Security perfection is achieved through dual-filing: (i) UCC-1 financing statement under Article 9 of the Uniform Commercial Code in the applicable state of the debtor's organization, and (ii) conveyance notation on the FAA Civil Aviation Registry in Oklahoma City, Oklahoma, pursuant to 49 U.S.C. § 44107 and 14 C.F.R. Part 49 — the federal filing that governs priority of interests in U.S.-registered civil aircraft. For international operational contexts, the Fund's counsel evaluates applicability of the Cape Town Convention (Aircraft Protocol) as an additional layer of international priority protection. Each aircraft is independently appraised prior to lien filing. Each aircraft generates $2.1M–$3.1M in net profit annually from commercial charter operations. Dark Horse holds 40% equity per aircraft — a direct economic ownership stake yielding $840K–$1.24M per jet annually. Target fleet: 24 aircraft. At full build-out, aviation equity income alone generates $20.2M–$29.8M per year.</p>
+            <p style="margin-top:10px;"><strong>Why it's powerful — secondary market liquidity:</strong> Gulfstream G550 aircraft are among the most globally liquid categories of physical collateral in private credit. Each aircraft — independently appraised in the current range of $30–45M — can be marketed to qualified institutional buyers across the United States, Europe, the Middle East, and Asia-Pacific through established remarketing intermediaries (including AVPRO, jetAVIVA, and comparable institutional brokers) with demonstrated transaction execution timelines of 60–180 days under normal market conditions. The aircraft is physically mobile — it can be repositioned to the most advantageous sale market at the Fund's direction. Unlike fixed real estate or privately-held equity interests, the G550 secondary market has deep buyer pools in multiple jurisdictions and a transparent, observable pricing benchmark.</p>
+            <p style="margin-top:10px;"><strong>Income preservation during enforcement:</strong> In an enforcement scenario, charter operations continue generating revenue from the aircraft while the remarketing process proceeds. The Fund exercises its pledge rights over the charter company equity simultaneously — placing a court-appointed receiver over charter operations if necessary — preserving the aircraft's income-generating capacity and maintaining asset condition and maintenance currency during the remarketing period. An aircraft that is operationally current, maintained, and revenue-generating commands a materially higher market price than one that has been grounded.</p>
+            <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:14px 18px;margin-top:14px;">
+              <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Note for Infrastructure-Mandate Allocators</div>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;">The Gulfstream G550 charter fleet constitutes <strong>operating aviation infrastructure</strong> — a revenue-generating real asset business with contracted utilization, defined maintenance obligations, and a quantifiable income stream. For sovereign and institutional allocators whose mandate includes infrastructure, real assets, logistics, or transportation, Layer 4 represents an identifiable infrastructure asset position embedded within a secured credit structure. The Fund holds both a senior perfected debt claim against the aircraft (lien) and a 40% equity ownership stake in the operating entity — providing dual exposure to the asset class. The Middle East and Asia-Pacific business aviation market, in particular, has demonstrated strong and rising charter demand from corporate and government users, supporting the income and asset value assumptions underpinning this layer.</p>
+            </div>
+            <div style="background:rgba(201,168,76,0.07);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin-top:12px;">
+              <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Aviation Equity Economics — Target 24-Jet Fleet</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;">
+                <div><div style="font-size:18px;color:var(--gold);font-family:'Georgia',serif;">$30–45M</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">Appraised Value Per Aircraft</div></div>
+                <div><div style="font-size:18px;color:var(--gold);font-family:'Georgia',serif;">40%</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">Dark Horse Equity Per Jet</div></div>
+                <div><div style="font-size:18px;color:var(--gold);font-family:'Georgia',serif;">$840K–$1.24M</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">Annual Income Share Per Jet</div></div>
+                <div><div style="font-size:18px;color:var(--gold);font-family:'Georgia',serif;">$20.2–$29.8M</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;">Target Annual Aviation Income (24 Jets)</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;padding:6px 0;color:var(--border);font-size:20px;">↓</div>
+
+        <div class="layer-item layer-5">
+          <div class="layer-badge">Layer 5 — The Alignment Lock — Dual Equity Counterparty</div>
+          <div class="layer-title">PE Sponsor Guaranty — Both Sides of the Transaction</div>
+          <div class="layer-body">
+            <p><strong>What it is:</strong> The PE sponsor provides a personal or entity guaranty against the credit facility. But the extraordinary fact here — the structural differentiator that no other single-mandate fund in this market can replicate — is that this same PE sponsor co-owns the charter company that operates the aircraft serving as Layer 4 collateral. The sponsor holds equity on BOTH sides of the transaction: as the primary borrowing entity AND as a co-owner of the hard asset collateral vehicle.</p>
+            <p style="margin-top:10px;"><strong>Why this is extraordinary:</strong> In a default scenario, the PE sponsor faces impairment from two independent directions simultaneously. Their borrowing entity is in default — damaging their creditworthiness, their investor relationships, and their professional reputation. Their charter company equity — a separately valuable, operating business asset — is subject to enforcement. The sponsor's financial self-interest in preventing default is doubled by this structure. They are not a counterparty who faces credit consequences alone. They face credit consequences AND the loss of a separately held, income-generating hard asset business in which they have meaningful personal equity.</p>
+            <p style="margin-top:10px;"><strong>The structural implication:</strong> Layer 5 is not merely a guaranty. It is a structural alignment mechanism that makes the sponsor's financial incentive to perform perfectly consistent with the Fund's incentive to be repaid. This level of counterparty alignment — the same entity having equity exposure on both the liability side and the hard asset collateral side — is exceptionally rare in middle-market private credit. It exists here because the relationship was structured directly, bilaterally, without intermediary, by a principal who thought carefully about what alignment actually looks like in practice.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-gold">
+        <h3>The Five-Layer Framework: What Needs to Go Wrong for Investors to Lose Principal</h3>
+        <p>Every sophisticated allocator's first question about a concentrated private credit fund is: "What has to go wrong for us to lose money?" In Draft Horse, the answer requires a specific, sequential analysis:</p>
+        <br>
+        <p><strong>For investors to lose principal in Draft Horse, all of the following must occur simultaneously:</strong></p>
+        <ul>
+          <li>Layer 1 fails: The PE sponsor's portfolio company cash flows collapse completely — not reduce, but collapse — to zero, AND</li>
+          <li>Layer 2 fails: The commercial real estate and inventory have zero recoverable value in disposition, AND</li>
+          <li>Layer 3 fails: The portfolio company equity, which the Fund could take over and operate, has no value whatsoever, AND</li>
+          <li>Layer 4 fails: Multiple Gulfstream G550 jets — each independently appraised at $30–45M, each with an active global secondary market — simultaneously become unsaleable, AND</li>
+          <li>Layer 5 fails: The PE sponsor's personal guaranty, backed by their equity position in a separately operated charter company, is also worthless.</li>
+        </ul>
+        <br>
+        <p>The probability of total loss across all five layers simultaneously is, under any scenario analysis the Fund has conducted, materially lower than the probability of total loss in a single-collateral private credit structure — not because any of the five layers is risk-free, but because they represent five distinct asset classes with low correlation to one another in stress scenarios. Aviation hard asset values are not directly correlated to PE operating business performance. Commercial real estate valuations move independently of EBITDA cycles. Portfolio company equity may be impaired and still have positive enterprise value recoverable through a controlled wind-down. The structure was designed so that each layer is independently enforceable and independently recoverable, and so that impairment in one layer does not automatically transfer to the others. Investors should review the full risk disclosures in Section 11 and in the PPM for a complete analysis. The five-layer structure reduces but does not eliminate the risk of principal loss.</p>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       08 — $100M DEPLOYMENT MODEL
+  ============================================================ -->
+  <section class="section" id="deployment">
+    <div class="section-header">
+      <div class="section-number">Section 08</div>
+      <div class="section-title">$100M Deployment Model</div>
+      <div class="section-subtitle">How investor capital flows, how the facility is structured, and exactly what investors receive — the complete economics</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="card card-gold">
+        <h3>Overview — The $100M Single-Mandate Deployment</h3>
+        <p>Draft Horse's initial deployment is a single $100M structured credit facility extended to one institutional PE sponsor under a comprehensive credit agreement. The entire deployment occurs under the five-layer collateral architecture described in Section 07. From the moment investor capital closes, it is deployed — earning from day one, with no ramp period, no idle cash, and no speculative origination period.</p>
+        <p style="margin-top:12px;">At the $50M+ AUM tier, investors receive the full 17% annual yield — the most attractive tier in the Fund's structure. This corresponds to quarterly distributions of 4.25% of invested principal, with 100% of principal returned at 36-month maturity. The Fund's economics above the 17% investor yield — the spread between what the borrower pays and what investors receive — remain with the Fund as the GP's compensation. This is why no fees are charged: the spread is the fee, and the incentive is to maximize it by ensuring full deployment and zero defaults.</p>
+      </div>
+
+      <!-- CAPITAL FLOW DIAGRAM -->
+      <div class="card">
+        <h3>How Capital Flows Through the Structure</h3>
+        <div style="display:flex;flex-direction:column;gap:3px;margin:20px 0;">
+          <div style="background:rgba(201,168,76,0.1);border:1px solid var(--gold);border-radius:4px;padding:16px 22px;text-align:center;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Accredited Investors</div>
+            <div style="font-size:22px;color:var(--white);font-family:'Georgia',serif;">$100,000,000 Committed Capital</div>
+            <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin-top:4px;">Verified Accredited · Minimum $200,000 · 36-Month Lock · Quarterly Distributions</div>
+          </div>
+          <div style="text-align:center;padding:6px 0;color:var(--gold);font-size:22px;">↓</div>
+          <div style="background:var(--navy-card);border:1px solid var(--border);border-radius:4px;padding:16px 22px;text-align:center;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:6px;font-weight:700;">Draft Horse Capital Partners LLC</div>
+            <div style="font-size:18px;color:var(--white);font-family:'Georgia',serif;">Fund Entity — Secured Senior Lender</div>
+            <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin-top:4px;">Receives capital · Perfects UCC-1 lien · Deploys against PE sponsor · Distributes quarterly</div>
+          </div>
+          <div style="text-align:center;padding:6px 0;color:var(--gold);font-size:22px;">↓</div>
+          <div style="background:rgba(26,40,64,0.9);border:1px solid var(--border-dim);border-radius:4px;padding:16px 22px;text-align:center;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;font-weight:700;">Institutional PE Sponsor (Confidential)</div>
+            <div style="font-size:18px;color:var(--white);font-family:'Georgia',serif;">$100M Credit Facility · PE Debt Service Rate</div>
+            <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin-top:4px;">Pays debt service to Fund · Secured by Five-Layer Collateral Architecture · 36-Month Facility</div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top:20px;">
+          <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:4px;padding:18px 20px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-weight:700;">What Investors Receive</div>
+            <ul style="list-style:none;padding:0;">
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ 17% per annum fixed yield (at $50M+ tier)</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ Quarterly cash distributions (4.25%/quarter)</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ 100% principal return at 36-month maturity</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;">✓ UCC-1 five-layer collateral protection</li>
+            </ul>
+          </div>
+          <div style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:4px;padding:18px 20px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">What the Fund Retains</div>
+            <ul style="list-style:none;padding:0;">
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">↑ Spread above 17% from PE debt service rate</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">↑ 40% equity income per Gulfstream G550 jet</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">↑ All earnings above fixed investor yield</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;">↑ No management fee eroding investor return</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVESTOR MATH -->
+      <div class="investor-math">
+        <div class="investor-math-header">
+          <div class="investor-math-title">Investor Return Model — $1,000,000 Subscription at 17% Annual Yield (Tier 8 / $50M+)</div>
+          <span class="tag tag-gold">Illustrative — Target Yield, Not Guaranteed</span>
+        </div>
+        <div class="investor-math-body">
+          <div class="math-row">
+            <span class="math-row-label">Initial Subscription</span>
+            <span class="math-row-val big">$1,000,000</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Annual Yield (Tier 8 / $50M+)</span>
+            <span class="math-row-val">17.0% per annum</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Quarterly Distribution Rate</span>
+            <span class="math-row-val">4.25% per quarter</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Distribution Per Quarter</span>
+            <span class="math-row-val big" style="color:var(--green);">$42,500</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Annual Income</span>
+            <span class="math-row-val">$170,000 / year</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Total Distributions Over 36 Months (12 quarters)</span>
+            <span class="math-row-val big" style="color:var(--green);">$510,000</span>
+          </div>
+          <div class="math-row">
+            <span class="math-row-label">Principal Returned at Maturity (Month 36)</span>
+            <span class="math-row-val">$1,000,000</span>
+          </div>
+          <div class="math-row total">
+            <span class="math-row-label" style="color:var(--white);font-weight:700;font-size:15px;">Total Value Returned to Investor</span>
+            <span class="math-row-val big" style="font-size:32px;">$1,510,000</span>
+          </div>
+          <div style="margin-top:18px;padding:14px 0;border-top:1px solid var(--border-dim);display:flex;gap:24px;flex-wrap:wrap;">
+            <div style="text-align:center;">
+              <div style="font-size:24px;color:var(--gold);font-family:'Georgia',serif;">51%</div>
+              <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;">Total Return on Capital</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:24px;color:var(--gold);font-family:'Georgia',serif;">$170K</div>
+              <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;">Annual Income Per $1M</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:24px;color:var(--gold);font-family:'Georgia',serif;">12</div>
+              <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;">Quarterly Payments</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:24px;color:var(--green);font-family:'Georgia',serif;">Zero</div>
+              <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;">Fee Drag on Returns</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCALE TABLE -->
+      <div class="card">
+        <h3>Return Model at Scale — Multiple Commitment Sizes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Subscription</th>
+              <th>Annual Yield (Tier 8)</th>
+              <th>Quarterly Distribution</th>
+              <th>Annual Income</th>
+              <th>3-Year Income</th>
+              <th>Principal Return</th>
+              <th>Total Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-gold">$200,000 (Minimum)</td>
+              <td>17%</td>
+              <td>$8,500</td>
+              <td>$34,000</td>
+              <td>$102,000</td>
+              <td>$200,000</td>
+              <td class="td-gold">$302,000</td>
+            </tr>
+            <tr>
+              <td class="td-gold">$500,000</td>
+              <td>17%</td>
+              <td>$21,250</td>
+              <td>$85,000</td>
+              <td>$255,000</td>
+              <td>$500,000</td>
+              <td class="td-gold">$755,000</td>
+            </tr>
+            <tr>
+              <td class="td-gold">$1,000,000</td>
+              <td>17%</td>
+              <td>$42,500</td>
+              <td>$170,000</td>
+              <td>$510,000</td>
+              <td>$1,000,000</td>
+              <td class="td-gold">$1,510,000</td>
+            </tr>
+            <tr>
+              <td class="td-gold">$5,000,000</td>
+              <td>17%</td>
+              <td>$212,500</td>
+              <td>$850,000</td>
+              <td>$2,550,000</td>
+              <td>$5,000,000</td>
+              <td class="td-gold">$7,550,000</td>
+            </tr>
+            <tr>
+              <td class="td-gold">$10,000,000</td>
+              <td>17%</td>
+              <td>$425,000</td>
+              <td>$1,700,000</td>
+              <td>$5,100,000</td>
+              <td>$10,000,000</td>
+              <td class="td-gold">$15,100,000</td>
+            </tr>
+            <tr class="td-highlight">
+              <td class="td-gold"><strong>$50,000,000 (Full Tier 8)</strong></td>
+              <td>17%</td>
+              <td>$2,125,000</td>
+              <td>$8,500,000</td>
+              <td>$25,500,000</td>
+              <td>$50,000,000</td>
+              <td class="td-gold"><strong>$75,500,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">All figures are illustrative based on target 17% annual yield at the $50M+ tier. Yields are not guaranteed. Actual distributions depend on Fund performance and borrower obligations. Lower tier yields apply to subscriptions at earlier AUM levels. Consult the PPM for complete terms.</div>
+      </div>
+
+      <div class="callout">
+        <strong>The Fund Economics:</strong> At $100M fully deployed at Tier 8, the Fund distributes $17M/year to investors ($4.25M/quarter). The Fund earns the confidential spread above 17% from the PE sponsor's debt service rate — plus aviation equity income of $20.2M–$29.8M/year at 24-jet build-out. The Fund's GP earnings are generated by performing, not by charging fees. Every dollar the Fund fails to deploy is a dollar the Fund fails to earn spread on. The incentive structure is perfectly aligned.
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       09 — COMPETITIVE DIFFERENTIATION
+  ============================================================ -->
+  <section class="section" id="competitive">
+    <div class="section-header">
+      <div class="section-number">Section 09</div>
+      <div class="section-title">Competitive Differentiation</div>
+      <div class="section-subtitle">Draft Horse versus investment-grade bonds, high-yield bonds, BDCs, and typical PE funds — the comparison that matters</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="card card-gold">
+        <h3>The Honest Comparison — Where Draft Horse Wins and Where It Doesn't</h3>
+        <p>Any credible institutional analysis must acknowledge trade-offs honestly. Draft Horse wins on yield, fees, collateral protection, income frequency, and fee structure. It does not win on liquidity — investors are locked for 36 months with no early redemption. Sophisticated allocators understand this trade-off clearly: the yield premium exists <em>because of</em> the liquidity constraint. The 36-month lock is the source of the yield, not a cost of it. The comparison table below presents this trade-off in full.</p>
+      </div>
+
+      <!-- MAIN COMPARISON TABLE -->
+      <div style="overflow-x:auto;margin-bottom:24px;">
+        <table style="min-width:800px;">
+          <thead>
+            <tr>
+              <th>Characteristic</th>
+              <th style="background:rgba(201,168,76,0.12);color:var(--gold);">Draft Horse (Tier 8)</th>
+              <th>IG Corp Bonds</th>
+              <th>High-Yield Bonds</th>
+              <th>Typical BDC</th>
+              <th>Typical PE Fund</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="td-highlight">
+              <td><strong>Annual Yield / Target Return</strong></td>
+              <td class="td-gold" style="background:rgba(201,168,76,0.07);">17% (fixed, tiered)</td>
+              <td>4%–5%</td>
+              <td>6%–8%</td>
+              <td>8%–10%</td>
+              <td>15%–25% IRR (back-end, speculative)</td>
+            </tr>
+            <tr>
+              <td><strong>Management Fee</strong></td>
+              <td class="td-green" style="background:rgba(201,168,76,0.07);">None</td>
+              <td>None (direct)</td>
+              <td>None (direct)</td>
+              <td>1.5%–2.0% annually</td>
+              <td>1.5%–2.0% annually</td>
+            </tr>
+            <tr class="td-highlight">
+              <td><strong>Performance Fee / Carry</strong></td>
+              <td class="td-green" style="background:rgba(201,168,76,0.07);">None</td>
+              <td>None</td>
+              <td>None</td>
+              <td>20% of income above hurdle</td>
+              <td>20% of profits</td>
+            </tr>
+            <tr>
+              <td><strong>Collateral Protection</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> UCC-1 Five-Layer Perfected</td>
+              <td><span class="cross">✗</span> Typically Unsecured</td>
+              <td><span class="cross">✗</span> Typically Unsecured</td>
+              <td><span class="partial">~</span> Varies, Often Subordinated</td>
+              <td><span class="cross">✗</span> Equity Only — No Credit Protection</td>
+            </tr>
+            <tr class="td-highlight">
+              <td><strong>Mark-to-Market Exposure</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> None — Private</td>
+              <td><span class="cross">✗</span> Daily Public MTM</td>
+              <td><span class="cross">✗</span> Daily Public MTM</td>
+              <td><span class="cross">✗</span> Public Equity Volatility</td>
+              <td><span class="check">✓</span> None — But No Yield Either</td>
+            </tr>
+            <tr>
+              <td><strong>Income Frequency</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Quarterly Cash</td>
+              <td><span class="partial">~</span> Semi-Annual</td>
+              <td><span class="partial">~</span> Semi-Annual</td>
+              <td><span class="check">✓</span> Quarterly</td>
+              <td><span class="cross">✗</span> Rarely — Back-End Heavy</td>
+            </tr>
+            <tr class="td-highlight">
+              <td><strong>Principal Protection</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Fixed Return at Maturity</td>
+              <td><span class="partial">~</span> Par at Maturity (MTM Risk)</td>
+              <td><span class="partial">~</span> Par at Maturity (Default Risk)</td>
+              <td><span class="cross">✗</span> Market Price — Not Fixed</td>
+              <td><span class="cross">✗</span> No — Equity Risk</td>
+            </tr>
+            <tr>
+              <td><strong>Liquidity</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="cross">✗</span> 36-Month Lock (No Early Redemption)</td>
+              <td><span class="check">✓</span> Daily Liquidity</td>
+              <td><span class="check">✓</span> Daily Liquidity</td>
+              <td><span class="check">✓</span> Daily Liquidity</td>
+              <td><span class="cross">✗</span> 5–10 Year Lock (Typical)</td>
+            </tr>
+            <tr class="td-highlight">
+              <td><strong>Operator Co-Investment</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Yes — Personal Capital Deployed</td>
+              <td><span class="cross">✗</span> No</td>
+              <td><span class="cross">✗</span> No</td>
+              <td><span class="partial">~</span> Minimal / Nominal</td>
+              <td><span class="partial">~</span> GP Commitment (Often Nominal)</td>
+            </tr>
+            <tr>
+              <td><strong>Hard Asset Collateral</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Aviation Fleet + Real Estate + Inventory</td>
+              <td><span class="cross">✗</span> None</td>
+              <td><span class="cross">✗</span> None</td>
+              <td><span class="partial">~</span> Varies</td>
+              <td><span class="cross">✗</span> None — Pure Equity</td>
+            </tr>
+            <tr class="td-highlight">
+              <td><strong>Correlated to Public Markets</strong></td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Non-Correlated</td>
+              <td><span class="cross">✗</span> Rate Correlated</td>
+              <td><span class="cross">✗</span> Credit Spread Correlated</td>
+              <td><span class="cross">✗</span> Equity Correlated</td>
+              <td><span class="partial">~</span> Lagged Correlation</td>
+            </tr>
+            <tr>
+              <td><strong>Fee-Adjusted Net Yield</strong></td>
+              <td class="td-gold" style="background:rgba(201,168,76,0.07);"><strong>17% (no drag)</strong></td>
+              <td>4%–5%</td>
+              <td>6%–8%</td>
+              <td class="td-red">5%–7% (after fee drag)</td>
+              <td class="td-red">Uncertain (20% carry on back-end)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Verdict — The Honest Assessment for a Sophisticated Allocator</h3>
+        <div class="two-col">
+          <div>
+            <h4>Where Draft Horse Is Clearly Superior</h4>
+            <ul>
+              <li><strong>Net yield:</strong> 17% with zero fee drag versus 5–8% on public credit instruments after market pricing and, in BDC/PE cases, significant management fees and carry. This is not a marginal difference. It is a 2x–4x yield advantage.</li>
+              <li><strong>Collateral depth:</strong> Five-layer UCC-1 perfected architecture versus the typical single lien — or, in BDC/HY cases, no lien at all. If a borrower defaults, the Fund has five independent recovery pathways. HY bondholders have an unsecured claim.</li>
+              <li><strong>Fee structure:</strong> Zero management fee, zero carry, zero complexity. Every dollar of committed capital works for the investor. In a 1.5%/20% structure, the fee drag on a $10M position is $150K/year plus 20% of profits taken off the top. That is real money extracted from investor returns that Draft Horse simply does not charge.</li>
+              <li><strong>No mark-to-market:</strong> Draft Horse's NAV does not fluctuate daily with rate moves or credit spread widening. An investment at 17% today is worth 17% tomorrow, regardless of what the Fed does. IG bondholders in 2022 lost 18% of NAV in a single year while earning 3% yield. That scenario is structurally impossible in Draft Horse.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Where Alternatives Are Superior — The Honest Trade-Off</h4>
+            <ul>
+              <li><strong>Liquidity:</strong> Public market instruments offer daily liquidity. Draft Horse offers none. Investors who require the ability to exit within 36 months should not invest in Draft Horse. This is an explicit, unambiguous constraint and a material risk factor that should be fully understood before subscribing.</li>
+              <li><strong>Diversification:</strong> Investment-grade bond portfolios or BDCs diversify across hundreds of issuers. Draft Horse is concentrated in a single borrower relationship. This concentration is the source of the yield premium — it is also a real risk that is disclosed fully in Section 11.</li>
+              <li><strong>Track record:</strong> BlackRock, Ares, and Apollo have 10+ year fund track records. Draft Horse Capital Partners was formed in February 2026. The Principal's track record at Corinthian Capital Partners is compelling, but it is not the same as a 10-year institutional fund history. Investors should weight this appropriately.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:16px;">
+          <strong>The Institutional Summary:</strong> For a qualified allocator with a 3-year time horizon who does not require interim liquidity and who can evaluate direct private credit on a collateral basis, Draft Horse offers a yield, fee structure, and collateral architecture that materially outperforms every comparable instrument in the market. The illiquidity trade-off is real and acknowledged. For the right investor with the right time horizon, it is also the reason the yield exists.
+        </div>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       10 — PIPELINE
+  ============================================================ -->
+  <section class="section" id="pipeline">
+    <div class="section-header">
+      <div class="section-number">Section 10</div>
+      <div class="section-title">Pipeline</div>
+      <div class="section-subtitle">$100M active deployment — borrower identified, structure complete, deploying on close</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-value">$100M</div>
+          <div class="stat-label">Active Pipeline — Identified &amp; Structured</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">Day 1</div>
+          <div class="stat-label">Deployment Timing from Close</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">1</div>
+          <div class="stat-label">Institutional PE Sponsor — Existing Relationship</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Days of Idle Capital (Ramp Period)</div>
+        </div>
+      </div>
+
+      <div class="card" style="border:2px solid var(--gold);background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,rgba(8,12,24,0) 70%);">
+        <h3>The Most Critical Operational Fact About Draft Horse</h3>
+        <p>Draft Horse Capital Partners is not raising capital to search for a borrower. <strong>The borrower is already identified. The credit structure is fully developed. The collateral package is documented. The UCC-1 framework is ready to file upon close. There is zero ramp period.</strong> First dollar in — first dollar deployed, earning from day one.</p>
+        <br>
+        <p>This is the single most important operational differentiator between Draft Horse and virtually every other newly formed private credit fund in this market. Most first-time funds raise capital first and spend 12–24 months after close sourcing the deals they promised in their fundraising materials. During that period, investor capital sits in a money market account earning 4–5% while the manager collects the management fee and describes their deal pipeline as "active." Draft Horse has no pipeline to develop. It has a $100M commitment from an identified, diligenced, existing PE sponsor relationship that is ready to execute.</p>
+        <div class="pipeline-bar" style="margin-top:20px;">
+          <div class="pipeline-fill">$100,000,000 — Borrower Identified · Collateral Documented · Structure Ready · Deploying on Close</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Pipeline Characteristics</h3>
+          <ul class="label-val-list">
+            <li><span class="lv-label">Borrower Type</span><span class="lv-val">Institutional PE Sponsor (Confidential)</span></li>
+            <li><span class="lv-label">Relationship Status</span><span class="lv-val">Existing — Direct Principal Relationship</span></li>
+            <li><span class="lv-label">Pipeline Size</span><span class="lv-val td-gold">$100,000,000</span></li>
+            <li><span class="lv-label">Facility Type</span><span class="lv-val">Senior Secured Credit Facility</span></li>
+            <li><span class="lv-label">Deployment Term</span><span class="lv-val">36 Months per Tranche</span></li>
+            <li><span class="lv-label">Collateral Type</span><span class="lv-val">Five-Layer (see Section 07)</span></li>
+            <li><span class="lv-label">Deployment Timeline</span><span class="lv-val">Immediate Upon Fund Close</span></li>
+            <li><span class="lv-label">Deal Source</span><span class="lv-val">Direct — No Broker or Intermediary</span></li>
+            <li><span class="lv-label">Geographic Focus</span><span class="lv-val">United States (Texas Ecosystem)</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why This Pipeline Is Different</h3>
+          <ul>
+            <li><strong>Not hypothetical — the borrower exists:</strong> The borrower is identified, diligenced, and has committed to terms. The pipeline is a documented commitment, not a projection.</li>
+            <li><strong>No competitive process:</strong> This facility was not sourced through a broker, an investment bank, or an auction. It originated from a direct, private, years-long principal relationship. There is no competing bid, no spread compression from the deal-sourcing process, and no premium paid for access.</li>
+            <li><strong>Collateral pre-assessed:</strong> The five-layer collateral package — cash flows, real assets, equity, aviation assets, PE sponsor guaranty — was assessed, documented, and structured before the capital raise began. Investors step into a structured facility, not an origination process.</li>
+            <li><strong>Dual equity alignment in place:</strong> The PE sponsor's co-ownership of the charter company is a pre-existing structural fact — not something engineered for the fundraise. The alignment is real because the relationship predates the Fund.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Borrower Confidentiality &amp; Due Diligence Access</h3>
+        <p>The identity of the PE sponsor is maintained in strict confidence at this stage of the capital raise. This is a contractual obligation between the Fund and the borrower, not a fundraising choice. Full borrower due diligence materials — including entity name, portfolio company details, audited financial statements, collateral appraisals, and UCC-1 filing documentation — will be made available to qualified investors at the appropriate stage of the subscription process, subject to execution of a mutual non-disclosure agreement.</p>
+        <p style="margin-top:12px;">The Fund's securities counsel, SCALE LLP, manages all disclosure and confidentiality matters. Prospective investors who require early access to borrower identity for investment committee purposes should contact the Principal directly to discuss the appropriate NDA framework.</p>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       11 — RISK FACTORS
+  ============================================================ -->
+  <section class="section" id="risk">
+    <div class="section-header">
+      <div class="section-number">Section 11</div>
+      <div class="section-title">Risk Factors</div>
+      <div class="section-subtitle">Twelve institutional-grade risk disclosures — material, honest, and balanced. Read completely before investing.</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="callout" style="margin-bottom:28px;">
+        <strong>Important:</strong> The following risk factors represent material risks associated with an investment in Draft Horse Capital Partners LLC. This is not an exhaustive list. Prospective investors must review the complete risk disclosures in the Fund's Private Placement Memorandum prepared by SCALE LLP before making any investment decision. Investing in this Fund involves substantial risk, including the possible loss of all principal invested.
+      </div>
+
+      <div class="risk-item">
+        <h4>01 — Illiquidity and Lock-Up Risk</h4>
+        <p>Interests in Draft Horse Capital Partners are highly illiquid. There is no secondary market for Fund interests, and none is expected to develop. Investors are subject to a 36-month lock-up with no early redemption rights under any circumstances. Investors must be able to hold an illiquid position for the full 36-month term and should not commit funds they may require for liquidity, emergency, or other purposes during that period. The absence of redemption rights is a material, intentional structural feature — not a temporary restriction — and is fully reflected in the yield premium offered.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>02 — Borrower Default and Credit Risk</h4>
+        <p>The Fund's return is dependent on the PE sponsor borrower meeting payment obligations in full and on time. If the borrower defaults, the Fund must initiate enforcement proceedings against collateral — a process that may be time-consuming, costly, and may not result in full recovery of principal and accrued interest. The value of collateral at the time of enforcement may be less than the outstanding loan balance. Borrower financial condition may deteriorate due to factors outside the Fund's control, including macroeconomic developments, operational disruptions, management failures, or competitive pressure.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>03 — Single-Borrower Concentration Risk — The Most Material Risk in This Fund</h4>
+        <p>The Fund's deployment is concentrated entirely in a single borrower relationship. This is the most material risk in Draft Horse Capital Partners and should be evaluated carefully and completely by every prospective investor before committing capital. The credit risk is not diversified across counterparties — all exposure is to a single obligor. Any material adverse change in the borrower's financial condition, operating performance, management continuity, legal status, regulatory standing, or industry environment could impair the Fund's ability to recover principal and accrued interest in full, regardless of the breadth of the collateral framework. In a severe stress scenario, correlation between the values of different collateral layers held against a single enterprise is likely to be higher than diversified portfolio analysis would suggest — operating business impairment tends to reduce both cash flow and real asset values simultaneously, compressing the multi-layer recovery cushion in precisely the scenario where it is most needed.</p>
+        <p style="margin-top:12px;"><strong>Why concentration is also a structural feature:</strong> The single-borrower structure is a deliberate underwriting philosophy, not a default of capital formation. Direct bilateral lending to a known, evaluated counterparty enables monitoring depth, covenant responsiveness, and enforcement speed that are structurally unavailable in diversified portfolios. Against a single borrower, the Fund maintains real-time visibility into operations, cash flows, material events, and covenant compliance — with no intermediary, no syndicate agent, and no information delay. In broadly syndicated credit facilities with 30+ lenders, material adverse changes are frequently identified only after they have become defaults. In a direct bilateral facility, the Fund is the only creditor at the table and has both the contractual right and the operational relationship to act immediately on any deterioration signal. The concentration risk is real and material. So is the monitoring advantage it enables. Both must be weighed.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>04 — Collateral Valuation and Enforcement Risk</h4>
+        <p>The value of collateral assets — including real property, business assets, inventory, portfolio company equity, and aviation assets — may be worth materially less at the time of enforcement than estimated at origination. Collateral appraisals are point-in-time estimates and do not guarantee realizable values in a distressed or accelerated sale scenario. Even where the Fund holds a perfected UCC-1 first-priority lien, enforcement may involve time delays, legal costs, borrower contestation, and potential bankruptcy proceedings that temporarily halt or complicate recovery actions. There is no guarantee that enforcement will recover the full outstanding principal and accrued interest.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>05 — Aviation Asset Risk</h4>
+        <p>Gulfstream G550 aircraft serving as Layer 4 collateral are subject to risks specific to aviation assets, including FAA and international airworthiness requirements, maintenance cost variability, operational certification requirements, and market cycles in business aviation. Aircraft values may decline materially if demand for large-cabin business jets softens, if new competitive aircraft models compress valuations, or if the borrower's charter operations generate negative publicity or FAA enforcement action. If aircraft are located outside the United States during an enforcement event, repossession may require compliance with international aviation law and multi-jurisdictional legal processes.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>06 — Key Person Risk</h4>
+        <p>The Fund's investment strategy, borrower relationship, and collateral management are substantially dependent on the judgment, expertise, and continued involvement of Principal Caleb Caraway. The Fund's pipeline originated through a direct, personal relationship that cannot be easily transferred or replicated by a successor. If the Principal were to become unable or unwilling to continue in his capacity, the Fund's ability to manage existing investments, enforce against collateral in a workout scenario, and originate additional deployment opportunities could be materially impaired. The Fund does not currently maintain key person insurance. There can be no assurance that a suitable successor with equivalent borrower access could be identified in a timely manner.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>07 — Regulatory and Compliance Risk</h4>
+        <p>The Fund operates under Regulation D Rule 506(c) and §3(c)(1) of the Investment Company Act of 1940. The §3(c)(1) exclusion limits the Fund to 100 beneficial owners — a hard statutory cap that restricts AUM growth beyond the level achievable with 100 investors. Changes in securities laws, regulations, or SEC/FINRA enforcement priorities could affect the Fund's ability to raise capital, maintain its exemptions, or operate as currently structured. Failure to maintain the 506(c) accredited investor verification process — including incomplete verification of any single investor — could subject the Fund to regulatory sanction and potential loss of the Regulation D exemption.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>08 — New Fund and Limited Operating History Risk</h4>
+        <p>Draft Horse Capital Partners LLC was formed in February 2026 and has no operating history as a standalone fund vehicle. The Fund has not yet deployed capital, made distributions, navigated a credit deterioration, managed a covenant breach, or executed a workout or enforcement action. While the Principal brings a documented track record from Corinthian Capital Partners and related private credit operations, Draft Horse itself has no performance history. Service providers, operational systems, and governance procedures are newly established and untested under adverse conditions. Investors should not rely solely on the performance history of related entities as a predictor of Draft Horse's future results.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>09 — No Guarantee of Target Yields or Return of Principal</h4>
+        <p>The tiered yield structure represents target returns and is not guaranteed. Distributions are contingent on borrower performance and Fund cash flow. The Fund may not achieve its target yields in any given period and may not make distributions in any given quarter. The 100% principal return at maturity is a Fund obligation subject to the borrower's ability to repay and the Fund's ability to enforce against collateral. Principal is not insured, government-guaranteed, or protected by any third-party guarantee. Past performance of Corinthian Capital Partners or any related strategy does not guarantee future results for Draft Horse Capital Partners.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>10 — Tax and Reporting Risk</h4>
+        <p>An investment in Draft Horse Capital Partners may have complex and potentially adverse tax implications. Fund distributions may be treated as ordinary income to investors, subject to the highest applicable federal and state income tax rates. Pass-through entity tax treatment, potential UBTI considerations for tax-exempt investors, state and local tax obligations in multiple jurisdictions, and the treatment of return-of-capital components in distributions all require individualized tax analysis. The Fund's tax adviser, Spicer Jeffries LLP, serves the Fund — not individual investors. Prospective investors must consult their own tax counsel prior to investing and should not rely on any tax representations made in this data room.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>11 — Conflicts of Interest</h4>
+        <p>The Principal serves simultaneously as managing partner of multiple investment entities within the Dark Horse platform, including Corinthian Capital Partners and Quarter Horse Capital Partners, which have overlapping mandates and competing demands for management time, attention, and deal flow allocation. The Fund does not currently have an independent advisory board, audit committee, or investor representative body. The Principal is the sole decision-maker on all investment, operational, and governance matters. These structural characteristics create potential conflicts of interest that cannot be fully mitigated by disclosure alone. Investors have limited contractual rights to influence Fund management decisions and no veto rights over individual transactions.</p>
+      </div>
+
+      <div class="risk-item">
+        <h4>12 — Macroeconomic and Interest Rate Risk</h4>
+        <p>While the Fund's private credit structure eliminates direct mark-to-market exposure, the broader macroeconomic environment materially affects the Fund's risk profile in several ways. A prolonged economic downturn could simultaneously impair borrower cash flows and reduce collateral values — compressing recovery prospects in a default scenario precisely when enforcement is most critical. Rising interest rates reduce the relative attractiveness of the Fund's fixed yield to prospective investors in future periods and may affect the borrower's ability to service debt at the contracted rate. Geopolitical events, commodity price shocks, or systemic credit events could affect the business aviation market, commercial real estate valuations, or PE sponsor portfolio performance in ways that the Fund's collateral protections cannot fully offset.</p>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       12 — MANAGEMENT
+  ============================================================ -->
+  <section class="section" id="management">
+    <div class="section-header">
+      <div class="section-number">Section 12</div>
+      <div class="section-title">Management</div>
+      <div class="section-subtitle">Principal biography, track record, organizational structure, and platform overview</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="card card-gold">
+        <h3>Caleb Caraway — Principal &amp; Chief Investment Officer</h3>
+        <div style="display:flex;gap:28px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:280px;">
+            <p>Caleb Caraway is a multi-disciplinary investment principal and operator with a career spanning structured credit, private equity lending, fractional aviation, algorithmic trading, mineral resources, and institutional fine art. He serves as <strong>Managing Partner and CEO of Dark Horse Wealth Management</strong> — the private family office and governing entity at the top of his organizational structure — and as <strong>Senior Advisor at Aera Investment Bank</strong>, a full-service institutional advisory firm.</p>
+            <br>
+            <p>Caleb's private credit experience is the operational foundation underlying Draft Horse's structure. As Managing Partner of <strong>Corinthian Capital Partners</strong> — his flagship private credit vehicle — he has maintained a <strong>24% annual return to investors since inception, with distributions made monthly.</strong> This performance record is maintained at the operating entity level. Corinthian Capital Partners is a separate legal entity from Draft Horse Capital Partners and is audited by its own service providers. Past performance of Corinthian does not guarantee future results for Draft Horse. The relevance of the Corinthian track record is its evidence that the Principal has structured, managed, and distributed capital from a private credit vehicle through multiple market conditions — not that Draft Horse investors can extrapolate equivalent outcomes.</p>
+            <br>
+            <p>His personal balance sheet distinguishes him from typical fund managers in a meaningful way. With a personal investment portfolio exceeding <strong>$541 million in appraised fine art</strong> — verified by Elena Kohn of Sotheby's — alongside direct positions in aviation, precious metals, mineral resources, and structured credit, Caleb operates as a true multi-asset institutional allocator who has personally deployed capital in every asset class he lends against. He is not a fund manager who underwrites assets he has never owned. He is an operator who has personally managed, built, and held positions in the same asset categories that serve as Draft Horse's collateral.</p>
+            <br>
+            <p>Critically, Caleb deploys <strong>personal capital alongside investor capital</strong> in every Fund strategy. This is structural, not rhetorical. When investors make money, Caleb makes money. When the Fund faces a workout, Caleb's capital is in the same position as investor capital. There is no agency problem in Draft Horse because there is no separation between who manages the Fund and who bears the risk.</p>
+          </div>
+          <div style="min-width:220px;">
+            <div class="card" style="margin:0;background:var(--navy-light);">
+              <h4>Profile Highlights</h4>
+              <ul class="label-val-list">
+                <li><span class="lv-label">Role</span><span class="lv-val">Principal &amp; CIO</span></li>
+                <li><span class="lv-label">Corinthian Track Record</span><span class="lv-val td-gold">24% p.a. — Monthly</span></li>
+                <li><span class="lv-label">Personal Portfolio</span><span class="lv-val">$541M+ Fine Art (Sotheby's Verified)</span></li>
+                <li><span class="lv-label">Advisory Role</span><span class="lv-val">Senior Advisor, Aera Investment Bank</span></li>
+                <li><span class="lv-label">Asset Expertise</span><span class="lv-val">Credit, Aviation, PE, Art, Mining</span></li>
+                <li><span class="lv-label">Co-Investment</span><span class="lv-val td-green">Yes — Personal Capital</span></li>
+                <li><span class="lv-label">Management Fee</span><span class="lv-val td-green">None Charged</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br>
+        <h4>Domain Expertise</h4>
+        <div>
+          <span class="tag tag-gold">Structured Private Credit</span>
+          <span class="tag tag-gold">PE Sponsor Lending</span>
+          <span class="tag tag-gold">UCC-1 Lien Perfection &amp; Enforcement</span>
+          <span class="tag tag-blue">Business Aviation / Gulfstream</span>
+          <span class="tag tag-blue">Algorithmic Trading Systems</span>
+          <span class="tag tag-blue">Mineral Resources &amp; Commodities</span>
+          <span class="tag tag-gold">Institutional Fine Art ($541M+ Portfolio)</span>
+          <span class="tag tag-gold">Fund Structuring &amp; Management</span>
+          <span class="tag tag-green">Investment Banking Advisory (Aera)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Dark Horse Platform — Organizational Overview</h3>
+        <p>Dark Horse Wealth Management serves as the <strong>governing private family office</strong> for the entire Caraway investment ecosystem — the top-tier management and strategy entity overseeing a growing constellation of investment vehicles and operating entities spanning private credit, mineral resources, aviation, and investment banking advisory. The Dark Horse platform provides institutional infrastructure — fund administration, legal, banking, and tax services — to each underlying entity, ensuring every fund operates to institutional standard regardless of its current AUM.</p>
+        <br>
+        <p>Draft Horse Capital Partners is the <strong>institutional-grade structured credit vehicle</strong> within the Dark Horse platform, purpose-built for accredited investors who require UCC-1 collateral protection, third-party administration and audit, and quarterly income distribution at yields that compensate for the commitment made.</p>
+        <br>
+        <div class="org-chart">
+          <div class="org-node" style="border-color:var(--gold);">
+            <div class="org-node-title">Family &amp; Estate Layer</div>
+            <div class="org-node-name">Caraway Family Trust</div>
+            <div class="org-node-sub">Governing Family Entity</div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node">
+            <div class="org-node-title">Private Family Office</div>
+            <div class="org-node-name">Dark Horse Wealth Management</div>
+            <div class="org-node-sub">Platform Governing Entity · Caleb Caraway, CEO</div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node">
+            <div class="org-node-title">Fund Management Entity</div>
+            <div class="org-node-name">Draft Horse Wealth Management LLC</div>
+            <div class="org-node-sub">Wholly Owned by Dark Horse Wealth Management</div>
+          </div>
+          <div class="org-connector"></div>
+          <div class="org-node fund">
+            <div class="org-node-title">Investment Vehicle — Reg D 506(c) · §3(c)(1)</div>
+            <div class="org-node-name">Draft Horse Capital Partners LLC</div>
+            <div class="org-node-sub">Texas LLC · Formed February 23, 2026 · Managed by DHWM LLC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       13 — SERVICE PROVIDERS
+  ============================================================ -->
+  <section class="section" id="providers">
+    <div class="section-header">
+      <div class="section-number">Section 13</div>
+      <div class="section-title">Service Providers</div>
+      <div class="section-subtitle">Institutional-grade operational infrastructure — fund administration, legal counsel, banking, and audit</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="callout" style="margin-bottom:28px;">
+        Draft Horse Capital Partners has assembled a full suite of institutional service providers — each selected for specialized expertise in alternative fund operations, securities law compliance, and private fund administration. This infrastructure ensures the Fund operates to the same operational standard expected of institutional alternative asset managers, regardless of current AUM.
+      </div>
+
+      <div class="provider-grid">
+        <div class="provider-card">
+          <div class="provider-role">Fund Administration &amp; Investor Reporting</div>
+          <div class="provider-name">NAV Fund Services</div>
+          <div class="provider-desc">NAV Fund Services is a leading independent fund administrator providing institutional-grade fund accounting, independent NAV calculation, investor capital account management, distribution processing, and financial reporting to alternative investment funds globally. NAV's independence from fund management provides investors with third-party verification of NAV calculations and investor account balances — a critical governance safeguard in any private fund structure.</div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-role">Audit &amp; Tax Compliance</div>
+          <div class="provider-name">Spicer Jeffries LLP</div>
+          <div class="provider-desc">Spicer Jeffries LLP is a specialist accounting firm with deep expertise in alternative investment fund audit, tax compliance, and partnership tax reporting. The firm provides annual independent audit services and tax compliance, including investor K-1 preparation, for Draft Horse Capital Partners — ensuring full compliance with applicable accounting and tax reporting standards for private fund operations.</div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-role">Institutional Banking</div>
+          <div class="provider-name">Axos Bank</div>
+          <div class="provider-desc">Axos Bank provides dedicated institutional banking services to Draft Horse Capital Partners, including fund operating accounts, wire transfer infrastructure for investor capital receipt and distribution disbursement, and treasury management support. Axos Bank's alternative fund client base provides the operational infrastructure required for efficient, compliant fund cash management.</div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-role">Securities Counsel</div>
+          <div class="provider-name">SCALE LLP · Dori Karjian</div>
+          <div class="provider-desc">SCALE LLP (led by Dori Karjian) provides comprehensive securities law counsel covering Reg D 506(c) structuring and ongoing compliance, Private Placement Memorandum drafting, Subscription Agreement and Operating Agreement preparation, accredited investor verification oversight, Form D preparation and filing, and ongoing regulatory compliance advisory. All offering documents are prepared and maintained by SCALE LLP. SCALE is the Fund's primary legal counsel on all securities law matters.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:8px;">
+        <h3>Provider Engagement Summary</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>Provider</th>
+              <th>Scope of Engagement</th>
+              <th>Independence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Fund Administration</td>
+              <td class="td-gold">NAV Fund Services</td>
+              <td>Fund accounting, NAV calculation, investor records, distribution processing, financial reporting</td>
+              <td class="td-green">Independent</td>
+            </tr>
+            <tr>
+              <td>Annual Audit</td>
+              <td class="td-gold">Spicer Jeffries LLP</td>
+              <td>Independent annual audit of fund financial statements</td>
+              <td class="td-green">Independent</td>
+            </tr>
+            <tr>
+              <td>Tax Compliance</td>
+              <td class="td-gold">Spicer Jeffries LLP</td>
+              <td>Partnership tax returns, investor K-1 preparation, tax advisory</td>
+              <td class="td-green">Independent</td>
+            </tr>
+            <tr>
+              <td>Institutional Banking</td>
+              <td class="td-gold">Axos Bank</td>
+              <td>Operating accounts, investor capital receipt, quarterly distribution disbursement</td>
+              <td class="td-green">Independent</td>
+            </tr>
+            <tr>
+              <td>Securities Counsel</td>
+              <td class="td-gold">SCALE LLP / Dori Karjian</td>
+              <td>PPM, subscription docs, Reg D compliance, Form D, investor verification, ongoing securities counsel</td>
+              <td class="td-green">Independent</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">All service providers are independent of Draft Horse Capital Partners LLC and its management. The independence of fund administration (NAV Fund Services) and audit (Spicer Jeffries LLP) are governance features specifically designed to provide investors with third-party verification of fund financials and investor account positions.</div>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       14 — LEGAL & COMPLIANCE
+  ============================================================ -->
+  <section class="section" id="legal">
+    <div class="section-header">
+      <div class="section-number">Section 14</div>
+      <div class="section-title">Legal &amp; Compliance</div>
+      <div class="section-subtitle">Regulation D 506(c), §3(c)(1), accredited investor verification, Form D, and offering disclaimers</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="two-col">
+        <div class="card">
+          <h3>Regulation D Rule 506(c)</h3>
+          <p>Draft Horse Capital Partners offers its interests pursuant to <strong>Rule 506(c) of Regulation D</strong> under the Securities Act of 1933. Rule 506(c) permits issuers to:</p>
+          <ul>
+            <li>Engage in <strong>general solicitation and general advertising</strong> in connection with an offering</li>
+            <li>Raise an <strong>unlimited amount of capital</strong> from an unlimited number of accredited investors</li>
+            <li>Avoid SEC registration and associated ongoing reporting requirements</li>
+          </ul>
+          <br>
+          <p>In exchange, Rule 506(c) requires the issuer to take <strong>reasonable steps to verify</strong> that all investors are, in fact, accredited. Self-certification alone is legally insufficient under 506(c).</p>
+        </div>
+        <div class="card">
+          <h3>§3(c)(1) Fund Exclusion</h3>
+          <p>The Fund relies on <strong>Section 3(c)(1) of the Investment Company Act of 1940</strong>, which excludes from the definition of "investment company" any issuer whose outstanding securities are beneficially owned by not more than <strong>100 persons</strong> and which is not making a public offering.</p>
+          <br>
+          <p><strong>Key implications:</strong></p>
+          <ul>
+            <li>Fund is not required to register as an investment company with the SEC</li>
+            <li>Hard statutory limit of <strong>100 beneficial owners</strong></li>
+            <li>No public offering permitted — consistent with Reg D private placement</li>
+            <li>Fund must monitor investor count continuously against the statutory cap</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card card-gold">
+        <h3>Accredited Investor Verification — Required Prior to Subscription</h3>
+        <p>Unlike Rule 506(b) offerings, the Fund's 506(c) structure requires the Fund to take reasonable steps to verify accredited investor status before accepting any subscription. Accepted verification methods include:</p>
+        <br>
+        <div class="two-col" style="gap:14px;">
+          <div>
+            <h4>Individual Investor Pathways</h4>
+            <ul>
+              <li>Net worth exceeding $1M (excluding primary residence), individually or jointly with spouse — verified by CPA, attorney, registered broker-dealer, or investment adviser</li>
+              <li>Income exceeding $200K individually ($300K jointly) in each of the prior two years, with reasonable expectation of same in current year — verified by W-2, 1099, 1040, K-1, or confirmation letter</li>
+              <li>FINRA Series 7, 65, or 82 license in good standing</li>
+              <li>"Knowledgeable employee" of a registered investment fund</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Entity Investor Pathways</h4>
+            <ul>
+              <li>Total assets exceeding $5M (trusts, LLCs, corporations, partnerships)</li>
+              <li>All equity owners are individually accredited investors</li>
+              <li>Registered investment adviser, broker-dealer, or bank</li>
+              <li>Family office with $5M+ AUM</li>
+              <li>Family client of a family office meeting the above threshold</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid #ef4444;">
+        <h3 style="color:#f87171;">Offering Disclaimers — Required Reading</h3>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;"><strong style="color:var(--white);">NOT AN OFFER TO SELL SECURITIES.</strong> This data room and all materials herein are provided for informational purposes only and do not constitute an offer to sell or solicitation to buy any securities. Any offer will be made only by means of a Private Placement Memorandum prepared by SCALE LLP to investors who have completed accredited investor verification.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;"><strong style="color:var(--white);">FORWARD-LOOKING STATEMENTS.</strong> Target yields, deployment timelines, and pipeline descriptions involve known and unknown risks and uncertainties. Actual results may differ materially. There is no guarantee that target yields will be achieved, that principal will be returned, or that the Fund will operate as currently described.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;"><strong style="color:var(--white);">SECURITIES NOT REGISTERED.</strong> Interests in Draft Horse Capital Partners LLC have not been registered under the Securities Act of 1933, the Investment Company Act of 1940, or any state securities law. These interests are offered in reliance upon applicable exemptions from registration.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;"><strong style="color:var(--white);">INVESTMENT RISK.</strong> An investment in Draft Horse Capital Partners involves a high degree of risk and is suitable only for investors who can afford to lose their entire investment and do not require liquidity during the 36-month term. Past performance of related strategies does not guarantee future results.</p>
+        <p style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--text-muted);line-height:1.8;"><strong style="color:var(--white);">NOT LEGAL OR TAX ADVICE.</strong> Nothing in this data room constitutes legal, tax, or investment advice. Prospective investors must consult their own legal, tax, and investment advisers before making any investment decision.</p>
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+  <!-- ============================================================
+       15 — CONTACT
+  ============================================================ -->
+  <section class="section" id="contact">
+    <div class="section-header">
+      <div class="section-number">Section 15</div>
+      <div class="section-title">Contact</div>
+      <div class="section-subtitle">Investor inquiries, accredited investor verification, and subscription process</div>
+      <div class="gold-rule"></div>
+    </div>
+
+    <div class="content">
+      <div class="callout" style="margin-bottom:32px;">
+        Prospective investors who have completed accredited investor verification and wish to proceed with a subscription to Draft Horse Capital Partners LLC should contact the Principal directly. All offering materials — including the Private Placement Memorandum, Subscription Agreement, and Operating Agreement — are provided upon request following verification of accredited investor status and execution of a mutual non-disclosure agreement.
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-name">Caleb Caraway</div>
+        <div class="contact-title">Principal &amp; CIO — Draft Horse Capital Partners LLC<br>Managing Partner &amp; CEO — Dark Horse Wealth Management<br>Senior Advisor — Aera Investment Bank</div>
+
+        <div class="contact-row">
+          <div class="contact-icon">◈</div>
+          <div>
+            <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Fund</div>
+            <div>Draft Horse Capital Partners LLC — Texas LLC</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">◈</div>
+          <div>
+            <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Platform</div>
+            <div>Dark Horse Wealth Management</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">◈</div>
+          <div>
+            <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Securities Counsel</div>
+            <div>SCALE LLP — Dori Karjian</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">◈</div>
+          <div>
+            <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Fund Administration</div>
+            <div>NAV Fund Services (third-party administrator)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:28px;max-width:700px;">
+        <h3>Subscription Process</h3>
+        <div class="process-steps">
+          <div class="process-step" data-n="1">
+            <h4>Initial Inquiry</h4>
+            <p>Contact Caleb Caraway directly to discuss the Fund's strategy, collateral architecture, pipeline, and terms in detail. NDA executed at this stage if detailed borrower materials are requested.</p>
+          </div>
+          <div class="process-step" data-n="2">
+            <h4>Accredited Investor Verification</h4>
+            <p>Complete accredited investor verification using an accepted method (see Section 14). Verification must be completed before offering documents are provided. The Fund accepts verification letters from licensed CPAs, attorneys, registered broker-dealers, or registered investment advisers.</p>
+          </div>
+          <div class="process-step" data-n="3">
+            <h4>Offering Document Review</h4>
+            <p>Receive and review the complete Private Placement Memorandum, Operating Agreement, and Subscription Agreement prepared by SCALE LLP. We strongly recommend prospective investors review all offering materials with their own legal counsel and tax adviser prior to subscription.</p>
+          </div>
+          <div class="process-step" data-n="4">
+            <h4>Subscription Execution</h4>
+            <p>Execute the Subscription Agreement and wire investor capital per instructions provided by NAV Fund Services (fund administrator). Minimum subscription: $200,000. Wire instructions are provided by the fund administrator upon subscription acceptance.</p>
+          </div>
+          <div class="process-step" data-n="5">
+            <h4>Investor Onboarding</h4>
+            <p>Upon subscription acceptance, receive welcome materials from NAV Fund Services including investor account confirmation, distribution schedule, quarterly reporting calendar, and K-1 delivery timeline. First quarterly distribution occurs at the end of the first full quarter following capital acceptance.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box" style="max-width:700px;margin-top:16px;">
+        <strong>This data room does not constitute an offer to sell securities.</strong> Any offer to purchase interests in Draft Horse Capital Partners LLC will be made only through the Fund's Private Placement Memorandum. This document is provided for informational purposes only to prospective investors who have been pre-screened for accredited investor eligibility. All information is subject to the disclaimers set forth in Section 14 and in the Fund's offering documents.
+      </div>
+    </div>
+    <div class="section-page-notice">Draft Horse Capital Partners LLC — Confidential | For Informational Purposes Only | Not an Offer to Sell Securities</div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     DISCLAIMER BAR
+============================================================ -->
+<div class="disclaimer-bar">
+  <strong>CONFIDENTIAL — FOR INFORMATIONAL PURPOSES ONLY — NOT AN OFFER TO SELL SECURITIES</strong> &nbsp;|&nbsp;
+  Reg D 506(c) · Accredited Investors Only · Investing involves risk including loss of principal · Target yields are not guaranteed · Past performance does not guarantee future results ·
+  © 2026 Draft Horse Capital Partners LLC. All rights reserved.
+</div>
+
+<!-- ============================================================
+     NAVIGATION SCRIPT
+============================================================ -->
+<script>
+function showSection(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  var target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  var items = document.querySelectorAll('.sidebar-item');
+  var active = document.querySelector('.sidebar-item.active');
+  var idx = Array.from(items).indexOf(active);
+  if (e.key === 'ArrowDown' && idx < items.length - 1) items[idx + 1].click();
+  else if (e.key === 'ArrowUp' && idx > 0) items[idx - 1].click();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Horse Capital Partners — Institutional Due Diligence Data Room</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#080c18;--navy-mid:#0e1624;--navy-light:#16213a;--navy-card:#1a2840;
+  --gold:#c9a84c;--gold-light:#e8c87a;--gold-dim:#7a5f28;--gold-xdim:#3a2e12;
+  --silver:#8fa3b8;--silver-light:#c8d8e8;--white:#f0f4f8;
+  --text:#cdd8e6;--text-muted:#6a88a0;
+  --border:rgba(201,168,76,0.2);--border-dim:rgba(255,255,255,0.07);
+  --green:#22c55e;--red:#f87171;--amber:#fbbf24;--blue:#60a5fa;
+  --sidebar-w:276px;--header-h:64px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Georgia','Times New Roman',serif;background:var(--navy);color:var(--text);line-height:1.75;font-size:15px;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Georgia',serif;color:var(--white);line-height:1.25;font-weight:normal;letter-spacing:.02em}
+a{color:var(--gold);text-decoration:none}a:hover{color:var(--gold-light)}
+strong{color:var(--white);font-weight:bold}em{color:var(--gold-light);font-style:italic}
+.disclaimer-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(8,12,24,.97);border-top:1px solid rgba(201,168,76,.15);padding:7px 20px;font-family:'Arial',sans-serif;font-size:9.5px;color:var(--text-muted);text-align:center;z-index:1000;line-height:1.4}
+.disclaimer-bar strong{color:var(--gold);font-size:9.5px}
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:rgba(8,12,24,.98);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 calc(var(--sidebar-w) + 28px);z-index:900;backdrop-filter:blur(10px)}
+.header-logo{display:flex;align-items:center;gap:14px}
+.header-emblem{width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);font-family:'Arial',sans-serif;font-weight:800;letter-spacing:.05em;background:rgba(201,168,76,.06)}
+.header-name{font-family:'Arial',sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver-light)}
+.header-name span{color:var(--gold)}
+.header-badge{font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--gold-dim);padding:4px 10px;border-radius:2px}
+.sidebar{position:fixed;top:var(--header-h);left:0;width:var(--sidebar-w);height:calc(100vh - var(--header-h) - 32px);background:var(--navy-mid);border-right:1px solid var(--border-dim);overflow-y:auto;padding:16px 0;z-index:800}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+.sidebar-label{font-family:'Arial',sans-serif;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dim);padding:12px 16px 4px;margin-top:4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;font-family:'Arial',sans-serif;font-size:11px;letter-spacing:.03em;color:var(--silver)}
+.nav-item:hover{background:rgba(201,168,76,.06);color:var(--gold-light);border-left-color:var(--gold-dim)}
+.nav-item.active{background:rgba(201,168,76,.1);color:var(--gold);border-left-color:var(--gold)}
+.nav-num{font-size:9px;color:var(--gold-dim);min-width:17px;font-family:'Arial',sans-serif;font-weight:700}
+.nav-item.active .nav-num{color:var(--gold)}
+.main{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:48px 60px 80px;min-height:calc(100vh - var(--header-h))}
+.section{display:none;animation:fadeIn .28s ease;max-width:1040px}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sec-hdr{border-bottom:1px solid var(--border);padding-bottom:20px;margin-bottom:36px}
+.sec-num{font-family:'Arial',sans-serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:7px}
+.sec-title{font-size:30px;color:var(--white);letter-spacing:.03em}
+.sec-sub{font-family:'Arial',sans-serif;font-size:13px;color:var(--silver);margin-top:6px;letter-spacing:.04em}
+.gold-rule{width:56px;height:2px;background:var(--gold);margin:16px 0 0}
+.card{background:var(--navy-card);border:1px solid var(--border-dim);border-radius:5px;padding:26px 30px;margin-bottom:22px}
+.card-gold{border-left:4px solid var(--gold);border-color:var(--border)}
+.card-blue{border-left:4px solid var(--blue);border-color:rgba(96,165,250,.2)}
+.card-green{border-left:4px solid var(--green);border-color:rgba(34,197,94,.2)}
+.card-red{border-left:4px solid var(--red);border-color:rgba(248,113,113,.2)}
+.card h3{font-size:17px;color:var(--gold-light);margin-bottom:14px;letter-spacing:.04em}
+.card h4{font-family:'Arial',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-light);margin-bottom:10px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:28px}
+.stat-box{background:var(--navy-light);border:1px solid var(--border);padding:20px 18px;border-radius:5px;text-align:center}
+.stat-val{font-size:28px;color:var(--gold);font-family:'Georgia',serif;line-height:1.1;margin-bottom:6px}
+.stat-lbl{font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+table{width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:12.5px;margin-bottom:22px}
+thead tr{background:var(--navy-light);border-bottom:2px solid var(--gold-dim)}
+thead th{padding:10px 13px;text-align:left;color:var(--gold);font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+tbody tr{border-bottom:1px solid var(--border-dim);transition:background .1s}
+tbody tr:hover{background:rgba(201,168,76,.04)}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:10px 13px;color:var(--text);vertical-align:middle}
+tbody td:first-child{color:var(--silver-light)}
+.td-gold{color:var(--gold)!important;font-weight:700}
+.td-green{color:var(--green)!important;font-weight:700}
+.td-red{color:var(--red)!important}
+.td-hl{background:rgba(201,168,76,.06)}
+.check{color:var(--green)}.cross{color:var(--red)}.partial{color:var(--amber)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.four-col{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+@media(max-width:800px){.two-col,.three-col,.four-col{grid-template-columns:1fr}}
+.content p{margin-bottom:14px}
+.content ul{margin:10px 0 14px 24px}
+.content ul li{margin-bottom:6px;color:var(--text);font-size:14px;line-height:1.65}
+.content ol{margin:10px 0 14px 24px}
+.content ol li{margin-bottom:7px;color:var(--text);font-size:14px;line-height:1.65}
+.callout{background:rgba(201,168,76,.07);border-left:4px solid var(--gold);padding:15px 20px;border-radius:0 4px 4px 0;margin:20px 0;font-size:14px;color:var(--silver-light);line-height:1.7}
+.callout strong{color:var(--gold)}
+.callout-warn{background:rgba(248,113,113,.07);border-left:4px solid var(--red);padding:15px 20px;border-radius:0 4px 4px 0;margin:20px 0;font-size:13.5px;color:var(--silver-light);line-height:1.7}
+.callout-warn strong{color:var(--red)}
+.info-box{background:rgba(8,12,24,.6);border:1px solid var(--border-dim);padding:13px 18px;border-radius:4px;margin:16px 0;font-family:'Arial',sans-serif;font-size:11.5px;color:var(--text-muted);line-height:1.7}
+.info-box strong{color:var(--silver-light)}
+.tag{display:inline-block;font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:2px;margin:3px 3px 3px 0}
+.tag-gold{background:rgba(201,168,76,.14);color:var(--gold);border:1px solid var(--gold-dim)}
+.tag-blue{background:rgba(96,165,250,.1);color:#7eb8d8;border:1px solid rgba(96,165,250,.2)}
+.tag-green{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.tag-red{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.lv-list{list-style:none;padding:0}
+.lv-list li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12.5px}
+.lv-list li:last-child{border-bottom:none}
+.lv-lbl{color:var(--text-muted)}.lv-val{color:var(--white);text-align:right;max-width:58%}
+.yield-row{display:flex;align-items:center;gap:13px;margin-bottom:9px}
+.yield-lbl{font-family:'Arial',sans-serif;font-size:12px;color:var(--silver);min-width:175px}
+.yield-wrap{flex:1;height:29px;background:var(--navy-light);border-radius:3px;overflow:hidden;border:1px solid var(--border-dim)}
+.yield-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dim),var(--gold) 80%,var(--gold-light));display:flex;align-items:center;padding-left:10px}
+.yield-pct{font-family:'Arial',sans-serif;font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap}
+.steps{display:flex;flex-direction:column;gap:0;position:relative;padding-left:40px}
+.steps::before{content:'';position:absolute;left:14px;top:20px;bottom:20px;width:2px;background:linear-gradient(to bottom,var(--gold),var(--gold-dim),transparent)}
+.step{position:relative;padding:13px 0}
+.step::before{content:attr(data-n);position:absolute;left:-40px;top:13px;width:28px;height:28px;background:var(--navy-card);border:2px solid var(--gold);border-radius:50%;font-family:'Arial',sans-serif;font-size:10px;font-weight:700;color:var(--gold);text-align:center;line-height:24px}
+.step h4{font-family:'Arial',sans-serif;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light);margin-bottom:5px}
+.step p{font-size:13.5px;color:var(--text);line-height:1.65}
+.risk-item{border-left:3px solid var(--gold-dim);padding:14px 20px;margin-bottom:14px;background:rgba(8,12,24,.5);border-radius:0 4px 4px 0}
+.risk-item h4{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.risk-item p{font-size:13px;color:var(--text);line-height:1.7}
+.layer-item{background:var(--navy-card);border:1px solid var(--border-dim);border-left:5px solid var(--gold-dim);border-radius:0 5px 5px 0;padding:22px 28px 22px 22px;margin-bottom:4px;transition:all .2s}
+.layer-item:hover{background:rgba(30,45,70,.9);border-left-color:var(--gold);transform:translateX(3px)}
+.layer-item.l1{border-left-color:#22c55e}.layer-item.l2{border-left-color:#3b82f6}
+.layer-item.l3{border-left-color:#8b5cf6}.layer-item.l4{border-left-color:var(--gold)}
+.layer-item.l5{border-left-color:#ef4444}
+.layer-badge{font-family:'Arial',sans-serif;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.l1 .layer-badge{color:#22c55e}.l2 .layer-badge{color:#3b82f6}.l3 .layer-badge{color:#8b5cf6}
+.l4 .layer-badge{color:var(--gold)}.l5 .layer-badge{color:#ef4444}
+.layer-title{font-size:17px;color:var(--white);margin-bottom:9px}
+.layer-body{font-size:13.5px;color:var(--text);line-height:1.7}
+.cover-wrap{min-height:calc(100vh - var(--header-h) - 100px);display:flex;flex-direction:column;justify-content:center}
+.cover-eyebrow{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.cover-title{font-size:52px;color:var(--white);letter-spacing:.04em;line-height:1.08;margin-bottom:12px}
+.cover-tag{font-size:19px;color:var(--silver);font-style:italic;margin-bottom:34px;letter-spacing:.02em}
+.cover-meta{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:38px}
+.cm-item{display:flex;flex-direction:column;gap:5px}
+.cm-lbl{font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim)}
+.cm-val{font-family:'Arial',sans-serif;font-size:14px;color:var(--silver-light)}
+.cover-div{width:100%;height:1px;background:linear-gradient(to right,var(--gold),transparent);margin:30px 0}
+.cio-letter{background:linear-gradient(135deg,rgba(26,40,64,.9),rgba(8,12,24,.4));border:1px solid var(--border);border-top:4px solid var(--gold);padding:42px 48px;border-radius:5px;margin-bottom:26px;position:relative}
+.cio-letter::before{content:'\201C';position:absolute;top:18px;left:34px;font-size:76px;color:rgba(201,168,76,.1);font-family:'Georgia',serif;line-height:1}
+.cio-para{font-size:15px;color:var(--text);line-height:1.85;margin-bottom:20px}
+.cio-sig{margin-top:32px;padding-top:22px;border-top:1px solid rgba(201,168,76,.2)}
+.cio-name{font-size:18px;color:var(--white);letter-spacing:.04em;margin-bottom:4px}
+.cio-title{font-family:'Arial',sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
+.spec-box{background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px}
+.spec-lbl{font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.spec-val{font-size:17px;color:var(--gold);font-family:'Georgia',serif}
+.spec-sub{font-family:'Arial',sans-serif;font-size:11px;color:var(--silver);margin-top:3px}
+.proj-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-dim)}
+.proj-row:last-child{border-bottom:none}
+.proj-lbl{font-family:'Arial',sans-serif;font-size:13px;color:var(--silver)}
+.proj-val{font-size:18px;color:var(--gold);font-family:'Georgia',serif;font-weight:bold}
+.proj-val.big{font-size:26px;color:var(--gold-light)}
+.proj-total{background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:4px;padding:18px 22px;margin-top:12px}
+.glossary-term{padding:14px 0;border-bottom:1px solid var(--border-dim)}
+.glossary-term:last-child{border-bottom:none}
+.gt-word{font-size:15px;color:var(--gold-light);margin-bottom:5px;letter-spacing:.02em}
+.gt-def{font-family:'Arial',sans-serif;font-size:13px;color:var(--text);line-height:1.7}
+.rights-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-dim)}
+.rights-item:last-child{border-bottom:none}
+.rights-check{color:var(--green);font-size:16px;margin-top:2px;min-width:20px}
+.rights-content h4{font-family:'Arial',sans-serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light);margin-bottom:5px}
+.rights-content p{font-family:'Arial',sans-serif;font-size:13px;color:var(--text);line-height:1.65}
+.pipeline-bar{background:var(--navy-light);border-radius:4px;overflow:hidden;height:44px;margin:14px 0;border:1px solid var(--border-dim)}
+.pipeline-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold) 60%,var(--gold-light));display:flex;align-items:center;padding:0 18px;font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:var(--navy);width:100%;animation:growBar 1.2s ease-out}
+@keyframes growBar{from{width:0}}
+.org-chart{display:flex;flex-direction:column;align-items:center;gap:0;padding:20px 0}
+.org-node{background:var(--navy-card);border:1px solid var(--border);padding:13px 28px;border-radius:4px;text-align:center;min-width:250px}
+.org-node.fund{border-color:var(--gold);border-width:2px;background:linear-gradient(135deg,var(--navy-card),rgba(201,168,76,.08))}
+.org-node-t{font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:3px}
+.org-node-n{font-size:14px;color:var(--white);letter-spacing:.02em}
+.org-node-s{font-family:'Arial',sans-serif;font-size:10.5px;color:var(--text-muted);margin-top:3px}
+.org-conn{width:2px;height:24px;background:var(--gold-dim);position:relative}
+.org-conn::after{content:'▼';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);color:var(--gold-dim);font-size:7px}
+.provider-card{background:var(--navy-card);border:1px solid var(--border-dim);border-top:3px solid var(--gold);padding:20px 22px;border-radius:4px}
+.prov-role{font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.prov-name{font-size:17px;color:var(--white);margin-bottom:10px;letter-spacing:.02em}
+.prov-desc{font-family:'Arial',sans-serif;font-size:12px;color:var(--text-muted);line-height:1.65}
+.contact-card{background:var(--navy-card);border:1px solid var(--border);border-top:4px solid var(--gold);padding:36px 40px;border-radius:4px;max-width:560px}
+.contact-name{font-size:23px;color:var(--white);margin-bottom:4px;letter-spacing:.03em}
+.contact-title{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;line-height:1.7}
+.contact-row{display:flex;align-items:flex-start;gap:13px;margin-bottom:14px;font-family:'Arial',sans-serif;font-size:13px;color:var(--text)}
+.contact-icon{color:var(--gold);font-size:13px;min-width:18px;text-align:center;margin-top:2px}
+.sec-notice{font-family:'Arial',sans-serif;font-size:9.5px;color:var(--text-muted);text-align:right;margin-top:48px;padding-top:11px;border-top:1px solid var(--border-dim);letter-spacing:.05em}
+@media print{.sidebar,.header,.disclaimer-bar{display:none!important}.main{margin:0;padding:20px 40px}.section{display:block!important;page-break-before:always}.section:first-child{page-break-before:avoid}body{background:#fff;color:#111}.card,.stat-box{border-color:#ccc;background:#fafafa}h1,h2,h3{color:#111}a{color:#333}}
+@media(max-width:960px){:root{--sidebar-w:220px}.main{padding:36px 30px 80px}.cover-title{font-size:36px}}
+@media(max-width:680px){.sidebar{display:none}:root{--sidebar-w:0px}.header{padding-left:20px}.main{padding:24px 16px 80px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="header-emblem">DH</div>
+    <div><div class="header-name"><span>Draft Horse</span> Capital Partners</div></div>
+  </div>
+  <div class="header-badge">Confidential — Institutional Due Diligence Data Room — March 2026</div>
+</header>
+
+<nav class="sidebar">
+  <div class="sidebar-label">Data Room</div>
+  <div class="nav-item active" onclick="showSection('s01',this)"><span class="nav-num">01</span> Cover &amp; Confidentiality</div>
+  <div class="nav-item" onclick="showSection('s02',this)"><span class="nav-num">02</span> Executive Summary</div>
+  <div class="nav-item" onclick="showSection('s03',this)"><span class="nav-num">03</span> Investment Thesis</div>
+  <div class="nav-item" onclick="showSection('s04',this)"><span class="nav-num">04</span> Market Opportunity</div>
+  <div class="nav-item" onclick="showSection('s05',this)"><span class="nav-num">05</span> Fund Strategy</div>
+  <div class="nav-item" onclick="showSection('s06',this)"><span class="nav-num">06</span> PE Sponsor Relationship</div>
+  <div class="nav-item" onclick="showSection('s07',this)"><span class="nav-num">07</span> Deal Structure Mechanics</div>
+  <div class="nav-item" onclick="showSection('s08',this)"><span class="nav-num">08</span> Five-Layer Collateral</div>
+  <div class="nav-item" onclick="showSection('s09',this)"><span class="nav-num">09</span> Aviation Deep Dive</div>
+  <div class="nav-item" onclick="showSection('s10',this)"><span class="nav-num">10</span> Fund Terms</div>
+  <div class="nav-item" onclick="showSection('s11',this)"><span class="nav-num">11</span> Fee Structure</div>
+  <div class="nav-item" onclick="showSection('s12',this)"><span class="nav-num">12</span> Financial Projections</div>
+  <div class="nav-item" onclick="showSection('s13',this)"><span class="nav-num">13</span> Portfolio Management</div>
+  <div class="nav-item" onclick="showSection('s14',this)"><span class="nav-num">14</span> Risk Factors</div>
+  <div class="nav-item" onclick="showSection('s15',this)"><span class="nav-num">15</span> Track Record</div>
+  <div class="nav-item" onclick="showSection('s16',this)"><span class="nav-num">16</span> Management</div>
+  <div class="nav-item" onclick="showSection('s17',this)"><span class="nav-num">17</span> Organizational Structure</div>
+  <div class="nav-item" onclick="showSection('s18',this)"><span class="nav-num">18</span> Service Providers</div>
+  <div class="nav-item" onclick="showSection('s19',this)"><span class="nav-num">19</span> Legal &amp; Compliance</div>
+  <div class="nav-item" onclick="showSection('s20',this)"><span class="nav-num">20</span> Subscription Process</div>
+  <div class="nav-item" onclick="showSection('s21',this)"><span class="nav-num">21</span> Tax Considerations</div>
+  <div class="nav-item" onclick="showSection('s22',this)"><span class="nav-num">22</span> Investor Rights</div>
+  <div class="nav-item" onclick="showSection('s23',this)"><span class="nav-num">23</span> Glossary</div>
+  <div class="nav-item" onclick="showSection('s24',this)"><span class="nav-num">24</span> Contact</div>
+  <div style="padding:14px 16px;margin-top:12px;border-top:1px solid rgba(201,168,76,.12);">
+    <button onclick="window.print()" style="background:transparent;border:1px solid rgba(201,168,76,.22);color:rgba(201,168,76,.48);font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:7px 0;cursor:pointer;width:100%;border-radius:2px;transition:all .15s;" onmouseover="this.style.borderColor='rgba(201,168,76,.6)';this.style.color='rgba(201,168,76,.9)'" onmouseout="this.style.borderColor='rgba(201,168,76,.22)';this.style.color='rgba(201,168,76,.48)'">⎙ Print / PDF</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ============================================================ 01 COVER ============================================================ -->
+<section class="section active" id="s01">
+  <div class="cover-wrap">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+      <div style="width:48px;height:48px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--gold);font-family:'Arial',sans-serif;font-weight:800;letter-spacing:.05em;flex-shrink:0;background:rgba(201,168,76,.06);">DH</div>
+      <div style="flex:1;height:1px;background:linear-gradient(to right,var(--gold),transparent);"></div>
+      <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);">Dark Horse Platform · Private Credit · March 2026</div>
+    </div>
+    <div class="cover-eyebrow">Institutional Due Diligence Data Room — Confidential</div>
+    <div class="cover-title">Draft Horse<br>Capital Partners</div>
+    <div class="cover-tag">Single-Mandate Structured Private Credit — Five-Layer Collateral — Zero Fees</div>
+    <div class="cover-meta">
+      <div class="cm-item"><span class="cm-lbl">Structure</span><span class="cm-val">Reg D 506(c) · §3(c)(1)</span></div>
+      <div class="cm-item"><span class="cm-lbl">Target Yield</span><span class="cm-val" style="color:var(--gold-light);font-weight:700;">9% – 17% Fixed, Tiered</span></div>
+      <div class="cm-item"><span class="cm-lbl">Distributions</span><span class="cm-val">Quarterly</span></div>
+      <div class="cm-item"><span class="cm-lbl">Term</span><span class="cm-val">36 Months · 100% Principal Return</span></div>
+      <div class="cm-item"><span class="cm-lbl">Pipeline</span><span class="cm-val" style="color:var(--gold-light);">$100M Active — Borrower Identified</span></div>
+      <div class="cm-item"><span class="cm-lbl">Minimum</span><span class="cm-val">$200,000</span></div>
+      <div class="cm-item"><span class="cm-lbl">Fees</span><span class="cm-val" style="color:var(--green);">None — Zero</span></div>
+      <div class="cm-item"><span class="cm-lbl">Collateral</span><span class="cm-val">UCC-1 + FAA Registry · 5 Layers</span></div>
+    </div>
+    <div class="cover-div"></div>
+    <div style="background:rgba(201,168,76,.05);border:1px solid var(--border);border-left:4px solid var(--gold);padding:20px 26px;max-width:740px;border-radius:2px;">
+      <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">⚠ Confidentiality &amp; Regulatory Notice</div>
+      <p style="font-family:'Arial',sans-serif;font-size:11.5px;color:var(--text-muted);line-height:1.7;">This data room is strictly confidential and is provided solely for informational and institutional due diligence purposes to qualified prospective investors who have completed required accredited investor verification. This document does not constitute an offer to sell or solicitation to buy any security. Any offer will be made only through the Fund's Private Placement Memorandum prepared by SCALE LLP. Recipients may not reproduce, distribute, or disclose any portion without prior written consent of Draft Horse Capital Partners LLC. All forward-looking statements, including yield projections, are targets only and are not guaranteed. Investing involves risk, including possible loss of principal. For accredited investors only pursuant to Reg D Rule 506(c). © 2026 Draft Horse Capital Partners LLC. All rights reserved.</p>
+    </div>
+    <div style="margin-top:26px;">
+      <span class="tag tag-gold">Reg D 506(c)</span><span class="tag tag-gold">§3(c)(1)</span><span class="tag tag-blue">UCC-1 Five-Layer</span><span class="tag tag-blue">FAA Registry Perfected</span><span class="tag tag-green">Zero Fees</span><span class="tag tag-green">Quarterly Income</span><span class="tag tag-gold">Texas LLC · Est. Feb 2026</span><span class="tag tag-gold">Sovereign &amp; Institutional Capital</span><span class="tag tag-blue">Infrastructure Real Asset Layer</span>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Institutional Due Diligence Data Room | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 02 EXECUTIVE SUMMARY ============================================================ -->
+<section class="section" id="s02">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 02</div>
+    <div class="sec-title">Executive Summary</div>
+    <div class="sec-sub">Complete standalone investment case — fund overview, structure, collateral, pipeline, returns, fees, and principal alignment</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="cio-letter">
+    <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:26px;">Letter from the CIO — To Institutional Investors Evaluating Draft Horse Capital Partners</div>
+    <p class="cio-para">I will be direct about what this fund is, what it is not, and why I structured it the way I did. Draft Horse Capital Partners is a single-mandate secured private credit vehicle. It is not diversified across multiple borrowers or strategies. It does not deploy into an origination pipeline we are building after close. It is one credit facility — $100 million — extended to a single institutional PE sponsor against a five-layer collateral package I designed specifically to minimize recovery exposure if that borrower cannot or will not perform. I describe it this way at the outset because institutional allocators reviewing this document deserve precision, not a narrative that defers concentration risk to footnote disclosures.</p>
+    <p class="cio-para">The concentration is a deliberate underwriting decision, not a structural limitation. I know this borrower. I have evaluated their operations, their assets, and their incentives directly. I negotiated the lending terms, the covenant package, and the collateral architecture personally. I have equity exposure on both sides of this transaction — in the credit facility structure and in the aviation assets that serve as hard collateral. My capital is deployed alongside investor capital in the same position. I do not manage this fund from a distance, and I am not compensated by fees on committed capital regardless of performance. My economic interest derives entirely from the spread between what the PE sponsor pays the Fund and what the Fund pays investors. That structure means my incentive is to maximize deployment, maintain covenant compliance, and generate more spread — not to collect a management fee on idle capital.</p>
+    <p class="cio-para">The five-layer collateral architecture — operating cash flows, physical real estate and inventory, 100% portfolio company equity, Gulfstream G550 aviation assets under UCC-1 and FAA Registry perfected first lien, and a PE sponsor guaranty from an entity with equity exposure on both sides — was constructed to ensure that each layer is independently enforceable, independently recoverable, and structurally uncorrelated to the other layers in the ways that matter most in a stress scenario. In a default event, the Fund does not need all five layers to hold. It needs one. The recovery analysis under any stress case I have modeled is materially superior to single-collateral private credit structures, which remain the market standard at this scale.</p>
+    <p class="cio-para">The 17% target yield at the top commitment tier is the product of the structure, not a backward calculation from what sounds attractive to investors. The borrower is willing to pay a premium rate for a direct, relationship-sourced, collateral-backed facility that provides operational certainty without bank intermediary fees or restrictive bank covenants. Investors receive a fixed portion of that spread. The Fund retains the balance. No management fee is charged. No carried interest is taken. I present Draft Horse to qualified institutional allocators as a documented, collateral-secured credit opportunity with a known borrower, a fully structured facility, and a quantifiable five-layer recovery framework. I am prepared to support every element of this presentation with documentation under appropriate confidentiality protocols.</p>
+    <div class="cio-sig"><div class="cio-name">Caleb Caraway</div><div class="cio-title">CIO — Dark Horse Wealth Management &nbsp;|&nbsp; Managing Partner — Draft Horse Capital Partners LLC</div></div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-val">9–17%</div><div class="stat-lbl">Target Yield (Tiered, Fixed)</div></div>
+    <div class="stat-box"><div class="stat-val">$100M</div><div class="stat-lbl">Active Pipeline — Identified</div></div>
+    <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Independent Collateral Layers</div></div>
+    <div class="stat-box"><div class="stat-val">Zero</div><div class="stat-lbl">Management Fees / Carry</div></div>
+    <div class="stat-box"><div class="stat-val">Qtrly</div><div class="stat-lbl">Distribution Frequency</div></div>
+    <div class="stat-box"><div class="stat-val">36 Mo</div><div class="stat-lbl">Term · 100% Principal Return</div></div>
+  </div>
+
+  <div class="content">
+    <div class="card card-gold">
+      <h3>Fund Description</h3>
+      <p>Draft Horse Capital Partners LLC is a Texas-domiciled, Reg D 506(c) private credit fund providing a single $100 million structured senior secured credit facility to one institutional PE sponsor. The Fund is secured by five independently enforceable collateral layers under perfected UCC-1 financing statements and FAA Civil Aviation Registry notations. The Fund distributes fixed tiered yields of 9%–17% per annum to investors quarterly, returns 100% of principal at 36-month maturity, and charges zero management fees and zero carried interest. The borrower is identified, the facility is structured, and deployment begins on first close.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Investment Highlights</h3>
+        <ul>
+          <li><strong>Fixed tiered yield:</strong> 9%–17% p.a., quarterly distributions — rate locked at subscription tier for full 36-month term</li>
+          <li><strong>Five-layer collateral:</strong> Operating cash flows → real estate/inventory → 100% equity pledge → G550 aviation fleet → PE sponsor guaranty. Each layer independently enforceable.</li>
+          <li><strong>Zero fee structure:</strong> No management fee, no carried interest, no waterfall. GP earns through spread above investor yield only.</li>
+          <li><strong>Day-one deployment:</strong> No ramp period — $100M facility ready to draw on fund close. First distribution accrues from first day capital is accepted.</li>
+          <li><strong>Hard asset aviation collateral:</strong> Gulfstream G550s independently appraised at $30–45M each, under dual UCC-1 and FAA Registry first lien — globally marketable.</li>
+          <li><strong>Institutional infrastructure:</strong> NAV Fund Services (admin), Spicer Jeffries LLP (audit/tax), Axos Bank (banking), SCALE LLP (securities counsel).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Key Terms Summary</h3>
+        <ul class="lv-list">
+          <li><span class="lv-lbl">Minimum Subscription</span><span class="lv-val td-gold">$200,000</span></li>
+          <li><span class="lv-lbl">Investor Lock-Up</span><span class="lv-val">36 months — no early redemption</span></li>
+          <li><span class="lv-lbl">Principal Return</span><span class="lv-val">100% at 36-month maturity</span></li>
+          <li><span class="lv-lbl">Target Yield — Max</span><span class="lv-val td-gold">17% p.a. ($50M+ tier)</span></li>
+          <li><span class="lv-lbl">Distribution</span><span class="lv-val">Quarterly cash</span></li>
+          <li><span class="lv-lbl">Management Fee</span><span class="lv-val td-green">None</span></li>
+          <li><span class="lv-lbl">Performance Fee</span><span class="lv-val td-green">None</span></li>
+          <li><span class="lv-lbl">Fund Domicile</span><span class="lv-val">Texas LLC</span></li>
+          <li><span class="lv-lbl">Securities Counsel</span><span class="lv-val">SCALE LLP / Dori Karjian</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <h3>Investor Return at 17% Annual Yield — $1M Illustrative Example</h3>
+      <div class="two-col" style="gap:16px;">
+        <div>
+          <div class="proj-row"><span class="proj-lbl">Initial Commitment</span><span class="proj-val big">$1,000,000</span></div>
+          <div class="proj-row"><span class="proj-lbl">Annual Yield (Tier 8 / $50M+)</span><span class="proj-val">17.0%</span></div>
+          <div class="proj-row"><span class="proj-lbl">Quarterly Distribution Rate</span><span class="proj-val">4.25% / quarter</span></div>
+          <div class="proj-row"><span class="proj-lbl">Quarterly Cash Distribution</span><span class="proj-val" style="color:var(--green);">$42,500</span></div>
+          <div class="proj-row"><span class="proj-lbl">Annual Income</span><span class="proj-val">$170,000</span></div>
+          <div class="proj-row"><span class="proj-lbl">Total Income — 12 Quarters</span><span class="proj-val">$510,000</span></div>
+          <div class="proj-row"><span class="proj-lbl">Principal Returned at Month 36</span><span class="proj-val">$1,000,000</span></div>
+        </div>
+        <div>
+          <div class="proj-total">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Total Value Returned</div>
+            <div style="font-size:38px;color:var(--gold-light);font-family:'Georgia',serif;font-weight:bold;margin-bottom:8px;">$1,510,000</div>
+            <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-muted);">51% total return on $1M over 36 months</div>
+            <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="text-align:center;"><div style="font-size:20px;color:var(--gold);font-family:'Georgia',serif;">$510K</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;">Total Income</div></div>
+              <div style="text-align:center;"><div style="font-size:20px;color:var(--green);font-family:'Georgia',serif;">Zero</div><div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;">Fee Drag</div></div>
+            </div>
+          </div>
+          <div class="info-box">Illustrative only. Target yield. Not guaranteed. Distributions subject to Fund performance and borrower obligations. Review complete PPM for terms.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(8,12,24,.7);border:1px solid var(--border);border-radius:5px;padding:26px 30px;margin-top:8px;">
+      <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Institutional Due Diligence Package — Document Availability</div>
+      <table>
+        <thead><tr><th>Document</th><th>Status</th><th>Stage</th><th>Via</th></tr></thead>
+        <tbody>
+          <tr><td>Private Placement Memorandum</td><td class="td-gold">Available</td><td>Post-AV Verification</td><td>SCALE LLP</td></tr>
+          <tr><td>Subscription Agreement</td><td class="td-gold">Available</td><td>Post-AV Verification</td><td>SCALE LLP</td></tr>
+          <tr><td>Operating Agreement</td><td class="td-gold">Available</td><td>Post-AV Verification</td><td>SCALE LLP</td></tr>
+          <tr><td>Borrower Identity &amp; Entity Docs</td><td class="td-gold">Available — NDA Required</td><td>IC Review Stage</td><td>Principal</td></tr>
+          <tr><td>Borrower Audited Financial Statements</td><td class="td-gold">Available — NDA Required</td><td>IC Review Stage</td><td>Principal</td></tr>
+          <tr><td>Aircraft Independent Appraisals</td><td class="td-gold">Available — NDA Required</td><td>IC Review Stage</td><td>Principal</td></tr>
+          <tr><td>Real Estate &amp; Inventory Appraisals</td><td class="td-gold">Available — NDA Required</td><td>Advanced Diligence</td><td>Principal</td></tr>
+          <tr><td>Credit Agreement (Redacted)</td><td class="td-gold">Available — NDA Required</td><td>Advanced Diligence</td><td>SCALE LLP</td></tr>
+          <tr><td>UCC-1 / FAA Registry Filings</td><td class="td-gold">Public Record Post-Close</td><td>Post-Subscription</td><td>Public Records</td></tr>
+          <tr><td>NAV Fund Services Admin Agreement</td><td class="td-gold">Available on Request</td><td>Any Stage</td><td>Principal</td></tr>
+          <tr><td>Spicer Jeffries Engagement Letter</td><td class="td-gold">Available on Request</td><td>Any Stage</td><td>Principal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 03 INVESTMENT THESIS ============================================================ -->
+<section class="section" id="s03">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 03</div>
+    <div class="sec-title">Investment Thesis</div>
+    <div class="sec-sub">Why PE lending, why now, and why this specific counterparty relationship is the highest-conviction expression of the private credit thesis</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="card card-gold">
+      <h3>The Thesis in One Sentence</h3>
+      <p>Banks have permanently retreated from middle-market PE lending under Basel III/IV capital constraints; $3.9 trillion in global PE dry powder is actively seeking flexible credit solutions; and direct lenders who arrive with committed capital, a known counterparty, five-layer collateral, and zero intermediary friction are capturing yield premiums at multi-decade highs — Draft Horse enters this environment with all of these conditions already satisfied.</p>
+    </div>
+    <div class="card">
+      <h3>Why Private Credit, Structurally</h3>
+      <p>Private credit is not a cyclical opportunity. It is a structural consequence of bank regulatory reform. The Basel III framework — implemented progressively from 2010, with Basel III final rule effective in the mid-2020s — imposed materially higher risk-weighted capital requirements on bank lending to non-investment-grade borrowers, sponsor-backed companies, and middle-market operators. The math is unambiguous: a bank originating a $50M middle-market term loan must hold significantly more capital against it than an identical bank loan to a large corporate, compressing return on equity to levels that are economically unattractive on a risk-adjusted basis. This was not a temporary credit cycle aversion — it was a permanent repricing of the activity by regulation.</p>
+      <p>The supply withdrawal created by this regulatory dynamic is the primary driver of private credit spread premiums. When institutional PE sponsors cannot access competitive financing from regulated banks, they pay premium rates to direct lenders. Private credit managers who move into this space with committed capital, a relationship with the borrower, and a disciplined collateral framework do not need to compete on price — they set the price. Draft Horse operates in precisely this position.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Why Sponsor-Backed Lending Specifically</h3>
+        <ul>
+          <li><strong>Institutional borrowers:</strong> PE sponsors have professional management, structured financials, audited accounts, and reputational equity that aligns their incentives with full repayment beyond pure credit mechanics.</li>
+          <li><strong>Known collateral base:</strong> PE sponsor portfolios contain identifiable, appraised, legally encumbered assets — not diffuse future cash flow projections. Underwriting is asset-based, not forecast-based.</li>
+          <li><strong>Equity alignment:</strong> PE sponsors have direct financial exposure to portfolio company performance. Defaulting on a credit facility triggers downstream consequences to their own carried interest and LP relationships that extend beyond the loan itself.</li>
+          <li><strong>Enforcement superiority:</strong> UCC-1 perfected first lien provides legally superior recovery rights versus unsecured creditors in any bankruptcy or insolvency scenario.</li>
+          <li><strong>Bilateral monitoring:</strong> Direct relationship with a single borrower enables real-time covenant monitoring with no information intermediary — the Fund sees every material event as it occurs.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why the Draft Horse Structure Is the Best Expression</h3>
+        <ul>
+          <li><strong>Five-layer collateral:</strong> vs. market standard of one or two — five independent recovery pathways across five asset classes with distinct liquidity profiles and enforcement mechanics.</li>
+          <li><strong>Dual counterparty equity alignment:</strong> The same PE sponsor holds equity in both the borrowing entity AND the charter company operating the aircraft collateral. Default is costly on two independent vectors simultaneously.</li>
+          <li><strong>Aviation hard assets as terminal collateral:</strong> Gulfstream G550s are globally marketable, independently appraised, income-generating real assets that maintain deep secondary market liquidity independent of the borrower's operating performance.</li>
+          <li><strong>40% aviation equity income:</strong> The Fund does not merely lend against aviation assets — it holds direct economic ownership generating $840K–$1.24M/year per jet, independent of credit spread income.</li>
+          <li><strong>Zero-fee model:</strong> GP earns through spread, not fees. Every dollar of deployment efficiency directly benefits GP economics. Alignment is structural, not contractual.</li>
+          <li><strong>Day-one deployment:</strong> Borrower is identified, facility is structured, UCC-1 framework is ready — no ramp period, no idle capital, no fund-raising risk to deal flow.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Institutional Allocator Positioning:</strong> Draft Horse is not a market-direction bet. It does not require interest rates to fall, credit spreads to tighten, or equity markets to perform. It requires one counterparty — already identified, already diligenced — to service one structured credit facility against one of the most defensible collateral stacks in middle-market private credit. The macro environment improves the thesis. The bilateral relationship makes it executable independent of macro.
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px;">
+      <div style="background:var(--navy-card);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#3b82f6;margin-bottom:8px;font-weight:700;">Diversified SWF Allocators</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.65;">Non-correlated, fixed-income-adjacent income strategy. Fixed quarterly distributions, 36-month term, zero fee structure — clean predictable cash flow profile within a multi-asset private credit allocation.</p>
+      </div>
+      <div style="background:var(--navy-card);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Infrastructure &amp; Real Asset Mandates</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.65;">Layer 4 — G550 charter aviation fleet — constitutes operating aviation infrastructure with contracted charter revenue, defined maintenance obligations, and quantifiable income yield. Fund holds both a perfected debt lien and 40% equity in the operating entity.</p>
+      </div>
+      <div style="background:var(--navy-card);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-weight:700;">Direct Private Credit</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.65;">Single-obligor bilateral direct lending facility with full collateral visibility and real-time covenant monitoring. Maximum underwriting depth and enforcement speed — the structural opposite of a diversified CLO or syndicated credit portfolio.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 04 MARKET OPPORTUNITY ============================================================ -->
+<section class="section" id="s04">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 04</div>
+    <div class="sec-title">Market Opportunity</div>
+    <div class="sec-sub">Private credit market size, bank structural retreat, dry powder dynamics, and why the current environment produces the most attractive secured lending premiums in two decades</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-val">$1.7T+</div><div class="stat-lbl">Private Credit AUM — 2024</div></div>
+      <div class="stat-box"><div class="stat-val">$3.5T</div><div class="stat-lbl">Projected AUM by 2028 (Preqin)</div></div>
+      <div class="stat-box"><div class="stat-val">$3.9T</div><div class="stat-lbl">Global PE Dry Powder (2024)</div></div>
+      <div class="stat-box"><div class="stat-val">Basel III</div><div class="stat-lbl">Primary Structural Driver of Bank Retreat</div></div>
+      <div class="stat-box"><div class="stat-val">240bps+</div><div class="stat-lbl">Average Direct Lending Spread Over Libor/SOFR</div></div>
+      <div class="stat-box"><div class="stat-val">Middle Mkt</div><div class="stat-lbl">Most Underserved Segment in Private Credit</div></div>
+    </div>
+    <div class="card card-gold">
+      <h3>The Structural Void — Why Banks Left and Cannot Come Back</h3>
+      <p>The Basel III/IV regulatory framework — implemented progressively across global banking systems since 2010 — fundamentally altered the economics of bank lending to middle-market borrowers. Risk-weighted capital requirements for non-investment-grade and sponsor-backed loans were elevated materially: a bank holding a $50M senior secured middle-market loan at a 200bp spread must now hold substantially more equity capital against it than was required pre-2010, reducing the achievable return on equity to levels that are economically uncompetitive relative to investment-grade corporate lending or retail banking activities.</p>
+      <p>This was not a temporary credit cycle retrenchment. Banks do not return to middle-market lending when credit conditions ease — they return when the regulatory capital requirements change, which requires an act of Congress or a complete overhaul of the Basel framework. Neither is imminent. The supply withdrawal from regulated bank lending to sponsor-backed middle-market borrowers is a permanent structural feature of the current regulatory environment, and it is the foundational reason why private credit yields and spread premiums have remained elevated and structurally supported at levels not seen since the pre-2008 era.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Market Size and Growth Trajectory</h3>
+        <ul>
+          <li><strong>2012:</strong> Private credit AUM approximately $400–500 billion globally — a niche strategy primarily accessed by institutional LPs in large private funds.</li>
+          <li><strong>2018:</strong> AUM grew to approximately $770 billion — driven by post-GFC bank retreat and PE dry powder expansion.</li>
+          <li><strong>2022:</strong> AUM exceeded $1.3 trillion — acceleration driven by Basel III implementation and persistent spread premium over public markets.</li>
+          <li><strong>2024:</strong> AUM exceeds $1.7 trillion — now the fastest-growing segment of the alternative asset class universe (Preqin, BlackRock, Ares consensus estimates).</li>
+          <li><strong>2028 (projected):</strong> $3.5 trillion AUM per Preqin base case — driven by continued institutional allocation as pension, SWF, and insurance mandates expand into private credit.</li>
+          <li><strong>Middle market:</strong> Consistently identified as the most underserved segment relative to institutional capital supply — where spread premiums are highest and relationships matter most.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>PE Dry Powder — The Demand Engine</h3>
+        <p>Global PE dry powder stood at approximately $3.9 trillion as of late 2024 (Preqin). Every dollar of this dry powder represents an investment that will eventually require credit solutions — for portfolio company acquisitions, add-on acquisitions, growth capital, or operational bridge financing. PE sponsors deploy capital into companies; those companies need debt financing that optimizes PE returns. The math is straightforward: as PE dry powder grows, the demand for flexible, relationship-based private credit grows proportionally.</p>
+        <p style="margin-top:10px;">PE sponsors are not rate-insensitive borrowers — but they are willing to pay significant premiums for: (a) certainty of execution, (b) absence of bank regulatory requirements on the borrower, (c) flexible covenant structures, and (d) relationship-based lenders who understand the PE model. Draft Horse offers all four. The premium rate the Fund charges the borrower is a function of these structural advantages, not a reflection of credit risk.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Why Texas — The Fastest-Growing PE Ecosystem in the United States</h3>
+      <div class="two-col">
+        <div>
+          <p>Texas has emerged as the most significant domestic competitor to New York and California for PE activity and private credit origination, driven by structural rather than cyclical factors:</p>
+          <ul>
+            <li><strong>Zero state income tax</strong> on individuals and corporations — materially reduces after-tax cost of capital and management incentive structure.</li>
+            <li><strong>Operator-friendly regulatory environment</strong> — less prescriptive business regulation than either coast; faster permitting, lower compliance burden.</li>
+            <li><strong>Fortune 500 concentration:</strong> ExxonMobil, AT&amp;T, Charles Schwab, HP, Oracle, CBRE, McKesson, American Airlines — continued corporate headquarters migration driven by tax and cost advantages.</li>
+            <li><strong>Population growth:</strong> Texas has led domestic net population gains for four consecutive years, driving commercial real estate demand, consumer sector growth, and operational business activity.</li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>For Draft Horse specifically:</strong> The PE sponsor relationship, the borrower's operating assets, the charter company, and the fund management entity all operate within the Texas ecosystem. This creates a unified regulatory and legal framework that simplifies enforcement, minimizes cross-jurisdictional complexity, and benefits from Texas courts' consistent, business-oriented jurisprudence on commercial credit matters.</p>
+          <p style="margin-top:10px;"><strong>Texas UCC filing jurisdiction:</strong> Financing statements are filed with the Texas Secretary of State — a well-maintained, publicly searchable database with efficient processing timelines. Texas has adopted the Uniform Commercial Code with minimal deviations from the national standard, ensuring enforcement certainty and legal portability of the Fund's lien positions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 05 FUND STRATEGY ============================================================ -->
+<section class="section" id="s05">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 05</div>
+    <div class="sec-title">Fund Strategy</div>
+    <div class="sec-sub">Investment mandate, deal sourcing, underwriting criteria, loan structure, collateral requirements, covenant framework, and ongoing monitoring</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="card card-gold">
+      <h3>Investment Mandate</h3>
+      <p>Draft Horse Capital Partners is a <strong>single-mandate structured private credit fund</strong>. The Fund's mandate is to provide one senior secured credit facility to one institutional PE sponsor, against a specifically defined, multi-layer collateral package, on a fixed-rate, 36-month term. The Fund does not pursue a diversified credit portfolio, does not engage in secondary market purchases of existing credit instruments, does not write speculative or unsecured credit, and does not participate in broadly syndicated loan markets. Every dollar of investor capital is deployed in a single, direct, bilateral transaction with a counterparty the Principal knows personally and has evaluated directly.</p>
+      <p style="margin-top:10px;">This mandate concentration is intentional and reflects a specific underwriting philosophy: that depth of knowledge about one counterparty, combined with maximum collateral coverage, produces better risk-adjusted outcomes than shallow knowledge of many counterparties with minimal collateral. The Fund's thesis is that recovery in a default scenario is determined almost entirely by collateral quality and enforcement efficiency — and that both are maximized through a direct bilateral relationship with five-layer security, not through portfolio diversification.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Deal Sourcing</h3>
+        <p>The Fund's pipeline was sourced exclusively through the Principal's direct, pre-existing PE network — not through broker-dealers, investment banks, or placement agents. This has three material consequences for investors:</p>
+        <ul>
+          <li><strong>No sourcing fees or origination costs:</strong> The Fund pays no broker commission, placement fee, or finder's fee on the $100M facility. All spread earned on the facility flows through to the Fund.</li>
+          <li><strong>No competitive auction dynamics:</strong> The borrower did not run a competitive lending process that would have compressed the Fund's spread. Terms were negotiated bilaterally, reflecting the borrower's actual credit need and the Fund's actual risk tolerance.</li>
+          <li><strong>Exclusivity:</strong> The Fund is the only vehicle accessing this deal. The deal will not be syndicated, participanted-out, or made available to the market in any form. This exclusivity is contractual and enforced through the credit agreement and the bilateral relationship.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Underwriting Criteria</h3>
+        <p>The Fund applies the following underwriting framework to every credit facility:</p>
+        <ul>
+          <li><strong>Collateral coverage ratio:</strong> Total appraised collateral value must exceed the facility principal on a conservative stressed basis — evaluated across each layer independently, not on a blended basis.</li>
+          <li><strong>Cash flow coverage:</strong> Borrower's operating cash flows must demonstrate sufficient coverage of debt service obligations based on historical performance, not projections alone.</li>
+          <li><strong>Equity pledge requirement:</strong> 100% equity pledge in all portfolio companies is a non-negotiable condition of any facility — providing the Fund with control rights in a default scenario.</li>
+          <li><strong>Hard asset requirement:</strong> A meaningful portion of collateral must consist of hard assets with active secondary markets — specifically aviation assets or comparable globally-marketable physical collateral.</li>
+          <li><strong>PE sponsor financial standing:</strong> PE sponsor must demonstrate institutional-grade financial capacity, professional management, and a track record of operating portfolio companies successfully.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Covenant Framework — Ongoing Borrower Obligations</h3>
+      <div class="two-col">
+        <div>
+          <h4>Financial Covenants</h4>
+          <ul>
+            <li><strong>Minimum DSCR (Debt Service Coverage Ratio):</strong> Borrower must maintain DSCR above defined threshold — ensuring cash flows cover quarterly interest obligations with a defined cushion. Measured quarterly.</li>
+            <li><strong>Maximum leverage ratio:</strong> Total indebtedness of portfolio companies relative to EBITDA may not exceed defined threshold without Fund consent.</li>
+            <li><strong>Minimum liquidity reserve:</strong> Borrower must maintain a defined minimum cash/liquidity reserve sufficient to cover at least one full quarterly interest payment at all times.</li>
+            <li><strong>Asset coverage maintenance:</strong> Total appraised collateral value must be maintained above defined minimum coverage ratio; material decline in any collateral layer triggers a coverage review.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Reporting and Operational Covenants</h4>
+          <ul>
+            <li><strong>Monthly financial statements:</strong> Borrower must deliver management accounts within 30 days of month-end — enabling real-time monitoring of cash flow performance.</li>
+            <li><strong>Quarterly compliance certificates:</strong> CFO/controller certification of covenant compliance delivered within 45 days of quarter-end.</li>
+            <li><strong>Annual audited financials:</strong> Borrower-level audited financial statements within 120 days of fiscal year-end.</li>
+            <li><strong>Material event notification:</strong> Borrower must notify Fund within 48 hours of any material adverse event — including key executive departure, regulatory action, litigation above defined threshold, or material change in business operations.</li>
+            <li><strong>Collateral maintenance:</strong> No disposition, encumbrance, or transfer of any collateral asset without Fund prior written consent.</li>
+            <li><strong>No additional indebtedness:</strong> No new indebtedness senior to or pari passu with Fund's facility without Fund consent.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Monitoring and Portfolio Management Process</h3>
+      <div class="steps">
+        <div class="step" data-n="1"><h4>Monthly Financial Review</h4><p>Fund management reviews borrower monthly financial statements against covenant benchmarks within 5 business days of receipt. Material variances are escalated to SCALE LLP immediately.</p></div>
+        <div class="step" data-n="2"><h4>Quarterly Covenant Compliance</h4><p>Compliance certificates reviewed and filed. Fund calculates DSCR, leverage ratio, and liquidity reserve compliance. Any covenant breach triggers formal notice procedures under the credit agreement.</p></div>
+        <div class="step" data-n="3"><h4>Annual Collateral Review</h4><p>Annual update of collateral appraisals for aviation assets, real estate, and inventory. Any material decline in appraised values triggers coverage ratio analysis and, if applicable, a cure demand under the credit agreement.</p></div>
+        <div class="step" data-n="4"><h4>Investor Reporting</h4><p>Quarterly investor reports prepared by NAV Fund Services — covering NAV, distribution, collateral status summary, and fund-level financial performance. Annual audited financial statements prepared by Spicer Jeffries LLP.</p></div>
+        <div class="step" data-n="5"><h4>Material Event Response</h4><p>Upon receipt of material event notification (or independent identification of material adverse change), Fund management convenes within 24 hours with SCALE LLP to assess enforcement rights and available remedies.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 06 PE SPONSOR RELATIONSHIP ============================================================ -->
+<section class="section" id="s06">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 06</div>
+    <div class="sec-title">The PE Sponsor Relationship</div>
+    <div class="sec-sub">Confidential counterparty; nature of the relationship; exclusivity; $100M pipeline origin; why this deal is available to Draft Horse and not the public market</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="card card-gold">
+      <h3>The Most Important Operational Fact About This Fund</h3>
+      <p>Draft Horse Capital Partners is not raising capital to search for a borrower. <strong>The borrower is already identified. The credit structure is fully developed. The five-layer collateral package is documented. The UCC-1 framework is ready to file upon initial close. There is no ramp period.</strong> First dollar in — first dollar deployed, earning from day one against a specific, known, diligenced counterparty.</p>
+      <p style="margin-top:10px;">This is the most important operational fact separating Draft Horse from virtually every other newly-formed private credit fund in this market. Most first-time private credit funds spend 12–24 months after first close sourcing the deals they described in their fundraising presentations. During that period, investor capital earns money market returns while management fees accrue. Draft Horse has no pipeline to develop, no borrower relationship to establish, and no origination process to run. The facility is ready. The deal is waiting on investor capital, not the other way around.</p>
+      <div class="pipeline-bar"><div class="pipeline-fill">$100,000,000 — Borrower Identified · Collateral Documented · Structure Ready · Deploying on Close</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Nature of the Relationship</h3>
+        <p>The PE sponsor is an <strong>institutional-grade private equity operator</strong> with a multi-company portfolio, professional management team, and verified cash flow history. The relationship with Principal Caleb Caraway is direct and pre-existing — established through the Principal's investment banking advisory work and private credit network, not through a broker introduction or a competitive RFP process.</p>
+        <p style="margin-top:10px;">The relationship predates the formation of Draft Horse Capital Partners LLC. The PE sponsor was not identified as a potential borrower for this fund during the fundraising process — the credit facility structure emerged from an existing relationship where the sponsor's capital needs, asset profile, and operational timeline aligned precisely with the Fund's lending parameters. The fund was structured around the deal, not the other way around.</p>
+      </div>
+      <div class="card">
+        <h3>Why This Deal Is Available to Draft Horse Exclusively</h3>
+        <ul>
+          <li><strong>Not a bank product:</strong> Post-Basel III, no regulated bank can write this facility at economically attractive terms for the bank. The borrower is not seeking bank financing — they require flexible, relationship-based, private credit.</li>
+          <li><strong>Not broker-sourced:</strong> The deal was not distributed to the market through a broker or placement agent. No other lender is being evaluated. The relationship is exclusive.</li>
+          <li><strong>Operational certainty requirement:</strong> The PE sponsor specifically requires a 36-month fixed-rate facility with no bank covenants, no periodic refinancing pressure, and no intermediary. These requirements point specifically to a direct bilateral private credit structure.</li>
+          <li><strong>Relationship trust:</strong> The sponsor is willing to provide the depth of collateral — five layers including 100% equity pledge — because of the bilateral trust established through the pre-existing relationship. This level of collateral access is not available in an arms-length competitive lending process.</li>
+          <li><strong>Dual equity alignment:</strong> The sponsor's co-ownership of the charter company creates an alignment structure that is specific to this relationship — it was not engineered for the fundraise, it is a pre-existing ownership fact that the Fund's structure recognizes and leverages.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card card-gold">
+      <h3>The Dual Equity Alignment — Why This Is Structurally Extraordinary</h3>
+      <p>The most powerful structural feature of Draft Horse's lending architecture is one that cannot be replicated through a competitive lending process: the PE sponsor borrower holds equity in <strong>both</strong> the primary borrowing entity AND the charter company that operates the Gulfstream G550 aircraft serving as Layer 4 hard asset collateral.</p>
+      <p style="margin-top:10px;">This creates two independent, separately enforceable collateral positions against a single counterparty relationship. In a default scenario, the PE sponsor's financial exposure to consequences is <em>doubled</em> compared to a borrower who has only one point of exposure:</p>
+      <ul style="margin-top:10px;">
+        <li><strong>Vector 1 — Credit default consequences:</strong> Damage to creditworthiness, LP relationships, and professional reputation from the borrowing entity's default. These are career and business-level consequences that PE sponsors actively avoid.</li>
+        <li><strong>Vector 2 — Hard asset enforcement:</strong> The Fund's enforcement against charter company equity and aircraft assets threatens a <em>separate, independently valuable business</em> in which the sponsor has meaningful personal equity. This is not a collateral position the borrower can simply allow to be enforced without direct personal financial harm.</li>
+      </ul>
+      <p style="margin-top:10px;">The sponsor's financial incentive to prevent default is therefore not single-dimensional — it is bidirectional. This alignment is structural, not contractual. It cannot be dissolved by negotiation. It exists because the counterparty relationship and the asset ownership structure were designed around this reality.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>Confidentiality Protocol and Due Diligence Access</h3>
+      <p>The identity of the PE sponsor is maintained under contractual confidentiality at this stage of the capital raise. This is a bilateral contractual obligation between the Fund and the borrower — not a fundraising preference. The Fund recognizes that institutional investors conducting formal IC-level due diligence require access to borrower identity, audited financials, and collateral documentation before any allocation decision. That access is available and will be provided at the appropriate stage.</p>
+      <p style="margin-top:10px;">The following materials are available to qualified institutional investors upon execution of a mutual non-disclosure agreement: borrower legal name and entity structure, portfolio company details, borrower's audited financial statements (most recent 2–3 years), independent aircraft appraisals, real estate and inventory appraisal summaries, and a redacted version of the credit agreement. The Fund's securities counsel, SCALE LLP, manages all NDA execution and document disclosure. There is no compressed timeline for due diligence — the Fund will support a thorough, documented institutional review process including legal review by the investor's own outside counsel of the complete offering document set.</p>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 07 DEAL STRUCTURE MECHANICS ============================================================ -->
+<section class="section" id="s07">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 07</div>
+    <div class="sec-title">Deal Structure Mechanics</div>
+    <div class="sec-sub">Facility terms, payment structure, UCC-1 perfection process, lien priority, covenant framework, and enforcement pathway</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="two-col">
+      <div class="card">
+        <h3>Credit Facility Terms</h3>
+        <ul class="lv-list">
+          <li><span class="lv-lbl">Facility Type</span><span class="lv-val">Senior Secured Term Loan</span></li>
+          <li><span class="lv-lbl">Borrower</span><span class="lv-val">Institutional PE Sponsor (Confidential)</span></li>
+          <li><span class="lv-lbl">Principal Amount</span><span class="lv-val td-gold">$100,000,000</span></li>
+          <li><span class="lv-lbl">Interest Rate</span><span class="lv-val">Fixed — Confidential (above 17% investor yield)</span></li>
+          <li><span class="lv-lbl">Payment Structure</span><span class="lv-val">Quarterly interest, bullet principal at maturity</span></li>
+          <li><span class="lv-lbl">Facility Term</span><span class="lv-val">36 months — matched to investor lock-up</span></li>
+          <li><span class="lv-lbl">Lien Priority</span><span class="lv-val">First Priority — UCC-1 + FAA Registry</span></li>
+          <li><span class="lv-lbl">Collateral Layers</span><span class="lv-val">Five independent layers (see Section 08)</span></li>
+          <li><span class="lv-lbl">Prepayment</span><span class="lv-val">Subject to prepayment premium — per credit agreement</span></li>
+          <li><span class="lv-lbl">Governing Law</span><span class="lv-val">Texas — consistent with Fund domicile</span></li>
+          <li><span class="lv-lbl">Documentation</span><span class="lv-val">Credit Agreement, Security Agreement, UCC-1 filings, Pledge Agreements</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Payment Structure</h3>
+        <p>The facility operates as a fixed-rate senior secured term loan with quarterly interest payments and a bullet principal repayment at 36-month maturity. This structure:</p>
+        <ul>
+          <li><strong>Matches investor distributions:</strong> Quarterly interest from borrower → quarterly distributions to investors. No cash flow timing mismatch.</li>
+          <li><strong>Matched asset-liability duration:</strong> 36-month facility term is matched precisely to the 36-month investor lock-up. No maturity mismatch between the Fund's assets and its liabilities to investors.</li>
+          <li><strong>Full principal return:</strong> Bullet repayment structure means the Fund receives $100M in full from the borrower at maturity, enabling simultaneous full principal return to all investors.</li>
+          <li><strong>Spread retention:</strong> The difference between what the borrower pays and the 17% Fund pays to investors is retained by the Fund as GP economics. This spread is not disclosed but exceeds the investor yield by a meaningful margin.</li>
+          <li><strong>Pre-funded interest reserve:</strong> Credit agreement requires borrower to maintain a minimum cash reserve covering at least one full quarterly interest payment — ensuring first payment is protected even in a period of temporary cash flow compression.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card card-gold">
+      <h3>UCC-1 Perfection Process — Step by Step</h3>
+      <div class="steps">
+        <div class="step" data-n="1"><h4>Security Agreement Execution</h4><p>Borrower and Fund execute a comprehensive Security Agreement under UCC Article 9 — the contract that creates the Fund's security interest in all defined collateral assets. The Security Agreement identifies each collateral layer specifically: cash flow rights (as-extracted and future), real property interests, inventory, portfolio company equity interests (documented via equity pledge and stock power), and aviation assets. The Security Agreement also defines the Events of Default, cure periods, and enforcement rights.</p></div>
+        <div class="step" data-n="2"><h4>UCC Lien Search — Prior Interests</h4><p>Before filing, SCALE LLP conducts a comprehensive UCC lien search in all relevant filing jurisdictions against the borrower entity name and any DBAs. Any prior-filed UCC-1 financing statements must be identified, terminated, or subordinated. The Fund requires first-priority status — no pari passu or senior lien is permitted on any defined collateral asset without Fund consent. Lien search results are documented and retained in the Fund's legal file.</p></div>
+        <div class="step" data-n="3"><h4>UCC-1 Financing Statement Filing (State)</h4><p>SCALE LLP files a UCC-1 Financing Statement with the Texas Secretary of State (or the applicable state Secretary of State in the jurisdiction of the debtor's organization) pursuant to UCC Article 9, § 9-501. The financing statement identifies: (i) the debtor entity, (ii) the secured party (Draft Horse Capital Partners LLC), and (iii) the collateral description by category. For maximum perfection coverage, the collateral description uses both a specific list of asset categories and an "all assets" catch-all description.</p></div>
+        <div class="step" data-n="4"><h4>FAA Civil Aviation Registry Filing (Aviation Assets)</h4><p>For Gulfstream G550 aircraft registered with the FAA, SCALE LLP files a conveyance/security interest notation with the FAA Civil Aviation Registry in Oklahoma City, Oklahoma, pursuant to 49 U.S.C. § 44107 and 14 C.F.R. Part 49. Federal law governs the priority of interests in U.S.-registered civil aircraft — an FAA Registry filing is required (in addition to any UCC-1) to perfect the Fund's first-priority lien against aircraft specifically. The FAA Registry filing is the legally controlling document for aviation asset lien priority in the United States.</p></div>
+        <div class="step" data-n="5"><h4>Equity Pledge Agreement and Stock Powers</h4><p>The portfolio company equity pledge is documented through a separate Pledge Agreement, combined with executed and delivered blank stock powers (for certificated interests) or control agreements (for uncertificated LLC interests). Control of the equity pledge enables the Fund to exercise equity transfer rights without further borrower cooperation in an enforcement scenario — critical for the Layer 3 enforcement pathway.</p></div>
+        <div class="step" data-n="6"><h4>Title Insurance and Lien Confirmation</h4><p>Upon filing, SCALE LLP obtains confirmation of the filing date and file number from the applicable filing authority. Post-filing lien searches confirm the Fund's first-priority position. All filing documentation is maintained in the Fund's secured legal records and is available for investor review under appropriate NDA protocols.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Enforcement Pathway — Default Scenario</h3>
+      <div class="two-col">
+        <div>
+          <h4>Default Events</h4>
+          <ul>
+            <li>Payment default: failure to pay quarterly interest within defined grace period (typically 5–10 business days)</li>
+            <li>Covenant breach: material financial covenant violation not cured within defined remedy period</li>
+            <li>Material adverse change: material deterioration in borrower's financial condition, assets, or operations</li>
+            <li>Bankruptcy/insolvency: any voluntary or involuntary bankruptcy filing, assignment for benefit of creditors, or similar</li>
+            <li>Collateral impairment: material decline in collateral coverage ratio below defined minimum threshold</li>
+            <li>Cross-default: any default on other material indebtedness of the borrower</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Enforcement Rights Upon Default</h4>
+          <ul>
+            <li><strong>Cash flow interception (UCC §9-607):</strong> Immediate notice to account debtors redirecting all receivables to Fund — fastest enforcement tool, no court required.</li>
+            <li><strong>Personal property disposition (UCC §9-610):</strong> Commercially reasonable public or private sale of inventory, equipment, and personal property following required debtor notice.</li>
+            <li><strong>Equity pledge enforcement:</strong> Transfer of portfolio company equity to Fund or its nominee, subject to applicable securities law compliance (coordinated by SCALE LLP).</li>
+            <li><strong>Aviation asset remarketing:</strong> Engagement of qualified aviation broker for aircraft remarketing while charter operations continue under receiver if necessary — preserving asset income and condition during disposition.</li>
+            <li><strong>Automatic stay considerations:</strong> In a bankruptcy filing, the automatic stay under 11 U.S.C. §362 temporarily halts enforcement actions. Fund's first-priority secured position provides strong basis for stay relief motion under §362(d).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 08 FIVE-LAYER COLLATERAL ============================================================ -->
+<section class="section" id="s08">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 08</div>
+    <div class="sec-title">Five-Layer Collateral Analysis</div>
+    <div class="sec-sub">Each layer in full detail: what it is, how it is secured, estimated value, enforcement pathway, and recovery analysis</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="callout-warn">
+      <strong>Note for institutional legal review:</strong> The five-layer collateral framework described below constitutes the Fund's security package as structured for the initial $100M facility. Actual collateral values, coverage ratios, and enforcement timelines are subject to conditions at time of enforcement and are not guaranteed. Prospective investors should review independent appraisals (available under NDA) and the complete Security Agreement (available via SCALE LLP upon request) before relying on collateral recovery assumptions in any investment analysis.
+    </div>
+
+    <div style="background:rgba(201,168,76,.08);border:2px solid var(--gold);border-radius:6px;padding:24px 28px;margin-bottom:24px;">
+      <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">Five-Layer Framework — Overview</div>
+      <p style="font-size:14px;color:var(--text);line-height:1.75;">For an investor to suffer principal loss in Draft Horse, impairment must occur simultaneously across <em>all five</em> independently enforceable collateral layers — each of which operates against different asset classes, different liquidity profiles, and different legal enforcement mechanisms. The probability of total loss across all five layers simultaneously is materially lower than the probability of total loss in any single-collateral private credit structure. Each layer is described below in full detail.</p>
+    </div>
+
+    <div class="layer-item l1">
+      <div class="layer-badge">Layer 1 — Cash Flow Interception</div>
+      <div class="layer-title">PE Portfolio Company Operating Cash Flows</div>
+      <div class="layer-body">
+        <div class="two-col" style="gap:16px;margin-top:10px;">
+          <div><p><strong>What it is:</strong> A perfected assignment of all cash flow rights and receivables generated by the PE sponsor's operating portfolio companies — including accounts receivable, contract payments, and distributable cash. Upon a default event, the Fund delivers written notice to all account debtors (the entities that owe money to the borrower) redirecting all outstanding and future payments directly to the Fund under UCC §9-607.<br><br><strong>How it's secured:</strong> UCC-1 financing statement filed against all receivables and general intangibles as a separate collateral category. The assignment is documented in the Security Agreement with specific reference to all portfolio company payment streams by entity name.<br><br><strong>Enforcement pathway:</strong> UCC §9-607 notice to account debtors — fastest-acting enforcement tool in the package. No court order required. Executed within 5 business days of acceleration. Cash interception typically active within 30–60 days.</p></div>
+          <div><div style="background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;"><div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#22c55e;margin-bottom:8px;font-weight:700;">Layer 1 Recovery Profile</div><ul style="list-style:none;padding:0;"><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Asset type: Contractual receivables &amp; cash flows</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Enforcement timeline: 30–60 days</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Court required: No</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Correlation to other layers: Low — independent operating contracts</li><li style="padding:5px 0;font-family:'Arial',sans-serif;font-size:12px;color:var(--green);">Primary advantage: Speed — immediate cash capture</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:4px 0;color:var(--border);font-size:18px;">↓</div>
+
+    <div class="layer-item l2">
+      <div class="layer-badge">Layer 2 — Physical Asset Base</div>
+      <div class="layer-title">Brick-and-Mortar Real Estate &amp; Inventory</div>
+      <div class="layer-body">
+        <div class="two-col" style="gap:16px;margin-top:10px;">
+          <div><p><strong>What it is:</strong> UCC-1 perfected security interest against all tangible physical assets of the PE sponsor's portfolio companies — commercial and operational real estate (owned or leased with assignment rights), business inventory, equipment, fixtures, and all physical property. This layer encumbers every physical asset the borrower owns across portfolio company operations.<br><br><strong>How it's secured:</strong> UCC-1 financing statement with "all inventory, equipment, fixtures, and goods" as collateral category, plus specific real property interests documented by legal description where applicable. Texas UCC filings and, where required, state-specific real property lien instruments.<br><br><strong>Enforcement pathway:</strong> UCC §9-610 commercially reasonable disposition of personal property. Real property interests through applicable judicial or non-judicial foreclosure procedures. Inventory may be sold through commercial liquidation specialists with competitive bidder processes.</p></div>
+          <div><div style="background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;"><div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#3b82f6;margin-bottom:8px;font-weight:700;">Layer 2 Recovery Profile</div><ul style="list-style:none;padding:0;"><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Asset type: Real estate + inventory + equipment</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Enforcement timeline: 90–270 days (property type dependent)</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Court required: Varies (TX non-judicial for some real property)</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Correlation to other layers: Moderate — RE can decline with business</li><li style="padding:5px 0;font-family:'Arial',sans-serif;font-size:12px;color:#3b82f6;">Primary advantage: Tangible, appraised, insured assets</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:4px 0;color:var(--border);font-size:18px;">↓</div>
+
+    <div class="layer-item l3">
+      <div class="layer-badge">Layer 3 — Control Override</div>
+      <div class="layer-title">100% Portfolio Company Equity Pledge</div>
+      <div class="layer-body">
+        <div class="two-col" style="gap:16px;margin-top:10px;">
+          <div><p><strong>What it is:</strong> A pledge of 100% of the PE sponsor's equity interests in all portfolio company holdings. In a default scenario, the Fund does not merely claim against assets from the outside — the Fund steps into ownership control of the operating businesses themselves, with full management authority.<br><br><strong>How it's secured:</strong> Equity Pledge Agreement and delivered stock powers (for certificated equity) or control agreements (for LLC member interests). Pledged interests are specifically identified by entity name and percentage interest in the Pledge Agreement. Upon default and acceleration, the Fund may exercise the pledged stock powers to transfer ownership without further borrower action.<br><br><strong>Enforcement pathway:</strong> Fund exercises pledge rights to transfer equity to itself or a designated nominee. Subject to applicable securities law constraints on transfer of privately-held interests (coordinated by SCALE LLP). Enables the Fund to step into operational ownership of a going-concern business — potentially more value-preserving than liquidation of individual assets.</p></div>
+          <div><div style="background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;"><div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8b5cf6;margin-bottom:8px;font-weight:700;">Layer 3 Recovery Profile</div><ul style="list-style:none;padding:0;"><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Asset type: Business equity / going-concern value</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Enforcement timeline: 60–180 days</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Court required: Possible for contested transfers</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Correlation to other layers: Moderate-high — enterprise value</li><li style="padding:5px 0;font-family:'Arial',sans-serif;font-size:12px;color:#8b5cf6;">Primary advantage: Control rights; going-concern value preservation</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:4px 0;color:var(--border);font-size:18px;">↓</div>
+
+    <div class="layer-item l4">
+      <div class="layer-badge">Layer 4 — Hard Asset Terminal Value</div>
+      <div class="layer-title">Gulfstream G550 Aviation Fleet — UCC-1 &amp; FAA Registry Perfected First Lien</div>
+      <div class="layer-body">
+        <div class="two-col" style="gap:16px;margin-top:10px;">
+          <div><p><strong>What it is:</strong> A perfected first-priority security interest in a fleet of Gulfstream G550 large-cabin, ultra-long-range business jets operated by the charter company in which the PE sponsor holds equity. Security perfection is achieved through dual-filing: (i) UCC-1 financing statement and (ii) conveyance notation on the FAA Civil Aviation Registry pursuant to 49 U.S.C. §44107 and 14 C.F.R. Part 49. For international operations, Cape Town Convention (Aircraft Protocol) protections are evaluated by SCALE LLP. Each aircraft independently appraised. Each aircraft generates $2.1M–$3.1M net profit annually. Dark Horse holds 40% equity per aircraft.<br><br><strong>Why aviation is uniquely powerful collateral:</strong> Gulfstream G550s are globally fungible, mobile, independently appraised, and maintain deep secondary market liquidity regardless of the borrower's operating condition. Aircraft can be physically repositioned to the most advantageous sale market. The secondary market for large-cabin Gulfstream aircraft involves institutional buyers in multiple jurisdictions with active, competitive pricing.</p></div>
+          <div><div style="background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;"><div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Layer 4 Recovery Profile</div><ul style="list-style:none;padding:0;"><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Asset type: Aviation hard assets — globally marketable</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Appraised value: $30–45M per aircraft (independently appraised)</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Enforcement timeline: 60–180 days via specialist broker</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Correlation to other layers: Low — independent global market</li><li style="padding:5px 0;font-family:'Arial',sans-serif;font-size:12px;color:var(--gold);">Primary advantage: Globally mobile, liquid, income-generating</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:4px 0;color:var(--border);font-size:18px;">↓</div>
+
+    <div class="layer-item l5">
+      <div class="layer-badge">Layer 5 — The Alignment Lock</div>
+      <div class="layer-title">PE Sponsor Guaranty — Dual Equity Counterparty</div>
+      <div class="layer-body">
+        <div class="two-col" style="gap:16px;margin-top:10px;">
+          <div><p><strong>What it is:</strong> A personal or entity guaranty from the PE sponsor, backed by the sponsor's equity interests in both the primary borrowing entity AND the charter company operating the aircraft fleet. The PE sponsor is a dual-equity counterparty — they have direct financial exposure on both sides of the transaction.<br><br><strong>Why it is structurally extraordinary:</strong> In a default scenario, the sponsor faces financial impairment from two independent directions: (1) credit default consequences damaging their LP relationships and professional standing, AND (2) enforcement against charter company equity threatening a separately held, income-generating business asset. Default is doubly costly for this counterparty in a way that is structural, not contractual.<br><br><strong>Enforcement pathway:</strong> Guaranty is a direct obligation of the PE sponsor — enforceable as a standalone claim independent of the primary facility enforcement. If primary collateral recovery is insufficient, the guaranty provides an additional claim against sponsor assets.</p></div>
+          <div><div style="background:var(--navy-light);border:1px solid var(--border-dim);border-radius:4px;padding:16px 18px;"><div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#ef4444;margin-bottom:8px;font-weight:700;">Layer 5 Recovery Profile</div><ul style="list-style:none;padding:0;"><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Asset type: Sponsor guaranty + dual equity exposure</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Enforcement timeline: Dependent on guaranty terms</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Court required: Typically yes for contested guaranty claim</li><li style="padding:5px 0;border-bottom:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:12px;color:var(--text);">Correlation to other layers: High — same counterparty</li><li style="padding:5px 0;font-family:'Arial',sans-serif;font-size:12px;color:#ef4444;">Primary advantage: Behavioral deterrent — dual incentive to perform</li></ul></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Collateral Layer Summary — Comparative Analysis</h3>
+      <table>
+        <thead><tr><th>Layer</th><th>Asset Class</th><th>Lien Type</th><th>Est. Recovery Timeline</th><th>Market Correlation</th><th>Primary Enforcement Advantage</th></tr></thead>
+        <tbody>
+          <tr><td class="td-green">Layer 1 — Cash Flows</td><td>Receivables / contracts</td><td>UCC-1 §9-607</td><td>30–60 days</td><td>Low</td><td>Speed — no court required</td></tr>
+          <tr><td style="color:#60a5fa;">Layer 2 — Physical Assets</td><td>Real estate + inventory</td><td>UCC-1 + property liens</td><td>90–270 days</td><td>Moderate</td><td>Tangible insured value</td></tr>
+          <tr><td style="color:#a78bfa;">Layer 3 — Equity</td><td>Portfolio company ownership</td><td>Pledge Agreement</td><td>60–180 days</td><td>Moderate-High</td><td>Control rights + going-concern</td></tr>
+          <tr><td class="td-gold">Layer 4 — Aviation</td><td>G550 aircraft fleet</td><td>UCC-1 + FAA Registry</td><td>60–180 days</td><td>Low</td><td>Global liquidity, mobile, income-generating</td></tr>
+          <tr><td style="color:#f87171;">Layer 5 — Guaranty</td><td>Sponsor guaranty</td><td>Direct obligation</td><td>Depends on contest</td><td>High (same counterparty)</td><td>Behavioral deterrent — dual equity exposure</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sec-notice">Draft Horse Capital Partners LLC — Confidential | Not an Offer to Sell Securities</div>
+</section>
+
+<!-- ============================================================ 09 AVIATION DEEP DIVE ============================================================ -->
+<section class="section" id="s09">
+  <div class="sec-hdr">
+    <div class="sec-num">Section 09</div>
+    <div class="sec-title">Aviation Collateral Deep Dive</div>
+    <div class="sec-sub">Gulfstream G550 specifications, market value analysis, charter economics, Dark Horse equity stake, UCC-1 and FAA Registry mechanics, and dual counterparty alignment</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="content">
+    <div class="card card-gold">
+      <h3>Why Aviation Assets Are the Cornerstone of Draft Horse's Collateral Architecture</h3>
+      <p>Among the five collateral layers securing the Fund's $100M facility, the Gulfstream G550 aviation fleet is uniquely positioned as the terminal hard asset — the collateral that is most independent of the borrower's operating performance, most globally liquid, most reliably appraised, and most enforceable across jurisdictions. Aviation assets are not real estate: they cannot be indefinitely illiquid, they cannot have their title permanently clouded, and they cannot be rendered worthless by local market conditions. A Gulfstream G550 is a globally fungible, mobile, income-generating hard asset with institutional buyers in the United States, Europe, Middle East, and Asia.</p>
+      <p style="margin-top:10px;">Beyond the collateral position, Draft Horse holds a <strong>40% direct equity stake per aircraft</strong> in the charter company that operates the fleet — generating independent income that is structurally separate from and additive to the credit spread income on the $100M loan. This dual position — secured creditor AND minority equity owner of the operating business — is the defining economic architecture of Draft Horse's advantage over conventional private credit funds.</p>
+    </div>
+
+    <h3 style="color:var(--gold-light);font-size:20px;margin-bottom:16px;margin-top:8px;">Gulfstream G550 — Aircraft Profile</h3>
+    <div class="spec-grid">
+      <div class="spec-box"><div class="spec-lbl">Classification</div><div class="spec-val">Large-Cabin</div><div class="spec-sub">Ultra-Long-Range Business Jet</div></div>
+      <div class="spec-box"><div class="spec-lbl">Max Range</div><div class="spec-val">6,750 nm</div><div class="spec-sub">Non-stop New York to Tokyo capable</div></div>
+      <div class="spec-box"><div class="spec-lbl">Cruising Speed</div><div class="spec-val">Mach 0.885</div><div class="spec-sub">~561 mph — top-tier business jet speed</div></div>
+      <div class="spec-box"><div class="spec-lbl">Service Ceiling</div><div class="spec-val">51,000 ft</div><div class="spec-sub">Above commercial airline traffic corridors</div></div>
+      <div class="spec-box"><div class="spec-lbl">Cabin Capacity</div><div class="spec-val">8–19</div><div class="spec-sub">Passengers — configurable large cabin</div></div>
+      <div class="spec-box"><div class="spec-lbl">Production Run</div><div class="spec-val">2003–2012</div><div class="spec-sub">Fixed supply — no new production; ~590 built</div></div>
+      <div class="spec-box"><div class="spec-lbl">Current Appraised Value</div><div class="spec-val">$30–45M</div><div class="spec-sub">Per aircraft (independently appraised)</div></div>
+      <div class="spec-box"><div class="spec-lbl">Secondary Market</div><div class="spec-val">Deep Global</div><div class="spec-sub">Active buyers: US, Europe, ME, APAC</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Why the G550 Is Exceptional Collateral — Institutional Analysis</h3>
+      <div class="two-col">
+        <div>
+          <h4>Supply Dynamics — Fixed and Declining</h4>
+          <p>Gulfstream ceased G550 production in 2012, replaced by the G650. Approximately 590 aircraft were produced. The total in-service global fleet is declining over time as aircraft reach retirement (typically 25–30 years of service life with proper maintenance). A fixed supply base with consistent institutional demand produces a natural floor on resale values that is structurally different from other business jet categories where new models compete with existing supply.</p>
+          <p style="margin-top:10px;"><strong>Value stability:</strong> Well-maintained, low-hours G550s have maintained residual values at levels that significantly outperformed other business jet categories through multiple aviation market cycles, including the COVID-19 disruption period of 2020–2021. This stability is a function of the aircraft's unique combination of range capability (few competitors at equivalent cost), established maintenance network, and institutional buyer familiarity.</p>
+        </div>
+        <div>
+          <h4>Global Market Demand — Middle East and APAC Emphasis</h4>
+          <p>Business aviation demand in the Middle East and Asia-Pacific regions has recovered strongly from the COVID-19 disruption and continues to grow structurally, driven by: HNW and UHNW population growth in Gulf states, corporate and government demand for private air transport, and the expanding geographic footprint of institutional business travelers requiring ultra-long-range capabilities.</p>
+          <p style="margin-top:10px;">The G550 is specifically well-suited to Middle East charter operations: it operates non-stop between any two points in the Middle East and Europe (e.g., Abu Dhabi to London in approximately 7.5 hours), and its range allows non-stop operations to key Asian business centers. This geographic versatility creates a large, competitive buyer pool in the Middle East secondary market — relevant to allocators from ADIA, ADQ, GIC, and ICD who have direct visibility into this market.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <h3>Charter Economics — Income Model per Aircraft</h3>
+      <div class="four-col" style="margin-bottom:16px;">
+        <div class="spec-box"><div class="spec-lbl">Net Annual Profit Per Jet</div><div class="spec-val">$2.1–3.1M</div><div class="spec-sub">Based on charter operator economics</div></div>
+        <div class="spec-box"><div class="spec-lbl">Dark Horse Equity Per Jet</div><div class="spec-val">40%</div><div class="spec-sub">Direct ownership stake per aircraft</div></div>
+        <div class="spec-box"><div class="spec-lbl">Annual Income Share Per Jet</div><div class="spec-val">$840K–$1.24M</div><div class="spec-sub">Dark Horse annual distribution per aircraft</div></div>
+        <div class="spec-box"><div class="spec-lbl">Target Fleet</div><div class="spec-val">24 Jets</div><div class="spec-sub">Full build-out target</div></div>
+      </div>
+      <div class="two-col">
+        <div>
+          <h4>Charter Economics — Revenue Model</h4>
+          <p>The charter economics per G550 aircraft are based on a commercial charter operation model with the following structural drivers:</p>
+          <ul>
+            <li><strong>Charter rates:</strong> Large-cabin ultra-long-range aircraft (G550 class) command charter rates of approximately $10,000–$20,000 per flight hour, depending on route, trip duration, and positioning requirements.</li>
+            <li><strong>Utilization:</strong> A well-managed charter operation at this aircraft class typically achieves 400–600 annual billable flight hours — generating gross charter revenue of $4M–$12M/aircraft/year before operating costs.</li>
+            <li><strong>Operating costs:</strong> Fixed costs (crew, insurance, hangar, training, management) and variable costs (fuel, maintenance reserves, catering) typically account for 65–80% of gross revenue in a mature charter operation.</li>
+            <li><strong>Net profit range:</strong> $2.1M–$3.1M net per aircraft per year reflects the range of outcomes in a well-managed, appropriately utilized large-cabin charter operation.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Dark Horse Equity Economics — 24-Jet Target Fleet</h4>
+          <div style="background:var(--navy-light);border:1px solid var(--border);border-radius:4px;padding:16px 18px;">
+            <table style="margin-bottom:0;">
+              <thead><tr><th>Metric</th><th>Low Case</th><th>High Case</th></tr></thead>
+              <tbody>
+                <tr><td>Net profit per jet</td><td>$2.1M</td><td>$3.1M</td></tr>
+                <tr><td>Dark Horse share (40%)</td><td>$840K</td><td>$1.24M</td></tr>
+                <tr><td>Current fleet (building)</td><td colspan="2">N/A — targets disclosed in NDA diligence</td></tr>
+                <tr><td>Target fleet: 24 jets</td><td>$20.2M/yr</td><td>$29.8M/yr</td></tr>
+                <tr><td>3-year aviation equity income</td><td>$60.5M</td><td>$89.3M</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="info-box" style="margin-top:10px;">Aviation equity income is the Fund's GP economics — separate from and in addition to the credit spread on the $100M loan. It is not distributed to investors. Figures above are illustrative based on stated per-jet economics and target fleet size. Actual build-out timeline, utilization, and profitability are subject to operating conditions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>UCC-1 and FAA Registry Lien Mechanics — Aviation-Specific</h3>
+      <div class="two-col">
+        <div>
+          <h4>Why Aviation Requires Dual Filing</h4>
+          <p>Unlike most personal property, U.S.-registered civil aircraft require a <strong>dual-filing regime</strong> to achieve fully perfected first-priority lien status. A UCC-1 financing statement alone is <em>insufficient</em> to perfect a security interest in a U.S.-registered aircraft as the legally superior filing:</p>
+          <ul>
+            <li><strong>Federal preemption:</strong> The Federal Aviation Act (49 U.S.C. §44107 et seq.) provides federal registry controls for aircraft interests — creating a federal filing system that preempts state UCC as the controlling register for aviation assets.</li>
+            <li><strong>FAA Civil Aviation Registry:</strong> Security interests in U.S.-registered aircraft must be recorded with the FAA Civil Aviation Registry in Oklahoma City, Oklahoma, to be enforceable against third parties who deal in good faith with the aircraft.</li>
+            <li><strong>Priority rule:</strong> Among competing interests in U.S.-registered aircraft, priority is governed by the order of recording in the FAA Registry — not by the date of UCC-1 filing.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Draft Horse's Aviation Perfection Protocol</h4>
+          <ul>
+            <li><strong>Step 1:</strong> UCC-1 financing statement filed in debtor's state of organization — covering the aircraft as personal property for any residual non-federal protections.</li>
+            <li><strong>Step 2:</strong> FAA Civil Aviation Registry recording — security agreement and conveyance recorded with the FAA Registry in Oklahoma City. Filing date and recording number obtained.</li>
+            <li><strong>Step 3:</strong> Prior interest search — FAA Registry search confirms no prior recorded security interests on each aircraft's registration number (N-number). Chain of title confirmed.</li>
+            <li><strong>Step 4:</strong> Cape Town Convention analysis — for aircraft that may operate internationally, SCALE LLP evaluates whether the International Registry under the Cape Town Convention (Aircraft Protocol) provides additional international perfection benefits.</li>
+            <li><strong>Step 5:</strong> Confirmation and maintenance — FAA Registry filing confirmation obtained; filings updated upon any aircraft registration change or transfer.</li>
+          </ul>
+          <div class="info-box">The dual UCC-1 + FAA Registry filing protocol described above is the legally required and commercially standard perfection method for security interests in U.S.-registered civil aircraft. SCALE LLP manages all aviation perfection filings.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-blue">
+      <h3>Note for Infrastructure and Real Asset Mandate Allocators</h3>
+      <p>The Gulfstream G550 charter aviation fleet constitutes <strong>operating aviation infrastructure</strong> — a revenue-generating real asset business with contracted utilization, defined maintenance obligations, quantifiable income streams, and independently appraised asset values. Allocators whose mandates include infrastructure, real assets, aviation, logistics, or transportation may find direct asset-class alignment with Layer 4 of Draft Horse's collateral structure.</p>
+      <p style="margin-top:10px;">The Fund holds both a <strong>first-priority secured debt position</strong> against the aircraft (via UCC-1 and FAA Registry) AND a <strong>40% equity ownership stake</strong> in the operating charter entity — providing dual exposure to the aviation asset class within a single investment vehicle. This combination of debt and equity exposure to an aviation operating business is structurally similar to infrastructure co-investment vehicles, but within a private credit fund structure that offers a Stated Annual Return (Target), quarterly distributions, and a defined 36-month exit.</p>
+      <p style="margin-top:10px;">For Middle East and Singapore-based

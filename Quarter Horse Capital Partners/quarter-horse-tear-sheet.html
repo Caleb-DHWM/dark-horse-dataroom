@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarter Horse Capital Partners — Tear Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d0f14;
+    --navy2: #141720;
+    --navy3: #1a1e2a;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --text: #e8e9ed;
+    --muted: #8892a0;
+    --border: rgba(201,168,76,0.18);
+    --border-strong: rgba(201,168,76,0.35);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.5;
+    font-size: 13px;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 36px;
+  }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 22px;
+  }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .logo-tag {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .tagline-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* STAT BOXES */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .stat-box {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.3;
+  }
+
+  /* TWO COLUMN LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  /* ASSET CLASS GRID */
+  .asset-grid-title {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .asset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+  }
+  .asset-cell {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .asset-icon {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .asset-name {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold2);
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .asset-yield {
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  /* YIELD TABLE */
+  .yield-title {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .yield-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  .yield-table tr { border-bottom: 1px solid var(--border); }
+  .yield-table tr:last-child { border-bottom: none; }
+  .yield-table td {
+    padding: 7px 10px;
+  }
+  .yield-table tr:nth-child(odd) td { background: var(--navy2); }
+  .yield-table tr:nth-child(even) td { background: var(--navy3); }
+  .yield-table .t-band { color: var(--muted); font-size: 11px; }
+  .yield-table .t-ret { color: var(--gold); font-weight: 700; text-align: right; }
+  .yield-table tr.highlight-row td { background: rgba(201,168,76,0.12) !important; }
+  .yield-table tr.highlight-row .t-band { color: var(--gold2); font-weight: 600; }
+
+  /* CALLOUT BAR */
+  .callout-bar {
+    background: linear-gradient(135deg, rgba(201,168,76,0.14) 0%, rgba(201,168,76,0.04) 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout-bar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .callout-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .callout-math {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .callout-math .sep {
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  /* PROVIDERS */
+  .providers-title {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .providers-row {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 7px;
+  }
+  .prov-item {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 9px 10px;
+  }
+  .prov-name { font-size: 11px; font-weight: 700; color: var(--gold2); margin-bottom: 2px; }
+  .prov-role { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
+
+
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 9.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .footer strong { color: var(--text); }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: #fff !important; color: #111 !important; }
+    .page { padding: 16px 20px; }
+    :root {
+      --navy: #fff;
+      --navy2: #f4f5f7;
+      --navy3: #eaedf0;
+      --text: #111;
+      --muted: #555;
+      --border: rgba(180,140,30,0.3);
+      --border-strong: rgba(180,140,30,0.5);
+      --gold: #9a7215;
+      --gold2: #7a5a10;
+    }
+    .callout-bar, .dist-callout { background: #f9f5e8 !important; }
+    @page { margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="logo-name">Quarter Horse Capital Partners LLC</div>
+      <div class="logo-tag">Quarter Horse Wealth Management LLC &nbsp;·&nbsp; Texas &nbsp;·&nbsp; Private Credit &nbsp;·&nbsp; Institutional</div>
+    </div>
+    <div class="tagline-badge">7 SPV Lending Verticals · Fixed Term · Institutional Grade</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-value">$200K</div>
+      <div class="stat-label">Min Investment</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">9–17%</div>
+      <div class="stat-label">Stated Return Target</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3-Yr</div>
+      <div class="stat-label">Lockup · No Redemption</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Qtrly</div>
+      <div class="stat-label">Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">$0</div>
+      <div class="stat-label">Fees of Any Kind</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">7</div>
+      <div class="stat-label">SPV Lending Verticals</div>
+    </div>
+  </div>
+
+  <!-- CALLOUT BAR -->
+  <div class="callout-bar">
+    <div class="callout-label">$1B Stated Return Target (17% Tier)</div>
+    <div class="callout-math">
+      $1B <span class="sep">→</span> $170M / year <span class="sep">→</span> $42.5M / quarter
+    </div>
+    <div style="font-size:9px;color:var(--muted);text-align:right;line-height:1.4;">Distributions quarterly.<br>Monthly ref: ~$14.2M equiv.</div>
+  </div>
+
+  <!-- TWO COLUMN: ASSET GRID + YIELD TABLE -->
+  <div class="two-col">
+    <div>
+      <div class="asset-grid-title">7 SPV Lending Verticals</div>
+      <div class="asset-grid">
+        <div class="asset-cell">
+          <span class="asset-icon">🏠</span>
+          <div class="asset-name">Real Estate SPV</div>
+          <div class="asset-yield">12% target</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">🥇</span>
+          <div class="asset-name">Precious Metals Trade Finance SPV</div>
+          <div class="asset-yield">28% target</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">⛏️</span>
+          <div class="asset-name">Mining &amp; Mineral Resources SPV</div>
+          <div class="asset-yield">16% target</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">✈️</span>
+          <div class="asset-name">Aviation: Jet Charter Facility</div>
+          <div class="asset-yield">15% target</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">⚡</span>
+          <div class="asset-name">Energy &amp; Technology Infrastructure SPV</div>
+          <div class="asset-yield">20% target</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">🖼️</span>
+          <div class="asset-name">Fine Art SPV ($541M Collection)</div>
+          <div class="asset-yield">22% blended</div>
+        </div>
+        <div class="asset-cell">
+          <span class="asset-icon">📊</span>
+          <div class="asset-name">Structured Private Credit</div>
+          <div class="asset-yield">18% target</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="yield-title">Tiered Return Schedule (Target)</div>
+      <table class="yield-table">
+        <tr><td class="t-band">$200K – $999K</td><td class="t-ret">9%</td></tr>
+        <tr><td class="t-band">$1M – $4.99M</td><td class="t-ret">11%</td></tr>
+        <tr><td class="t-band">$5M – $24.99M</td><td class="t-ret">13%</td></tr>
+        <tr><td class="t-band">$25M – $49.99M</td><td class="t-ret">15%</td></tr>
+        <tr class="highlight-row"><td class="t-band">$50M+</td><td class="t-ret">17%</td></tr>
+      </table>
+
+      <div style="margin-top:14px;">
+        <div class="yield-title">Structure at a Glance</div>
+        <table class="yield-table">
+          <tr><td class="t-band">Structure</td><td style="color:var(--text);font-size:11px;text-align:right;">Reg D 506(c) + 3(c)(1)</td></tr>
+          <tr><td class="t-band">Eligibility</td><td style="color:var(--text);font-size:11px;text-align:right;">Verified Accredited Only</td></tr>
+          <tr><td class="t-band">Governing Law</td><td style="color:var(--text);font-size:11px;text-align:right;">Texas</td></tr>
+          <tr><td class="t-band">Early Redemption</td><td style="color:#e88a2e;font-weight:700;font-size:11px;text-align:right;">NONE</td></tr>
+          <tr><td class="t-band">Fund Spread</td><td style="color:var(--text);font-size:11px;text-align:right;">Earnings above investor return</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE PROVIDERS -->
+  <div style="margin-bottom:14px;">
+    <div class="providers-title">Fund Service Providers</div>
+    <div class="providers-row">
+      <div class="prov-item">
+        <div class="prov-name">NAV Fund Services</div>
+        <div class="prov-role">Fund Admin · NAV Calc · Investor Reporting</div>
+      </div>
+      <div class="prov-item">
+        <div class="prov-name">Spicer Jeffries LLP</div>
+        <div class="prov-role">Fund Audit · Tax · K-1</div>
+      </div>
+      <div class="prov-item">
+        <div class="prov-name">Axos Bank</div>
+        <div class="prov-role">Institutional Banking · Custody</div>
+      </div>
+      <div class="prov-item">
+        <div class="prov-name">SCALE LLP / D. Karjian</div>
+        <div class="prov-role">Securities Counsel · Reg D Compliance</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <strong>Reg D 506(c) / Section 3(c)(1).</strong> Not an offer to sell or solicitation to buy. Verified accredited investors only. Not SEC registered. No guarantee of return. Principal subject to loss. 3-year lockup with NO early redemption. Governed by Texas law. All stated returns are targets only.
+    </div>
+    <div>
+      <strong>Confidential.</strong> This document is strictly confidential and for the sole use of the intended institutional recipient. Not for distribution. Reproduction prohibited without written consent. © Quarter Horse Capital Partners LLC / Quarter Horse Wealth Management LLC.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

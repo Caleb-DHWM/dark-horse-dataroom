@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabian Capital Partners — Sovereign Teaser</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d0f14;
+    --navy-mid: #141720;
+    --navy-card: #1a1e2a;
+    --gold: #c9a84c;
+    --gold-light: #e2c06a;
+    --gold-pale: #f5e199;
+    --amber: #e8962a;
+    --text: #e8eaf0;
+    --muted: #8a90a0;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 40px 32px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo-block {}
+  .logo-entity {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .logo-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+  }
+  .header-badge {
+    text-align: right;
+  }
+  .badge-qp {
+    display: inline-block;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  .badge-conf {
+    display: block;
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 6px;
+    text-align: right;
+  }
+
+  /* ── HEADLINE ── */
+  .headline-block {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .headline {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #e2c06a 0%, #c9a84c 40%, #e8962a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .subheadline {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .subheadline span {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    margin: 20px auto;
+    border-radius: 2px;
+  }
+
+  /* ── STRATEGY BLOCK ── */
+  .strategy {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 28px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #c8ccd8;
+  }
+  .strategy strong { color: var(--gold-light); font-weight: 600; }
+
+  /* ── STAT BOXES ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .stat-box {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 16px 10px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .stat-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+  }
+
+  /* ── BIG CALLOUT ── */
+  .callout {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(232,150,42,0.12) 100%);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber), var(--gold));
+  }
+  .callout-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .callout-math {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .callout-math .eq { color: var(--gold); }
+  .callout-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ── TAILWINDS ── */
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .tailwinds {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .tailwind-card {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 16px;
+  }
+  .tailwind-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .tailwind-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .tailwind-body {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── ESG NOTE ── */
+  .esg-note {
+    background: rgba(201,168,76,0.05);
+    border-left: 2px solid var(--gold);
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    font-size: 12px;
+    color: #a0a8b8;
+    font-style: italic;
+  }
+  .esg-note strong { color: var(--gold); font-style: normal; }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .cta-text {}
+  .cta-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .cta-sub { font-size: 12px; color: var(--muted); }
+  .cta-contact {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+  .cta-contact div { margin-bottom: 3px; }
+
+  /* ── FOOTER LEGAL ── */
+  .legal {
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding-top: 16px;
+    font-size: 9.5px;
+    color: #50576a;
+    line-height: 1.7;
+  }
+  .legal strong { color: #70788a; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-block">
+      <div class="logo-entity">Arabian Wealth Management LLC &nbsp;|&nbsp; A Dark Horse Wealth Management Company</div>
+      <div class="logo-name">Arabian Capital Partners LLC</div>
+      <div class="logo-sub">Physical Precious Metals &amp; Commodity Trade Finance</div>
+    </div>
+    <div class="header-badge">
+      <span class="badge-qp">Section 3(c)(7) &nbsp;|&nbsp; Qualified Purchasers Only</span>
+      <span class="badge-conf">Confidential — Not for Public Distribution</span>
+    </div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-block">
+    <div class="headline">Physical Gold. Fixed Income. Sovereign Scale.</div>
+    <div class="gold-line"></div>
+    <div class="subheadline">
+      <span>U.S.-Domiciled</span> &nbsp;|&nbsp; <span>LBMA-Certified</span> &nbsp;|&nbsp; <span>Monthly Distributions</span> &nbsp;|&nbsp; <span>Zero Fees</span> &nbsp;|&nbsp; <span>14–20% Fixed Contractual Annual Yield to Investor</span>
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="strategy">
+    Arabian Capital Partners deploys capital into <strong>physical precious metals trade finance</strong> — acquiring gold, silver, and strategic commodities at wholesale or spot pricing, holding in <strong>LBMA-certified custody</strong> (Brinks / Transguard), and delivering to confirmed institutional buyers in Dubai and Sharjah at spot plus a 3–5% gross margin, completing full trade cycles in <strong>3–5 business days</strong>. A complementary <strong>commodity-backed private credit tranche</strong> extends short-duration secured loans collateralized by physical metals under LBMA vault oversight, generating additional yield without equity risk. Together, these two strategies produce a <strong>Fixed Contractual Annual Yield to Investor</strong> distributed monthly — with zero management or performance fees, and full investor principal backed by physical commodity collateral.
+  </div>
+
+  <!-- STAT BOXES -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-value">$5M</div>
+      <div class="stat-label">Minimum Commitment</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">14–20%</div>
+      <div class="stat-label">Fixed Contractual Annual Yield</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Monthly</div>
+      <div class="stat-label">Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">2-Year</div>
+      <div class="stat-label">Revolving Term</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Annual</div>
+      <div class="stat-label">Liquidity Window</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Zero</div>
+      <div class="stat-label">Management Fees</div>
+    </div>
+  </div>
+
+  <!-- BIG CALLOUT -->
+  <div class="callout">
+    <div class="callout-label">Fixed Contractual Yield — Illustrative at Scale</div>
+    <div class="callout-math">
+      $1,000,000,000 <span class="eq">→</span> $200,000,000 / year <span class="eq">→</span> $16,666,667 / month
+    </div>
+    <div class="callout-note">Based on the 20% fixed annual yield tier applicable to commitments of $500M+. This is a contractual fixed rate — not a projection, forecast, or performance estimate.</div>
+  </div>
+
+  <!-- YIELD TIERS -->
+  <div class="section-title">Fixed Contractual Annual Yield — Tiered by Commitment</div>
+  <div style="background: var(--navy-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 28px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr style="background: rgba(201,168,76,0.1);">
+        <th style="padding: 9px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border);">Commitment Tier</th>
+        <th style="padding: 9px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border);">Fixed Annual Yield</th>
+        <th style="padding: 9px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border);">Monthly Equivalent</th>
+        <th style="padding: 9px 14px; text-align: left; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border);">Annual Income at Floor</th>
+      </tr>
+      <tr style="border-bottom: 1px solid rgba(201,168,76,0.08);"><td style="padding: 9px 14px; font-size: 12px; color: var(--text);">$5,000,000 – $24,999,999</td><td style="padding: 9px 14px; font-size: 12px; color: var(--gold-light); font-weight: 700;">14.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 600;">1.167% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: var(--muted);">$700,000 / year</td></tr>
+      <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(201,168,76,0.08);"><td style="padding: 9px 14px; font-size: 12px; color: var(--text);">$25,000,000 – $49,999,999</td><td style="padding: 9px 14px; font-size: 12px; color: var(--gold-light); font-weight: 700;">16.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 600;">1.333% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: var(--muted);">$4,000,000 / year</td></tr>
+      <tr style="border-bottom: 1px solid rgba(201,168,76,0.08);"><td style="padding: 9px 14px; font-size: 12px; color: var(--text);">$50,000,000 – $99,999,999</td><td style="padding: 9px 14px; font-size: 12px; color: var(--gold-light); font-weight: 700;">17.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 600;">1.417% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: var(--muted);">$8,500,000 / year</td></tr>
+      <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(201,168,76,0.08);"><td style="padding: 9px 14px; font-size: 12px; color: var(--text);">$100,000,000 – $249,999,999</td><td style="padding: 9px 14px; font-size: 12px; color: var(--gold-light); font-weight: 700;">18.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 600;">1.500% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: var(--muted);">$18,000,000 / year</td></tr>
+      <tr style="border-bottom: 1px solid rgba(201,168,76,0.08);"><td style="padding: 9px 14px; font-size: 12px; color: var(--text);">$250,000,000 – $499,999,999</td><td style="padding: 9px 14px; font-size: 12px; color: var(--gold-light); font-weight: 700;">19.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 600;">1.583% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: var(--muted);">$47,500,000 / year</td></tr>
+      <tr style="background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(232,150,42,0.12)); border-top: 1px solid rgba(201,168,76,0.25);"><td style="padding: 9px 14px; font-size: 12px; color: #fff; font-weight: 700;">$500,000,000 and above</td><td style="padding: 9px 14px; font-size: 13px; color: var(--gold-light); font-weight: 800;">20.00%</td><td style="padding: 9px 14px; font-size: 12px; color: #9ab870; font-weight: 700;">1.667% / mo</td><td style="padding: 9px 14px; font-size: 12px; color: #fff; font-weight: 700;">$100,000,000+ / year</td></tr>
+    </table>
+    <div style="padding: 8px 14px 10px; font-size: 10px; color: var(--muted); font-style: italic;">Rates are contractual — not projections, forecasts, or performance estimates. Fixed Contractual Annual Yield to Investor. Tiers fixed at time of subscription. Refer to PPM for definitive terms.</div>
+  </div>
+
+  <!-- TAILWINDS -->
+  <div class="section-title">Three Macro Tailwinds</div>
+  <div class="tailwinds">
+    <div class="tailwind-card">
+      <div class="tailwind-icon">🏦</div>
+      <div class="tailwind-title">Central Bank Gold Buying at 50-Year Highs</div>
+      <div class="tailwind-body">Global central banks purchased over 1,000 metric tons of gold in each of the past two years — the highest sustained pace in five decades (World Gold Council, 2024). Institutional demand is structurally elevated.</div>
+    </div>
+    <div class="tailwind-card">
+      <div class="tailwind-icon">🌍</div>
+      <div class="tailwind-title">SWF Reallocation from Middle East Real Estate</div>
+      <div class="tailwind-body">Sovereign wealth funds across the GCC are actively diversifying away from real estate concentration toward liquid, yield-generating hard asset strategies with monthly income and defined liquidity windows.</div>
+    </div>
+    <div class="tailwind-card">
+      <div class="tailwind-icon">🇺🇸</div>
+      <div class="tailwind-title">U.S.-Domiciled Hard Asset Safe Haven</div>
+      <div class="tailwind-body">Geopolitical fragmentation is accelerating demand for U.S.-domiciled, physically-backed, dollar-denominated hard asset vehicles — a category with limited institutional-grade supply at sovereign scale.</div>
+    </div>
+  </div>
+
+  <!-- ESG NOTE -->
+  <div class="esg-note">
+    <strong>Responsible Sourcing:</strong> All commodity sourcing operates under LBMA Responsible Sourcing standards — covering conflict-mineral compliance, chain-of-custody documentation, and LBMA-certified re-refinery processing in Dubai — designed to meet the ESG due diligence requirements of NBIM and equivalent institutional frameworks.
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-text">
+      <div class="cta-title">Request the Complete Data Room</div>
+      <div class="cta-sub">PPM, audited financials, LBMA custody documentation, legal opinions, and NAV reporting available to verified Qualified Purchasers.</div>
+    </div>
+    <div class="cta-contact">
+      <div>Arabian Wealth Management LLC</div>
+      <div>A Dark Horse Wealth Management Company</div>
+      <div style="color: var(--muted); margin-top: 4px; font-size: 11px;">Institutional Inquiries Only</div>
+    </div>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="legal">
+    <strong>CONFIDENTIAL — NOT FOR PUBLIC DISTRIBUTION.</strong> This document is a summary only and is provided solely for informational purposes to persons who qualify as "Qualified Purchasers" as defined under Section 2(a)(51) of the Investment Company Act of 1940. Arabian Capital Partners LLC is offered pursuant to exemptions under Regulation D, Rule 506(c) and Section 3(c)(7) of the Investment Company Act of 1940. This document does not constitute an offer to sell or a solicitation of an offer to buy any security. Any such offer or solicitation will be made only by means of the Fund's definitive Private Placement Memorandum (PPM) and related subscription documents, which should be read in their entirety before making any investment decision. <strong>Past performance is not indicative of future results.</strong> The fixed yield rates described herein are contractual rates set forth in the Fund's governing documents — they are not projections, forecasts, or guarantees of investment performance. All investments involve risk, including the possible loss of principal. This document is governed by the laws of the State of Texas. Yield tiers are subject to the terms and conditions set forth in the PPM. Qualified Purchaser verification is required prior to any subscription. This document may not be reproduced or redistributed without express written consent of Arabian Wealth Management LLC.
+  </div>
+
+</div>
+</body>
+</html>

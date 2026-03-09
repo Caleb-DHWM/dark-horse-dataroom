@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabian Capital Partners — Tear Sheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d0f14;
+    --navy-card: #1a1e2a;
+    --navy-row: #161a24;
+    --gold: #c9a84c;
+    --gold-light: #e2c06a;
+    --amber: #e8962a;
+    --text: #e0e2ea;
+    --muted: #7a8090;
+    --border: rgba(201,168,76,0.2);
+    --border-light: rgba(201,168,76,0.1);
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    padding: 0.45in 0.5in;
+    background: var(--navy);
+    position: relative;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .fund-name {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .fund-type {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--gold), var(--amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .fund-entity {
+    font-size: 9.5px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .top-bar-right {
+    text-align: right;
+  }
+  .qp-badge {
+    display: inline-block;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.08);
+    color: var(--gold);
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+  }
+  .conf-note {
+    font-size: 8px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* ── STAT BOXES ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .stat-box {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 11px 8px;
+    text-align: center;
+  }
+  .stat-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-lbl {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+  }
+
+  /* ── BIG CALLOUT ── */
+  .big-callout {
+    background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(232,150,42,0.14) 100%);
+    border: 1.5px solid rgba(201,168,76,0.4);
+    border-radius: 8px;
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .big-callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--amber), var(--gold));
+  }
+  .big-callout-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .big-callout-math {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+  .big-callout-math .arrow { color: var(--amber); margin: 0 6px; }
+  .big-callout-math .highlight { color: var(--gold-light); }
+  .big-callout-sub {
+    font-size: 9.5px;
+    color: var(--muted);
+    margin-top: 7px;
+    font-style: italic;
+  }
+
+  /* ── TWO-COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* ── INFRASTRUCTURE ── */
+  .section-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .infra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .infra-item {
+    background: var(--navy-card);
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+    padding: 9px 11px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .infra-icon { font-size: 14px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+  .infra-body {}
+  .infra-title { font-size: 10.5px; font-weight: 700; color: var(--gold-light); line-height: 1.2; margin-bottom: 2px; }
+  .infra-desc { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
+
+  /* ── YIELD TABLE ── */
+  .yield-table-wrap {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .yt-header {
+    background: rgba(201,168,76,0.1);
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr 0.8fr;
+    padding: 7px 11px;
+    border-bottom: 1px solid var(--border);
+  }
+  .yt-header span {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .yt-row {
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr 0.8fr;
+    padding: 7px 11px;
+    border-bottom: 1px solid rgba(201,168,76,0.06);
+    font-size: 10.5px;
+  }
+  .yt-row:last-child { border-bottom: none; }
+  .yt-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .yt-row span:nth-child(2) { color: var(--gold-light); font-weight: 700; }
+  .yt-row span:nth-child(3) { color: #9ab870; font-weight: 600; }
+  .yt-top-row {
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(232,150,42,0.12)) !important;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .yt-top-row span:first-child { color: #fff; font-weight: 700; }
+  .yt-top-row span:nth-child(2) { color: var(--gold-light) !important; font-size: 12px; }
+
+  /* ── SERVICE PROVIDERS ── */
+  .providers-list {
+    background: var(--navy-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .provider-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(201,168,76,0.06);
+    font-size: 10.5px;
+  }
+  .provider-row:last-child { border-bottom: none; }
+  .pr-role { color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pr-name { color: var(--text); font-weight: 600; text-align: right; }
+
+  /* ── FOOTER ── */
+  .tear-footer {
+    border-top: 1px solid var(--border-light);
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .footer-legal {
+    font-size: 7.5px;
+    color: #454d60;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .footer-legal strong { color: #60697a; }
+  .footer-contact {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .footer-contact-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 2px;
+  }
+  .footer-contact-detail {
+    font-size: 9px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── PRINT CSS ── */
+  @media print {
+    @page {
+      size: 8.5in 11in;
+      margin: 0;
+    }
+    body {
+      background: #0d0f14 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .sheet {
+      width: 8.5in;
+      min-height: 11in;
+      padding: 0.45in 0.5in;
+      margin: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div>
+      <div class="fund-name">Arabian Capital Partners LLC</div>
+      <div class="fund-type">Sovereign-Grade Commodity Credit &nbsp;|&nbsp; Physical Asset Backed</div>
+      <div class="fund-entity">Arabian Wealth Management LLC &nbsp;·&nbsp; A Dark Horse Wealth Management Company &nbsp;·&nbsp; Texas Governing Law</div>
+    </div>
+    <div class="top-bar-right">
+      <div class="qp-badge">Qualified Purchasers Only &nbsp;|&nbsp; Section 3(c)(7)</div>
+      <div class="conf-note">Confidential &nbsp;|&nbsp; Reg D 506(c) &nbsp;|&nbsp; March 2026</div>
+    </div>
+  </div>
+
+  <!-- STAT BOXES -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val">$5M</div>
+      <div class="stat-lbl">Minimum Commitment</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">14–20%</div>
+      <div class="stat-lbl">Fixed Contractual Annual Yield</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">Monthly</div>
+      <div class="stat-lbl">Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">2-Year</div>
+      <div class="stat-lbl">Revolving Term</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">Annual</div>
+      <div class="stat-lbl">Liquidity Window</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">Zero</div>
+      <div class="stat-lbl">Fees of Any Kind</div>
+    </div>
+  </div>
+
+  <!-- BIG CALLOUT -->
+  <div class="big-callout">
+    <div class="big-callout-label">Fixed Contractual Yield — Illustrative at Sovereign Scale</div>
+    <div class="big-callout-math">
+      $1,000,000,000
+      <span class="arrow">→</span>
+      <span class="highlight">$200,000,000 / year</span>
+      <span class="arrow">→</span>
+      <span class="highlight">$16,666,667 / month</span>
+    </div>
+    <div class="big-callout-sub">20% fixed annual yield tier (commitments $500M+) &nbsp;·&nbsp; Contractual rate — not a projection, forecast, or performance estimate &nbsp;·&nbsp; Paid monthly</div>
+  </div>
+
+  <!-- TWO COLUMN -->
+  <div class="two-col">
+    <!-- LEFT: INFRASTRUCTURE -->
+    <div>
+      <div class="section-label">Existing Operational Infrastructure</div>
+      <div class="infra-grid">
+        <div class="infra-item">
+          <div class="infra-icon">🏅</div>
+          <div class="infra-body">
+            <div class="infra-title">8+ MT/Month Buyer Capacity</div>
+            <div class="infra-desc">2 confirmed institutional buyers — Dubai &amp; Sharjah — 8+ metric tons gold/month combined, contracted</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon">🔐</div>
+          <div class="infra-body">
+            <div class="infra-title">LBMA-Certified Custody</div>
+            <div class="infra-desc">Brinks Security &amp; Transguard — LBMA Good Delivery standards; chain-of-custody documentation on every trade</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon">⚖️</div>
+          <div class="infra-body">
+            <div class="infra-title">TX Noble Metals Broker</div>
+            <div class="infra-desc">Texas Wholesale Noble Metals Broker license held by Stateside Resources LLC — active and operational</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon">✈️</div>
+          <div class="infra-body">
+            <div class="infra-title">Emirates Sky Cargo</div>
+            <div class="infra-desc">Institutional commodity logistics — insured, bonded international freight on established UAE-TX corridor</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon">🔬</div>
+          <div class="infra-body">
+            <div class="infra-title">LBMA Re-Refinery Access</div>
+            <div class="infra-desc">LBMA-certified re-refinery in Dubai ensures all metal in pipeline meets Good Delivery specifications</div>
+          </div>
+        </div>
+        <div class="infra-item">
+          <div class="infra-icon">⛏️</div>
+          <div class="infra-body">
+            <div class="infra-title">TX Silver Ore Asset</div>
+            <div class="infra-desc">670-acre silver ore body, Llano County TX, 4,431 ppm — 3 independent lab confirmations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: YIELD TABLE + SERVICE PROVIDERS -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <!-- YIELD TABLE -->
+      <div>
+        <div class="section-label">Tiered Annual Yield</div>
+        <div class="yield-table-wrap">
+          <div class="yt-header">
+            <span>Commitment Tier</span>
+            <span>Annual</span>
+            <span>Monthly</span>
+          </div>
+          <div class="yt-row yt-top-row">
+            <span>$500M+</span>
+            <span>20.00%</span>
+            <span style="color: #9ab870; font-weight: 600;">1.667%</span>
+          </div>
+          <div class="yt-row">
+            <span>$250M – $500M</span>
+            <span>19.00%</span>
+            <span>1.583%</span>
+          </div>
+          <div class="yt-row">
+            <span>$100M – $250M</span>
+            <span>18.00%</span>
+            <span>1.500%</span>
+          </div>
+          <div class="yt-row">
+            <span>$50M – $100M</span>
+            <span>17.00%</span>
+            <span>1.417%</span>
+          </div>
+          <div class="yt-row">
+            <span>$25M – $50M</span>
+            <span>16.00%</span>
+            <span>1.333%</span>
+          </div>
+          <div class="yt-row">
+            <span>$5M – $25M</span>
+            <span>14.00%</span>
+            <span>1.167%</span>
+          </div>
+        </div>
+        <div style="font-size: 8px; color: var(--muted); margin-top: 4px; font-style: italic;">Contractual fixed rates. Not projections. Refer to PPM.</div>
+      </div>
+
+      <!-- SERVICE PROVIDERS -->
+      <div>
+        <div class="section-label">Service Providers</div>
+        <div class="providers-list">
+          <div class="provider-row">
+            <span class="pr-role">Securities Counsel</span>
+            <span class="pr-name">SCALE LLP / Dori Karjian</span>
+          </div>
+          <div class="provider-row">
+            <span class="pr-role">Audit &amp; Tax</span>
+            <span class="pr-name">Spicer Jeffries LLP</span>
+          </div>
+          <div class="provider-row">
+            <span class="pr-role">Fund Administration / NAV</span>
+            <span class="pr-name">NAV Fund Services</span>
+          </div>
+          <div class="provider-row">
+            <span class="pr-role">Institutional Banking</span>
+            <span class="pr-name">Axos Bank</span>
+          </div>
+          <div class="provider-row">
+            <span class="pr-role">Primary Custodian</span>
+            <span class="pr-name">Brinks Security</span>
+          </div>
+          <div class="provider-row">
+            <span class="pr-role">UAE Custodian</span>
+            <span class="pr-name">Transguard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="tear-footer">
+    <div class="footer-legal">
+      <strong>CONFIDENTIAL — NOT FOR PUBLIC DISTRIBUTION.</strong> This document is provided solely for informational purposes to Qualified Purchasers as defined under Section 2(a)(51) of the Investment Company Act of 1940. Arabian Capital Partners LLC is offered pursuant to Reg D Rule 506(c) and Section 3(c)(7). This document does not constitute an offer to sell or solicitation of an offer to buy any security. Fixed yield rates are contractual rates — not projections or guarantees. All investments involve risk including possible loss of principal. Refer to the PPM for definitive terms. Governed by the laws of the State of Texas. © 2026 Arabian Wealth Management LLC.
+    </div>
+    <div class="footer-contact">
+      <div class="footer-contact-name">Arabian Wealth Management LLC</div>
+      <div class="footer-contact-detail">
+        A Dark Horse Wealth Management Company<br>
+        Institutional Inquiries — Verified QPs Only<br>
+        Request Data Room Access
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

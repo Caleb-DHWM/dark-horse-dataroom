@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Horse Capital Partners — Tear Sheet</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:       #080c18;
+    --navy-mid:   #0e1624;
+    --navy-light: #16213a;
+    --navy-card:  #1a2840;
+    --gold:       #c9a84c;
+    --gold-light: #e8c87a;
+    --gold-dim:   #7a5f28;
+    --silver:     #8fa3b8;
+    --silver-light:#c8d8e8;
+    --white:      #f0f4f8;
+    --text:       #cdd8e6;
+    --text-muted: #6a88a0;
+    --border:     rgba(201,168,76,0.2);
+    --green:      #22c55e;
+    --red:        #f87171;
+  }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--navy); color: var(--text);
+    font-size: 12px; line-height: 1.6;
+  }
+  /* ── OUTER SHELL ── */
+  .page {
+    max-width: 860px; margin: 24px auto;
+    border: 1px solid var(--border);
+    border-radius: 5px; overflow: hidden;
+    background: var(--navy-mid);
+  }
+  /* ── HEADER BAND ── */
+  .header-band {
+    background: rgba(8,12,24,0.98);
+    border-bottom: 2px solid var(--gold);
+    padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .emblem {
+    width: 38px; height: 38px; border: 2px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Arial', sans-serif; font-weight: 800; font-size: 13px;
+    color: var(--gold); background: rgba(201,168,76,0.07);
+  }
+  .fund-name { font-family: 'Arial', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver-light); }
+  .fund-name span { color: var(--gold); }
+  .doc-type { font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); border: 1px solid var(--gold-dim); padding: 4px 10px; border-radius: 2px; }
+  /* ── TAGLINE STRIP ── */
+  .tagline-strip {
+    background: linear-gradient(135deg, rgba(26,40,64,0.6), rgba(8,12,24,0.4));
+    padding: 20px 32px 18px;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .tagline-strip .eyebrow { font-family: 'Arial', sans-serif; font-size: 8.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px; }
+  .tagline { font-size: 22px; color: var(--white); letter-spacing: 0.03em; margin-bottom: 5px; }
+  .tagline em { color: var(--gold-light); font-style: italic; }
+  .sub-tagline { font-family: 'Arial', sans-serif; font-size: 11px; color: var(--silver); }
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 0; border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .stat-box {
+    padding: 16px 14px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    background: var(--navy-light);
+  }
+  .stat-box:last-child { border-right: none; }
+  .stat-value { font-size: 18px; color: var(--gold); font-family: 'Georgia', serif; line-height: 1.1; margin-bottom: 5px; }
+  .stat-label { font-family: 'Arial', sans-serif; font-size: 7.5px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--text-muted); }
+  /* ── BODY 2-COL ── */
+  .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .col { padding: 22px 28px; }
+  .col-left { border-right: 1px solid rgba(255,255,255,0.05); }
+  .col-section { font-family: 'Arial', sans-serif; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(201,168,76,0.14); font-weight: 700; }
+  /* ── COLLATERAL LAYERS COMPACT ── */
+  .layer-compact {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-family: 'Arial', sans-serif; font-size: 11px; line-height: 1.55;
+  }
+  .layer-compact:last-child { border-bottom: none; }
+  .layer-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+  }
+  .dot-1 { background: #22c55e; }
+  .dot-2 { background: #3b82f6; }
+  .dot-3 { background: #8b5cf6; }
+  .dot-4 { background: var(--gold); }
+  .dot-5 { background: #ef4444; }
+  .dot-6 { background: var(--gold); }
+  .layer-compact .lc-title { font-weight: 700; color: var(--silver-light); display: block; margin-bottom: 1px; }
+  .layer-compact .lc-body { color: var(--text-muted); font-size: 10px; }
+  /* ── YIELD TABLE COMPACT ── */
+  .yield-compact { width: 100%; border-collapse: collapse; font-family: 'Arial', sans-serif; font-size: 11px; margin-bottom: 8px; }
+  .yield-compact thead tr { background: var(--navy-light); border-bottom: 1px solid var(--gold-dim); }
+  .yield-compact thead th { padding: 7px 10px; text-align: left; color: var(--gold); font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+  .yield-compact tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .yield-compact tbody td { padding: 6px 10px; color: var(--text); vertical-align: middle; }
+  .yield-compact .yc-tier-top td { background: rgba(201,168,76,0.08); color: var(--gold); font-weight: 700; }
+  .yield-compact .yc-gold { color: var(--gold) !important; font-weight: 700; }
+  /* ── PROVIDER ROW ── */
+  .provider-row { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid rgba(201,168,76,0.12); }
+  .provider-item { flex: 1; min-width: 160px; padding: 12px 20px; border-right: 1px solid rgba(255,255,255,0.05); }
+  .provider-item:last-child { border-right: none; }
+  .provider-role { font-family: 'Arial', sans-serif; font-size: 7.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 3px; }
+  .provider-name { font-family: 'Arial', sans-serif; font-size: 11.5px; color: var(--white); font-weight: 600; }
+  /* ── DISCLAIMER / FOOTER ── */
+  .footer-strip {
+    background: rgba(8,12,24,0.95); border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 12px 28px;
+    font-family: 'Arial', sans-serif; font-size: 8.5px; color: var(--text-muted); line-height: 1.55;
+  }
+  .footer-strip strong { color: var(--gold); font-size: 8.5px; }
+
+  /* ══════════════════════════════════
+     PRINT CSS — true single-page
+  ══════════════════════════════════ */
+  @media print {
+    @page { size: letter; margin: 0.5in 0.5in; }
+    body { background: white; color: #111; font-size: 10px; margin: 0; }
+    .page { margin: 0; border: 1px solid #ccc; max-width: 100%; border-radius: 0; background: white; }
+    .header-band { background: white; border-bottom: 2px solid #b8962a; }
+    .fund-name { color: #333; } .fund-name span { color: #b8962a; }
+    .emblem { border-color: #b8962a; color: #b8962a; background: white; }
+    .tagline-strip { background: white; border-bottom: 1px solid #ddd; }
+    .tagline { color: #111; font-size: 18px; } .tagline em { color: #b8962a; }
+    .sub-tagline { color: #444; }
+    .stat-grid { border-bottom: 1px solid #ccc; }
+    .stat-box { background: #f9f9f6; }
+    .stat-value { color: #b8962a; font-size: 15px; }
+    .stat-label { color: #777; }
+    .col-left { border-right: 1px solid #ddd; }
+    .col-section { color: #b8962a; border-bottom: 1px solid #ddd; }
+    .layer-compact .lc-title { color: #222; }
+    .layer-compact .lc-body { color: #555; }
+    .dot-1 { background: #22c55e; } .dot-2 { background: #3b82f6; }
+    .dot-3 { background: #8b5cf6; } .dot-4 { background: #b8962a; }
+    .dot-5 { background: #ef4444; }
+    .dot-6 { background: #b8962a; }
+    .yield-compact thead th { color: #b8962a; background: #f5f5f0; }
+    .yield-compact tbody td { color: #222; }
+    .yield-compact .yc-tier-top td { background: #fffde0; color: #b8962a; }
+    .provider-row { border-top: 1px solid #ccc; }
+    .provider-item { border-right: 1px solid #ddd; }
+    .provider-role { color: #888; }
+    .provider-name { color: #111; }
+    .footer-strip { background: #f5f5f0; color: #555; }
+    .footer-strip strong { color: #b8962a; }
+  }
+  @media (max-width: 700px) {
+    .stat-grid { grid-template-columns: repeat(3,1fr); }
+    .body-grid { grid-template-columns: 1fr; }
+    .col-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .provider-row { flex-direction: column; }
+    .provider-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER BAND -->
+  <div class="header-band">
+    <div class="logo">
+      <div class="emblem">DH</div>
+      <div class="fund-name"><span>Draft Horse</span> Capital Partners</div>
+    </div>
+    <div class="doc-type">Tear Sheet — March 2026 — Confidential</div>
+  </div>
+
+  <!-- TAGLINE STRIP -->
+  <div class="tagline-strip">
+    <div class="eyebrow">Reg D 506(c) · Single-Mandate Senior Secured Private Credit · Sovereign &amp; Institutional</div>
+    <div class="tagline">Six Layers. <em>One Counterparty.</em> Fixed Return.</div>
+    <div class="sub-tagline">Direct, bilateral PE lending — structured from day one — $100M identified pipeline — zero management fees</div>
+  </div>
+
+  <!-- 6 STAT BOXES -->
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="stat-value">$200K</div>
+      <div class="stat-label">Minimum Subscription</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:15px;">9–17%<br><span style="font-size:10px;color:var(--gold-light);">Fixed</span></div>
+      <div class="stat-label">Fixed Contractual Yield — Locked at Subscription</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3-Year</div>
+      <div class="stat-label">Term — No Early Redemption</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Quarterly</div>
+      <div class="stat-label">Cash Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="color:var(--green);">Zero</div>
+      <div class="stat-label">Management Fees &amp; Carry</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">$100M</div>
+      <div class="stat-label">Pipeline — Deploying on Close</div>
+    </div>
+  </div>
+
+  <!-- BODY: 2-COLUMN -->
+  <div class="body-grid">
+
+    <!-- LEFT COLUMN: COLLATERAL LAYERS -->
+    <div class="col col-left">
+      <div class="col-section">Six-Layer Collateral — UCC-1 Perfected Senior First Lien + Lloyd's of London Credit Insurance</div>
+
+      <div class="layer-compact">
+        <div class="layer-dot dot-1"></div>
+        <div>
+          <span class="lc-title">Layer 1 — PE Portfolio Company Cash Flows</span>
+          <span class="lc-body">Cash flow assignment &amp; receivables sweep under UCC §9-607. Fastest enforcement — 30–60 days from acceleration.</span>
+        </div>
+      </div>
+
+      <div class="layer-compact">
+        <div class="layer-dot dot-2"></div>
+        <div>
+          <span class="lc-title">Layer 2 — Commercial Real Estate &amp; Inventory</span>
+          <span class="lc-body">UCC-1 security interest against all tangible physical assets. Texas commercial portfolio — independently appraised. Appreciating market.</span>
+        </div>
+      </div>
+
+      <div class="layer-compact">
+        <div class="layer-dot dot-3"></div>
+        <div>
+          <span class="lc-title">Layer 3 — 100% Portfolio Company Equity Pledge</span>
+          <span class="lc-body">Full ownership control of operating businesses upon exercise. Fund steps in as operator — managed recovery, not distressed fire sale.</span>
+        </div>
+      </div>
+
+      <div class="layer-compact">
+        <div class="layer-dot dot-4"></div>
+        <div>
+          <span class="lc-title">Layer 4 — Aviation Assets (Current G4-Class Fleet &amp; Growing G550 Enhancement)</span>
+          <span class="lc-body"><strong style="color:var(--silver-light);">Current collateral:</strong> UCC-1 Article 9 + FAA Civil Aviation Registry (49 U.S.C. § 44107). 4 G4-class aircraft (2 unencumbered, $8–16M current aviation collateral). <strong style="color:var(--silver-light);">Future platform enhancement (subordinated):</strong> Quarter Horse Capital Partners acquiring G550 fleet for same operator. 24-jet target ($336M floor) → 51 jets ($714M floor). Draft Horse G550 interest subordinated to Quarter Horse first-priority claim; not current perfected collateral at closing.</span>
+        </div>
+      </div>
+
+      <div class="layer-compact">
+        <div class="layer-dot dot-5"></div>
+        <div>
+          <span class="lc-title">Layer 5 — PE Sponsor Full-Recourse Guaranty</span>
+          <span class="lc-body"><strong style="color:var(--silver-light);">Dual equity alignment:</strong> Sponsor holds equity in BOTH the borrowing entity AND the charter company (Layer 4 — G4-class fleet operated today; G550 fleet as platform grows). Default impairs sponsor twice. Full-recourse continuing guaranty; survives insolvency.</span>
+        </div>
+      </div>
+
+      <div class="layer-compact" style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:3px;padding:6px 8px;">
+        <div class="layer-dot dot-6"></div>
+        <div>
+          <span class="lc-title" style="color:var(--gold-light);">🛡️ Layer 6 — Lloyd's of London Credit Insurance (A+ Rated)</span>
+          <span class="lc-body"><strong style="color:var(--silver-light);">Policy being structured; anticipated at or prior to initial close.</strong> Upon borrower default, Lloyd's syndicate pays Fund up to 100% of insured principal; Fund distributes pro rata to investors. 36-month term matched to facility. Independent of Layers 1–5. The only private credit fund in its class with this protection. <em>Policy not yet executed — see disclosure below.</em></span>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;padding:8px 12px;background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.2);border-radius:3px;font-family:'Arial',sans-serif;font-size:9.5px;color:var(--text-muted);line-height:1.65;">
+        <strong style="color:var(--red);">Layer 6 Disclosure:</strong> "The Lloyd's of London credit insurance policy is currently being structured and has not yet been executed. Coverage is subject to final underwriting, policy terms, and Lloyd's syndicate approval. Prospective investors should not rely on the policy as currently in force. The Fund anticipates completing the insurance structure at or prior to initial close and will provide executed policy terms to investors as part of the final due diligence package."
+      </div>
+
+      <div style="margin-top:14px;padding:10px 14px;background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:3px;">
+        <div style="font-family:'Arial',sans-serif;font-size:7.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;font-weight:700;">Bilateral Lending Advantage</div>
+        <p style="font-family:'Arial',sans-serif;font-size:10.5px;color:var(--text);line-height:1.6;">Direct, bilateral facility — no syndicate agent, no information delay, full real-time covenant visibility. Single-counterparty concentration risk is real and fully disclosed. The bilateral monitoring structure is its deliberate corollary. Both must be weighed.</p>
+      </div>
+
+      <!-- KEY TERMS COMPACT -->
+      <div class="col-section" style="margin-top:18px;">Key Fund Terms</div>
+      <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:10.5px;">
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Structure</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">Reg D 506(c) · §3(c)(1) · Texas LLC</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Minimum</td>
+            <td style="padding:5px 0;color:var(--gold);text-align:right;font-weight:700;">$200,000</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Lock-Up</td>
+            <td style="padding:5px 0;color:var(--red);text-align:right;font-weight:700;">36 Mo. — No Early Redemption</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Distributions</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">Quarterly Cash</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Management Fee</td>
+            <td style="padding:5px 0;color:var(--green);text-align:right;font-weight:700;">None</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 0;color:var(--text-muted);">Principal</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">Caleb Caraway, CIO</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RIGHT COLUMN: YIELD TABLE -->
+    <div class="col">
+      <div class="col-section">Eight-Tier Fixed Contractual Yield — Rate Locked at Subscription</div>
+      <table class="yield-compact">
+        <thead>
+          <tr>
+            <th>Tier</th>
+            <th>Cumulative AUM at Subscription</th>
+            <th>Fixed Contractual Yield (p.a.)</th>
+            <th>Qtrly Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Up to $10M</td><td class="yc-gold">9.0%</td><td>2.25%</td></tr>
+          <tr><td>2</td><td>$10M – $15M</td><td class="yc-gold">10.0%</td><td>2.50%</td></tr>
+          <tr><td>3</td><td>$15M – $20M</td><td class="yc-gold">11.0%</td><td>2.75%</td></tr>
+          <tr><td>4</td><td>$20M – $25M</td><td class="yc-gold">12.0%</td><td>3.00%</td></tr>
+          <tr><td>5</td><td>$25M – $30M</td><td class="yc-gold">13.0%</td><td>3.25%</td></tr>
+          <tr><td>6</td><td>$30M – $35M</td><td class="yc-gold">14.0%</td><td>3.50%</td></tr>
+          <tr><td>7</td><td>$35M – $50M</td><td class="yc-gold">15.0%</td><td>3.75%</td></tr>
+          <tr class="yc-tier-top"><td><strong>8</strong></td><td><strong>$50M +</strong></td><td class="yc-gold" style="font-size:14px;"><strong>17.0%</strong></td><td><strong>4.25%</strong></td></tr>
+        </tbody>
+      </table>
+      <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);line-height:1.55;margin-bottom:16px;">Yields are target returns, not guarantees. Fixed contractual yield tier is locked permanently at subscription. Rate does not reset during the 36-month term. No management fee or carry deducted.</div>
+
+      <!-- ILLUSTRATIVE RETURNS -->
+      <div class="col-section">Illustrative Returns — Tier 8 (17%) per $1M Invested</div>
+      <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:11px;margin-bottom:14px;">
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:6px 0;color:var(--text-muted);">Quarterly Distribution</td>
+            <td style="padding:6px 0;color:var(--gold);text-align:right;font-weight:700;">$42,500</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:6px 0;color:var(--text-muted);">Annual Income</td>
+            <td style="padding:6px 0;color:var(--gold);text-align:right;font-weight:700;">$170,000</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:6px 0;color:var(--text-muted);">3-Year Total Income (12 qtrs)</td>
+            <td style="padding:6px 0;color:var(--gold);text-align:right;font-weight:700;">$510,000</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:6px 0;color:var(--text-muted);">Principal Return at Maturity</td>
+            <td style="padding:6px 0;color:var(--white);text-align:right;">$1,000,000</td>
+          </tr>
+          <tr style="background:rgba(201,168,76,0.07);">
+            <td style="padding:7px 0;color:var(--white);font-weight:700;">Total Value Returned</td>
+            <td style="padding:7px 0;color:var(--gold-light);text-align:right;font-weight:700;font-size:14px;">$1,510,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);line-height:1.55;margin-bottom:16px;">Illustrative only. Target yields, not guaranteed. Subject to Fund and borrower performance.</div>
+
+      <!-- AVIATION ECONOMICS COMPACT -->
+      <div class="col-section">Aviation Collateral — Layer 4 Economics</div>
+      <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:11px;margin-bottom:14px;">
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Aircraft Type</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">G4-class (current, 2 unencumbered); G550 via QH (future, subordinated)</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Market Value / Aircraft</td>
+            <td style="padding:5px 0;color:var(--gold);text-align:right;font-weight:700;">$30M – $45M</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Net Income / Aircraft / Year</td>
+            <td style="padding:5px 0;color:var(--gold);text-align:right;font-weight:700;">$2.1M – $3.1M</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Dark Horse Equity / Aircraft</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">40%</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Target Fleet</td>
+            <td style="padding:5px 0;color:var(--white);text-align:right;">24 Aircraft</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+            <td style="padding:5px 0;color:var(--text-muted);">Lien Registration</td>
+            <td style="padding:5px 0;color:var(--silver-light);text-align:right;font-size:10px;">UCC-1 Art. 9 + FAA Registry (49 U.S.C. §44107)</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 0;color:var(--text-muted);">Coverage vs. $100M Facility</td>
+            <td style="padding:5px 0;color:var(--gold);text-align:right;font-weight:700;">Current: $8–16M (G4, 2 unencumbered); Platform (future, subordinated): 3.36×–7.1× at full G550 deployment</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ALLOCATOR MATRIX COMPACT -->
+      <div class="col-section">Allocator Positioning</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:0;">
+        <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:3px;padding:8px 10px;">
+          <div style="font-family:'Arial',sans-serif;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7eb8d8;margin-bottom:4px;font-weight:700;">Diversified SWF</div>
+          <div style="font-family:'Arial',sans-serif;font-size:10px;color:var(--text);line-height:1.5;">Non-correlated fixed income. Clean quarterly cash flow profile.</div>
+        </div>
+        <div style="background:rgba(201,168,76,0.07);border:1px solid var(--border);border-radius:3px;padding:8px 10px;">
+          <div style="font-family:'Arial',sans-serif;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:700;">Infrastructure</div>
+          <div style="font-family:'Arial',sans-serif;font-size:10px;color:var(--text);line-height:1.5;">Layer 4 = operating aviation infra. Dual debt + 40% equity.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:3px;padding:8px 10px;">
+          <div style="font-family:'Arial',sans-serif;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:700;">Direct Lending</div>
+          <div style="font-family:'Arial',sans-serif;font-size:10px;color:var(--text);line-height:1.5;">Single-obligor bilateral. Full collateral visibility. Max monitoring depth.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end body-grid -->
+
+  <!-- SERVICE PROVIDERS -->
+  <div class="provider-row">
+    <div class="provider-item">
+      <div class="provider-role">Fund Administration</div>
+      <div class="provider-name">NAV Fund Services</div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-role">Audit &amp; Tax</div>
+      <div class="provider-name">Spicer Jeffries LLP</div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-role">Institutional Banking</div>
+      <div class="provider-name">Axos Bank</div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-role">Securities Counsel</div>
+      <div class="provider-name">SCALE LLP / Dori Karjian</div>
+    </div>
+    <div class="provider-item">
+      <div class="provider-role">Principal &amp; CIO</div>
+      <div class="provider-name">Caleb Caraway</div>
+    </div>
+  </div>
+
+  <!-- FOOTER / DISCLAIMER -->
+  <div class="footer-strip">
+    <strong>CONFIDENTIAL — REG D 506(c) — ACCREDITED INVESTORS ONLY — NOT AN OFFER TO SELL SECURITIES.</strong> This tear sheet is provided for informational purposes only and does not constitute an offer to sell or solicitation of an offer to purchase any security. Any offer will be made only through the Fund's Private Placement Memorandum prepared by SCALE LLP. Fixed Contractual Yields are target returns locked at subscription tier and are not guaranteed — distributions are contingent on Fund performance and borrower obligations. <strong>No Early Redemption — 36-month lock-up.</strong> Concentration Risk: the Fund deploys entirely to one borrower — the most material risk; read the full risk disclosures in the PPM. Investing involves risk including loss of all principal. Sovereign investors: consult independent tax counsel re: IRC §892. © 2026 Draft Horse Capital Partners LLC. All rights reserved.
+  </div>
+
+</div><!-- end page -->
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarter Horse Capital Partners — Sovereign Teaser</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d0f14;
+    --navy2: #141720;
+    --navy3: #1a1e2a;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --gold3: #f5dfa0;
+    --text: #e8e9ed;
+    --muted: #8892a0;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 44px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-block {}
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .confidential-badge {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 20px auto;
+    opacity: 0.5;
+  }
+
+  .hero-strategy {
+    font-size: 16px;
+    color: var(--text);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* STAT BOXES */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .stat-box {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 12px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 100%);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 12px;
+    padding: 32px 40px;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .callout-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .callout-math {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  .callout-math span {
+    color: var(--text);
+    font-size: 22px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    margin: 0 10px;
+  }
+
+  .callout-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* DIFFERENTIATORS */
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .diff-item {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .diff-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .diff-content {}
+  .diff-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold2);
+    margin-bottom: 4px;
+  }
+  .diff-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+
+
+  /* CTA */
+  .cta-section {
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 40px;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .cta-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .cta-contact {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+
+  /* FOOTER / DISCLAIMER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+    font-size: 10.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .footer strong {
+    color: var(--text);
+  }
+
+  @media (max-width: 700px) {
+    .stats-grid { grid-template-columns: repeat(3,1fr); }
+    .diff-grid { grid-template-columns: 1fr; }
+    .hero-headline { font-size: 28px; }
+    .callout-math { font-size: 22px; }
+    .header { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-block">
+      <div class="logo-name">Quarter Horse Capital Partners LLC</div>
+      <div class="logo-sub">Managed by Quarter Horse Wealth Management LLC</div>
+    </div>
+    <div class="confidential-badge">Confidential — Accredited Investors Only</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-headline">7 SPV Lending Verticals.<br>1 Stated Return. Zero Fees.</div>
+    <div class="hero-divider"></div>
+    <div class="hero-sub">U.S.-Domiciled &nbsp;|&nbsp; Verified Accredited Investors &nbsp;|&nbsp; Quarterly Distributions &nbsp;|&nbsp; 9–17% Stated Annual Return (Target)</div>
+    <br>
+    <div class="hero-strategy">
+      Quarter Horse Capital Partners is a Texas-governed private credit fund deploying institutional capital across seven uncorrelated SPV lending verticals — spanning real estate, precious metals trade finance, mining, aviation, energy &amp; technology infrastructure, fine art, and structured private credit. The fund pays a tiered, stated annual return to investors on a quarterly basis with <em>zero management fees, zero performance fees, and zero carried interest</em>. All excess earnings above the stated investor return are retained by the fund, creating a transparent, aligned structure purpose-built for sovereign and institutional capital.
+    </div>
+  </div>
+
+  <!-- STAT BOXES -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-value">$200K</div>
+      <div class="stat-label">Min Investment</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">9–17%</div>
+      <div class="stat-label">Stated Return (Target)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3-Year</div>
+      <div class="stat-label">Lockup Term</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Quarterly</div>
+      <div class="stat-label">Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Zero</div>
+      <div class="stat-label">Fees of Any Kind</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">9</div>
+      <div class="stat-label">Asset Classes</div>
+    </div>
+  </div>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <div class="callout-label">Stated Annual Return Target — 17% Tier ($50M+ Commitment)</div>
+    <div class="callout-math">
+      $1B Commitment <span>=</span> $42.5M / Quarter <span>=</span> $170M / Year
+    </div>
+    <div class="callout-note">Distributions paid quarterly. Monthly reference equivalent: ~$14.2M (reference only — not a monthly payment schedule).</div>
+  </div>
+
+  <!-- DIFFERENTIATORS -->
+  <div class="section-title">Why Quarter Horse</div>
+  <div class="diff-grid">
+    <div class="diff-item">
+      <div class="diff-icon">🏦</div>
+      <div class="diff-content">
+        <div class="diff-title">We Are the Bank. The SPVs Are the Operators.</div>
+        <div class="diff-desc">The Fund deploys as senior secured lender to seven controlled SPVs and operating companies. Each SPV manages its own industry vertical and returns principal + distributions to the Fund. Clean SPV architecture. Liability isolation. Institutional credit model.</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-icon">🚫</div>
+      <div class="diff-content">
+        <div class="diff-title">Absolute Zero Fee Structure</div>
+        <div class="diff-desc">No management fee. No performance fee. No carried interest. Every basis point of investor return goes directly to investors — a structure uncommon at any AUM level in private credit. The Fund's 19.14% blended gross yield maintains meaningful spread above the 17% investor tier.</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-icon">🏛️</div>
+      <div class="diff-content">
+        <div class="diff-title">Seven-Layer SPV Collateral Architecture</div>
+        <div class="diff-desc">First-lien real estate, physical allocated bullion + receivables, confirmed mineral rights (4,431 ppm silver, tri-lab), UCC-1 + FAA-registered aircraft liens, clean energy project assets, $541M Sotheby's-appraised fine art (Lloyd's insured), and perfected UCC-1 structured credit. Seven independent SPV collateral pools.</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-icon">🖼️</div>
+      <div class="diff-content">
+        <div class="diff-title">Fine Art SPV — Four Revenue Streams</div>
+        <div class="diff-desc">The $150M Fine Art SPV generates income four ways: (1) natural appreciation 6–16%/yr; (2) JP Morgan art-secured lending at 600–900 bps spread; (3) museum lease income with zero carrying cost (museum covers insurance + storage); (4) sale proceeds including the December tax-demand cycle — when family offices globally deploy fiscal year-end capital into professionally appraised art at Art Basel Miami Beach.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-title">Request the Complete Data Room</div>
+    <div class="cta-sub">Term sheet, PPM, allocation detail, service provider confirmations, and diligence package available upon request to verified accredited investors.</div>
+    <div class="cta-button">Request Data Room Access</div>
+    <div class="cta-contact">Contact: Caleb Caraway, CEO — Quarter Horse Wealth Management LLC<br>Dark Horse Wealth Management</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>Regulatory Notice:</strong> This document is furnished on a confidential basis to a limited number of sophisticated institutional investors and is not an offer to sell or a solicitation of an offer to buy any security. Quarter Horse Capital Partners LLC is offered pursuant to Regulation D, Rule 506(c) of the Securities Act of 1933, as amended, and Section 3(c)(1) of the Investment Company Act of 1940. Participation is limited to verified accredited investors only as defined under Rule 501 of Regulation D. This offering has not been registered with the Securities and Exchange Commission or any state securities authority. No guarantee of return is made. Stated returns are targets, not guarantees. Principal is subject to loss. The 3-year term involves a full lockup with <strong>no early redemption</strong> — 100% of principal is locked until term end. Governed by the laws of the State of Texas.<br><br>
+    <strong>Confidentiality:</strong> This document contains proprietary and confidential information belonging to Quarter Horse Capital Partners LLC and Quarter Horse Wealth Management LLC. Recipients may not copy, reproduce, distribute, or disclose any portion of this document without prior written consent. By receiving this document, the recipient agrees to maintain strict confidentiality of all information contained herein.
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Horse Capital Partners — Investor Teaser</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:       #080c18;
+    --navy-mid:   #0e1624;
+    --navy-light: #16213a;
+    --navy-card:  #1a2840;
+    --gold:       #c9a84c;
+    --gold-light: #e8c87a;
+    --gold-dim:   #7a5f28;
+    --silver:     #8fa3b8;
+    --silver-light:#c8d8e8;
+    --white:      #f0f4f8;
+    --text:       #cdd8e6;
+    --text-muted: #6a88a0;
+    --border:     rgba(201,168,76,0.22);
+    --green:      #22c55e;
+  }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+  /* ── HEADER ── */
+  .page-header {
+    background: rgba(8,12,24,0.97);
+    border-bottom: 2px solid var(--gold);
+    padding: 22px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .emblem {
+    width: 44px; height: 44px;
+    border: 2px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Arial', sans-serif; font-weight: 800;
+    font-size: 15px; color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+  .fund-name { font-family: 'Arial', sans-serif; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver-light); }
+  .fund-name span { color: var(--gold); }
+  .confidential-badge {
+    font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold-dim);
+    border: 1px solid var(--gold-dim); padding: 5px 12px; border-radius: 2px;
+  }
+  /* ── HERO ── */
+  .hero {
+    padding: 52px 48px 40px;
+    background: linear-gradient(135deg, rgba(26,40,64,0.4) 0%, transparent 60%);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .eyebrow {
+    font-family: 'Arial', sans-serif; font-size: 10px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .headline {
+    font-size: 38px; color: var(--white); line-height: 1.15;
+    letter-spacing: 0.03em; margin-bottom: 16px; max-width: 760px;
+  }
+  .subline {
+    font-size: 16px; color: var(--silver); font-style: italic;
+    margin-bottom: 32px; max-width: 680px;
+  }
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px; margin-bottom: 0;
+  }
+  .stat-box {
+    background: var(--navy-light); border: 1px solid var(--border);
+    padding: 20px 16px; border-radius: 5px; text-align: center;
+  }
+  .stat-value {
+    font-size: 24px; color: var(--gold); font-family: 'Georgia', serif;
+    line-height: 1.1; margin-bottom: 7px;
+  }
+  .stat-label {
+    font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  /* ── BODY ── */
+  .body-wrap { padding: 44px 48px 52px; max-width: 1100px; }
+  .section-eyebrow {
+    font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold-dim); margin-bottom: 20px;
+    padding-bottom: 10px; border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  /* ── DIFFERENTIATORS ── */
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 36px; }
+  .diff-card {
+    background: var(--navy-card); border: 1px solid rgba(255,255,255,0.06);
+    border-left: 4px solid var(--gold-dim); border-radius: 0 5px 5px 0;
+    padding: 22px 24px;
+  }
+  .diff-card h3 {
+    font-family: 'Arial', sans-serif; font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+  }
+  .diff-card p { font-family: 'Arial', sans-serif; font-size: 12.5px; color: var(--text); line-height: 1.7; }
+  /* ── BILATERAL BOX ── */
+  .bilateral-box {
+    background: rgba(201,168,76,0.07); border: 1px solid var(--border);
+    border-left: 4px solid var(--gold); border-radius: 0 5px 5px 0;
+    padding: 20px 26px; margin-bottom: 36px;
+  }
+  .bilateral-box .bx-label {
+    font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-weight: 700;
+  }
+  .bilateral-box p { font-family: 'Arial', sans-serif; font-size: 12.5px; color: var(--silver-light); line-height: 1.75; }
+  /* ── FOOTER ── */
+  .footer {
+    background: rgba(8,12,24,0.96); border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 18px 48px;
+    font-family: 'Arial', sans-serif; font-size: 9.5px; color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .footer strong { color: var(--gold); font-size: 9.5px; }
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; color: #111; }
+    .page-header { background: white; border-bottom: 2px solid #b8962a; }
+    .fund-name { color: #333; } .fund-name span { color: #b8962a; }
+    .emblem { border-color: #b8962a; color: #b8962a; background: white; }
+    .hero { background: white; }
+    .headline { color: #111; } .subline { color: #444; }
+    .stat-box { background: #f5f5f0; border-color: #b8962a; }
+    .stat-value { color: #b8962a; }
+    .diff-card { background: #f9f9f6; border-color: #ccc; border-left-color: #b8962a; }
+    .bilateral-box { background: #fffdf0; border-color: #b8962a; }
+    .footer { background: #f5f5f0; color: #555; }
+  }
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .diff-grid { grid-template-columns: 1fr; }
+    .page-header, .hero, .body-wrap, .footer { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="logo">
+    <div class="emblem">DH</div>
+    <div class="fund-name"><span>Draft Horse</span> Capital Partners</div>
+  </div>
+  <div class="confidential-badge">Confidential — Accredited Investors Only</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Sovereign &amp; Institutional Outreach — March 2026</div>
+  <h1 class="headline">Single-Mandate PE Lending.<br>Six Layers of Collateral. Fixed Return.</h1>
+  <p class="subline">A direct, bilateral senior secured credit facility to a single institutional PE sponsor — fully structured, deploying on close, with five independently enforceable hard asset collateral layers, a Lloyd's of London credit insurance backstop (being structured), and zero management fees.</p>
+
+  <!-- 6 STAT BOXES -->
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="stat-value">$200K</div>
+      <div class="stat-label">Minimum Subscription</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:20px;">9–17%<br><span style="font-size:12px;color:var(--gold-light);">Fixed</span></div>
+      <div class="stat-label">Fixed Contractual Yield (p.a.) — Locked at Subscription</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3-Year</div>
+      <div class="stat-label">Term — No Early Redemption</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">Quarterly</div>
+      <div class="stat-label">Cash Distributions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="color:var(--green);">Zero</div>
+      <div class="stat-label">Management Fees &amp; Carry</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">$100M</div>
+      <div class="stat-label">Identified Pipeline — Deploying on Close</div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- DIFFERENTIATORS -->
+  <div class="section-eyebrow">Five Structural Differentiators</div>
+  <div class="diff-grid">
+
+    <div class="diff-card">
+      <h3>01 — Identified, Day-One Pipeline</h3>
+      <p>The borrower is already identified. The $100M credit facility is structured, documented, and ready to execute upon close. There is no ramp period, no origination lag, and no speculative deal-sourcing process. First dollar in is first dollar deployed — earning its fixed contractual yield from day one. This is the structural opposite of most private credit funds, which raise capital first and spend 12–24 months searching for the deals they promised.</p>
+    </div>
+
+    <div class="diff-card">
+      <h3>02 — Six-Layer Collateral Architecture</h3>
+      <p>Most private credit structures carry one or two collateral layers. Draft Horse carries six. Five hard asset layers — each independently enforceable under a single UCC-1 perfected first-priority lien: (1) PE portfolio company cash flows; (2) commercial real estate and physical inventory; (3) 100% portfolio company equity pledge; (4) aviation assets — current G4-class charter fleet (2 unencumbered, $8M–$16M), growing as Quarter Horse Capital Partners acquires G550 aircraft for the same operator (24-jet target = $336M floor; subordinated to Quarter Horse's first-priority claim); and (5) full-recourse PE sponsor guaranty. Plus a sixth layer: a Lloyd's of London credit insurance policy currently being structured and anticipated to be in place at or prior to initial close (see Differentiator 05). Layers 1–3 and 5 are the primary recovery mechanisms at initial close. The only private credit fund in its class with this protection depth.</p>
+    </div>
+
+    <div class="diff-card">
+      <h3>03 — Zero Management Fees. Zero Carry.</h3>
+      <p>Draft Horse charges no management fee on committed capital and no performance fee on profits. The fund's economics derive entirely from the spread between what the PE sponsor pays and what investors receive as their fixed contractual yield. A typical private credit fund charges 1.5–2.0% annually plus 20% carry — extracting $1.5M per year on a $100M fund before a dollar of investor return is earned. Draft Horse charges none of this. Every dollar in the fund works for investors.</p>
+    </div>
+
+    <div class="diff-card">
+      <h3>04 — PE Sponsor Dual Equity Alignment</h3>
+      <p>The PE sponsor holds equity on both sides of this transaction: as the primary borrowing entity AND as co-owner of the charter company that operates the aviation fleet (Layer 4 — current G4-class fleet; G550 fleet as the platform grows under Quarter Horse Capital Partners). A default event impairs the sponsor twice simultaneously — their credit standing and a separately held, income-generating hard asset business. This dual equity alignment creates borrower incentive to perform that no single-collateral structure can replicate. The principal also deploys personal capital in the same position as investor capital.</p>
+    </div>
+
+    <div class="diff-card" style="border:1px solid rgba(201,168,76,0.3);background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,rgba(8,12,24,0) 70%);">
+      <h3 style="color:var(--gold-light);">🛡️ 05 — Lloyd's of London Credit Insurance — The Only Fund in Its Class with This Protection</h3>
+      <p>Draft Horse is structuring a credit insurance policy with a Lloyd's of London syndicate (A+ rated; 335+ years of institutional underwriting history) to protect investor principal against borrower default. This is an institutional-grade backstop wholly additive to the five hard asset collateral layers — not a replacement. Co-Managing Member Adil Kassam's established Lloyd's relationship is the direct origin of this coverage. Upon a defined credit event, the syndicate pays the Fund up to 100% of insured principal; the Fund distributes returned principal to investors pro rata. Policy term is matched to the 36-month facility term. Virtually no other private credit fund in the $10M–$100M market segment offers Lloyd's protection in addition to hard asset collateral depth. <em style="font-size:11px;color:var(--text-muted);">Disclosure: Policy currently being structured and not yet executed. Coverage subject to Lloyd's syndicate final approval. Prospective investors should not rely on the policy as currently in force. Executed terms will be provided at or prior to close.</em></p>
+    </div>
+
+  </div>
+
+  <!-- BILATERAL ADVANTAGE -->
+  <div class="bilateral-box">
+    <div class="bx-label">Bilateral Lending Advantage — Full Covenant Visibility, No Syndicate Agent</div>
+    <p>Draft Horse extends capital through a direct, bilateral credit facility with a single borrower — not through a broadly syndicated facility with dozens of lenders and an agent bank intermediary. This structure provides the Fund with full, real-time visibility into all borrower covenant compliance, cash flow performance, material adverse changes, and collateral condition — with no information delay, no syndicate agent intermediary, and no competing creditor at the table. In a syndicated credit, borrower deterioration is frequently identified only after it becomes a formal default. In a bilateral direct facility, the Fund detects and responds to deterioration at the earliest possible stage. Concentration risk is real and fully disclosed; the bilateral monitoring advantage is its structural corollary and is a deliberate underwriting design choice.</p>
+  </div>
+
+  <!-- FUND STRUCTURE OVERVIEW -->
+  <div class="section-eyebrow" style="margin-top:8px;">Fund Overview — Key Terms</div>
+  <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:12.5px;margin-bottom:36px;">
+    <thead>
+      <tr style="background:var(--navy-light);border-bottom:2px solid var(--gold-dim);">
+        <th style="padding:10px 14px;text-align:left;color:var(--gold);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;">Term</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--gold);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;">Detail</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--gold);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;">Term</th>
+        <th style="padding:10px 14px;text-align:left;color:var(--gold);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;">Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:10px 14px;color:var(--text-muted);">Structure</td>
+        <td style="padding:10px 14px;color:var(--white);">Reg D 506(c) · §3(c)(1) · Texas LLC</td>
+        <td style="padding:10px 14px;color:var(--text-muted);">Yield</td>
+        <td style="padding:10px 14px;color:var(--gold);font-weight:700;">9%–17% Fixed Contractual Yield (tier locked at subscription)</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(201,168,76,0.03);">
+        <td style="padding:10px 14px;color:var(--text-muted);">Minimum</td>
+        <td style="padding:10px 14px;color:var(--white);">$200,000</td>
+        <td style="padding:10px 14px;color:var(--text-muted);">Lock-Up</td>
+        <td style="padding:10px 14px;color:var(--white);">36 Months — <strong style="color:#f87171;">No Early Redemption</strong></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:10px 14px;color:var(--text-muted);">Distributions</td>
+        <td style="padding:10px 14px;color:var(--white);">Quarterly Cash</td>
+        <td style="padding:10px 14px;color:var(--text-muted);">Management Fee</td>
+        <td style="padding:10px 14px;color:var(--green);font-weight:700;">None</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px;color:var(--text-muted);">Principal</td>
+        <td style="padding:10px 14px;color:var(--white);">Caleb Caraway, CIO</td>
+        <td style="padding:10px 14px;color:var(--text-muted);">Service Providers</td>
+        <td style="padding:10px 14px;color:var(--white);">NAV Fund Services · Spicer Jeffries LLP · Axos Bank · SCALE LLP</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CALL TO ACTION -->
+  <div style="background:linear-gradient(135deg,rgba(201,168,76,0.09),rgba(8,12,24,0));border:1px solid var(--border);border-radius:5px;padding:28px 32px;margin-bottom:8px;">
+    <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Next Step — Qualified Institutional Investors</div>
+    <p style="font-family:'Arial',sans-serif;font-size:13px;color:var(--silver-light);line-height:1.75;margin-bottom:14px;">Institutional allocators conducting formal investment committee review may request the complete confidential data room, Private Placement Memorandum, and borrower due diligence materials (subject to NDA) by contacting the Principal directly. Full six-layer collateral documentation (including Lloyd's of London insurance policy terms upon execution), independent aircraft appraisals, and borrower financial statements are available at the appropriate diligence stage. Sovereign wealth fund inquiries welcome — IRC §892 tax analysis recommended.</p>
+    <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--gold);">Contact: Caleb Caraway — Draft Horse Capital Partners LLC &nbsp;|&nbsp; Securities Counsel: SCALE LLP / Dori Karjian</div>
+  </div>
+
+</div>
+
+<!-- FOOTER / DISCLAIMERS -->
+<footer class="footer">
+  <strong>CONFIDENTIAL — REG D 506(c) — ACCREDITED INVESTORS ONLY.</strong> This document is provided for informational purposes only and does not constitute an offer to sell or solicitation of an offer to buy any security. Any offer will be made solely through the Fund's Private Placement Memorandum prepared by SCALE LLP. Interests in Draft Horse Capital Partners LLC have not been registered under the Securities Act of 1933 or any state securities law. <strong>Fixed Contractual Yield:</strong> Stated yields are target returns fixed at subscription tier and are not guaranteed. Distributions are contingent on Fund performance and borrower obligations. <strong>Concentration Risk:</strong> The Fund deploys capital to a single borrower. This is the most material risk factor and should be evaluated completely before any investment decision. <strong>No Early Redemption:</strong> Investor interests are subject to a 36-month lock-up with no early redemption rights. <strong>Lloyd's of London Credit Insurance:</strong> The credit insurance policy described herein is currently being structured and has not yet been executed. Coverage is subject to final underwriting, policy terms, and Lloyd's syndicate approval. Prospective investors should not rely on the policy as currently in force. Executed policy terms will be provided as part of the final due diligence package at or prior to initial close. Investing involves risk including loss of principal. Past performance of related entities does not guarantee future results. Consult your own legal, tax, and investment advisers. © 2026 Draft Horse Capital Partners LLC. All rights reserved. Unauthorized reproduction or distribution prohibited.
+</footer>
+
+</body>
+</html>

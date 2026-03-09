@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arabian Capital Partners — Institutional Data Room</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:        #0a0e1a;
+  --navy-mid:    #111827;
+  --navy-light:  #1a2438;
+  --navy-card:   #1e2d45;
+  --navy-deep:   #070b14;
+  --gold:        #c9a84c;
+  --gold-light:  #e8c87a;
+  --gold-dim:    #8a6d2f;
+  --gold-bright: #f5d87a;
+  --amber:       #d4860a;
+  --amber-light: #f0a832;
+  --silver:      #8fa3b8;
+  --silver-light:#c8d8e8;
+  --white:       #f0f4f8;
+  --text:        #d0dce8;
+  --text-muted:  #7a93ad;
+  --border:      rgba(201,168,76,0.18);
+  --border-dim:  rgba(255,255,255,0.06);
+  --green:       #2a7a4a;
+  --red-soft:    #7a2a2a;
+  --sidebar-w:   280px;
+  --header-h:    62px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia','Times New Roman',serif; background: var(--navy); color: var(--text); line-height: 1.72; font-size: 14.5px; overflow-x: hidden; }
+h1,h2,h3,h4,h5 { font-family: 'Georgia',serif; color: var(--white); line-height: 1.25; font-weight: normal; letter-spacing: 0.02em; }
+a { color: var(--gold); text-decoration: none; }
+strong { color: var(--white); }
+em { color: var(--gold-light); font-style: italic; }
+p { margin-bottom: 15px; }
+p:last-child { margin-bottom: 0; }
+
+/* ── DISCLAIMER ── */
+.disclaimer-bar { position:fixed; bottom:0; left:0; right:0; background:rgba(7,11,20,0.97); border-top:1px solid var(--gold-dim); padding:6px 20px; font-family:'Arial',sans-serif; font-size:9px; color:var(--text-muted); text-align:center; z-index:1000; line-height:1.4; }
+.disclaimer-bar strong { color:var(--gold-dim); font-size:9px; }
+
+/* ── HEADER ── */
+.header { position:fixed; top:0; left:0; right:0; height:var(--header-h); background:var(--navy-deep); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 24px 0 calc(var(--sidebar-w)+24px); z-index:900; }
+.header-brand { display:flex; align-items:center; gap:12px; }
+.header-emblem { width:36px; height:36px; background:linear-gradient(135deg,var(--gold-dim),var(--amber)); border:2px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Georgia',serif; font-size:15px; font-weight:bold; color:var(--navy); }
+.header-name { font-family:'Arial',sans-serif; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--silver-light); }
+.header-name span { color:var(--gold); }
+.header-badge { font-family:'Arial',sans-serif; font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-dim); border:1px solid var(--gold-dim); padding:3px 10px; border-radius:2px; }
+
+/* ── SIDEBAR ── */
+.sidebar { position:fixed; top:var(--header-h); left:0; width:var(--sidebar-w); height:calc(100vh - var(--header-h) - 28px); background:var(--navy-mid); border-right:1px solid var(--border-dim); overflow-y:auto; padding:20px 0; z-index:800; }
+.sidebar::-webkit-scrollbar { width:3px; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--gold-dim); border-radius:2px; }
+.sb-label { font-family:'Arial',sans-serif; font-size:8.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); padding:10px 18px 5px; margin-top:6px; }
+.sb-item { display:flex; align-items:center; gap:9px; padding:8px 18px; cursor:pointer; transition:all 0.15s; border-left:3px solid transparent; font-family:'Arial',sans-serif; font-size:11.5px; letter-spacing:0.02em; color:var(--silver); }
+.sb-item:hover { background:rgba(201,168,76,0.06); color:var(--gold-light); border-left-color:var(--gold-dim); }
+.sb-item.active { background:rgba(201,168,76,0.1); color:var(--gold); border-left-color:var(--gold); }
+.sb-num { font-size:9.5px; color:var(--gold-dim); min-width:22px; }
+.sb-item.active .sb-num { color:var(--gold); }
+
+/* ── MAIN ── */
+.main { margin-left:var(--sidebar-w); margin-top:var(--header-h); padding:44px 56px 80px; min-height:calc(100vh - var(--header-h)); }
+.section { display:none; animation:fadeIn 0.28s ease; max-width:1020px; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── SECTION HEADER ── */
+.sec-head { border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:32px; }
+.sec-num { font-family:'Arial',sans-serif; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:7px; }
+.sec-title { font-size:26px; color:var(--white); letter-spacing:0.025em; }
+.sec-sub { font-family:'Arial',sans-serif; font-size:12.5px; color:var(--silver); margin-top:5px; letter-spacing:0.04em; }
+.gold-rule { width:54px; height:2px; background:linear-gradient(90deg,var(--gold),var(--amber)); margin:14px 0 0; }
+.gold-bar { height:3px; background:linear-gradient(90deg,#8a6d2f,#c9a84c,#f5d87a,#d4860a,#f5d87a,#c9a84c,#8a6d2f); margin:0 0 28px; border-radius:2px; }
+
+/* ── CARDS ── */
+.card { background:var(--navy-card); border:1px solid var(--border-dim); border-radius:4px; padding:24px 28px; margin-bottom:20px; }
+.card-g { border-left:3px solid var(--gold); }
+.card-a { border-left:3px solid var(--amber); }
+.card-s { border-left:3px solid var(--silver); }
+.card h3 { font-size:15px; color:var(--gold-light); margin-bottom:12px; letter-spacing:0.04em; }
+.card h4 { font-family:'Arial',sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--silver-light); margin-bottom:9px; }
+.card p { font-size:13.5px; }
+
+/* ── BILLION CALLOUT ── */
+.bcall { background:linear-gradient(135deg,rgba(212,134,10,0.16),rgba(201,168,76,0.07)); border:2px solid var(--amber); border-radius:5px; padding:28px 36px; text-align:center; position:relative; overflow:hidden; margin:24px 0; }
+.bcall::before { content:''; position:absolute; top:0;left:0;right:0;height:3px; background:linear-gradient(90deg,var(--gold-dim),var(--amber-light),var(--gold-bright),var(--amber)); }
+.bcall-k { font-family:'Arial',sans-serif; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber-light); margin-bottom:10px; }
+.bcall-m { font-size:38px; color:var(--gold-bright); font-family:'Georgia',serif; line-height:1.1; margin-bottom:6px; }
+.bcall-s { font-size:17px; color:var(--amber-light); font-family:'Georgia',serif; margin-bottom:8px; }
+.bcall-n { font-family:'Arial',sans-serif; font-size:11px; color:var(--text-muted); }
+
+/* ── STAT GRID ── */
+.sgrid { display:grid; gap:14px; margin-bottom:24px; }
+.sgrid.c2 { grid-template-columns:1fr 1fr; }
+.sgrid.c3 { grid-template-columns:repeat(3,1fr); }
+.sgrid.c4 { grid-template-columns:repeat(4,1fr); }
+.sgrid.c5 { grid-template-columns:repeat(5,1fr); }
+.sgrid.c6 { grid-template-columns:repeat(6,1fr); }
+.sbox { background:var(--navy-light); border:1px solid var(--border); padding:18px 16px; border-radius:4px; text-align:center; }
+.sv { font-size:24px; color:var(--gold); font-family:'Georgia',serif; line-height:1.1; margin-bottom:5px; }
+.sv.a { color:var(--amber-light); }
+.sl { font-family:'Arial',sans-serif; font-size:9.5px; letter-spacing:0.13em; text-transform:uppercase; color:var(--text-muted); line-height:1.4; }
+
+/* ── TABLES ── */
+table.dt { width:100%; border-collapse:collapse; font-family:'Arial',sans-serif; font-size:12.5px; margin-bottom:20px; }
+table.dt thead tr { background:var(--navy-light); border-bottom:2px solid var(--gold-dim); }
+table.dt thead th { padding:10px 14px; text-align:left; color:var(--gold); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; font-weight:normal; }
+table.dt tbody tr { border-bottom:1px solid var(--border-dim); transition:background 0.1s; }
+table.dt tbody tr:hover { background:rgba(201,168,76,0.03); }
+table.dt tbody tr:last-child { border-bottom:none; }
+table.dt tbody td { padding:10px 14px; color:var(--text); vertical-align:top; line-height:1.55; }
+table.dt tbody td:first-child { color:var(--silver-light); font-weight:bold; }
+table.dt .tg { color:var(--gold) !important; }
+table.dt .ta { color:var(--amber-light) !important; }
+table.dt .hl td { background:rgba(201,168,76,0.07); }
+
+/* ── YIELD BARS ── */
+.ybar-row { display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+.ybar-lbl { font-family:'Arial',sans-serif; font-size:11.5px; color:var(--silver); min-width:185px; }
+.ybar-wrap { flex:1; background:var(--navy-light); border-radius:2px; height:26px; overflow:hidden; }
+.ybar { height:100%; display:flex; align-items:center; padding-left:10px; font-family:'Arial',sans-serif; font-size:11px; font-weight:bold; color:var(--navy); border-radius:2px; }
+
+/* ── FLOW STEPS ── */
+.flow { display:flex; align-items:flex-start; gap:4px; margin:20px 0; flex-wrap:wrap; }
+.fstep { background:var(--navy-card); border:1px solid var(--border); border-radius:4px; padding:15px 12px; flex:1; min-width:110px; text-align:center; }
+.fstep .fi { font-size:20px; margin-bottom:8px; }
+.fstep .ft { font-family:'Arial',sans-serif; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+.fstep .fd { font-family:'Arial',sans-serif; font-size:10px; color:var(--text-muted); line-height:1.45; }
+.farrow { color:var(--gold-dim); font-size:18px; align-self:center; flex-shrink:0; }
+
+/* ── RISK ITEMS ── */
+.ritem { display:flex; gap:14px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid var(--border-dim); }
+.ritem:last-child { border-bottom:none; margin-bottom:0; }
+.rnum { font-family:'Arial',sans-serif; font-size:10px; color:var(--gold-dim); min-width:26px; font-weight:bold; padding-top:3px; }
+.rbody h4 { font-family:'Arial',sans-serif; font-size:13px; color:var(--silver-light); margin-bottom:5px; font-weight:bold; letter-spacing:0; text-transform:none; }
+.rbody p { font-family:'Arial',sans-serif; font-size:12.5px; color:var(--text-muted); line-height:1.62; margin-bottom:0; }
+
+/* ── PROVIDER CARDS ── */
+.pgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:18px 0; }
+.pcard { background:var(--navy-card); border:1px solid var(--border-dim); border-radius:4px; padding:18px 20px; }
+.pcard .pr { font-family:'Arial',sans-serif; font-size:8.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:7px; }
+.pcard .pn { font-size:14px; color:var(--white); margin-bottom:5px; }
+.pcard .pd { font-family:'Arial',sans-serif; font-size:11px; color:var(--text-muted); line-height:1.5; }
+
+/* ── COMPARISON ── */
+.cmpgrid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.cmpbox { background:var(--navy-card); border:1px solid var(--border-dim); border-radius:4px; padding:20px 22px; }
+.cmpbox.hl { border-color:var(--gold); background:rgba(201,168,76,0.05); }
+.cmpbox .cbl { font-family:'Arial',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+.cmpbox.hl .cbl { color:var(--gold-dim); }
+.cr { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid var(--border-dim); font-family:'Arial',sans-serif; font-size:12px; }
+.cr:last-child { border-bottom:none; }
+.ck { color:var(--silver); }
+.cv { color:var(--gold); font-weight:bold; }
+.cv.bad { color:#e05a4a; }
+
+/* ── ORG CHART ── */
+.orgchart { margin:20px 0; }
+.org-tier { display:flex; justify-content:center; gap:16px; margin-bottom:0; position:relative; }
+.org-tier::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:2px; height:24px; background:var(--gold-dim); }
+.org-connector { height:24px; display:flex; justify-content:center; }
+.org-connector::before { content:''; width:2px; height:100%; background:var(--gold-dim); }
+.org-row { display:flex; justify-content:center; gap:16px; margin-bottom:0; position:relative; }
+.org-row-connector { height:24px; position:relative; margin-bottom:0; }
+.org-row-connector::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:2px; height:100%; background:var(--gold-dim); }
+.org-hline { height:2px; background:var(--gold-dim); margin-bottom:0; position:relative; }
+.org-box { background:var(--navy-card); border:1px solid var(--border); border-radius:3px; padding:10px 14px; text-align:center; min-width:160px; position:relative; }
+.org-box .ob-type { font-family:'Arial',sans-serif; font-size:8px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:4px; }
+.org-box .ob-name { font-size:12px; color:var(--white); }
+.org-box.top { border-color:var(--gold); background:rgba(201,168,76,0.08); }
+.org-box.fund { border-color:var(--amber); background:rgba(212,134,10,0.08); }
+.org-spacer { height:24px; width:2px; background:var(--gold-dim); margin:0 auto; }
+
+/* ── TAILWIND ITEMS ── */
+.twitem { display:flex; gap:14px; margin-bottom:22px; }
+.twnum { font-family:'Georgia',serif; font-size:26px; color:var(--amber); opacity:0.38; min-width:32px; line-height:1; }
+.twbody h4 { font-size:14.5px; color:var(--white); margin-bottom:5px; }
+.twbody p { font-family:'Arial',sans-serif; font-size:12.5px; color:var(--text-muted); line-height:1.62; margin-bottom:0; }
+
+/* ── PROCESS STEPS ── */
+.psteps { counter-reset:step; }
+.pstep { display:flex; gap:16px; margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid var(--border-dim); align-items:flex-start; }
+.pstep:last-child { border-bottom:none; margin-bottom:0; }
+.pstep-num { background:linear-gradient(135deg,var(--gold-dim),var(--amber)); color:var(--navy); font-family:'Arial',sans-serif; font-size:12px; font-weight:bold; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pstep-body h4 { font-family:'Arial',sans-serif; font-size:13px; color:var(--white); margin-bottom:5px; font-weight:bold; letter-spacing:0; text-transform:none; }
+.pstep-body p { font-family:'Arial',sans-serif; font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:0; }
+
+/* ── GLOSSARY ── */
+.gitem { padding:12px 0; border-bottom:1px solid var(--border-dim); }
+.gitem:last-child { border-bottom:none; }
+.gterm { font-family:'Arial',sans-serif; font-size:12.5px; color:var(--gold-light); font-weight:bold; margin-bottom:4px; }
+.gdef { font-family:'Arial',sans-serif; font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:0; }
+
+/* ── PROJECTION TABLE ── */
+.proj-table { width:100%; border-collapse:collapse; font-family:'Arial',sans-serif; font-size:12px; margin-bottom:20px; }
+.proj-table thead tr { background:var(--navy-light); border-bottom:2px solid var(--gold-dim); }
+.proj-table thead th { padding:10px 12px; text-align:left; color:var(--gold); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; font-weight:normal; }
+.proj-table .cat-row td { background:var(--navy-mid); color:var(--silver-light); font-weight:bold; font-size:11px; letter-spacing:0.05em; padding:8px 12px; border-bottom:1px solid var(--border-dim); }
+.proj-table tbody tr { border-bottom:1px solid var(--border-dim); }
+.proj-table tbody tr:last-child { border-bottom:none; }
+.proj-table tbody td { padding:8px 12px; color:var(--text); vertical-align:top; }
+.proj-table tbody td:first-child { color:var(--silver); }
+.proj-table .tg { color:var(--gold) !important; font-weight:bold; }
+.proj-table .ta { color:var(--amber-light) !important; font-weight:bold; }
+.proj-table .total-row td { background:rgba(201,168,76,0.08); font-weight:bold; }
+
+/* ── BIO ── */
+.bio { display:flex; gap:24px; align-items:flex-start; margin-bottom:20px; }
+.bio-avatar { width:68px; height:68px; background:linear-gradient(135deg,var(--gold-dim),var(--amber)); border-radius:4px; display:flex; align-items:center; justify-content:center; font-family:'Georgia',serif; font-size:26px; color:var(--navy); flex-shrink:0; }
+.bio-content h3 { font-size:17px; color:var(--white); margin-bottom:3px; }
+.bio-title { font-family:'Arial',sans-serif; font-size:10px; letter-spacing:0.1em; color:var(--gold-dim); text-transform:uppercase; margin-bottom:10px; }
+.bio-content p { font-family:'Arial',sans-serif; font-size:12.5px; color:var(--text-muted); line-height:1.7; }
+
+/* ── STYLED LISTS ── */
+ul.sl { list-style:none; padding:0; }
+ul.sl li { padding:6px 0 6px 17px; position:relative; font-family:'Arial',sans-serif; font-size:13px; color:var(--text); border-bottom:1px solid var(--border-dim); line-height:1.5; }
+ul.sl li:last-child { border-bottom:none; }
+ul.sl li::before { content:'◆'; position:absolute; left:0; color:var(--gold-dim); font-size:7px; top:11px; }
+ul.sl.tight li { padding:4px 0 4px 15px; font-size:12px; }
+
+/* ── COVER ── */
+.cover-wrap { min-height:460px; display:flex; flex-direction:column; justify-content:center; position:relative; padding:52px 0; }
+.cover-wrap::before { content:''; position:absolute; right:-56px; top:0; bottom:0; width:38%; background:linear-gradient(135deg,transparent,rgba(212,134,10,0.05)); pointer-events:none; }
+.cover-tag { font-family:'Arial',sans-serif; font-size:10.5px; letter-spacing:0.26em; text-transform:uppercase; color:var(--amber-light); margin-bottom:18px; }
+.cover-fund { font-size:46px; color:var(--white); letter-spacing:0.04em; line-height:1.1; margin-bottom:14px; }
+.cover-fund em { color:var(--gold); font-style:normal; }
+.cover-tagline { font-size:17px; color:var(--silver); font-style:italic; margin-bottom:6px; line-height:1.5; }
+.cover-tag2 { font-family:'Arial',sans-serif; font-size:12px; letter-spacing:0.17em; text-transform:uppercase; color:var(--amber-light); margin-bottom:44px; }
+.cover-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:760px; }
+.cm { border-top:2px solid var(--gold-dim); padding-top:14px; }
+.cm-l { font-family:'Arial',sans-serif; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:5px; }
+.cm-v { font-size:15px; color:var(--gold); }
+.conf-box { margin-top:44px; padding:14px 18px; border:1px solid rgba(201,168,76,0.1); border-radius:3px; font-family:'Arial',sans-serif; font-size:10.5px; color:var(--text-muted); line-height:1.65; }
+.conf-box strong { color:var(--gold-dim); }
+.swf-context { background:rgba(212,134,10,0.07); border:1px solid rgba(212,134,10,0.2); border-radius:3px; padding:9px 14px; margin-bottom:20px; font-family:'Arial',sans-serif; font-size:10px; color:var(--text-muted); line-height:1.6; text-align:center; }
+.swf-context strong { color:var(--gold); }
+
+/* ── TWO/THREE COL ── */
+.tcol { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.thcol { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+/* ── SPACER ── */
+.sp { height:20px; }
+
+/* ── CONTACT ── */
+.ctbox { background:var(--navy-card); border:1px solid var(--border); border-radius:4px; padding:32px 40px; text-align:center; }
+.ctbox h3 { font-size:21px; color:var(--gold-light); margin-bottom:22px; }
+.ctline { font-family:'Arial',sans-serif; font-size:13.5px; color:var(--text); margin-bottom:9px; }
+.ctline span { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="disclaimer-bar">
+  <strong>STRICTLY CONFIDENTIAL — FOR QUALIFIED PURCHASERS ONLY.</strong> This data room is provided solely to persons representing they are Qualified Purchasers under Section 2(a)(51) of the Investment Company Act of 1940. Not an offer to sell or solicitation of an offer to buy any securities. Arabian Capital Partners LLC offered pursuant to Reg D 506(c) and Section 3(c)(7). All yield figures are fixed contractual annual rates, not projected returns. All investments involve risk, including loss of principal. Prospective investors must consult their own legal, tax, and financial advisors.
+</div>
+
+<div class="header">
+  <div class="header-brand">
+    <div class="header-emblem">A</div>
+    <div class="header-name"><span>Arabian Capital</span> Partners</div>
+  </div>
+  <div class="header-badge">Institutional Data Room — Sovereign Investment Committee</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-label">Introductory</div>
+  <div class="sb-item active" onclick="S('cover',this)"><span class="sb-num">—</span>Cover &amp; Confidentiality</div>
+  <div class="sb-item" onclick="S('exec',this)"><span class="sb-num">01</span>Executive Summary</div>
+  <div class="sb-item" onclick="S('opp',this)"><span class="sb-num">02</span>The Sovereign Opportunity</div>
+
+  <div class="sb-label">Strategy</div>
+  <div class="sb-item" onclick="S('strategy',this)"><span class="sb-num">03</span>Investment Strategy</div>
+  <div class="sb-item" onclick="S('tradefinance',this)"><span class="sb-num">04</span>Trade Finance Operations</div>
+  <div class="sb-item" onclick="S('credit',this)"><span class="sb-num">05</span>Commodity Credit Tranche</div>
+  <div class="sb-item" onclick="S('infra',this)"><span class="sb-num">06</span>Existing Infrastructure</div>
+
+  <div class="sb-label">Economics</div>
+  <div class="sb-item" onclick="S('deploy',this)"><span class="sb-num">07</span>$1B Deployment Plan</div>
+  <div class="sb-item" onclick="S('yield',this)"><span class="sb-num">08</span>Tiered Yield Structure</div>
+  <div class="sb-item" onclick="S('zerofee',this)"><span class="sb-num">09</span>Zero Fee Structure</div>
+  <div class="sb-item" onclick="S('protection',this)"><span class="sb-num">10</span>Capital Protection</div>
+  <div class="sb-item" onclick="S('liquidity',this)"><span class="sb-num">11</span>Liquidity Structure</div>
+  <div class="sb-item" onclick="S('projections',this)"><span class="sb-num">12</span>Financial Projections</div>
+
+  <div class="sb-label">Fund &amp; Legal</div>
+  <div class="sb-item" onclick="S('terms',this)"><span class="sb-num">13</span>Fund Terms</div>
+  <div class="sb-item" onclick="S('risk',this)"><span class="sb-num">14</span>Risk Factors</div>
+  <div class="sb-item" onclick="S('esg',this)"><span class="sb-num">15</span>Responsible Sourcing &amp; ESG</div>
+
+  <div class="sb-label">People &amp; Operations</div>
+  <div class="sb-item" onclick="S('mgmt',this)"><span class="sb-num">16</span>Management Team</div>
+  <div class="sb-item" onclick="S('orgchart',this)"><span class="sb-num">17</span>Organizational Structure</div>
+  <div class="sb-item" onclick="S('providers',this)"><span class="sb-num">18</span>Service Providers</div>
+
+  <div class="sb-label">Compliance &amp; Process</div>
+  <div class="sb-item" onclick="S('legal',this)"><span class="sb-num">19</span>Legal &amp; Compliance</div>
+  <div class="sb-item" onclick="S('subscription',this)"><span class="sb-num">20</span>Subscription Process</div>
+  <div class="sb-item" onclick="S('tax',this)"><span class="sb-num">21</span>Tax Considerations</div>
+  <div class="sb-item" onclick="S('rights',this)"><span class="sb-num">22</span>Investor Rights</div>
+  <div class="sb-item" onclick="S('glossary',this)"><span class="sb-num">23</span>Glossary</div>
+  <div class="sb-item" onclick="S('swfalign',this)"><span class="sb-num">24</span>Sovereign Capital Alignment</div>
+  <div class="sb-item" onclick="S('contact',this)"><span class="sb-num">—</span>Contact</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ═══════════════════════ COVER ═══════════════════════ -->
+<div class="section active" id="cover">
+  <div class="gold-bar"></div>
+  <div class="cover-wrap">
+    <div class="cover-tag">Prepared for Sovereign Investment Committee Review — March 2026</div>
+    <div class="cover-fund">Arabian <em>Capital</em> Partners</div>
+    <div class="cover-tagline">"Sovereign-Grade Commodity Credit for the World's Most Disciplined Capital"</div>
+    <div class="cover-tag2">Physical Asset &nbsp;·&nbsp; Fixed Contractual Yield &nbsp;·&nbsp; Zero Fee</div>
+    <div class="cover-meta">
+      <div class="cm"><div class="cm-l">Investor Yield</div><div class="cm-v">14–20% p.a.</div></div>
+      <div class="cm"><div class="cm-l">Distribution</div><div class="cm-v">Monthly</div></div>
+      <div class="cm"><div class="cm-l">Minimum</div><div class="cm-v">$5,000,000</div></div>
+      <div class="cm"><div class="cm-l">Fund Life</div><div class="cm-v">Perpetual / Evergreen</div></div>
+    </div>
+    <div class="conf-box">
+      <strong>CONFIDENTIALITY &amp; QUALIFIED PURCHASER NOTICE:</strong> This data room and all materials herein are strictly confidential, prepared solely for Qualified Purchasers as defined under Section 2(a)(51) of the Investment Company Act of 1940 — individuals with $25M+ in investments or institutions with $100M+ in investments. This document may not be reproduced, distributed, or disclosed to any other party without prior written consent of Arabian Capital Partners LLC. By accessing this data room, the recipient confirms Qualified Purchaser status and agreement to maintain strict confidentiality. This document does not constitute an offer to sell or solicitation of an offer to buy any security. Arabian Capital Partners LLC is offered pursuant to Regulation D, Rule 506(c) and Section 3(c)(7) of the Investment Company Act of 1940. All yield figures are fixed contractual annual rates — not projected returns. All investments involve risk, including potential loss of principal.
+    </div>
+    <div class="swf-context" style="margin-top:16px;">
+      <strong>TARGET INVESTOR UNIVERSE:</strong> ADIA (~$900B) · GIC (~$770B) · PIF (~$700B) · Temasek (~$300B) · ICD (~$300B) · ADQ (~$157B) · NBIM (~$1.7T) &nbsp;|&nbsp; Combined AUM ~$4.9 Trillion
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ EXECUTIVE SUMMARY ═══════════════════════ -->
+<div class="section" id="exec">
+  <div class="sec-head">
+    <div class="sec-num">Section 01</div>
+    <h1 class="sec-title">Executive Summary</h1>
+    <div class="sec-sub">A complete, stand-alone summary of the Arabian Capital Partners investment case</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="swf-context">Prepared for Sovereign Investment Committee Review · ADIA, GIC, PIF, Temasek, ICD, ADQ, NBIM · All yields are fixed contractual annual rates, not projected returns</div>
+
+  <div class="sgrid c3" style="margin-bottom:24px;">
+    <div class="sbox"><div class="sv">14–20%</div><div class="sl">Fixed Contractual Annual Yield to Investor</div></div>
+    <div class="sbox"><div class="sv">Monthly</div><div class="sl">Cash Distribution Frequency</div></div>
+    <div class="sbox"><div class="sv">$0</div><div class="sl">Management Fee / Performance Fee / Carried Interest</div></div>
+    <div class="sbox"><div class="sv">LBMA</div><div class="sl">Good Delivery Certified Custody — Brinks &amp; Transguard</div></div>
+    <div class="sbox"><div class="sv">3(c)(7)</div><div class="sl">No Investor Count Cap — Scales to $5B+</div></div>
+    <div class="sbox"><div class="sv">Day 1</div><div class="sl">Deployment Ready — Infrastructure Live</div></div>
+  </div>
+
+  <div class="bcall">
+    <div class="bcall-k">Fixed Contractual Yield Illustration — $1 Billion Commitment at $500M+ Tier (20%) — Not a Projected Return</div>
+    <div class="bcall-m">$200,000,000 Per Year</div>
+    <div class="bcall-s">$16,666,667 distributed in cash every calendar month</div>
+    <div class="bcall-n">Fixed contractual annual yield · No management fee · No performance fee · No carried interest · Physical gold &amp; silver collateral · U.S.-domiciled · Texas governing law</div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Fund Purpose &amp; Structure</h3>
+    <p>Arabian Capital Partners LLC is a perpetual, evergreen private fund structured for Qualified Purchasers that deploys capital into two complementary hard-asset-backed strategies: (1) physical commodity trade finance, in which the fund purchases gold, silver, and strategic minerals from verified global sources at wholesale or spot pricing, holds in LBMA Good Delivery-certified custody, and sells to confirmed institutional buyers at spot plus margin; and (2) commodity-backed private credit, in which the fund provides senior secured loans to physical commodity traders, mining operators, refineries, and strategic mineral companies, fully collateralized by physical metal in LBMA-approved or CME-approved vaults.</p>
+    <p>The fund pays investors a fixed contractual annual yield of 14–20%, tiered by commitment size, distributed monthly. There is no management fee, no performance fee, and no carried interest of any kind. The difference between the fund's gross yield on deployed capital (targeted 35–55%) and the investor's contractual yield constitutes the Managing Entity's sole operating margin and the only form of compensation for Arabian Wealth Management LLC.</p>
+  </div>
+
+  <div class="card card-a">
+    <h3>Why Arabian Capital Partners Exists — The Structural Gap</h3>
+    <p>Sovereign wealth funds seeking institutional-scale alternatives face a persistent gap: no available structure combines (1) genuinely superior yield — 14–20% fixed — with (2) hard asset collateral — physical gold and silver, globally priced 24/7 — and (3) zero fee drag. Traditional private credit funds generate 8–12% gross and charge 1.5–2% management fee plus 15–20% carry, leaving investors with 6–9% net. Real estate and infrastructure funds impose 7–10-year lock-ups with appraisal-dependent collateral. Physical gold ETFs provide no income. Arabian Capital Partners closes this gap by deploying into a physical commodity trade finance infrastructure that generates gross yields far exceeding the investor payment obligation, enabling a zero-fee, fixed-contractual-yield structure at sovereign scale.</p>
+  </div>
+
+  <div class="tcol">
+    <div class="card">
+      <h3>The Infrastructure Advantage</h3>
+      <p>This fund does not require building a commodity trading operation — one already exists. Caleb Caraway, Principal &amp; CIO, has established:</p>
+      <ul class="sl">
+        <li>2 confirmed institutional buyers in Dubai &amp; Sharjah — 8+ metric tons/month capacity</li>
+        <li>LBMA Good Delivery-certified custody: Brinks Security and Transguard</li>
+        <li>Dubai LBMA-approved refinery — non-GD metal re-refined before custody entry</li>
+        <li>Emirates Sky Cargo — insured precious metals logistics across all sourcing corridors</li>
+        <li>Texas Wholesale Noble Metals Broker registration (Stateside Resources LLC)</li>
+        <li>Global sourcing network: Ghana, Uganda, Fiji, Malaysia, UAE, Europe</li>
+        <li>670-acre domestic silver ore body — Llano County, Texas (4,431 ppm confirmed)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Fund Economics Summary</h3>
+      <table class="dt">
+        <tbody>
+          <tr><td>Trade Finance Tranche</td><td>70% of fund — Gross yield 36–60%+ p.a.</td></tr>
+          <tr><td>Commodity Credit Tranche</td><td>30% of fund — Yield 15–20% p.a.</td></tr>
+          <tr><td>Blended Gross Target</td><td class="tg">35–55% on deployed capital</td></tr>
+          <tr><td>Investor Yield Paid</td><td>14–20% fixed contractual annual rate</td></tr>
+          <tr><td>Fund Retained Spread</td><td class="ta">~15–35%+ on deployed capital</td></tr>
+          <tr><td>Distribution Frequency</td><td>Monthly — within 5 business days of month-end</td></tr>
+          <tr><td>Management Fee</td><td class="tg">None</td></tr>
+          <tr><td>Performance Fee</td><td class="tg">None</td></tr>
+          <tr><td>Carried Interest</td><td class="tg">None</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Structural Highlights for Sovereign Investors</h3>
+    <table class="dt">
+      <thead><tr><th>Feature</th><th>Detail</th><th>Significance</th></tr></thead>
+      <tbody>
+        <tr><td>Section 3(c)(7)</td><td>No investor count cap</td><td>Any or all seven target SWFs can invest simultaneously — no structural constraint on scale</td></tr>
+        <tr><td>LBMA Good Delivery</td><td>All fund gold meets GD standard</td><td>The recognized institutional standard; acceptable to all sovereign institutions without exception</td></tr>
+        <tr><td>Annual liquidity window</td><td>30-day redemption window at each 1-year anniversary</td><td>Significantly more liquid than PE (10-yr lock) or infrastructure (7–15-yr lock)</td></tr>
+        <tr><td>Monthly distributions</td><td>12 cash events per year</td><td>Enabled by short trade finance cycles; superior for sovereign cash management vs. quarterly</td></tr>
+        <tr><td>U.S. domicile / Texas law</td><td>Familiar legal framework</td><td>Investor protections governed by U.S. law, enforceable in U.S. courts</td></tr>
+        <tr><td>Independent administration</td><td>NAV Fund Services</td><td>Monthly NAV and distribution calculation by independent third-party — not self-reported</td></tr>
+        <tr><td>Responsible sourcing</td><td>LBMA Responsible Gold Guidance</td><td>Full supply chain ethics documentation available for ESG-mandated investors (NBIM)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SOVEREIGN OPPORTUNITY ═══════════════════════ -->
+<div class="section" id="opp">
+  <div class="sec-head">
+    <div class="sec-num">Section 02</div>
+    <h1 class="sec-title">The Sovereign Opportunity</h1>
+    <div class="sec-sub">Seven structural forces creating durable, long-duration tailwinds for physical commodity credit</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="twitem"><div class="twnum">01</div><div class="twbody">
+    <h4>Global Central Bank Gold Purchasing at 50-Year Record Highs</h4>
+    <p>Global central banks purchased over 1,000 metric tons of gold for the third consecutive year — the highest sustained pace since the 1970s, per World Gold Council data. This is not cyclical activity driven by price. It is structural reallocation by sovereign institutions diversifying away from USD-denominated reserves following the 2022 Russian asset freeze, which demonstrated that fiat reserves held in Western financial infrastructure are subject to jurisdictional seizure. Gold, by contrast, is geopolitically neutral, universally priced, and immune to sanctions-based asset freeze when physically held in institutional custody. Arabian Capital Partners provides sovereign investors not merely gold exposure, but gold exposure with a fixed contractual income stream — an attribute that direct physical holdings and ETFs cannot offer.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">02</div><div class="twbody">
+    <h4>Sovereign Wealth Funds Seeking Yield + Safety + Uncorrelated Returns — Simultaneously</h4>
+    <p>The post-2022 investment environment has forced SWF investment committees to confront a persistent trilemma: adequate yield (to justify opportunity cost vs. treasuries), genuine capital safety (collateral not subject to appraisal risk or market-making failure), and zero correlation to equity and bond market performance. No mainstream alternative asset class delivers all three simultaneously. Private equity generates equity-correlated drawdowns during market stress periods — precisely when sovereign funds need stability. Real estate is illiquid, appraisal-dependent, and geopolitically concentrated. Physical commodity trade finance generates returns from commodity price spreads, not financial market beta — it is structurally uncorrelated to S&amp;P 500 or global fixed-income performance.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">03</div><div class="twbody">
+    <h4>Strategic Mineral Demand Driven by AI Infrastructure, Defense, and Energy Transition</h4>
+    <p>The AI infrastructure build-out requires silver (semiconductor manufacturing, data center components), copper (electrical infrastructure), and rare earth elements (permanent magnets for cooling systems). The global defense modernization cycle requires strategic minerals across propulsion, electronics, and munitions manufacturing. The energy transition — solar panels, EV batteries, grid storage — requires silver, lithium, copper, and cobalt at scales that far exceed current and projected mine supply. These are decade-long structural demand curves driven by government mandates and technology deployment timelines. The commodity credit market serving the producers and processors supplying these minerals is acutely underserved by traditional bank lenders, who lack the operational infrastructure to accept physical commodity collateral. This creates durable, high-yield credit demand for operators like Arabian Capital Partners who have built the required vault infrastructure.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">04</div><div class="twbody">
+    <h4>U.S. Dollar Weaponization — Permanent Structural Shift in Reserve Management</h4>
+    <p>The freezing of approximately $300 billion in Russian sovereign reserves in February 2022 — the largest sovereign asset confiscation in modern history — represented a watershed event in global reserve management. Prior to this action, even geopolitically adversarial states held significant USD-denominated bond reserves on the assumption of sovereign immunity. That assumption is no longer valid. The consequence is a permanent, structural shift in reserve diversification strategy across nations representing a substantial fraction of global GDP. Gold, physical commodities, and hard assets in geopolitically neutral custody have become the preferred diversification vehicle. This shift is not reversible — no subsequent policy action can restore the pre-2022 assumption of USD reserve immunity. The structural demand for physical commodity exposure this creates is permanent.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">05</div><div class="twbody">
+    <h4>BRICS Gold-Backed Trade Settlement — Structural Demand for Physical Gold Infrastructure</h4>
+    <p>BRICS nations — Brazil, Russia, India, China, South Africa, and expanding membership representing approximately 40% of global GDP — are actively developing mechanisms to reduce dependence on the U.S. dollar in bilateral trade. Proposals for gold-backed or commodity-backed trade settlement instruments create substantial structural demand for physical gold held in accessible, internationally recognized custody infrastructure. The LBMA Good Delivery standard is the globally accepted institutional benchmark for such holdings. Arabian Capital Partners' custody infrastructure — LBMA Good Delivery certified through Brinks Security and Transguard in the UAE — is positioned at the intersection of this demand. The UAE itself has positioned as a neutral venue for gold trading and settlement in a multipolar financial system.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">06</div><div class="twbody">
+    <h4>Silver Supply Deficit — Multi-Year Structural Imbalance</h4>
+    <p>The Silver Institute documents a persistent and widening structural supply deficit in silver. Industrial silver demand — solar panel manufacturing alone consumes approximately 100 million troy ounces per year and is growing — is compounding against a mining supply base that is constrained by decades of underinvestment, environmental permitting delays, and the intrinsic difficulty of opening new primary silver mines. Approximately 80% of silver production occurs as a byproduct of copper, zinc, and lead mining — meaning silver supply is partially dictated by base metal economics rather than silver price signals. This structural deficit creates durable price support and widening trade margins for silver trade finance, two conditions that directly benefit Arabian Capital Partners' operations. Silver trade finance generates the same cycle mechanics as gold but against a market with more acute supply-demand imbalance.</p>
+  </div></div>
+
+  <div class="twitem"><div class="twnum">07</div><div class="twbody">
+    <h4>U.S. Critical Mineral Onshoring — New Domestic Capital Demand</h4>
+    <p>The CHIPS and Science Act, the Inflation Reduction Act's critical mineral provisions, and multiple executive orders on critical mineral supply chain security have created a substantial, multi-statute federal mandate for domestic mineral production, processing, and refining. U.S. mining operators, refineries, and mineral processing companies are actively seeking capital that traditional commercial banks cannot efficiently provide — not because of credit quality, but because banks lack the operational infrastructure and regulatory framework to accept physical commodity collateral. Arabian Capital Partners, with its Texas Wholesale Noble Metals Broker registration, its domestic silver ore body at Field Futures Texas (670 acres, Llano County, 4,431 ppm confirmed silver), and its established vault infrastructure, is uniquely positioned to serve this emerging domestic capital demand at yields traditional lenders cannot compete with.</p>
+  </div></div>
+</div>
+
+<!-- ═══════════════════════ INVESTMENT STRATEGY ═══════════════════════ -->
+<div class="section" id="strategy">
+  <div class="sec-head">
+    <div class="sec-num">Section 03</div>
+    <h1 class="sec-title">Investment Strategy</h1>
+    <div class="sec-sub">Two complementary tranches generating 35–55% gross yield on deployed capital, paying investors 14–20% fixed contractual annual yield</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="sgrid c4">
+    <div class="sbox"><div class="sv">70%</div><div class="sl">Trade Finance Tranche Allocation</div></div>
+    <div class="sbox"><div class="sv">30%</div><div class="sl">Commodity Credit Tranche Allocation</div></div>
+    <div class="sbox"><div class="sv">35–55%</div><div class="sl">Blended Gross Target Yield on Deployed Capital</div></div>
+    <div class="sbox"><div class="sv">3–5 Days</div><div class="sl">Average Trade Finance Hold Period</div></div>
+  </div>
+
+  <div class="tcol">
+    <div class="card card-g">
+      <h3>Tranche 1 — Physical Commodity Trade Finance (70%)</h3>
+      <p>The fund purchases physical gold, silver, and strategic minerals from verified global sources at wholesale or spot pricing. Metal is transported via Emirates Sky Cargo to LBMA Good Delivery-certified custody facilities — primarily Brinks Security and Transguard in the UAE. Non-LBMA metal is re-refined at the fund's Dubai LBMA-approved refinery partner before any custody acceptance occurs. The fund holds the metal in custody for an average of 3–5 business days, then sells to confirmed institutional buyers in Dubai and Sharjah at spot price plus 3–5% gross margin per transaction. The cycle repeats continuously, with 12–20 completed cycles possible per month.</p>
+      <p><strong>Target gross annualized yield: 36–60%+ on deployed capital.</strong> At 3% per cycle × 12 cycles = 36%; at 5% per cycle × 20 cycles = 100% theoretical maximum. Conservative modeling uses 36–42% as the working gross yield assumption.</p>
+    </div>
+    <div class="card card-a">
+      <h3>Tranche 2 — Commodity-Backed Private Credit (30%)</h3>
+      <p>The fund provides senior secured credit facilities to physical commodity traders, mining operators, refineries and processing facilities, and strategic mineral companies. All loans are fully collateralized by physical metal or mineral inventory held in LBMA-approved or CME-approved vaults. The fund holds a first-priority lien on all collateral, documented by UCC-1 financing statement and vault instruction agreement. Maximum loan-to-value ratio: 75%. Collateral is valued at daily spot pricing. Margin call triggers at 80% LTV, requiring additional collateral within 48 hours. Default protocol: immediate vault instruction to liquidate collateral at spot pricing — executable within hours.</p>
+      <p><strong>Target yield: 15–20% annualized on deployed credit capital.</strong></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Strategic Complementarity — Why Both Tranches Together</h3>
+    <p>The two tranches are complementary by design. Trade finance (70%) generates velocity-driven returns — short-cycle, high-frequency transactions that recycle capital and generate yield regardless of commodity price direction, as margins are locked at purchase. The credit tranche (30%) generates duration-based yield — loans that pay monthly interest over a defined term, creating predictable income that supports the fund's monthly distribution obligations even during periods of lower trade finance cycle velocity.</p>
+    <p>Together, the tranches provide a blended return profile where short-cycle trade operations generate the bulk of the fund's gross yield, while the credit book provides a stable income floor. Both tranches are collateralized by physical precious metals and minerals — the same asset class — meaning the fund's expertise, vault relationships, and liquidation capabilities apply uniformly across the full portfolio.</p>
+  </div>
+
+  <h3 style="color:var(--gold-light);margin-bottom:16px;font-size:15px;">Transaction Flow — Trade Finance Cycle</h3>
+  <div class="flow">
+    <div class="fstep"><div class="fi">🌍</div><div class="ft">Source</div><div class="fd">Verified global counterparties — wholesale or spot pricing. Pre-screened for FATF compliance and provenance documentation.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">✈️</div><div class="ft">Transport</div><div class="fd">Emirates Sky Cargo — fully insured, documented, chain-of-custody verified from origin to vault.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">🔬</div><div class="ft">Re-Refine</div><div class="fd">Non-LBMA metal → Dubai LBMA-approved refinery → LBMA Good Delivery standard achieved and certified.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">🏦</div><div class="ft">Custody</div><div class="fd">Brinks Security or Transguard LBMA-certified vault. 3–5 business day average hold. Independent weight and assay confirmation.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">📋</div><div class="ft">Confirm Sale</div><div class="fd">Pre-negotiated purchase order confirmed with Dubai or Sharjah institutional buyer prior to custody entry.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">💰</div><div class="ft">Settle</div><div class="fd">Metal delivered; wire received at spot + 3–5% gross margin. Net proceeds returned to fund account.</div></div>
+    <div class="farrow">→</div>
+    <div class="fstep"><div class="fi">🔄</div><div class="ft">Redeploy</div><div class="fd">Capital immediately redeployed into next cycle. 12–20 complete cycles per month is operational target.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TRADE FINANCE OPERATIONS ═══════════════════════ -->
+<div class="section" id="tradefinance">
+  <div class="sec-head">
+    <div class="sec-num">Section 04</div>
+    <h1 class="sec-title">Trade Finance Operations</h1>
+    <div class="sec-sub">Step-by-step transaction lifecycle, custody chain, buyer network, sourcing infrastructure, and responsible sourcing framework</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Transaction Economics — Per Cycle</h3>
+    <table class="dt">
+      <thead><tr><th>Element</th><th>Conservative Case</th><th>Base Case</th><th>Strong Case</th></tr></thead>
+      <tbody>
+        <tr><td>Gross Margin Per Cycle</td><td>3.0%</td><td class="tg">4.0%</td><td>5.0%</td></tr>
+        <tr><td>Cycles Per Month</td><td>12</td><td class="tg">15</td><td>20</td></tr>
+        <tr><td>Annualized Gross Yield on Tranche</td><td>36%</td><td class="tg">48%</td><td>60%+</td></tr>
+        <tr><td>Investor Yield Paid (from tranche)</td><td colspan="3">14–20% of committed capital (from overall fund proceeds)</td></tr>
+        <tr><td>Hold Period</td><td colspan="3">3–5 business days average</td></tr>
+        <tr><td>Maximum Market Price Exposure Window</td><td colspan="3">3–5 business days (short-duration, not a speculative position)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Step 1 — Source Identification and Counterparty Vetting</h3>
+    <p>The fund sources physical gold, silver, and strategic minerals from an established network of verified counterparties across multiple international jurisdictions. All sourcing counterparties undergo pre-transaction due diligence including: entity verification, beneficial ownership identification, FATF watchlist screening, applicable sanctions list screening (OFAC, UN, EU), and provenance documentation review. Counterparties must provide documented provenance records for all metal to be purchased — records that are maintained in the fund's compliance files and available for investor diligence review upon request.</p>
+    <p>Active sourcing corridors: <strong>Ghana</strong> (primary West African gold corridor), <strong>Uganda</strong> (East African artisanal and small-scale mining supply chain, LBMA-vetted), <strong>Fiji</strong> (Pacific gold mining operations), <strong>Malaysia</strong> (regional precious metals trading hub), <strong>UAE</strong> (Dubai, Abu Dhabi, Sharjah — secondary market trading), <strong>Europe</strong> (secondary market, specialty metals), and <strong>Texas</strong> (domestic sourcing through Field Futures Texas silver ore body and regional dealer network via Stateside Resources LLC Texas Noble Metals Broker registration).</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 2 — Purchase Execution and Transport</h3>
+    <p>Upon counterparty approval and provenance documentation receipt, the fund executes purchase at agreed wholesale or spot-based pricing. Physical metal is transferred to the fund's custody account under a documented bill of sale and chain-of-custody transfer agreement. Transport from origin to UAE custody is executed via <strong>Emirates Sky Cargo</strong> — the world's largest international cargo airline and a standard logistics provider for institutional precious metals movement in the global trade corridor. All shipments are fully insured under commercial cargo policies naming the fund as insured party, with coverage from point of departure through vault delivery confirmation.</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 3 — LBMA Re-Refining (If Required)</h3>
+    <p>The LBMA Good Delivery standard is the globally recognized institutional benchmark for large gold bars and silver bars traded in the professional market. Good Delivery bars must meet specific weight, purity, and marking specifications set by the LBMA. Gold bars not originating from an LBMA-accredited refinery — including artisanal and small-scale mining output from Ghana, Uganda, and other supply chains — do not inherently meet Good Delivery standard and are not acceptable to institutional buyers at full spot pricing.</p>
+    <p>To address this, the fund has established access to an <strong>LBMA-approved re-refinery in Dubai</strong>. All non-Good-Delivery metal sourced through the fund's global supply network is sent to this refinery prior to custody acceptance. The refinery process: (1) verifies metal fineness and content via independent assay; (2) re-melts and re-casts metal to LBMA Good Delivery specification; (3) issues LBMA-compliant vault warrant documentation; and (4) provides provenance attestation that constitutes the fund's responsible sourcing record for that metal.</p>
+    <p>The cost of re-refining is factored into purchase pricing — the effective net purchase price to the fund accounts for refinery cost, ensuring target gross margins are achieved on a fully-burdened basis.</p>
+  </div>
+
+  <div class="card card-g">
+    <h3>Step 4 — LBMA-Certified Custody</h3>
+    <p>Upon LBMA certification (either original Good Delivery status or post-refinery certification), metal is transferred to the fund's designated custody account at one of two institutional custodians:</p>
+    <div class="tcol">
+      <div>
+        <h4>Brinks Security</h4>
+        <p>Global leader in physical asset protection and high-value logistics. Operates LBMA-certified vault facilities. Active institutional custody relationship established through Stateside Resources LLC's commodity operations. Provides the fund with primary custody, vault warrant documentation, and independent weight and assay confirmation on all holdings.</p>
+      </div>
+      <div>
+        <h4>Transguard Group</h4>
+        <p>UAE's largest security and facilities management company. Operates LBMA-certified vault in Dubai. Provides the fund with UAE-domiciled custody, redundant capacity, and regional geographic proximity to buyer network. Transguard's ownership by Emirates Group provides institutional-grade stability and operational continuity.</p>
+      </div>
+    </div>
+    <p style="margin-top:12px;">The fund holds a vault warrant for all metal in custody — a negotiable document evidencing title to the specific metal held. Average hold period in custody: 3–5 business days. During the hold period, the fund bears commodity price risk — mitigated by (a) the short duration of hold and (b) the pre-confirmed sale price with institutional buyers established prior to or concurrent with purchase.</p>
+  </div>
+
+  <div class="card card-a">
+    <h3>Step 5 — Confirmed Buyer Network</h3>
+    <p>The fund's trade finance operations are distinguished from speculative commodity trading by the existence of <strong>confirmed institutional buyers</strong> with pre-negotiated pricing terms. The fund's two confirmed buyers operate in Dubai and Sharjah — jurisdictions that represent the world's most active physical gold trading corridor and that overlap directly with the home markets of ICD (Investment Corporation of Dubai, ~$300B AUM) and ADIA/ADQ (Abu Dhabi, ~$1.06T combined). For Gulf sovereign investors reviewing this fund, the buyer network operates within a regulated commodity market they monitor and understand directly.</p>
+    <table class="dt" style="margin-top:14px;">
+      <thead><tr><th>Buyer</th><th>Jurisdiction</th><th>Monthly Capacity</th><th>Purchase Terms</th><th>Relationship Status</th></tr></thead>
+      <tbody>
+        <tr><td>Buyer 1</td><td>Dubai, UAE (DMCC Zone)</td><td>5+ metric tons gold/month</td><td>Spot + agreed margin, pre-negotiated</td><td class="tg">Confirmed — Active</td></tr>
+        <tr><td>Buyer 2</td><td>Sharjah, UAE (Licensed commodity trader)</td><td>3+ metric tons gold/month</td><td>Spot + agreed margin, pre-negotiated</td><td class="tg">Confirmed — Active</td></tr>
+        <tr class="hl"><td><strong>Combined Capacity</strong></td><td></td><td class="tg"><strong>8+ metric tons/month</strong></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <p>Why buyers pay above spot: Institutional buyers in the UAE premium-price sourced supply for (1) reliability of supply from a vetted counterparty, (2) LBMA Good Delivery certification eliminating resale friction, (3) documented chain of custody reducing compliance risk, and (4) consistent volume allowing buyers to meet their own purchase commitments to downstream counterparties. The premium represents the operational value the fund creates in the trade chain, not a financially engineered fee.</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 6 — Settlement and Redeployment</h3>
+    <p>Upon buyer confirmation and vault delivery instruction, the fund issues vault release instructions to the applicable custodian (Brinks or Transguard), transferring vault warrant to the buyer upon receipt of confirmed wire transfer. Net proceeds are deposited to the fund's Axos Bank account. Capital is immediately available for redeployment into the next trade finance cycle. The target cycle frequency of 12–20 per month reflects operational capacity given current buyer relationships and sourcing network velocity. At full deployment on a $1B fund, the trade finance tranche ($700M) would cycle 12–20 times per month, generating gross proceeds of $700M × 3–5% per cycle × 12–20 cycles per month — a gross annual yield of $252M–$840M on the trade finance tranche alone, against investor yield obligation on the full fund of $140M–$200M.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CREDIT TRANCHE ═══════════════════════ -->
+<div class="section" id="credit">
+  <div class="sec-head">
+    <div class="sec-num">Section 05</div>
+    <h1 class="sec-title">Commodity Credit Tranche</h1>
+    <div class="sec-sub">Senior secured lending collateralized by physical metal in LBMA and CME-approved vaults — 30% of fund AUM</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="sgrid c4">
+    <div class="sbox"><div class="sv">30%</div><div class="sl">Fund Allocation</div></div>
+    <div class="sbox"><div class="sv">15–20%</div><div class="sl">Target Annual Yield on Credit Book</div></div>
+    <div class="sbox"><div class="sv">60–75%</div><div class="sl">Maximum Loan-to-Value Ratio</div></div>
+    <div class="sbox"><div class="sv">1st Lien</div><div class="sl">Priority on All Physical Collateral</div></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Eligible Borrower Profiles and Collateral Requirements</h3>
+    <table class="dt">
+      <thead><tr><th>Borrower Type</th><th>Primary Collateral</th><th>Secondary Support</th><th>Target Yield</th><th>Typical Loan Size</th></tr></thead>
+      <tbody>
+        <tr><td>Physical Commodity Traders</td><td>Physical gold/silver in LBMA-certified vault — vault warrant pledged to fund</td><td>Corporate guarantee; trading history documentation</td><td class="tg">15–18% p.a.</td><td>$2M–$25M</td></tr>
+        <tr><td>Mining Operators</td><td>Physical metal inventory in CME/LBMA vault + first lien on mining equipment</td><td>Proven/probable reserve report (qualified geologist); mine operating license</td><td class="tg">16–20% p.a.</td><td>$5M–$50M</td></tr>
+        <tr><td>Refineries &amp; Processors</td><td>Physical metal inventory in process + refinery equipment lien</td><td>Customer purchase orders; refinery operating license</td><td class="tg">15–18% p.a.</td><td>$5M–$30M</td></tr>
+        <tr><td>Strategic Mineral Companies</td><td>Mineral inventory in approved vault + mineral rights lien</td><td>Offtake agreements; exploration/development stage documentation</td><td class="tg">17–20% p.a.</td><td>$2M–$20M</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tcol">
+    <div class="card">
+      <h3>Loan Underwriting Criteria</h3>
+      <ul class="sl">
+        <li><strong>Collateral verification:</strong> Independent third-party inspection and assay of vaulted commodity prior to funding</li>
+        <li><strong>LTV at origination:</strong> Maximum 75% of spot-verified collateral value at loan close</li>
+        <li><strong>Collateral monitoring:</strong> Daily spot price feed applied to collateral value; automated LTV calculation</li>
+        <li><strong>Margin call trigger:</strong> 80% LTV — borrower must post additional collateral within 48 hours or loan is accelerated</li>
+        <li><strong>Vault control:</strong> Fund holds vault instruction rights — can direct custodian to release metal on default without court process</li>
+        <li><strong>Entity structure:</strong> UCC-1 financing statement filed against borrower entity; vault warrant pledged and endorsed in blank</li>
+        <li><strong>Insurance:</strong> Borrower maintains all-risk insurance on vaulted collateral naming fund as additional insured</li>
+        <li><strong>Jurisdiction:</strong> All loan documents governed by Texas law or New York law; arbitration clause for international borrowers</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Collateral Enforcement Pathway</h3>
+      <ul class="sl">
+        <li><strong>Day 1 — Default declared:</strong> Fund issues written notice of default to borrower</li>
+        <li><strong>Day 1 — Vault instruction:</strong> Fund exercises vault instruction rights; directs custodian to segregate and hold collateral pending sale</li>
+        <li><strong>Day 1–2 — Sale execution:</strong> Custodian sells metal at prevailing LBMA spot pricing; proceeds wired to fund account</li>
+        <li><strong>Day 2–3 — Recovery complete:</strong> Fund receives proceeds; files deficiency claim against borrower for any shortfall below 100% recovery</li>
+        <li><strong>Recovery timeline:</strong> 1–3 business days — compared to 12–36 months for real estate collateral enforcement</li>
+        <li><strong>Why this works:</strong> Physical gold and silver are the only collateral assets in the world with continuous global price discovery 24/7, global buyer liquidity, and no market-making requirement. Recovery is a logistics instruction, not a legal process.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-a">
+    <h3>Why Commodity Credit Yields 15–20% on Fully Secured Loans</h3>
+    <p>Commodity-backed lending at 15–20% on fully secured positions would appear anomalous in traditional credit markets, where equivalent-quality collateral might command 6–8% financing rates. The explanation lies in market access, not credit quality.</p>
+    <p>Traditional bank lenders and large private credit funds face three barriers to commodity-backed lending: (1) they lack vault relationships and operational infrastructure to accept, monitor, and liquidate physical commodity collateral; (2) their compliance and regulatory frameworks are not optimized for commodity-specific collateral types; and (3) their standard credit analysis models are not calibrated for businesses where the primary asset is a commodity priced by an international spot market. These barriers eliminate the vast majority of institutional competition, enabling Arabian Capital Partners to charge 15–20% on loans that are, from a collateral quality and liquidity standpoint, among the most fully secured credits available in any asset class.</p>
+    <p>For GIC and other quantitatively sophisticated investment committees: the yield premium over equivalent-quality corporate credit is explained entirely by a market access barrier, not by elevated credit risk. We can provide detailed stress scenario analysis on collateral recovery under adverse commodity price scenarios upon request.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ EXISTING INFRASTRUCTURE ═══════════════════════ -->
+<div class="section" id="infra">
+  <div class="sec-head">
+    <div class="sec-num">Section 06</div>
+    <h1 class="sec-title">Existing Infrastructure</h1>
+    <div class="sec-sub">Day 1 deployment capability — every element of the fund's operating infrastructure exists today</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:20px;">
+    <h3>Not a Concept Fund</h3>
+    <p>Arabian Capital Partners is a fund vehicle being placed around a pre-existing, functioning commodity trading operation. The buyer relationships, custody relationships, logistics infrastructure, sourcing networks, and legal registrations documented in this section are active today. The fund does not require a build-out period before deployment — capital deployed is operational from Day 1.</p>
+  </div>
+
+  <div class="card">
+    <h3>Texas Wholesale Noble Metals Broker Registration</h3>
+    <p><strong>Entity:</strong> Stateside Resources LLC &nbsp;·&nbsp; <strong>Registration Type:</strong> Texas Wholesale Precious Metals Dealer License &nbsp;·&nbsp; <strong>Status:</strong> Active</p>
+    <p>This registration authorizes Stateside Resources LLC to purchase, sell, and trade physical precious metals — including gold and silver — as a wholesale dealer in the State of Texas and in interstate commerce. The registration is a prerequisite for operating as an institutional precious metals dealer under Texas law and is the legal foundation for the fund's U.S.-based commodity trading activities. The registration required demonstration of financial capacity, operational competence, and compliance with Texas Department of Banking precious metals dealer requirements.</p>
+  </div>
+
+  <div class="card">
+    <h3>Confirmed Buyer Relationships — Dubai &amp; Sharjah</h3>
+    <p>The fund has established and maintained active institutional buyer relationships with two commodity purchasers operating in the UAE commodity market — one in Dubai (DMCC regulatory zone) and one in Sharjah (Sharjah commodity trading framework). Both buyers are institutional entities operating under UAE financial regulatory oversight, purchasing physical precious metals as part of their commodity trading operations.</p>
+    <p><strong>Geographic significance for Gulf sovereign investors:</strong> These buyer relationships operate within the home jurisdictions of ICD (Investment Corporation of Dubai, ~$300B AUM), ADIA (~$900B), and ADQ (~$157B). The UAE commodity market is not a foreign concept to ADIA, ICD, or ADQ investment committees — it is the market within which their own institutions operate. The DMCC (Dubai Multi Commodities Centre) is one of the world's largest commodity trading free zones, with established regulatory oversight, institutional counterparty vetting requirements, and internationally recognized legal framework. Arabian Capital Partners' buyer relationships in this ecosystem carry institutional credibility that Gulf sovereign investors can independently verify through their own market knowledge.</p>
+    <table class="dt" style="margin-top:14px;">
+      <tbody>
+        <tr><td>Combined monthly buyer capacity</td><td class="tg">8+ metric tons of gold</td></tr>
+        <tr><td>Purchase pricing terms</td><td>Spot + agreed margin — pre-negotiated, not market-dependent</td></tr>
+        <tr><td>Buyer regulatory status</td><td>UAE-licensed commodity traders — DMCC and Sharjah frameworks</td></tr>
+        <tr><td>Settlement mechanism</td><td>Wire transfer against vault delivery instruction — typically T+1 or T+2</td></tr>
+        <tr><td>Relationship tenure</td><td>Active relationship established through Stateside Resources LLC operations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tcol">
+    <div class="card">
+      <h3>Brinks Security — Primary Custodian</h3>
+      <p>Brinks is the global standard in precious metals vaulting and secure logistics. Operates LBMA Good Delivery-certified vault facilities globally including in the UAE. The fund's active custody relationship — established through Stateside Resources LLC's precious metals operations — provides immediate access to institutional-grade vaulting without new counterparty onboarding. Brinks provides: vault warrant documentation, independent weight and assay confirmation, segregated storage under fund's name, and vault instruction execution upon authorized direction. LBMA certification of Brinks facilities means all metal held therein is acceptable to any institutional buyer globally at full prevailing spot price without additional verification requirement.</p>
+    </div>
+    <div class="card">
+      <h3>Transguard Group — Secondary Custodian</h3>
+      <p>Transguard Group is the UAE's largest security and facilities management company, wholly owned by Emirates Group. Operates LBMA-certified vaulting facilities in Dubai. Provides the fund with UAE-domiciled redundant custody capacity — critical for operational continuity and for maintaining geographic proximity to the fund's Dubai and Sharjah buyer network. The Emirates Group ownership provides institutional stability and continuity that distinguishes Transguard from independent regional security providers. Transguard custodial services include: precious metals vault storage, vault warrant issuance, independent inventory verification, and custodial transfer execution.</p>
+    </div>
+  </div>
+
+  <div class="card card-a">
+    <h3>Dubai LBMA-Approved Refinery Access</h3>
+    <p>The fund has established access to an LBMA-approved re-refinery in Dubai for the processing of non-Good-Delivery metal. This refinery relationship is a critical operational differentiator — it allows the fund to source from a broader geographic supply network (including artisanal and small-scale mining supply chains in Ghana and Uganda where much of the metal does not originate from LBMA-accredited producers) and still achieve full institutional-grade certification on all holdings.</p>
+    <p>The re-refinery performs: metallurgical analysis and assay of all incoming metal; re-melting and re-casting to LBMA Good Delivery specification (gold bars: 350–430 troy oz, minimum 99.5% fineness; silver bars: 750–1,100 troy oz, minimum 99.9% fineness); issuance of LBMA-compliant vault warrants; and provenance attestation documentation that constitutes the responsible sourcing record for each lot of re-refined metal. This last function is particularly important for investors with ESG mandates — the refinery's independent verification serves as the definitive supply chain ethics gate for the fund's physical holdings.</p>
+  </div>
+
+  <div class="card">
+    <h3>Emirates Sky Cargo — Logistics Partner</h3>
+    <p>Emirates Sky Cargo is the cargo division of Emirates airline — the world's largest international airline by scheduled international passenger-kilometres flown. Emirates SkyCargo is one of the world's largest air freight carriers and operates extensive precious metals logistics infrastructure including specialized secure cargo facilities at Dubai International Airport (DXB) and Dubai World Central (DWC). The fund uses Emirates SkyCargo for physical metal transport across all sourcing corridors: Africa (Ghana, Uganda), Asia-Pacific (Fiji, Malaysia), European secondary markets, and within the UAE region.</p>
+    <p>All precious metals shipments are: fully insured under commercial all-risk cargo policies naming the fund as loss payee; documented with commercial invoice, packing list, LBMA weight list (where applicable), and airway bill; accompanied by chain-of-custody documentation from point of seller delivery through vault receipt confirmation. Emirates SkyCargo's institutional logistics infrastructure and its operating base in the UAE (home jurisdiction of the fund's custody and buyer network) creates a seamlessly integrated logistics chain.</p>
+  </div>
+
+  <div class="card">
+    <h3>Field Futures Texas — Domestic Silver Ore Body</h3>
+    <p><strong>Location:</strong> Llano County, Texas &nbsp;·&nbsp; <strong>Size:</strong> 670 acres &nbsp;·&nbsp; <strong>Confirmed silver concentration:</strong> 4,431 ppm (parts per million)</p>
+    <p>Field Futures Texas is a domestic mineral asset that provides the fund with a U.S.-based physical commodity origination capability unique among commodity credit funds. The 670-acre silver ore body in Llano County, Texas has been independently assayed and confirmed at 4,431 ppm silver concentration — a commercially significant grade in the context of Texas mineral resources. This asset provides: (1) a domestic U.S. sourcing option for the trade finance tranche, directly relevant to U.S. critical mineral onshoring mandates; (2) a collateral asset for the fund's commodity credit tranche if and when development financing is arranged; and (3) a physical demonstration of Caleb Caraway's direct commodity asset expertise beyond his trading and finance activities.</p>
+  </div>
+
+  <div class="card">
+    <h3>Global Sourcing Network Summary</h3>
+    <table class="dt">
+      <thead><tr><th>Region / Country</th><th>Metal Type</th><th>Supply Chain</th><th>LBMA Status at Source</th></tr></thead>
+      <tbody>
+        <tr><td>Ghana</td><td>Gold (primary)</td><td>Licensed large-scale and artisanal mines; regional aggregators</td><td>Typically non-GD; re-refined at Dubai LBMA refinery</td></tr>
+        <tr><td>Uganda</td><td>Gold (primary)</td><td>Artisanal and small-scale mining; regional dealers</td><td>Typically non-GD; re-refined at Dubai LBMA refinery</td></tr>
+        <tr><td>Fiji</td><td>Gold</td><td>Primary mine operators; Pacific regional dealers</td><td>Mixed; re-refined as needed</td></tr>
+        <tr><td>Malaysia</td><td>Gold, strategic minerals</td><td>Regional precious metals trading hub; licensed dealers</td><td>Variable; verified at re-refinery</td></tr>
+        <tr><td>UAE (Dubai, Abu Dhabi, Sharjah)</td><td>Gold, silver</td><td>Secondary market; licensed commodity traders</td><td>LBMA Good Delivery standard typically met</td></tr>
+        <tr><td>Europe</td><td>Gold, silver, specialty metals</td><td>Secondary market dealers; refinery output</td><td>Typically GD standard from LBMA-accredited producers</td></tr>
+        <tr><td>Texas, USA</td><td>Silver (ore body)</td><td>Stateside Resources LLC — direct asset ownership</td><td>Domestic — U.S. regulatory framework</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ $1B DEPLOYMENT PLAN ═══════════════════════ -->
+<div class="section" id="deploy">
+  <div class="sec-head">
+    <div class="sec-num">Section 07</div>
+    <h1 class="sec-title">$1 Billion Deployment Plan</h1>
+    <div class="sec-sub">Full tranche allocation, deployment schedule, cash flows, and monthly distribution mechanics for a $1B commitment</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="bcall">
+    <div class="bcall-k">Fixed Contractual Annual Yield — $1 Billion Commitment at $500M+ Tier (20%) — Not a Projected Return</div>
+    <div class="bcall-m">$200,000,000 Per Year</div>
+    <div class="bcall-s">$16,666,667 distributed in cash every calendar month, beginning Month 2 after first full deployment month</div>
+    <div class="bcall-n">Fixed contractual yield to investor · Zero management fee · Zero performance fee · Zero carried interest · Physical gold &amp; silver collateral · U.S.-domiciled · Texas governing law</div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Capital Allocation at $1B AUM</h3>
+    <table class="dt">
+      <thead><tr><th>Tranche</th><th>Allocation %</th><th>Capital Deployed</th><th>Target Gross Yield</th><th>Annual Gross Revenue</th></tr></thead>
+      <tbody>
+        <tr><td>Tranche 1 — Trade Finance</td><td>70%</td><td>$700,000,000</td><td>36–60% p.a.</td><td class="tg">$252M – $420M</td></tr>
+        <tr><td>Tranche 2 — Commodity Credit</td><td>30%</td><td>$300,000,000</td><td>15–20% p.a.</td><td class="tg">$45M – $60M</td></tr>
+        <tr class="hl"><td><strong>Total Fund</strong></td><td><strong>100%</strong></td><td><strong>$1,000,000,000</strong></td><td><strong>29.7–48% blended</strong></td><td class="ta"><strong>$297M – $480M gross</strong></td></tr>
+        <tr><td>Investor Yield Obligation (20% on $1B)</td><td></td><td></td><td></td><td>($200,000,000)</td></tr>
+        <tr class="hl"><td><strong>Fund Retained Operating Margin</strong></td><td></td><td></td><td></td><td class="ta"><strong>$97M – $280M</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);">Note: Base case modeling uses trade finance at 42% gross annualized (3.5% per cycle × 15 cycles/month × 80% deployment efficiency) and commodity credit at 17%. Conservative case uses 36% trade finance gross. All figures are pre-tax to the fund. Investor receives fixed contractual yield regardless of actual fund gross yield performance.</p>
+  </div>
+
+  <div class="card">
+    <h3>Deployment Ramp-Up Schedule</h3>
+    <table class="dt">
+      <thead><tr><th>Month</th><th>Activity</th><th>Capital Deployed</th><th>Distribution to Investor</th></tr></thead>
+      <tbody>
+        <tr><td>Month 1</td><td>Fund formation complete; initial subscription closing; capital wired to Axos Bank. Trade finance operations initiated.</td><td>$250M–$500M (initial tranche)</td><td>None (first full month of operations)</td></tr>
+        <tr><td>Month 2</td><td>Full trade finance deployment at initial commitment. First monthly distribution period completes.</td><td>$500M–$750M</td><td class="tg">First monthly distribution paid within 5 business days of month-end</td></tr>
+        <tr><td>Month 3+</td><td>Full deployment velocity established. Credit tranche initial loans funded. Full cycle cadence (12–20 cycles/month) operational.</td><td>$1,000,000,000</td><td class="tg">$16,666,667/month (at $1B, 20% tier)</td></tr>
+        <tr><td>Ongoing</td><td>Monthly distributions paid; credit book managed; trade finance cycles operating continuously.</td><td>Full deployment maintained</td><td class="tg">$16,666,667/month</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Distribution Mechanics</h3>
+    <table class="dt">
+      <tbody>
+        <tr><td>Distribution Calculation Date</td><td>Last calendar day of each month</td></tr>
+        <tr><td>Distribution Amount</td><td>Committed Capital × Annual Rate ÷ 12. At $1B, 20% tier: $1,000,000,000 × 20% ÷ 12 = $16,666,667</td></tr>
+        <tr><td>Payment Date</td><td>Within 5 business days of the Distribution Calculation Date</td></tr>
+        <tr><td>Payment Method</td><td>Wire transfer to investor's designated bank account (provided in Subscription Agreement)</td></tr>
+        <tr><td>Distribution Statement</td><td>Monthly statement from NAV Fund Services confirming calculation basis, amount paid, and cumulative year-to-date distributions</td></tr>
+        <tr><td>Annual Reconciliation</td><td>Annual distribution schedule included in K-1 / PFIC Annual Information Statement issued by Spicer Jeffries LLP</td></tr>
+        <tr><td>Source of Funds</td><td>Monthly distributions funded from: (1) proceeds of completed trade finance sale cycles; (2) monthly interest payments received on credit book loans. The short-cycle nature of trade finance (3–5 day cycles) ensures continuous cash generation aligned with monthly distribution schedule.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-a">
+    <h3>Multi-Commitment Illustration</h3>
+    <table class="dt">
+      <thead><tr><th>Commitment Size</th><th>Annual Yield</th><th>Annual Distribution</th><th>Monthly Distribution</th><th>Fund Retained (Base Case)</th></tr></thead>
+      <tbody>
+        <tr><td>$50,000,000</td><td>17.0%</td><td class="tg">$8,500,000</td><td class="tg">$708,333</td><td>Proportionate share of fund operating margin</td></tr>
+        <tr><td>$250,000,000</td><td>19.0%</td><td class="tg">$47,500,000</td><td class="tg">$3,958,333</td><td>Proportionate share of fund operating margin</td></tr>
+        <tr><td>$500,000,000</td><td>20.0%</td><td class="tg">$100,000,000</td><td class="tg">$8,333,333</td><td>Proportionate share of fund operating margin</td></tr>
+        <tr class="hl"><td><strong>$1,000,000,000</strong></td><td class="ta"><strong>20.0%</strong></td><td class="ta"><strong>$200,000,000</strong></td><td class="ta"><strong>$16,666,667</strong></td><td>Proportionate share of fund operating margin</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TIERED YIELD ═══════════════════════ -->
+<div class="section" id="yield">
+  <div class="sec-head">
+    <div class="sec-num">Section 08</div>
+    <h1 class="sec-title">Tiered Yield Structure</h1>
+    <div class="sec-sub">Fixed contractual annual yield to investor — not a projected return. Larger commitments earn higher rates.</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px;">
+    <h3>Investor Yield vs. Fund Gross Return vs. Fund Retained Spread</h3>
+    <p>The following table provides full transparency on the fund's economics for each commitment tier. All figures are disclosed for investors with quantitative diligence requirements.</p>
+    <table class="dt">
+      <thead><tr><th>Commitment Size</th><th>Investor Contractual Yield (Fixed)</th><th>Monthly Rate</th><th>Fund Gross Target (Base)</th><th>Fund Retained Spread (Base)</th></tr></thead>
+      <tbody>
+        <tr><td>$5M – $25M</td><td class="tg">14.0%</td><td>1.1667%/mo</td><td>~35–45%</td><td>~21–31%</td></tr>
+        <tr><td>$25M – $50M</td><td class="tg">16.0%</td><td>1.3333%/mo</td><td>~35–45%</td><td>~19–29%</td></tr>
+        <tr><td>$50M – $100M</td><td class="tg">17.0%</td><td>1.4167%/mo</td><td>~37–47%</td><td>~20–30%</td></tr>
+        <tr><td>$100M – $250M</td><td class="tg">18.0%</td><td>1.5000%/mo</td><td>~38–50%</td><td>~20–32%</td></tr>
+        <tr><td>$250M – $500M</td><td class="tg">19.0%</td><td>1.5833%/mo</td><td>~40–52%</td><td>~21–33%</td></tr>
+        <tr class="hl"><td><strong>$500M+</strong></td><td class="ta"><strong>20.0%</strong></td><td><strong>1.6667%/mo</strong></td><td>~42–55%</td><td class="ta">~22–35%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);">All yields are fixed contractual annual rates — investor entitlements, not projected returns. Fund gross target and retained spread are management projections based on trade finance cycle economics and credit book yield; actual results will differ and are subject to the risk factors in Section 14. Fund retained spread constitutes the sole compensation for Arabian Wealth Management LLC. No management fee, performance fee, or carried interest is charged.</p>
+  </div>
+
+  <div class="card card-g">
+    <h3>Yield Tiers — Visual Reference</h3>
+    <div style="margin:16px 0;">
+      <div class="ybar-row"><div class="ybar-lbl">$5M – $25M</div><div class="ybar-wrap"><div class="ybar" style="width:70%;background:linear-gradient(90deg,#8a6d2f,#c9a84c);">14.0% per year</div></div></div>
+      <div class="ybar-row"><div class="ybar-lbl">$25M – $50M</div><div class="ybar-wrap"><div class="ybar" style="width:80%;background:linear-gradient(90deg,#9a7a35,#d4a84c);">16.0% per year</div></div></div>
+      <div class="ybar-row"><div class="ybar-lbl">$50M – $100M</div><div class="ybar-wrap"><div class="ybar" style="width:85%;background:linear-gradient(90deg,#aa882a,#dab845);">17.0% per year</div></div></div>
+      <div class="ybar-row"><div class="ybar-lbl">$100M – $250M</div><div class="ybar-wrap"><div class="ybar" style="width:90%;background:linear-gradient(90deg,#b8952a,#e8c84c);">18.0% per year</div></div></div>
+      <div class="ybar-row"><div class="ybar-lbl">$250M – $500M</div><div class="ybar-wrap"><div class="ybar" style="width:95%;background:linear-gradient(90deg,#c9a030,#f0d050);">19.0% per year</div></div></div>
+      <div class="ybar-row"><div class="ybar-lbl"><strong>$500M+</strong></div><div class="ybar-wrap"><div class="ybar" style="width:100%;background:linear-gradient(90deg,#d4860a,#f5d87a,#d4860a);"><strong>20.0% per year</strong></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ZERO FEE ═══════════════════════ -->
+<div class="section" id="zerofee">
+  <div class="sec-head">
+    <div class="sec-num">Section 09</div>
+    <h1 class="sec-title">Zero Fee Structure</h1>
+    <div class="sec-sub">Fund operating margin is the sole compensation mechanism for Arabian Wealth Management LLC</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="cmpgrid">
+    <div class="cmpbox">
+      <div class="cbl">Traditional Private Credit / Hedge Fund (2/20 Structure)</div>
+      <div class="cr"><span class="ck">Management Fee</span><span class="cv bad">1.5–2.0% of AUM annually</span></div>
+      <div class="cr"><span class="ck">Performance Fee</span><span class="cv bad">15–20% of profits above hurdle</span></div>
+      <div class="cr"><span class="ck">Carried Interest</span><span class="cv bad">20% above preferred return</span></div>
+      <div class="cr"><span class="ck">Admin / Subscription Fees</span><span class="cv bad">0.25–0.50% additional</span></div>
+      <div class="cr"><span class="ck">Net Annual Yield to Investor</span><span class="cv bad">Typically 6–10% effective</span></div>
+      <div class="cr"><span class="ck">Total Fee Drag on $1B</span><span class="cv bad">$20–$40M+ per year to manager</span></div>
+    </div>
+    <div class="cmpbox hl">
+      <div class="cbl">Arabian Capital Partners</div>
+      <div class="cr"><span class="ck">Management Fee</span><span class="cv">$0.00 — None</span></div>
+      <div class="cr"><span class="ck">Performance Fee</span><span class="cv">$0.00 — None</span></div>
+      <div class="cr"><span class="ck">Carried Interest</span><span class="cv">$0.00 — None</span></div>
+      <div class="cr"><span class="ck">Admin / Subscription Fees</span><span class="cv">$0.00 — None</span></div>
+      <div class="cr"><span class="ck">Net Annual Yield to Investor</span><span class="cv">14–20% (full contractual rate — no fee drag)</span></div>
+      <div class="cr"><span class="ck">Total Fee Drag on $1B</span><span class="cv">$0.00</span></div>
+    </div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Full Manager Compensation Disclosure</h3>
+    <p>The fund's compensation model is disclosed in full in the Operating Agreement. For the avoidance of doubt, and to specifically address the diligence standards of quantitatively rigorous investors including GIC:</p>
+    <p><strong>1. There is no management fee.</strong> Arabian Wealth Management LLC charges no percentage of assets under management, no flat annual fee, and no dollar-denominated fee of any kind against investor capital or returns.</p>
+    <p><strong>2. There is no performance fee.</strong> Arabian Wealth Management LLC receives no allocation based on fund performance, no incentive fee above a hurdle rate, and no other performance-linked compensation from investor capital.</p>
+    <p><strong>3. There is no carried interest.</strong> Arabian Wealth Management LLC takes no share of profits above any threshold from the fund.</p>
+    <p><strong>4. Manager compensation is the operating margin.</strong> The fund targets 35–55% gross yield on deployed capital. The investor's fixed contractual annual yield (14–20%) is paid from this gross yield. The arithmetic difference between the fund's actual gross yield on deployed capital and the aggregate investor yield obligation constitutes Arabian Wealth Management LLC's operating revenue. This is the only form of compensation the manager receives. The Operating Agreement will specify that this retained spread is the sole economic benefit accruing to the Managing Entity from fund operations.</p>
+    <p><strong>5. The investor's stated yield is the net yield.</strong> 14–20% is what the investor receives. No deduction is made from this amount for any fee, allocation, or expense.</p>
+  </div>
+
+  <div class="card">
+    <h3>Why Zero Fee Is Structurally Sustainable</h3>
+    <p>Zero fee structures are rare at institutional scale because most fund managers operate in markets where the spread between gross portfolio yield and investor yield is too thin to fund operations without explicit fee revenue. If a private credit fund generates 10–12% gross and pays investors 7–8%, the 2–4% spread barely covers compliance, operations, and personnel — hence the 2% management fee.</p>
+    <p>Arabian Capital Partners targets 35–55% gross yield on deployed capital. After paying investors 14–20%, the fund retains approximately 15–35% operating margin. On a $1B fund, this represents approximately $97M–$280M in annual retained operating margin before any fee. The fund's operations are fully self-funded from this margin — management, operations, compliance, service providers, and profit — without requiring a single dollar of fee extraction from investor capital or returns. The zero-fee structure is not a marketing decision. It is an arithmetic consequence of the fund's gross yield profile relative to its investor yield obligations.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CAPITAL PROTECTION ═══════════════════════ -->
+<div class="section" id="protection">
+  <div class="sec-head">
+    <div class="sec-num">Section 10</div>
+    <h1 class="sec-title">Capital Protection Architecture</h1>
+    <div class="sec-sub">How physical commodity collateral protects investor principal — mechanics, monitoring, and enforcement</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="sgrid c4">
+    <div class="sbox"><div class="sv">Hours</div><div class="sl">Time to Liquidate LBMA Gold Collateral at Spot</div></div>
+    <div class="sbox"><div class="sv">24/7</div><div class="sl">Global Spot Price Discovery — Continuous, Market-Making Not Required</div></div>
+    <div class="sbox"><div class="sv a">60–75%</div><div class="sl">Maximum LTV on Credit Tranche — 25–40% Equity Cushion</div></div>
+    <div class="sbox"><div class="sv">1st Lien</div><div class="sl">Priority Claim on All Physical Collateral in LBMA Vault</div></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Why Physical Gold and Silver Are Superior Collateral</h3>
+    <p>Gold and silver possess a unique combination of properties that make them categorically superior to all other collateral types in the professional lending market:</p>
+    <table class="dt">
+      <thead><tr><th>Collateral Type</th><th>Price Discovery</th><th>Liquidation Time</th><th>Market-Making Required</th><th>Appraisal Required</th><th>Geopolitical Risk</th></tr></thead>
+      <tbody>
+        <tr><td>Physical Gold (LBMA)</td><td class="tg">Continuous 24/7 global</td><td class="tg">Hours</td><td class="tg">No</td><td class="tg">No</td><td class="tg">Minimal</td></tr>
+        <tr><td>Commercial Real Estate</td><td style="color:#e05a4a">Periodic appraisal only</td><td style="color:#e05a4a">12–36 months</td><td style="color:#e05a4a">Yes — broker required</td><td style="color:#e05a4a">Required — expensive</td><td style="color:#e05a4a">High (local law)</td></tr>
+        <tr><td>Corporate Bonds</td><td>Market hours only</td><td>Days–weeks (credit markets)</td><td>Yes — for illiquid credits</td><td>No</td><td>Moderate</td></tr>
+        <tr><td>Private Equity Stakes</td><td>None — quarterly at best</td><td style="color:#e05a4a">Years</td><td style="color:#e05a4a">Yes — complex process</td><td style="color:#e05a4a">Required</td><td>High</td></tr>
+        <tr><td>Equipment / Machinery</td><td>Dealer-dependent only</td><td style="color:#e05a4a">Weeks–months</td><td style="color:#e05a4a">Yes</td><td style="color:#e05a4a">Required</td><td>Low</td></tr>
+      </tbody>
+    </table>
+    <p>Physical gold held in LBMA Good Delivery-certified custody is the only widely-held asset class for which: the global market price is available 24 hours a day, 7 days a week; no market-maker is required to establish price or execute sale; no appraisal process is needed; and any institutional buyer globally will accept delivery at prevailing spot without additional verification or due diligence. In a default scenario, Arabian Capital Partners does not initiate a legal process, hire a broker, or wait for an appraisal — it issues a vault instruction.</p>
+  </div>
+
+  <div class="tcol">
+    <div class="card">
+      <h3>Trade Finance Tranche — Protection Mechanics</h3>
+      <ul class="sl">
+        <li><strong>Fund ownership:</strong> Fund owns metal outright during hold period — no counterparty credit exposure; no lending risk</li>
+        <li><strong>Independent custody:</strong> LBMA-certified vault (Brinks/Transguard) — third-party, not fund-controlled storage</li>
+        <li><strong>Insured transport:</strong> Emirates SkyCargo — all-risk cargo insurance, fund as loss payee</li>
+        <li><strong>Pre-confirmed buyers:</strong> Sale confirmed before or concurrent with purchase — price locked on both sides</li>
+        <li><strong>Short hold duration:</strong> 3–5 day commodity price exposure window minimizes market risk</li>
+        <li><strong>Quality verification:</strong> LBMA re-refining eliminates quality/resale risk on non-standard sourced metal</li>
+        <li><strong>Buyer default:</strong> If buyer fails to close, fund retains LBMA-certified metal — sells to alternate institutional buyer at spot, typically within same trading day</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Credit Tranche — Protection Mechanics</h3>
+      <ul class="sl">
+        <li><strong>First-priority lien:</strong> UCC-1 filing + vault warrant pledge — no subordinate claims permitted</li>
+        <li><strong>LTV at origination:</strong> Maximum 75% — 25% equity cushion at loan close</li>
+        <li><strong>Daily LTV monitoring:</strong> Spot price applied daily; automated LTV recalculation</li>
+        <li><strong>Margin call at 80% LTV:</strong> Borrower must post additional collateral within 48 hours</li>
+        <li><strong>Acceleration on failure:</strong> If margin call not met, loan accelerated; immediate vault liquidation</li>
+        <li><strong>Vault instruction rights:</strong> Fund holds signed vault instruction — executable without court process</li>
+        <li><strong>Default recovery timeline:</strong> 1–3 business days vs. 12–36 months for real estate</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card card-a">
+    <h3>LBMA Custody Oversight and Independent Verification</h3>
+    <p>LBMA Good Delivery certification imposes specific custody standards on approved vaults. LBMA-certified custodians (Brinks, Transguard) are required to: maintain accurate vault records with independent weight and assay verification for all holdings; provide vault warrants that constitute negotiable documents evidencing specific metal holdings; submit to periodic LBMA audits and inspections; and maintain insurance covering vault contents at replacement value. These requirements mean that fund holdings are independently verified, accurately documented, and insured at all times — not merely the fund's own representation of what it holds.</p>
+    <p>Investors in Arabian Capital Partners can request vault confirmation from NAV Fund Services — which interfaces directly with the fund's custodians on a monthly basis — confirming aggregate metal holdings in custody as of each distribution date. This provides independent, third-party verification of the physical assets supporting the fund's investor yield obligation.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ LIQUIDITY STRUCTURE ═══════════════════════ -->
+<div class="section" id="liquidity">
+  <div class="sec-head">
+    <div class="sec-num">Section 11</div>
+    <h1 class="sec-title">Liquidity Structure</h1>
+    <div class="sec-sub">2-year commitment · Annual redemption windows · How redemptions are funded by trade finance cash flows</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Liquidity Profile Relative to Alternatives</h3>
+    <table class="dt">
+      <thead><tr><th>Fund Type</th><th>Lock-Up Period</th><th>Redemption Mechanism</th><th>Distribution Frequency</th></tr></thead>
+      <tbody>
+        <tr><td>Private Equity</td><td style="color:#e05a4a">7–12 years</td><td style="color:#e05a4a">Capital return at wind-down only</td><td>Irregular — distributions at exit events</td></tr>
+        <tr><td>Real Estate / Infrastructure</td><td style="color:#e05a4a">7–15 years</td><td style="color:#e05a4a">Sale of assets at fund termination</td><td>Quarterly — if operations permit</td></tr>
+        <tr><td>Hedge Fund</td><td>1-year typical; gates common</td><td>Quarterly or annual — subject to gate provisions</td><td>Monthly or quarterly</td></tr>
+        <tr class="hl"><td><strong>Arabian Capital Partners</strong></td><td class="tg"><strong>2-year term</strong></td><td class="tg"><strong>Annual window — 30-day redemption period</strong></td><td class="tg"><strong>Monthly — unconditional</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Annual Liquidity Window — Complete Mechanics</h3>
+    <p><strong>Window Timing:</strong> Beginning at the 1-year anniversary of the investor's commitment date, and at each subsequent annual anniversary, a 30-day redemption window opens. Investors must submit written redemption notice during this 30-day period to exercise principal redemption rights for that anniversary cycle.</p>
+    <p><strong>Redemption Process:</strong></p>
+    <div class="psteps">
+      <div class="pstep"><div class="pstep-num">1</div><div class="pstep-body"><h4>Notice Period (30 Days Before Window)</h4><p>Managing Entity notifies all investors of upcoming redemption window opening date, closing date, and required notice documentation.</p></div></div>
+      <div class="pstep"><div class="pstep-num">2</div><div class="pstep-body"><h4>Redemption Notice (During 30-Day Window)</h4><p>Investor submits written redemption notice specifying amount to be redeemed (minimum $1M; remaining balance must be at or above $5M minimum or full redemption required). Notice must include wire instructions for redemption proceeds.</p></div></div>
+      <div class="pstep"><div class="pstep-num">3</div><div class="pstep-body"><h4>Managing Entity Review (10 Business Days Post-Window Close)</h4><p>Managing Entity reviews aggregate redemption requests against fund liquidity position. Arabian Wealth Management LLC will use commercially reasonable efforts to honor all approved redemption requests.</p></div></div>
+      <div class="pstep"><div class="pstep-num">4</div><div class="pstep-body"><h4>Redemption Funding (Within 90 Days of Anniversary Date)</h4><p>Approved redemptions funded within 90 days of the anniversary date. Source of funding: proceeds from trade finance cycle settlements and credit loan repayments. The short-cycle nature of trade finance (3–5 day cycles, 12–20 per month) provides natural liquidity for redemption funding without requiring forced asset sales.</p></div></div>
+      <div class="pstep"><div class="pstep-num">5</div><div class="pstep-body"><h4>Final Distribution and K-1</h4><p>Accrued and unpaid distributions paid through the date of redemption settlement. Revised K-1 issued reflecting partial-year income for redemption year.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>How Trade Finance Short Cycles Enable Liquidity</h3>
+    <p>Most private fund structures must impose long lock-ups because their portfolio assets are illiquid — real estate takes months to sell, private equity stakes have no secondary market, long-duration loans cannot be called early. Arabian Capital Partners' liquidity structure is enabled by the fundamental characteristic of trade finance: the fund's primary asset turns over completely every 3–5 business days. In any given month, the fund cycles through 12–20 complete purchase-and-sale transactions. Each settled transaction generates cash equal to the full deployed amount plus gross margin. This means the fund's capital base is effectively reset to cash multiple times per month.</p>
+    <p>A $1B fund generating $200M+ in monthly gross trade proceeds does not face a liquidity constraint in meeting annual redemption requests of any plausible size from any single investor. The fund's annual liquidity window is a contractual right, not a theoretical possibility. It is funded by the same cash generation machinery that funds monthly distributions.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════ FINANCIAL PROJECTIONS ═══════════════════════ -->
+<div class="section" id="projections">
+  <div class="sec-head">
+    <div class="sec-num">Section 12</div>
+    <h1 class="sec-title">Financial Projections</h1>
+    <div class="sec-sub">3-year illustrative model — conservative, base, and upside cases for $50M, $250M, and $1B commitment tiers</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:6px;">
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin:0;"><strong style="color:var(--gold-dim);">PROJECTION DISCLAIMER:</strong> The following financial projections are illustrative only. They are based on management's assumptions regarding trade finance cycle frequency, gross margin per cycle, and credit book yield. Actual results will differ materially. Investor yield figures are fixed contractual rates — not projections. Fund gross yield and retained spread figures are management estimates subject to the risk factors in Section 14. These projections are not an offer, guarantee, or representation of future performance.</p>
+  </div>
+
+  <h3 style="color:var(--gold-light);margin:20px 0 14px;font-size:15px;">Scenario Assumptions</h3>
+  <table class="dt">
+    <thead><tr><th>Assumption</th><th>Conservative</th><th>Base Case</th><th>Upside</th></tr></thead>
+    <tbody>
+      <tr><td>Trade Finance Gross Margin / Cycle</td><td>3.0%</td><td class="tg">3.5%</td><td>5.0%</td></tr>
+      <tr><td>Trade Finance Cycles / Month</td><td>12</td><td class="tg">15</td><td>20</td></tr>
+      <tr><td>Trade Finance Annualized Gross Yield</td><td>36%</td><td class="tg">42%</td><td>60%</td></tr>
+      <tr><td>Credit Book Annualized Yield</td><td>15%</td><td class="tg">17%</td><td>20%</td></tr>
+      <tr><td>Deployment Efficiency (% of capital deployed)</td><td>85%</td><td class="tg">90%</td><td>95%</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--gold-light);margin:20px 0 14px;font-size:15px;">3-Year Model — $1 Billion Commitment (20% Fixed Contractual Investor Yield)</h3>
+  <table class="proj-table">
+    <thead><tr><th>Line Item</th><th>Year 1 — Conservative</th><th>Year 1 — Base</th><th>Year 2 — Base</th><th>Year 3 — Base</th></tr></thead>
+    <tbody>
+      <tr class="cat-row"><td colspan="5">FUND GROSS REVENUE ($1B DEPLOYED)</td></tr>
+      <tr><td>Trade Finance Tranche ($700M × 70%)</td><td>$214,200,000</td><td class="tg">$264,600,000</td><td>$264,600,000</td><td>$264,600,000</td></tr>
+      <tr><td>Commodity Credit Tranche ($300M × 30%)</td><td>$38,250,000</td><td class="tg">$46,070,000</td><td>$46,070,000</td><td>$46,070,000</td></tr>
+      <tr class="total-row"><td>Total Fund Gross Revenue</td><td>$252,450,000</td><td class="tg">$310,670,000</td><td>$310,670,000</td><td>$310,670,000</td></tr>
+      <tr class="cat-row"><td colspan="5">INVESTOR YIELD (FIXED CONTRACTUAL)</td></tr>
+      <tr><td>Annual Investor Yield (20% × $1B)</td><td colspan="4" class="tg" style="text-align:center;font-weight:bold;">($200,000,000) — Fixed contractual obligation regardless of gross yield</td></tr>
+      <tr class="cat-row"><td colspan="5">FUND OPERATING MARGIN (MANAGER COMPENSATION)</td></tr>
+      <tr class="total-row"><td>Fund Retained Operating Margin</td><td>$52,450,000</td><td class="ta">$110,670,000</td><td class="ta">$110,670,000</td><td class="ta">$110,670,000</td></tr>
+      <tr class="cat-row"><td colspan="5">INVESTOR CASH FLOWS (CONTRACTUAL)</td></tr>
+      <tr><td>Annual Distribution</td><td colspan="4" class="tg" style="text-align:center;">$200,000,000 / year — $16,666,667 / month</td></tr>
+      <tr><td>3-Year Cumulative Distribution</td><td colspan="4" class="ta" style="text-align:center;font-weight:bold;">$600,000,000 over 3 years on $1B committed capital</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--gold-light);margin:20px 0 14px;font-size:15px;">3-Year Model — $250 Million Commitment (19% Fixed Contractual Investor Yield)</h3>
+  <table class="proj-table">
+    <thead><tr><th>Line Item</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>3-Year Total</th></tr></thead>
+    <tbody>
+      <tr><td>Annual Investor Distribution (19% × $250M)</td><td class="tg">$47,500,000</td><td class="tg">$47,500,000</td><td class="tg">$47,500,000</td><td class="ta">$142,500,000</td></tr>
+      <tr><td>Monthly Distribution</td><td colspan="3" style="text-align:center;">$3,958,333 / month</td><td></td></tr>
+      <tr class="total-row"><td>Principal at 2-Year Anniversary</td><td colspan="3" style="text-align:center;">$250,000,000 (available for redemption at annual window)</td><td class="tg">$250,000,000</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:var(--gold-light);margin:20px 0 14px;font-size:15px;">3-Year Model — $50 Million Commitment (17% Fixed Contractual Investor Yield)</h3>
+  <table class="proj-table">
+    <thead><tr><th>Line Item</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>3-Year Total</th></tr></thead>
+    <tbody>
+      <tr><td>Annual Investor Distribution (17% × $50M)</td><td class="tg">$8,500,000</td><td class="tg">$8,500,000</td><td class="tg">$8,500,000</td><td class="ta">$25,500,000</td></tr>
+      <tr><td>Monthly Distribution</td><td colspan="3" style="text-align:center;">$708,333 / month</td><td></td></tr>
+      <tr class="total-row"><td>Principal at 2-Year Anniversary</td><td colspan="3" style="text-align:center;">$50,000,000 (available for redemption at annual window)</td><td class="tg">$50,000,000</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ FUND TERMS ═══════════════════════ -->
+<div class="section" id="terms">
+  <div class="sec-head">
+    <div class="sec-num">Section 13</div>
+    <h1 class="sec-title">Fund Terms</h1>
+    <div class="sec-sub">Complete material terms — every provision relevant to a Qualified Purchaser investment decision</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="card card-g">
+    <table class="dt">
+      <thead><tr><th>Term</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Fund Name</td><td class="tg">Arabian Capital Partners LLC (to be formed — State of Texas)</td></tr>
+        <tr><td>Managing Entity</td><td>Arabian Wealth Management LLC (to be formed — wholly owned subsidiary of Dark Horse Wealth Management LLC)</td></tr>
+        <tr><td>Parent Structure</td><td>Dark Horse Wealth Management LLC → Caraway Holdings LLC → "In God We Trust" Family Trust</td></tr>
+        <tr><td>Principal &amp; CIO</td><td>Caleb Caraway</td></tr>
+        <tr><td>Domicile</td><td>State of Texas, United States</td></tr>
+        <tr><td>Governing Law</td><td>State of Texas</td></tr>
+        <tr><td>Fund Structure</td><td>Limited Liability Company</td></tr>
+        <tr><td>Securities Regulation</td><td>Regulation D, Rule 506(c) — General Solicitation Permitted</td></tr>
+        <tr><td>Investment Company Act</td><td>Section 3(c)(7) Exemption — Qualified Purchasers only — No investor count cap — Fund scales to $5B+ without structural modification</td></tr>
+        <tr><td>Eligible Investors</td><td>Qualified Purchasers only: individuals with $25M+ in investments; institutions with $100M+ in investments (SWFs qualify)</td></tr>
+        <tr><td>Minimum Investment</td><td class="tg">$5,000,000 USD</td></tr>
+        <tr><td>Subsequent Subscription Minimum</td><td>$1,000,000 USD increments</td></tr>
+        <tr><td>AUM Target Range</td><td>$50,000,000 — $5,000,000,000</td></tr>
+        <tr><td>Fund Life</td><td>Perpetual / Evergreen — No termination date</td></tr>
+        <tr><td>Investment Strategy</td><td>70% Physical Commodity Trade Finance + 30% Commodity-Backed Private Credit</td></tr>
+        <tr><td>Target Gross Yield</td><td>35–55% on deployed capital (management projection — not guaranteed)</td></tr>
+        <tr><td>Investor Yield</td><td class="tg">14–20% fixed contractual annual rate — tiered by commitment size (see Section 08) — not a projected return</td></tr>
+        <tr><td>Distribution Frequency</td><td>Monthly — within 5 business days of calendar month-end</td></tr>
+        <tr><td>Investor Term</td><td>2-year commitment from subscription closing date</td></tr>
+        <tr><td>Annual Liquidity Window</td><td>30-day redemption notice window opening at each 1-year anniversary of investor's commitment date; redemption funded within 90 days of anniversary date</td></tr>
+        <tr><td>Partial Redemptions</td><td>Minimum $1,000,000; remaining balance must be at or above $5,000,000</td></tr>
+        <tr><td>Management Fee</td><td class="tg">None — $0.00</td></tr>
+        <tr><td>Performance Fee</td><td class="tg">None — $0.00</td></tr>
+        <tr><td>Carried Interest</td><td class="tg">None — $0.00</td></tr>
+        <tr><td>Manager Compensation</td><td>Fund operating margin only — difference between gross yield on deployed capital and aggregate investor yield obligation</td></tr>
+        <tr><td>Fund Banking</td><td>Axos Bank (federally chartered)</td></tr>
+        <tr><td>Fund Administration</td><td>NAV Fund Services (independent third-party)</td></tr>
+        <tr><td>Tax &amp; Audit</td><td>Spicer Jeffries LLP</td></tr>
+        <tr><td>Securities Counsel</td><td>SCALE LLP — Lead attorney: Dori Karjian, Esq.</td></tr>
+        <tr><td>Primary Custodian</td><td>Brinks Security (LBMA Good Delivery certified)</td></tr>
+        <tr><td>Secondary Custodian</td><td>Transguard Group (LBMA Good Delivery certified)</td></tr>
+        <tr><td>Logistics</td><td>Emirates Sky Cargo</td></tr>
+        <tr><td>Refinery</td><td>Dubai LBMA-approved re-refinery (name disclosed in diligence)</td></tr>
+        <tr><td>Reporting</td><td>Monthly distribution statement; quarterly NAV report; annual audited financials; annual K-1</td></tr>
+        <tr><td>Audit Rights</td><td>Investors have right to request independent audit of fund records with 30 days written notice</td></tr>
+        <tr><td>Transferability</td><td>Interests not freely transferable; transfer requires Managing Entity consent and QP re-verification</td></tr>
+        <tr><td>Secondary Market</td><td>None exists or is expected</td></tr>
+        <tr><td>Tax Treatment (U.S.)</td><td>Pass-through LLC; annual K-1 issued to each investor</td></tr>
+        <tr><td>Subscription Documents</td><td>Operating Agreement; Subscription Agreement; QP Questionnaire; Investor Representation Letter</td></tr>
+        <tr><td>Form D</td><td>Filed with SEC within 15 days of first sale of securities</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ RISK FACTORS ═══════════════════════ -->
+<div class="section" id="risk">
+  <div class="sec-head">
+    <div class="sec-num">Section 14</div>
+    <h1 class="sec-title">Risk Factors</h1>
+    <div class="sec-sub">15 material risk factors — institutional-grade disclosure for Qualified Purchaser due diligence</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="card">
+    <div class="ritem"><div class="rnum">01</div><div class="rbody"><h4>No Operating History as a Fund</h4><p>Arabian Capital Partners LLC is a newly formed fund with no operating history. While the Principal has existing commodity trading relationships, broker registration, and infrastructure, the fund itself has not operated and has no track record of returns as an organized investment vehicle. Projected yields are based on management's assessment of trade finance economics and are not guaranteed. Prospective investors should not rely on projected return figures as a representation of actual results. Past performance of related activities does not predict fund performance.</p></div></div>
+    <div class="ritem"><div class="rnum">02</div><div class="rbody"><h4>Commodity Price Risk</h4><p>The value of physical gold, silver, and strategic minerals fluctuates continuously based on global supply and demand, central bank policy, currency movements, interest rates, geopolitical events, and speculative market activity. A material decline in commodity prices during a trade finance holding period (3–5 days) could result in a realized loss on individual transactions if the pre-negotiated sale price is below the fund's acquisition cost. While the short hold period substantially limits commodity price exposure relative to a buy-and-hold strategy, it does not eliminate it. The credit tranche similarly faces collateral devaluation risk — a sustained decline in commodity prices reduces collateral coverage, triggering margin calls and potentially resulting in recovery shortfalls at extreme prices.</p></div></div>
+    <div class="ritem"><div class="rnum">03</div><div class="rbody"><h4>Counterparty and Buyer Concentration Risk</h4><p>A significant portion of the fund's trade finance revenue depends on two confirmed institutional buyers in Dubai and Sharjah. The loss of either buyer relationship — due to buyer insolvency, regulatory action against the buyer, buyer withdrawal from the market, or deterioration in buyer financial capacity — could materially impair the fund's ability to complete trade finance cycles at target velocity and margin. The fund would need to identify and onboard replacement buyers, which could take weeks to months and result in reduced deployment efficiency during the transition period.</p></div></div>
+    <div class="ritem"><div class="rnum">04</div><div class="rbody"><h4>Sourcing Counterparty and Fraud Risk</h4><p>The fund sources physical commodities from counterparties across multiple international jurisdictions including Ghana, Uganda, Fiji, and Malaysia. These sourcing relationships carry risks including: counterparty misrepresentation of metal quantity or purity; fraudulent provenance documentation; metal that is encumbered by third-party claims or liens; and counterparties who accept payment but fail to deliver physical metal. While the fund's LBMA re-refining process provides metallurgical verification, and the re-refinery's provenance attestation process provides documentation verification, these processes cannot guarantee the elimination of all sourcing fraud risk. The fund maintains counterparty screening procedures, but no counterparty screening is infallible.</p></div></div>
+    <div class="ritem"><div class="rnum">05</div><div class="rbody"><h4>Custodial Risk</h4><p>The fund holds physical metal in third-party LBMA-certified vaults operated by Brinks Security and Transguard Group. While LBMA certification imposes standards and insurance requirements on vault operators, there remains residual risk of: vault operator financial failure; physical loss due to theft or natural disaster (partially mitigated by insurance); operational error in vault inventory management; or failure of insurance coverage to fully compensate for losses. The fund maintains two custodial relationships to reduce concentration in any single custodian, but this does not eliminate custodial risk entirely.</p></div></div>
+    <div class="ritem"><div class="rnum">06</div><div class="rbody"><h4>Regulatory and Geopolitical Risk</h4><p>The fund's operations span the United States, UAE, and multiple additional international jurisdictions. Changes in export regulations, import restrictions, anti-money laundering requirements, FATF guidance implementation, precious metals trading regulations, or applicable sanctions regimes in any jurisdiction of operation could disrupt or prohibit fund operations. The UAE in particular has implemented progressively stringent FATF-compliance requirements for precious metals trading; further regulatory tightening could affect the operational framework of the fund's buyer relationships and trading activities. U.S. regulatory changes affecting Regulation D, Section 3(c)(7), or the fund's Texas Noble Metals Broker registration could also materially impact fund structure or operations.</p></div></div>
+    <div class="ritem"><div class="rnum">07</div><div class="rbody"><h4>Liquidity and Redemption Risk</h4><p>The fund's principal is subject to a 2-year initial commitment period with annual redemption windows. Investors cannot redeem outside of designated windows except in extraordinary circumstances at Managing Entity discretion. No secondary market for fund interests exists. In a scenario where aggregate redemption requests at an annual window exceed the fund's available liquidity — due to reduced trade finance activity, increased credit book funding requirements, or other operational factors — redemptions may be delayed beyond the 90-day target timeline. The Managing Entity has the discretion to prorate or delay redemptions under certain conditions as specified in the Operating Agreement.</p></div></div>
+    <div class="ritem"><div class="rnum">08</div><div class="rbody"><h4>Key Person Risk</h4><p>The fund's buyer relationships, custody relationships, sourcing network, logistics partnerships, and operational expertise are substantially dependent on Caleb Caraway. His incapacity, death, or departure would materially impair the fund's ability to execute its investment strategy. While the fund intends to implement key person provisions and develop succession arrangements, these have not been finalized. Investors should evaluate their risk tolerance relative to this concentration of operational knowledge and relationships in a single individual.</p></div></div>
+    <div class="ritem"><div class="rnum">09</div><div class="rbody"><h4>Currency Risk</h4><p>While gold and silver are priced globally in U.S. dollars and the fund's investor yields are denominated in U.S. dollars, certain sourcing transactions may involve non-USD pricing (local currency in Ghana, Uganda, Malaysia, etc.). Currency fluctuations between USD and local sourcing currencies could affect effective acquisition costs and therefore gross margin per cycle. The fund targets sufficient gross margin to absorb normal currency fluctuations, but extreme currency movements could compress margins on specific transactions. International investors receiving distributions in currencies other than USD bear additional currency risk from their home-currency perspective.</p></div></div>
+    <div class="ritem"><div class="rnum">10</div><div class="rbody"><h4>Operational and Execution Risk</h4><p>Physical commodity trade finance is operationally complex, requiring coordination across sourcing counterparties, logistics providers, customs authorities, refineries, custodians, and buyers across multiple jurisdictions and time zones. Operational failures — including logistics delays, customs documentation errors, vault processing delays, refinery capacity constraints, or wire transfer failures — could delay trade cycle completion, reducing monthly cycle frequency and therefore gross yield. The fund's target of 12–20 cycles per month represents an operational capacity ceiling that may not be consistently achieved in all operating environments.</p></div></div>
+    <div class="ritem"><div class="rnum">11</div><div class="rbody"><h4>Credit and Borrower Default Risk</h4><p>The commodity credit tranche involves lending to commodity traders, mining operators, refineries, and mineral companies. These borrowers may experience financial distress, operational failure, fraud, or default. While first-priority physical collateral provides substantial recovery capability, certain scenarios could result in recovery shortfalls: commodity price decline below LTV threshold before margin call can be executed; borrower misrepresentation of collateral quantity or quality; collateral that is encumbered by undisclosed third-party liens; or borrower who successfully contests vault instruction in court proceedings that delay liquidation. No collateral structure eliminates all credit risk.</p></div></div>
+    <div class="ritem"><div class="rnum">12</div><div class="rbody"><h4>Yield Payment Risk</h4><p>The fund's obligation to pay fixed contractual yields of 14–20% is a contractual obligation of Arabian Wealth Management LLC under the Operating Agreement. The fund's ability to meet this obligation on a continuous monthly basis depends on generating sufficient gross yield from trade finance and credit operations. In a severe scenario where trade finance activity is substantially reduced — due to buyer loss, regulatory action, or commodity market disruption — and credit book yields are insufficient to cover investor yield obligations, the fund may face difficulty meeting monthly distribution commitments. Investors should understand that fixed contractual yield does not mean risk-free yield.</p></div></div>
+    <div class="ritem"><div class="rnum">13</div><div class="rbody"><h4>Conflict of Interest Risk</h4><p>Caleb Caraway and his affiliated entities (including Stateside Resources LLC, Dark Horse Wealth Management LLC, and other affiliated funds) may engage in commodity transactions that are similar to or competitive with fund activities. While the fund intends to implement conflict of interest policies including allocation protocols for buyer capacity and sourcing opportunities, these policies have not been finalized. Prospective investors should review the conflict of interest provisions in the Operating Agreement prior to subscription.</p></div></div>
+    <div class="ritem"><div class="rnum">14</div><div class="rbody"><h4>Anti-Money Laundering and Sanctions Risk</h4><p>Physical precious metals trading is a sector subject to heightened AML scrutiny globally, including under FinCEN guidance, the FATF Recommendations on Precious Metals Dealers, and UAE CBUAE regulations. The fund applies rigorous counterparty screening, but precious metals supply chains — particularly artisanal and small-scale mining supply chains in Africa — carry inherent AML and sanctions risk that screening processes cannot fully eliminate. Any regulatory finding that a fund transaction involved a sanctioned party or violated AML requirements could result in regulatory action, asset freezes, fund disruption, and reputational damage. The fund's LBMA re-refining process reduces but does not eliminate this risk.</p></div></div>
+    <div class="ritem"><div class="rnum">15</div><div class="rbody"><h4>Valuation and NAV Risk</h4><p>The fund's NAV, as calculated by NAV Fund Services, is based on: spot commodity prices for physical metal in custody; face value of outstanding loans in the credit book (subject to impairment assessment); and cash and cash equivalents. Commodity spot prices are observable and objective. Credit book valuation is more subjective — loan impairments may not be recognized immediately, and the credit book's carrying value may overstate the realizable value in a stress scenario. Investors should review the fund's valuation policy in the Operating Agreement and consult with their own advisors regarding the adequacy of the fund's valuation methodology.</p></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ RESPONSIBLE SOURCING & ESG ═══════════════════════ -->
+<div class="section" id="esg">
+  <div class="sec-head">
+    <div class="sec-num">Section 15</div>
+    <h1 class="sec-title">Responsible Sourcing &amp; ESG</h1>
+    <div class="sec-sub">Supply chain ethics framework — prepared specifically for NBIM and investors with formal ESG mandates</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-a" style="margin-bottom:20px;">
+    <h3>Direct Address to NBIM and ESG-Mandated Investors</h3>
+    <p>Norges Bank Investment Management (NBIM), manager of the Norwegian Government Pension Fund Global (~$1.7T AUM), applies among the most stringent ethical and ESG screening standards of any institutional investor globally. Other sovereign investors including Temasek, GIC, and ADIA have formal responsible investment frameworks that incorporate supply chain ethics requirements for hard asset and commodity exposure.</p>
+    <p>Arabian Capital Partners treats responsible sourcing not as a disclosure obligation but as an operational requirement. The fund's LBMA re-refinery process is not a box-checking exercise — it is the definitive supply chain ethics gate. Metal that cannot pass independent LBMA refinery verification for any reason — including unresolvable provenance questions — is not accepted into the fund's holdings. This section documents the fund's complete responsible sourcing framework for investor due diligence review.</p>
+  </div>
+
+  <div class="card card-g">
+    <h3>LBMA Responsible Gold Guidance — The Applicable Standard</h3>
+    <p>The London Bullion Market Association's Responsible Gold Guidance (RGG) is the industry-standard framework for gold supply chain due diligence. It is based on the OECD Due Diligence Guidance for Responsible Supply Chains of Minerals from Conflict-Affected and High-Risk Areas (OECD Guidance) and is aligned with the UN Guiding Principles on Business and Human Rights.</p>
+    <p>The RGG requires gold refiners — and by extension, entities supplying gold to LBMA refiners — to implement a five-step OECD due diligence framework:</p>
+    <div class="psteps">
+      <div class="pstep"><div class="pstep-num">1</div><div class="pstep-body"><h4>Establish Strong Company Management Systems</h4><p>Policies on ethical sourcing; senior management oversight; record-keeping and documentation procedures; supplier code of conduct requirements.</p></div></div>
+      <div class="pstep"><div class="pstep-num">2</div><div class="pstep-body"><h4>Identify and Assess Risks in the Supply Chain</h4><p>Mapping of supply chain from mine to refinery; identification of conflict-affected and high-risk areas in sourcing corridors; red flag screening for prohibited behaviors.</p></div></div>
+      <div class="pstep"><div class="pstep-num">3</div><div class="pstep-body"><h4>Design and Implement a Strategy to Respond to Identified Risks</h4><p>Immediate suspension of engagement with suppliers where serious risks are identified; remediation requirements for medium-risk situations; ongoing monitoring of supplier conduct.</p></div></div>
+      <div class="pstep"><div class="pstep-num">4</div><div class="pstep-body"><h4>Carry Out Independent Third-Party Audit of Supply Chain Due Diligence</h4><p>LBMA-accredited refiners are subject to independent audit of their responsible sourcing practices; re-refined metal is certified by an audited LBMA refinery.</p></div></div>
+      <div class="pstep"><div class="pstep-num">5</div><div class="pstep-body"><h4>Report on Supply Chain Due Diligence</h4><p>Annual public disclosure by LBMA refiners of their responsible sourcing practices and audit outcomes; documentation maintained for investor and regulatory review.</p></div></div>
+    </div>
+    <p>By routing all non-Good-Delivery metal through the fund's Dubai LBMA-approved re-refinery, Arabian Capital Partners integrates its operations into this certified framework. The re-refinery's LBMA accreditation means it has undergone and passed independent audit of its responsible sourcing practices. Metal that the refinery accepts and re-certifies has passed through an audited supply chain ethics process.</p>
+  </div>
+
+  <div class="card">
+    <h3>Source Jurisdiction Assessment</h3>
+    <table class="dt">
+      <thead><tr><th>Country</th><th>Mining Regulatory Framework</th><th>FATF Status</th><th>Conflict / High-Risk Area?</th><th>Fund Responsible Sourcing Approach</th></tr></thead>
+      <tbody>
+        <tr><td>Ghana</td><td>Minerals Commission of Ghana; Minerals and Mining Act 2006; EITI member</td><td>FATF-compliant (member of GIABA)</td><td>No — stable democracy with established mining regulatory framework</td><td>Provenance documentation required; LBMA re-refinery verification; all Ghana-sourced metal re-refined before custody entry</td></tr>
+        <tr><td>Uganda</td><td>Directorate of Geological Survey and Mines; EITI member</td><td>FATF monitoring (enhanced measures being implemented)</td><td>Heightened scrutiny required; artisanal mining supply chain requires robust documentation</td><td>Enhanced counterparty due diligence; proof of legal mining operation required; mandatory LBMA re-refinery processing; provenance documentation archived</td></tr>
+        <tr><td>Fiji</td><td>Mineral Resources Department; established mining regulatory framework</td><td>Not on FATF watchlist</td><td>No</td><td>Standard provenance documentation; LBMA verification where GD standard not met at source</td></tr>
+        <tr><td>Malaysia</td><td>Mineral Development Act; Department of Mineral and Geoscience Malaysia</td><td>FATF member; compliant</td><td>No</td><td>Standard counterparty screening; provenance documentation; LBMA verification as applicable</td></tr>
+        <tr><td>UAE</td><td>DMCC; CBUAE; advanced precious metals regulatory framework</td><td>FATF member; enhanced compliance measures post-2022 grey listing, now removed</td><td>No</td><td>DMCC-licensed buyers; standard institutional AML/KYC; typically Good Delivery standard at source</td></tr>
+        <tr><td>Europe</td><td>Jurisdiction-specific — generally highest regulatory standards globally</td><td>FATF member jurisdictions</td><td>No</td><td>Standard institutional AML/KYC; typically GD standard at source</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Fund Responsible Sourcing Commitments</h3>
+    <ul class="sl">
+      <li><strong>Zero tolerance for conflict minerals:</strong> The fund will not knowingly source from any area designated as a conflict-affected or high-risk area under OECD Guidance or applicable law</li>
+      <li><strong>LBMA re-refinery as definitive gate:</strong> All non-GD metal processed through LBMA-approved Dubai refinery before custody acceptance — no exceptions</li>
+      <li><strong>Counterparty screening:</strong> Pre-transaction OFAC, UN Sanctions, EU Sanctions, and FATF watchlist screening for all sourcing counterparties</li>
+      <li><strong>Provenance documentation archive:</strong> All sourcing provenance records maintained for minimum 7 years; available for investor and regulatory review</li>
+      <li><strong>No child labor:</strong> Fund's supplier code of conduct prohibits child labor and forced labor in mining operations; suppliers represent compliance as a condition of purchase</li>
+      <li><strong>Annual responsible sourcing review:</strong> Managing Entity will conduct annual review of all active sourcing corridors for ESG risk developments and update sourcing policy accordingly</li>
+      <li><strong>NBIM supplemental diligence package:</strong> Full responsible sourcing documentation package — including sourcing policies, counterparty screening methodology, LBMA refinery certification, supply chain maps, and counterparty-level provenance records — available to NBIM and other ESG-mandated investors <strong>under NDA</strong> upon request with two-week preparation time. To request, contact Arabian Wealth Management LLC through the Contact section of this data room.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════ MANAGEMENT TEAM ═══════════════════════ -->
+<div class="section" id="mgmt">
+  <div class="sec-head">
+    <div class="sec-num">Section 16</div>
+    <h1 class="sec-title">Management Team</h1>
+    <div class="sec-sub">Operator-led — the fund's principal built the infrastructure, not a financial intermediary seeking commodity exposure</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="bio">
+    <div class="bio-avatar">C</div>
+    <div class="bio-content">
+      <h3>Caleb Caraway</h3>
+      <div class="bio-title">Principal &amp; Chief Investment Officer — Arabian Capital Partners · Managing Partner &amp; CEO — Dark Horse Wealth Management</div>
+      <p>Caleb Caraway is a multi-disciplinary investment operator with active roles across physical commodity trading, private credit, algorithmic strategies, fine art investment, and real assets. As Managing Partner and CEO of Dark Horse Wealth Management LLC and its affiliated investment entities, he oversees a platform encompassing private debt, multi-strategy credit, mineral resources, and wealth management across multiple fund structures.</p>
+
+      <p><strong>Commodity Trading Credentials:</strong> Mr. Caraway holds an active Texas Wholesale Noble Metals Broker registration through Stateside Resources LLC — the legal registration authorizing institutional-scale precious metals dealing in Texas and interstate commerce. He has personally developed the buyer relationships in Dubai and Sharjah (8+ metric tons/month combined capacity), the LBMA custody relationships with Brinks Security and Transguard, the logistics relationship with Emirates Sky Cargo, and the access to the Dubai LBMA-approved re-refinery. These relationships are the result of direct operator engagement, not intermediary introductions.</p>
+      <p><strong>Global Sourcing Network:</strong> Active sourcing network spanning Ghana, Uganda, Fiji, Malaysia, UAE (Dubai, Abu Dhabi, Sharjah), and Europe. Each corridor represents direct counterparty relationships developed through physical market participation, not fund-to-fund sourcing.</p>
+      <p><strong>Domestic Mineral Assets:</strong> Holds Field Futures Texas — a 670-acre silver ore body in Llano County, Texas with confirmed silver concentration of 4,431 ppm (three independent assay confirmations). Provides domestic U.S. sourcing origination for the fund and demonstrates direct commodity asset expertise beyond trading activities.</p>
+      <p><strong>Personal Investment Portfolio:</strong> $541M+ across fine art, algorithmic trading strategies, private equity, structured credit, and commodity assets. Demonstrates operator-level commitment to asset classes, not passive financial engagement.</p>
+    </div>
+  </div>
+
+  <div class="card card-g">
+    <h3>The Dark Horse Platform</h3>
+    <p>Arabian Capital Partners is the newest fund within the Dark Horse Wealth Management platform — a family of specialized investment vehicles each targeting institutional-grade returns in uncorrelated strategies. The platform provides shared infrastructure, compliance oversight, and operational support, enabling Arabian Capital Partners to launch with mature operational capability.</p>
+    <table class="dt">
+      <thead><tr><th>Entity</th><th>Strategy</th><th>Role of Caleb Caraway</th></tr></thead>
+      <tbody>
+        <tr><td>Dark Horse Wealth Management LLC</td><td>Parent entity / family office / platform governance</td><td>Managing Partner &amp; CEO</td></tr>
+        <tr><td>Corinthian Capital Partners</td><td>Private debt — lending to PE firms</td><td>Managing Partner</td></tr>
+        <tr><td>Draft Horse Capital Partners</td><td>Institutional private credit — diversified</td><td>Managing Partner</td></tr>
+        <tr><td>Quarter Horse Wealth Management</td><td>Multi-strategy fund</td><td>Managing Partner</td></tr>
+        <tr><td>Stateside Resources LLC</td><td>Mineral resources, commodities, TX Noble Metals Broker</td><td>Managing Member</td></tr>
+        <tr><td class="tg">Arabian Capital Partners LLC</td><td class="tg">Physical commodity trade finance + commodity credit</td><td class="tg">Principal &amp; CIO</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+<!-- ═══════════════════════ ORGANIZATIONAL STRUCTURE ═══════════════════════ -->
+<div class="section" id="orgchart">
+  <div class="sec-head">
+    <div class="sec-num">Section 17</div>
+    <h1 class="sec-title">Organizational Structure</h1>
+    <div class="sec-sub">Complete entity hierarchy from family trust through fund vehicle to operating entities</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card" style="padding:32px 24px;">
+    <div class="orgchart">
+      <!-- TIER 1 -->
+      <div style="display:flex;justify-content:center;margin-bottom:0;">
+        <div class="org-box top" style="min-width:260px;">
+          <div class="ob-type">Tier 1 — Estate / Governing Layer</div>
+          <div class="ob-name">"In God We Trust" Family Trust</div>
+        </div>
+      </div>
+      <div style="height:24px;width:2px;background:var(--gold-dim);margin:0 auto;"></div>
+
+      <!-- TIER 2 -->
+      <div style="display:flex;justify-content:center;margin-bottom:0;">
+        <div class="org-box top" style="min-width:220px;">
+          <div class="ob-type">Tier 2 — Holding Entity</div>
+          <div class="ob-name">Caraway Holdings LLC</div>
+        </div>
+      </div>
+      <div style="height:24px;width:2px;background:var(--gold-dim);margin:0 auto;"></div>
+
+      <!-- TIER 3 -->
+      <div style="display:flex;justify-content:center;margin-bottom:0;">
+        <div class="org-box top" style="min-width:280px;">
+          <div class="ob-type">Tier 3 — Platform Management</div>
+          <div class="ob-name">Dark Horse Wealth Management LLC<br><span style="font-size:10px;color:var(--text-muted);font-family:'Arial',sans-serif;">Managing Partner &amp; CEO: Caleb Caraway</span></div>
+        </div>
+      </div>
+      <div style="height:24px;width:2px;background:var(--gold-dim);margin:0 auto;"></div>
+
+      <!-- TIER 4 — FUND MANAGING ENTITY -->
+      <div style="display:flex;justify-content:center;margin-bottom:0;">
+        <div class="org-box fund" style="min-width:280px;border-color:var(--amber);">
+          <div class="ob-type">Tier 4 — Fund Managing Entity (NEW)</div>
+          <div class="ob-name">Arabian Wealth Management LLC<br><span style="font-size:10px;color:var(--text-muted);font-family:'Arial',sans-serif;">To be formed — wholly owned by Dark Horse WM</span></div>
+        </div>
+      </div>
+      <div style="height:24px;width:2px;background:var(--amber);margin:0 auto;"></div>
+
+      <!-- TIER 5 — FUND -->
+      <div style="display:flex;justify-content:center;margin-bottom:24px;">
+        <div class="org-box fund" style="min-width:280px;">
+          <div class="ob-type">Tier 5 — Investment Vehicle (NEW)</div>
+          <div class="ob-name">Arabian Capital Partners LLC<br><span style="font-size:10px;color:var(--text-muted);font-family:'Arial',sans-serif;">Reg D 506(c) / Section 3(c)(7) — QP Investors</span></div>
+        </div>
+      </div>
+
+      <!-- TIER 6 — SIBLING FUNDS & OPERATING ENTITIES -->
+      <div style="border-top:1px solid var(--border-dim);padding-top:20px;">
+        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dim);text-align:center;margin-bottom:14px;">Sibling Funds &amp; Operating Entities (Dark Horse Platform)</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+          <div class="org-box" style="min-width:unset;"><div class="ob-type">Private Debt</div><div class="ob-name" style="font-size:11px;">Corinthian Capital Partners</div></div>
+          <div class="org-box" style="min-width:unset;"><div class="ob-type">Private Credit</div><div class="ob-name" style="font-size:11px;">Draft Horse Capital Partners</div></div>
+          <div class="org-box" style="min-width:unset;"><div class="ob-type">Multi-Strategy</div><div class="ob-name" style="font-size:11px;">Quarter Horse WM</div></div>
+          <div class="org-box" style="min-width:unset;"><div class="ob-type">Minerals / Metals</div><div class="ob-name" style="font-size:11px;">Stateside Resources LLC</div></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Key Structural Notes</h3>
+    <table class="dt">
+      <tbody>
+        <tr><td>Arabian Capital Partners LLC</td><td>New fund entity to be formed under Texas law. Wholly managed by Arabian Wealth Management LLC. Investors are members of the LLC with rights per Operating Agreement.</td></tr>
+        <tr><td>Arabian Wealth Management LLC</td><td>New Managing Entity to be formed — wholly owned subsidiary of Dark Horse Wealth Management LLC. Serves as the Managing Member of the fund. All management rights reside here.</td></tr>
+        <tr><td>Stateside Resources LLC</td><td>Existing operating entity holding the Texas Wholesale Noble Metals Broker registration. Existing trading infrastructure shared with Arabian Capital Partners through intercompany service agreement.</td></tr>
+        <tr><td>No cross-contamination</td><td>Arabian Capital Partners LLC is a standalone legal entity. Its assets, liabilities, and investor capital are legally separated from all sibling funds and parent entities.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SERVICE PROVIDERS ═══════════════════════ -->
+<div class="section" id="providers">
+  <div class="sec-head">
+    <div class="sec-num">Section 18</div>
+    <h1 class="sec-title">Service Providers</h1>
+    <div class="sec-sub">Institutional-grade independent service providers for oversight, administration, custody, and compliance</div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="pgrid">
+    <div class="pcard"><div class="pr">Fund Banking</div><div class="pn">Axos Bank</div><div class="pd">Federally chartered national bank. Provides fund operating account, investor wire receipt, distribution payment, and treasury management services. Institutional banking relationship providing segregated fund account separate from all Managing Entity accounts.</div></div>
+    <div class="pcard"><div class="pr">Fund Administration</div><div class="pn">NAV Fund Services</div><div class="pd">Independent third-party fund administrator. Provides monthly NAV calculation, investor capital account statements, monthly distribution calculation verification, subscription and redemption processing, and annual investor reporting. Independence from the Managing Entity provides investors with verified, non-self-reported fund accounting.</div></div>
+    <div class="pcard"><div class="pr">Tax &amp; Audit</div><div class="pn">Spicer Jeffries LLP</div><div class="pd">Specialized investment fund accounting and audit firm. Provides annual independent audit of fund financial statements, annual K-1 preparation for all investors, tax compliance, and PFIC Annual Information Statements for international investors. Audit provides independent verification of fund assets and distributions.</div></div>
+    <div class="pcard"><div class="pr">Securities Counsel</div><div class="pn">SCALE LLP</div><div class="pd">Securities and fund formation legal counsel. Lead attorney: Dori Karjian, Esq. Responsible for: Regulation D Rule 506(c) compliance, Section 3(c)(7) fund structuring, Operating Agreement drafting, Subscription Agreement and QP Questionnaire, Form D filing, ongoing securities law compliance, and investor QP verification oversight.</div></div>
+    <div class="pcard"><div class="pr">Primary Custodian</div><div class="pn">Brinks Security</div><div class="pd">Global leader in physical asset protection and high-value vault storage. LBMA Good Delivery-certified vault facilities. Provides: vault warrant documentation, independent weight and assay confirmation, segregated storage in fund's name, insurance coverage, and vault instruction execution. Active institutional relationship established through Stateside Resources LLC.</div></div>
+    <div class="pcard"><div class="pr">Secondary Custodian</div><div class="pn">Transguard Group</div><div class="pd">UAE's largest security and facilities management company. Wholly owned by Emirates Group. Operates LBMA Good Delivery-certified vaulting in Dubai. Provides redundant UAE-domiciled custody, geographic proximity to buyer network, vault warrant issuance, and independent inventory verification.</div></div>
+    <div class="pcard"><div class="pr">Logistics Partner</div><div class="pn">Emirates Sky Cargo</div><div class="pd">World's largest international cargo carrier. Provides fully insured, documented, chain-of-custody verified precious metals transport across all fund sourcing corridors (Africa, Asia-Pacific, Middle East, Europe). Specialized secure cargo facilities at Dubai International Airport and Dubai World Central.</div></div>
+    <div class="pcard"><div class="pr">Refinery Access</div><div class="pn">Dubai LBMA Refinery</div><div class="pd">LBMA-approved re-refinery in Dubai providing: metallurgical verification, LBMA Good Delivery re-casting, vault warrant issuance, and provenance attestation for all non-standard-sourced metal. Serves as the fund's definitive supply chain ethics gate and quality verification mechanism.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ LEGAL & COMPLIANCE ═══════════════════════ -->
+<div class="section" id="legal">
+  <div class="sec-head">
+    <div class="sec-num">Section 19</div>
+    <h1 class="sec-title">Legal &amp; Compliance</h1>
+    <div class="sec-sub">Offering structure, investor eligibility, Form D, QP verification, and ongoing compliance framework</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="tcol">
+    <div class="card card-g">
+      <h3>Regulation D — Rule 506(c)</h3>
+      <p>The fund is offered pursuant to Rule 506(c) of Regulation D under the Securities Act of 1933, which provides an exemption from SEC registration for private placements. Rule 506(c) permits general solicitation and general advertising of the offering — the fund may be marketed publicly — provided that all actual purchasers are verified Accredited Investors. At Arabian Capital Partners, all investors must be Qualified Purchasers (a higher standard than Accredited Investor), automatically satisfying 506(c) verification requirements. Rule 506(c) offerings must file Form D with the SEC within 15 days of the first sale of securities. No state securities registration is required under Rule 506(c) preemption, though state notice filings may be required in certain states.</p>
+    </div>
+    <div class="card card-a">
+      <h3>Section 3(c)(7) — Investment Company Act</h3>
+      <p>The fund relies on the Section 3(c)(7) exemption from registration as an investment company under the Investment Company Act of 1940. This exemption is available to funds that: (1) do not make a public offering of securities; and (2) limit beneficial owners exclusively to Qualified Purchasers. <strong>Section 3(c)(7) imposes no limit on the number of investors</strong> — unlike Section 3(c)(1), which is capped at 100 investors. The fund's use of 3(c)(7) instead of 3(c)(1) is a deliberate structural choice that allows it to accept any number of Qualified Purchaser investors — enabling all seven target sovereign wealth funds to invest simultaneously without structural constraint — and allows the fund to scale AUM from $50M to $5B+ without any amendment, re-filing, or structural modification.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Qualified Purchaser — Complete Definition (Section 2(a)(51), Investment Company Act 1940)</h3>
+    <table class="dt">
+      <thead><tr><th>Category</th><th>Qualification Standard</th><th>Relevance to SWF Target Universe</th></tr></thead>
+      <tbody>
+        <tr><td>Individual Natural Person</td><td>Owns not less than $25,000,000 in investments</td><td>High-net-worth principals associated with SWF governance</td></tr>
+        <tr><td>Family-Owned Company</td><td>Company owned exclusively by QPs as defined; not formed for specific purpose of acquiring fund interests</td><td>Family trust and holding company structures</td></tr>
+        <tr><td>Trust</td><td>Trust not formed for specific purpose of acquiring fund interests; trustee is a QP; all beneficial interest holders are QPs</td><td>"In God We Trust" family trust structure (as investor, not just as sponsor)</td></tr>
+        <tr><td>Institutional — Acting for Own Account</td><td>Entity acting for own account that owns and invests a discretionary investment portfolio of at least $25,000,000</td><td>Smaller institutions, family offices</td></tr>
+        <tr class="hl"><td><strong>Institutional — $100M+ in Investments</strong></td><td><strong>Any entity acting for its own account or accounts of other QPs that in aggregate owns and invests at least $100,000,000 in investments</strong></td><td class="tg"><strong>ADIA, GIC, PIF, Temasek, ICD, ADQ, NBIM — all qualify under this category</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>QP Verification Process</h3>
+    <div class="psteps">
+      <div class="pstep"><div class="pstep-num">1</div><div class="pstep-body"><h4>Initial Inquiry</h4><p>Prospective investor expresses interest; Managing Entity confirms investor has reviewed this data room and requests QP Questionnaire from SCALE LLP.</p></div></div>
+      <div class="pstep"><div class="pstep-num">2</div><div class="pstep-body"><h4>QP Questionnaire Completion</h4><p>Investor completes SCALE LLP-prepared QP Questionnaire documenting investment assets, entity type, beneficial ownership, and authorization to invest. For sovereign wealth funds: annual report, board resolution or equivalent authorization, and legal counsel certification of QP status.</p></div></div>
+      <div class="pstep"><div class="pstep-num">3</div><div class="pstep-body"><h4>SCALE LLP Review</h4><p>SCALE LLP reviews QP Questionnaire and supporting documentation. For institutional QPs (including SWFs): publicly available AUM documentation typically sufficient to demonstrate $100M+ qualification. Review typically completed within 5 business days.</p></div></div>
+      <div class="pstep"><div class="pstep-num">4</div><div class="pstep-body"><h4>AML/KYC Processing</h4><p>Concurrent with QP verification: full AML/KYC documentation collected — entity formation documents, beneficial ownership certification, funding source documentation, PEP screening. Standard for sovereign wealth fund investors: institutional AML questionnaire, government entity certification, authorized signatory documentation.</p></div></div>
+      <div class="pstep"><div class="pstep-num">5</div><div class="pstep-body"><h4>Subscription Documents Issued</h4><p>Upon QP verification and AML/KYC clearance: investor receives final Operating Agreement, Subscription Agreement, and fee schedule. Investor's own legal counsel reviews documentation. Minimum standard review period: 10 business days for institutional investors.</p></div></div>
+      <div class="pstep"><div class="pstep-num">6</div><div class="pstep-body"><h4>Closing and Funding</h4><p>Investor executes Subscription Documents; initial capital commitment wired to Axos Bank fund account. Managing Entity countersigns. NAV Fund Services establishes investor capital account. First distribution period begins from month following full initial funding.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card card-g">
+    <h3>AML / KYC Compliance Framework</h3>
+    <p>Arabian Capital Partners operates in a sector — physical precious metals trading — subject to heightened anti-money laundering scrutiny under U.S. federal law (Bank Secrecy Act, FinCEN Precious Metals Dealer rules), UAE Central Bank (CBUAE) AML/CFT regulations, FATF Recommendations 22 and 23 (Dealers in Precious Metals and Stones), and applicable international sanctions regimes. The fund maintains a formal AML/KYC compliance program covering investor onboarding, sourcing counterparty screening, and ongoing transaction monitoring.</p>
+    <table class="dt" style="margin-top:14px;">
+      <thead><tr><th>Compliance Layer</th><th>Standard Applied</th><th>Responsible Party</th></tr></thead>
+      <tbody>
+        <tr><td>Investor Onboarding — KYC</td><td>Full entity due diligence: constitutional documents, beneficial ownership certification (to ultimate beneficial owner), PEP screening, OFAC/UN/EU sanctions screening, source-of-funds documentation. Sovereign wealth fund standard: government establishment documents, board resolution, authorized signatories, government entity certification. All documentation maintained in compliance file for minimum 5 years post-redemption.</td><td>NAV Fund Services + SCALE LLP (review); Managing Entity (approval)</td></tr>
+        <tr><td>Investor Onboarding — AML</td><td>Enhanced due diligence applied to all investors: classification of investor risk profile (sovereign wealth funds = lower risk; private wealth = standard; PEP-affiliated = enhanced). Source-of-funds confirmation required for all commitments exceeding $25M. Ongoing monitoring for any change in beneficial ownership or sanctions status.</td><td>Managing Entity; NAV Fund Services</td></tr>
+        <tr><td>Sourcing Counterparty Screening</td><td>Pre-transaction screening of all sourcing counterparties against: OFAC Specially Designated Nationals (SDN) list; UN Security Council consolidated sanctions list; EU financial sanctions list; FinCEN watchlist; FATF high-risk and monitored jurisdictions list. Beneficial ownership identification required; entity verification against government commercial registries. Sourcing from counterparties in FATF "call for action" jurisdictions prohibited without enhanced due diligence approval.</td><td>Managing Entity (operations); external sanctions screening provider</td></tr>
+        <tr><td>Transaction Monitoring</td><td>Each trade finance purchase transaction is reviewed for: unusual pricing deviations from market spot; counterparty behavioral anomalies; structuring indicators; provenance documentation gaps. Transactions with red flags are escalated to Managing Entity for review; suspicious activity is documented and, where required, reported to FinCEN via SAR.</td><td>Managing Entity; SCALE LLP (escalation guidance)</td></tr>
+        <tr><td>LBMA Re-Refinery as AML Gate</td><td>The Dubai LBMA-approved re-refinery performs its own AML/KYC review of incoming metal. LBMA-accredited refiners are subject to independent annual audit of responsible sourcing and AML practices as a condition of LBMA accreditation. Metal accepted and re-certified by the refinery has passed through a second independent AML review gate. This dual-gate structure (fund screening + independent LBMA refinery audit) substantially reduces residual AML risk in the physical supply chain.</td><td>Dubai LBMA refinery (independent); fund for pre-delivery screening</td></tr>
+        <tr><td>Regulatory Reporting</td><td>FinCEN Form 8300 filed for cash transactions exceeding $10,000 (not applicable to institutional wire-based transactions, but maintained in compliance program). SAR filed within 30 days of identifying a suspicious transaction. FBAR and FATCA reporting obligations handled by Spicer Jeffries LLP. Annual AML program review conducted by SCALE LLP.</td><td>Managing Entity; Spicer Jeffries LLP; SCALE LLP</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Arial',sans-serif;font-size:11.5px;color:var(--text);margin-top:12px;">Sovereign wealth fund investors should note: all seven target institutions will themselves be subject to their own AML screening of this fund as a counterparty. Arabian Capital Partners will cooperate fully with any investor's own AML/KYC onboarding process, including providing requested documentation, management certifications, and SCALE LLP legal opinions on fund structure. AML compliance documentation is available in the supplemental diligence package.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SUBSCRIPTION PROCESS ═══════════════════════ -->
+<div class="section" id="subscription">
+  <div class="sec-head">
+    <div class="sec-num">Section 20</div>
+    <h1 class="sec-title">Subscription Process</h1>
+    <div class="sec-sub">Step-by-step institutional investor pathway from initial contact through first monthly distribution</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Complete Institutional Subscription Timeline</h3>
+    <table class="dt">
+      <thead><tr><th>Stage</th><th>Timeline</th><th>Actions Required</th><th>Responsible Party</th></tr></thead>
+      <tbody>
+        <tr><td>Initial Contact</td><td>Day 1</td><td>Investor expresses interest; confirms receipt of data room; requests principal introductory call</td><td>Investor; Managing Entity</td></tr>
+        <tr><td>Principal Introduction</td><td>Week 1–2</td><td>Management meeting with Caleb Caraway; overview of fund strategy, infrastructure, and economics; Q&amp;A session</td><td>Caleb Caraway; investor investment committee</td></tr>
+        <tr><td>Supplemental Diligence</td><td>Weeks 2–6</td><td>Additional data room Q&amp;A; site visit or infrastructure verification as requested; reference calls; ESG documentation delivery (if required)</td><td>Managing Entity; SCALE LLP; investor legal counsel</td></tr>
+        <tr><td>QP Verification</td><td>Weeks 2–3</td><td>QP Questionnaire completion; SCALE LLP review; institutional authorization documentation</td><td>Investor; SCALE LLP</td></tr>
+        <tr><td>AML / KYC</td><td>Weeks 2–4</td><td>Entity documentation; beneficial ownership; funding source; PEP screening; sovereign entity certification</td><td>Investor; Managing Entity; NAV Fund Services</td></tr>
+        <tr><td>Legal Review</td><td>Weeks 3–6</td><td>Investor's legal counsel reviews Operating Agreement, Subscription Agreement; negotiation of any investor-specific representations</td><td>Investor's legal counsel; SCALE LLP</td></tr>
+        <tr><td>Investment Committee Approval</td><td>Weeks 4–8</td><td>Investor's IC reviews data room, management meeting notes, legal review, risk assessment; formal approval to commit</td><td>Investor investment committee</td></tr>
+        <tr><td>Subscription Execution</td><td>Following IC Approval</td><td>Execution of Subscription Agreement and Operating Agreement; wire of initial capital commitment to Axos Bank fund account</td><td>Investor; Managing Entity</td></tr>
+        <tr><td>Fund Closing</td><td>Within 5 business days of wire receipt</td><td>Managing Entity countersigns; NAV Fund Services establishes capital account; Form D filed with SEC</td><td>Managing Entity; SCALE LLP; NAV Fund Services</td></tr>
+        <tr><td>First Distribution</td><td>End of first full calendar month following closing</td><td>Trade finance operations commence; first monthly distribution calculated and wired within 5 business days of month-end</td><td>Managing Entity; NAV Fund Services</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Documents Required from Institutional Investor (SWF)</h3>
+    <ul class="sl">
+      <li><strong>QP Questionnaire:</strong> Completed and signed — confirming $100M+ in investments and institutional status</li>
+      <li><strong>Entity Formation:</strong> Charter, constitutional documents, or government establishment instrument</li>
+      <li><strong>Beneficial Ownership:</strong> Certification of beneficial ownership structure (sovereign fund — government ownership confirmed)</li>
+      <li><strong>Investment Authorization:</strong> Board resolution or equivalent governance document authorizing investment in Arabian Capital Partners LLC</li>
+      <li><strong>Authorized Signatories:</strong> List of authorized signatories with signature specimens; signatory authorization for subscription and wire instructions</li>
+      <li><strong>Wire Instructions:</strong> Bank details for distribution payment wires; authenticated through bank letter or equivalent</li>
+      <li><strong>Tax Form:</strong> W-8BEN-E or equivalent for non-U.S. institutional investors; W-9 for U.S. entities</li>
+      <li><strong>Legal Counsel Certification:</strong> Investor's own legal counsel certification of QP status and authority to invest (at investor option — can substitute for some documentation above)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAX CONSIDERATIONS ═══════════════════════ -->
+<div class="section" id="tax">
+  <div class="sec-head">
+    <div class="sec-num">Section 21</div>
+    <h1 class="sec-title">Tax Considerations</h1>
+    <div class="sec-sub">U.S. and international tax framework — K-1, UBTI, Texas domicile, and international investor considerations</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card" style="margin-bottom:6px;padding:12px 18px;">
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin:0;"><strong style="color:var(--gold-dim);">TAX DISCLAIMER:</strong> The following is a general summary of certain tax considerations and is not tax advice. Each investor should consult with their own qualified tax advisors regarding the specific tax implications of an investment in Arabian Capital Partners LLC based on their own circumstances, domicile, and applicable law.</p>
+  </div>
+
+  <div class="card card-g">
+    <h3>U.S. Tax Treatment — Partnership Pass-Through</h3>
+    <p><strong>Fund Classification:</strong> Arabian Capital Partners LLC is intended to be treated as a partnership for U.S. federal income tax purposes. The fund will not pay entity-level U.S. federal income tax. All items of income, gain, loss, and deduction will pass through to investors based on their membership interests as set forth in the Operating Agreement.</p>
+    <p><strong>Annual K-1:</strong> Each investor will receive an IRS Schedule K-1 from the fund annually, reporting their allocable share of fund income, gain, loss, and deduction. The K-1 is the primary tax reporting document for U.S. investors. Spicer Jeffries LLP prepares all investor K-1s and is responsible for the fund's partnership tax return (Form 1065).</p>
+    <p><strong>Character of Income:</strong> Fund income is expected to consist primarily of: (1) short-term capital gains or ordinary income from trade finance operations (precious metals held less than one year); (2) interest income from the commodity credit tranche; and (3) potential long-term capital gains from appreciation in physical holdings. The specific character of each investor's income allocation will depend on the fund's actual activity and will be reported on the K-1.</p>
+    <p><strong>Timing:</strong> K-1s are expected to be issued by March 31 of the year following the applicable tax year. Extensions may apply.</p>
+  </div>
+
+  <div class="card">
+    <h3>UBTI — Unrelated Business Taxable Income (Tax-Exempt U.S. Investors)</h3>
+    <p>Tax-exempt U.S. investors — including certain U.S.-domiciled foundations, endowments, pension funds, and similar entities — are generally not subject to U.S. federal income tax on income from their exempt activities, but may be subject to Unrelated Business Taxable Income (UBTI) tax on income from "debt-financed property" or unrelated business activities.</p>
+    <p><strong>Potential UBTI Sources:</strong> Income from the commodity credit tranche (interest income from lending) and income from trade finance operations may constitute UBTI for tax-exempt U.S. investors depending on whether the fund's activities are characterized as an unrelated trade or business. Investors that are U.S. tax-exempt entities should obtain their own tax advice regarding the UBTI implications of an investment in the fund prior to investing. The fund does not provide UBTI indemnification or blocking structures.</p>
+    <p><strong>Non-U.S. Tax-Exempt Investors (NBIM, ADIA, GIC, PIF, ICD, ADQ, Temasek):</strong> Sovereign wealth funds and government-owned investment entities are generally treated as foreign government entities for U.S. tax purposes. Income of foreign governments and their integral parts from U.S. sources is generally exempt from U.S. federal income tax under Section 892 of the Internal Revenue Code. SWF investors should consult with qualified U.S. tax counsel regarding their Section 892 exemption status and the application of any exceptions (the "commercial activity" exception may be relevant to commodity trading income).</p>
+  </div>
+
+  <div class="card">
+    <h3>Texas Domicile</h3>
+    <p>Arabian Capital Partners LLC is organized under Texas law. Texas does not impose a state-level income tax on individuals or most entities. Texas does impose a franchise tax ("margin tax") on certain business entities doing business in Texas, but this entity-level tax does not flow through to investors as an additional investor tax obligation. Texas domicile is favorable for the fund's structure and is consistent with Mr. Caraway's existing entity structure (Stateside Resources LLC, Dark Horse Wealth Management LLC).</p>
+  </div>
+
+  <div class="card">
+    <h3>International Investor Tax Considerations</h3>
+    <table class="dt">
+      <thead><tr><th>Investor Type</th><th>Applicable U.S. Tax Framework</th><th>Key Considerations</th></tr></thead>
+      <tbody>
+        <tr><td>Non-U.S. Sovereign Wealth Fund</td><td>Section 892 (foreign government exemption) — potentially applicable to investment income; "commercial activity" exception may apply to commodity trading income</td><td>Obtain U.S. tax counsel opinion on Section 892 applicability; review PFIC rules if applicable</td></tr>
+        <tr><td>Non-U.S. Pension Fund</td><td>Withholding tax on U.S.-source income (typically 30% reduced by treaty); FDAP income rules</td><td>Treaty-reduced withholding may apply depending on investor country; W-8BEN-E required</td></tr>
+        <tr><td>Non-U.S. Institutional Investor</td><td>ECI (Effectively Connected Income) rules if fund activities constitute U.S. trade or business; FDAP withholding on passive income</td><td>ECI analysis required for fund commodity trading activities; consult U.S. tax counsel</td></tr>
+        <tr><td>PFIC Reporting</td><td>If fund qualifies as a PFIC (Passive Foreign Investment Company) for U.S. tax purposes — unlikely for active trade finance fund but analysis required</td><td>Spicer Jeffries LLP will provide PFIC Annual Information Statement annually for all non-U.S. investors</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-a">
+    <h3>FATCA — Foreign Account Tax Compliance Act (Non-U.S. Investors)</h3>
+    <p><strong>Fund Status:</strong> Arabian Capital Partners LLC is a U.S.-domiciled limited liability company — a U.S. entity for FATCA purposes. The fund is not a "foreign financial institution" (FFI) subject to FATCA's withholding and reporting regime. Non-U.S. investors do not receive FATCA-reportable payments merely by virtue of investing in this fund.</p>
+    <p><strong>Documentation Requirements:</strong> Non-U.S. investors are required to provide IRS Form W-8BEN-E (Certificate of Status of Beneficial Owner for United States Tax Withholding) or equivalent documentation. This form certifies the investor's foreign status, applicable treaty benefits (if any), and FATCA chapter 4 status (e.g., exempt beneficial owner for sovereign wealth funds). U.S. investors provide IRS Form W-9.</p>
+    <p><strong>Sovereign Wealth Fund FATCA Status — IRC §892:</strong> Foreign governments and their integral parts are generally treated as "exempt beneficial owners" for FATCA purposes under Treasury Regulations §1.1471-6. Sovereign wealth funds wholly owned and controlled by a foreign government typically qualify as exempt beneficial owners, meaning they are not subject to FATCA withholding. However, this exemption is subject to the same "commercial activity" exception that applies under IRC §892 for income tax purposes. SWF investors should obtain qualified U.S. tax counsel confirmation of their exempt beneficial owner status and the applicability of the commercial activity exception to fund distributions.</p>
+    <p><strong>Withholding Agents:</strong> Axos Bank (fund banking) and NAV Fund Services (fund administration) will apply standard FATCA withholding procedures. Investors who fail to provide required documentation may be subject to 30% FATCA withholding on any U.S.-source income distributions. Spicer Jeffries LLP will advise on FATCA compliance annually.</p>
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin-top:8px;">This is a general summary only. Each investor should consult qualified U.S. tax counsel regarding its specific FATCA status and documentation requirements prior to subscription.</p>
+  </div>
+
+  <div class="card card-s">
+    <h3>ERISA — Employee Retirement Income Security Act Plan Asset Analysis</h3>
+    <p><strong>Fund Policy:</strong> Arabian Capital Partners LLC does not intend to hold fund assets that constitute "plan assets" under ERISA or Section 4975 of the Internal Revenue Code. The fund intends to monitor benefit plan investor participation and maintain compliance with the "significant participation" threshold described below.</p>
+    <p><strong>The 25% Threshold Rule:</strong> Under ERISA and the Department of Labor's plan asset regulations (29 C.F.R. §2510.3-101, as modified by the Pension Protection Act of 2006), the assets of a private investment fund are not treated as "plan assets" of investing benefit plan investors if, at the time of any acquisition of an equity interest in the fund, less than 25% of the value of each class of equity interests in the fund is held by "benefit plan investors." Benefit plan investors include: ERISA-governed pension and employee benefit plans; entities deemed to hold plan assets; IRAs; and certain other tax-qualified plans under the Internal Revenue Code.</p>
+    <p><strong>Sovereign Wealth Fund Classification:</strong> Foreign sovereign wealth funds (ADIA, GIC, PIF, Temasek, ICD, ADQ, NBIM) are generally not "benefit plan investors" for ERISA purposes, as they are neither U.S. ERISA plans nor IRAs. Their investments do not count toward the 25% threshold.</p>
+    <p><strong>Fund Monitoring and Limitation:</strong> The Managing Entity will track benefit plan investor participation at each subscription closing. If benefit plan investors' aggregate interest in any class approaches or reaches 25%, the Managing Entity will limit additional subscriptions from benefit plan investors to maintain the plan asset exemption. The Operating Agreement will include representations from investors regarding benefit plan investor status.</p>
+    <p><strong>Consequence of Plan Asset Status:</strong> If fund assets were deemed plan assets, ERISA fiduciary obligations would apply to the Managing Entity, and certain fund transactions could constitute ERISA-prohibited transactions subject to excise tax. The fund's structure and monitoring protocol is designed to prevent plan asset status from arising. If this were to become unavoidable, the Managing Entity would implement a prohibited transaction exemption or provide advance notice to affected investors.</p>
+    <p><strong>Current Status:</strong> As of the initial offering, the fund has no committed capital. All target investors in the current raise are sovereign wealth funds that are not benefit plan investors. The fund is not aware of any current or anticipated ERISA-plan participation that would implicate the 25% threshold. ERISA counsel will be engaged to confirm plan asset analysis at each subsequent closing.</p>
+    <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-muted);margin-top:8px;">This section is a general summary. ERISA-governed plan investors should obtain their own ERISA counsel opinion prior to subscription. The fund's securities counsel (SCALE LLP) can provide supplemental ERISA analysis upon request.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ INVESTOR RIGHTS ═══════════════════════ -->
+<div class="section" id="rights">
+  <div class="sec-head">
+    <div class="sec-num">Section 22</div>
+    <h1 class="sec-title">Investor Rights</h1>
+    <div class="sec-sub">Reporting rights, audit rights, redemption rights, and consent rights as set forth in the Operating Agreement</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card card-g">
+    <h3>Reporting Rights</h3>
+    <table class="dt">
+      <thead><tr><th>Report</th><th>Frequency</th><th>Content</th><th>Prepared By</th></tr></thead>
+      <tbody>
+        <tr><td>Monthly Distribution Statement</td><td>Monthly (within 10 business days of month-end)</td><td>Distribution amount and calculation; YTD cumulative distributions; investor capital account balance</td><td>NAV Fund Services</td></tr>
+        <tr><td>Quarterly NAV Report</td><td>Quarterly (within 30 days of quarter-end)</td><td>Fund NAV calculation; portfolio composition summary; trade finance cycle count; credit book balance; asset quality summary</td><td>NAV Fund Services</td></tr>
+        <tr><td>Annual Audited Financial Statements</td><td>Annual (within 120 days of fiscal year-end)</td><td>Audited balance sheet; income statement; cash flow statement; notes to financial statements; auditor's opinion</td><td>Spicer Jeffries LLP</td></tr>
+        <tr><td>Annual K-1 / Tax Statement</td><td>Annual (by March 31 of following year)</td><td>Investor's allocable share of income, gain, loss, deduction; PFIC Annual Information Statement for non-U.S. investors</td><td>Spicer Jeffries LLP</td></tr>
+        <tr><td>Annual Fund Summary</td><td>Annual</td><td>Year-in-review narrative; performance summary; strategy outlook; material developments</td><td>Arabian Wealth Management LLC</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Audit and Inspection Rights</h3>
+    <ul class="sl">
+      <li><strong>Independent audit right:</strong> Any investor holding 5%+ of fund interests may request an independent audit of fund financial records upon 30 days written notice; cost borne by requesting investor unless audit reveals material discrepancy, in which case cost borne by fund</li>
+      <li><strong>Vault verification:</strong> Any investor may request confirmation of vault holdings from NAV Fund Services, which interfaces directly with custodians (Brinks, Transguard) to verify aggregate physical metal holdings as of any business day</li>
+      <li><strong>Books and records:</strong> Investors have the right to inspect fund books and records upon reasonable written notice, subject to confidentiality restrictions and Managing Entity's ability to redact competitively sensitive counterparty information</li>
+      <li><strong>Annual meeting:</strong> Managing Entity will hold an annual investor update call or meeting; attendance available to all investors</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Consent Rights</h3>
+    <ul class="sl">
+      <li><strong>Material strategy change:</strong> Any material change to the fund's investment strategy (e.g., reduction in physical commodity focus, introduction of derivatives trading) requires consent of investors representing majority of capital commitments</li>
+      <li><strong>Managing Entity removal:</strong> Investors representing 75%+ of capital commitments may remove Arabian Wealth Management LLC as Managing Member upon a finding of fraud, willful misconduct, or material breach of the Operating Agreement</li>
+      <li><strong>Amendment of Operating Agreement:</strong> Material amendments to the Operating Agreement require consent of investors representing majority of capital commitments</li>
+      <li><strong>Key person departure:</strong> If Caleb Caraway is no longer actively involved in fund management, investors holding majority of capital commitments have the right to wind down the fund and receive return of capital plus accrued distributions</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Redemption Rights</h3>
+    <ul class="sl">
+      <li><strong>Annual window:</strong> 30-day redemption notice window at each 1-year anniversary of commitment date (see Section 11 for complete mechanics)</li>
+      <li><strong>Minimum remaining balance:</strong> $5,000,000 after partial redemption, or full redemption required</li>
+      <li><strong>Accrued distributions:</strong> All accrued and unpaid monthly distributions paid through redemption settlement date</li>
+      <li><strong>No redemption penalty:</strong> No penalty, fee, or holdback applied to principal redemption through annual window</li>
+      <li><strong>Emergency redemption:</strong> In extraordinary circumstances (investor insolvency, regulatory requirement, etc.), Managing Entity has discretion to permit off-cycle redemption subject to 180-day notice and potential liquidity constraints</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════ GLOSSARY ═══════════════════════ -->
+<div class="section" id="glossary">
+  <div class="sec-head">
+    <div class="sec-num">Section 23</div>
+    <h1 class="sec-title">Glossary</h1>
+    <div class="sec-sub">Key terms for sovereign wealth fund staff unfamiliar with U.S. securities law or commodity trade finance terminology</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="card">
+    <div class="gitem"><div class="gterm">3(c)(7) — Section 3(c)(7) of the Investment Company Act of 1940</div><div class="gdef">An exemption from registration as an investment company for funds whose beneficial owners consist exclusively of Qualified Purchasers. Unlike the Section 3(c)(1) exemption (limited to 100 investors), 3(c)(7) imposes no cap on the number of investors, allowing the fund to scale without structural constraint.</div></div>
+    <div class="gitem"><div class="gterm">506(c) — Rule 506(c) of Regulation D</div><div class="gdef">A safe harbor under the Securities Act of 1933 allowing private funds to conduct general solicitation (public advertising) of their offering, provided that all actual purchasers are verified Accredited Investors or better. Arabian Capital Partners requires Qualified Purchaser status (higher than Accredited Investor), satisfying 506(c) requirements.</div></div>
+    <div class="gitem"><div class="gterm">Accredited Investor</div><div class="gdef">Under SEC rules, an individual with $1M+ net worth or $200K+ annual income ($300K joint), or an institution with $5M+ in assets, among other categories. A lower qualification standard than Qualified Purchaser. Arabian Capital Partners requires Qualified Purchaser status.</div></div>
+    <div class="gitem"><div class="gterm">Chain of Custody</div><div class="gdef">In commodity trading, the documented record of all entities who have handled or possessed physical metal from the point of mining or refinement through to the ultimate buyer. A complete and unbroken chain of custody is required for LBMA Good Delivery compliance and responsible sourcing verification.</div></div>
+    <div class="gitem"><div class="gterm">CME (Chicago Mercantile Exchange)</div><div class="gdef">The world's largest financial derivatives exchange, which sets standards for approved precious metals depositories and warehouses used in futures contract delivery. CME-approved vaults are institutional-grade storage facilities acceptable for use as loan collateral in the fund's commodity credit tranche.</div></div>
+    <div class="gitem"><div class="gterm">DMCC (Dubai Multi Commodities Centre)</div><div class="gdef">A free trade zone in Dubai and one of the world's largest commodity trading hubs. Commodity traders operating in the DMCC are licensed, regulated, and subject to DMCC's commodity trading rules and AML requirements. The fund's Dubai buyer relationship operates within the DMCC ecosystem.</div></div>
+    <div class="gitem"><div class="gterm">EITI (Extractive Industries Transparency Initiative)</div><div class="gdef">An international standard for transparency in oil, gas, and mining sectors. EITI member countries — including Ghana and Uganda — commit to publishing information about taxes, licenses, and revenues from extractive industries, supporting supply chain traceability.</div></div>
+    <div class="gitem"><div class="gterm">FATF (Financial Action Task Force)</div><div class="gdef">An intergovernmental body that sets international standards for anti-money laundering and counter-terrorist financing. FATF member status and compliance rating indicate a country's adherence to AML/CFT standards. The fund applies FATF screening to all sourcing counterparties and transactions.</div></div>
+    <div class="gitem"><div class="gterm">Form D</div><div class="gdef">A brief notice filed with the SEC within 15 days of the first sale of securities in a Regulation D private offering. Not a registration statement — it does not subject the fund to SEC review or approval. It is a public notice of the offering's existence and basic terms.</div></div>
+    <div class="gitem"><div class="gterm">Good Delivery (LBMA Good Delivery)</div><div class="gdef">The LBMA's standard specifying the physical characteristics of gold and silver bars acceptable for settlement in the professional OTC market. Good Delivery gold bars: 350–430 troy ounces, minimum 99.5% fineness, produced by an LBMA-accredited refiner. Good Delivery bars can be sold to any institutional buyer globally at full spot pricing without additional verification.</div></div>
+    <div class="gitem"><div class="gterm">K-1 (Schedule K-1)</div><div class="gdef">An IRS tax form issued annually by a partnership (including an LLC taxed as a partnership) to each partner/member, reporting their allocable share of the entity's income, deductions, credits, and other tax items. Investors in Arabian Capital Partners receive K-1s from Spicer Jeffries LLP annually for U.S. tax reporting purposes.</div></div>
+    <div class="gitem"><div class="gterm">LBMA (London Bullion Market Association)</div><div class="gdef">The international trade association for the global OTC gold and silver market. Sets the Good Delivery standard, accredits refineries, and publishes the Responsible Gold Guidance. LBMA certification is the globally recognized institutional standard for physical precious metals — required for acceptance by central banks, sovereign wealth funds, and institutional buyers.</div></div>
+    <div class="gitem"><div class="gterm">LTV (Loan-to-Value Ratio)</div><div class="gdef">In the commodity credit tranche, the ratio of the outstanding loan balance to the current spot market value of the pledged physical collateral. Maximum LTV at origination: 75%. Margin call triggered at 80% LTV. At 80% LTV, a 20% further decline in collateral value would be required before the fund experiences any principal impairment — providing substantial protection against commodity price movements.</div></div>
+    <div class="gitem"><div class="gterm">NAV (Net Asset Value)</div><div class="gdef">The fund's total assets (physical metal in custody at spot value + outstanding loan balances + cash) minus total liabilities (accrued but unpaid investor yield obligations). Calculated monthly by NAV Fund Services.</div></div>
+    <div class="gitem"><div class="gterm">OECD Due Diligence Guidance</div><div class="gdef">The OECD's five-step framework for responsible supply chain management of minerals from conflict-affected and high-risk areas, upon which the LBMA Responsible Gold Guidance is based. Widely adopted by institutional investors, including NBIM, as the applicable standard for evaluating commodity supply chain ethics.</div></div>
+    <div class="gitem"><div class="gterm">PFIC (Passive Foreign Investment Company)</div><div class="gdef">A non-U.S. entity that is treated as a PFIC for U.S. tax purposes if 75%+ of its income is passive or 50%+ of its assets produce passive income. Special U.S. tax rules apply to U.S. investors in PFICs. Spicer Jeffries LLP will analyze and disclose PFIC status annually. Arabian Capital Partners, as an active trade finance fund, is not expected to qualify as a PFIC, but analysis will be provided.</div></div>
+    <div class="gitem"><div class="gterm">Qualified Purchaser (QP)</div><div class="gdef">Defined under Section 2(a)(51) of the Investment Company Act of 1940. The standard applicable to 3(c)(7) fund investors. Higher threshold than Accredited Investor. For institutions: must own and invest at least $100,000,000 in investments. For individuals: must own not less than $25,000,000 in investments. All seven target sovereign wealth funds qualify as institutional QPs under the $100M+ standard.</div></div>
+    <div class="gitem"><div class="gterm">Trade Finance</div><div class="gdef">A financial mechanism that facilitates the purchase and sale of physical goods across the global supply chain by providing short-term financing for the holding period between purchase and sale. In Arabian Capital Partners' context: the fund provides its own capital to purchase physical precious metals, holds them in custody for 3–5 days, and sells to institutional buyers — earning the gross margin on each transaction. The fund does not lend to third parties in the trade finance tranche; it is the principal buyer and seller.</div></div>
+    <div class="gitem"><div class="gterm">UCC-1 Financing Statement</div><div class="gdef">A legal document filed under the Uniform Commercial Code to publicly perfect a security interest in personal property (including physical commodities) offered as loan collateral. Filing a UCC-1 gives the lender (Arabian Capital Partners) a publicly recorded priority claim on the collateral ahead of unsecured creditors and subsequent lienholders. Combined with a vault warrant pledge, the UCC-1 provides the fund with enforceable, first-priority collateral rights on all credit tranche loans.</div></div>
+    <div class="gitem"><div class="gterm">Vault Warrant</div><div class="gdef">A document issued by an LBMA-certified vault operator (Brinks, Transguard) evidencing title to specific physical metal bars held in the vault. A vault warrant is a negotiable document — it can be pledged as collateral, transferred by endorsement, and used to direct delivery of the metal. In the fund's credit tranche, borrowers pledge vault warrants to the fund as collateral for loans; the fund holds endorsed warrants with authority to direct liquidation upon default.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ SOVEREIGN CAPITAL ALIGNMENT ═══════════════════════ -->
+<div class="section" id="swfalign">
+  <div class="sec-head">
+    <div class="sec-num">Section 24</div>
+    <h1 class="sec-title">Sovereign Capital Alignment</h1>
+    <div class="sec-sub">How Arabian Capital Partners addresses the specific mandates, geographies, and diligence standards of each target sovereign institution</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="sgrid c4" style="margin-bottom:24px;">
+    <div class="sbox"><div class="sv">~$1.7T</div><div class="sl">NBIM — Norway</div></div>
+    <div class="sbox"><div class="sv">~$900B</div><div class="sl">ADIA — Abu Dhabi</div></div>
+    <div class="sbox"><div class="sv">~$770B</div><div class="sl">GIC — Singapore</div></div>
+    <div class="sbox"><div class="sv">~$700B</div><div class="sl">PIF — Saudi Arabia</div></div>
+    <div class="sbox"><div class="sv">~$300B</div><div class="sl">Temasek — Singapore</div></div>
+    <div class="sbox"><div class="sv">~$300B</div><div class="sl">ICD — Dubai</div></div>
+    <div class="sbox"><div class="sv">~$157B</div><div class="sl">ADQ — Abu Dhabi</div></div>
+    <div class="sbox"><div class="sv a">~$4.9T</div><div class="sl">Combined Target Universe AUM</div></div>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>ADIA — Abu Dhabi Investment Authority (~$900B)</h3>
+    <p>ADIA's mandate emphasizes long-term capital preservation, diversification, and real asset exposure across a globally diversified portfolio. Physical commodity trade finance provides real asset exposure with a fixed contractual income stream — an attribute that direct gold holdings cannot offer. ADIA's investment committee understands the LBMA Good Delivery standard without explanation — it is the baseline they apply to any physical precious metals holding. The fund's UAE operational footprint (Brinks and Transguard custody, Dubai and Sharjah buyer relationships, LBMA re-refinery access) is infrastructure operating within ADIA's own jurisdiction. U.S. domicile with Texas governing law provides a familiar legal framework across ADIA's extensive U.S. alternative asset portfolio.</p>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>ICD — Investment Corporation of Dubai (~$300B)</h3>
+    <p>ICD manages the Government of Dubai's investment portfolio and operates with deep familiarity with Dubai's commodity trading ecosystem. The fund's confirmed institutional buyer relationship in Dubai operates directly within ICD's home market — the DMCC commodity zone and broader Dubai financial infrastructure. For ICD's investment committee, the fund's operational infrastructure is not foreign. The fund's name — Arabian Capital Partners — signals cultural intelligence and geographic commitment. ICD's due diligence team can independently verify the fund's Dubai buyer relationships and custodian credentials through its own market knowledge. This is a structural credibility advantage that no non-regional fund manager can replicate.</p>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>ADQ — Abu Dhabi Developmental Holding Company (~$157B)</h3>
+    <p>ADQ's mandate includes strategic asset development and real economy infrastructure investment across Abu Dhabi's priority sectors. Physical commodity credit — particularly credit supporting strategic mineral supply chains — aligns with ADQ's infrastructure and industrial development orientation. The fund's commodity credit tranche (30% allocation), which provides capital to commodity traders, mining operators, and strategic mineral processors, supports the type of real economy businesses within ADQ's investment thesis. The fund's LBMA Good Delivery-certified custody infrastructure in the UAE represents operational overlap with ADQ's geographic mandate.</p>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>PIF — Public Investment Fund, Saudi Arabia (~$700B)</h3>
+    <p>PIF's rapidly expanding mandate includes significant diversification away from oil-correlated returns into alternative assets across global markets. Physical commodity trade finance — generating returns from commodity price spreads rather than Saudi Aramco or oil market performance — provides genuine diversification benefit for PIF's portfolio. U.S. domicile and Texas governing law provide PIF with a familiar, transparent legal framework consistent with its extensive U.S. alternative investment activity. The fund's strategic mineral focus aligns with Saudi Arabia's Vision 2030 industrial diversification goals, including the Kingdom's growing interest in strategic mineral supply chain investment to support its own technology and defense sector development.</p>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>GIC — Government of Singapore Investment Corporation (~$770B)</h3>
+    <p>GIC operates one of the most sophisticated quantitative investment operations globally. GIC's diligence team will scrutinize all yield claims, operational mechanics, and fund economics with precision. This data room is structured to meet that standard. The key disclosures GIC requires — and which are provided herein — are: (1) fixed contractual annual yield to investor is precisely that: a contractual obligation, not a projection; (2) fund gross yield and retained spread are management projections subject to stated risk factors; (3) manager compensation is fully disclosed as the operating margin; and (4) detailed transaction-level economics are available in supplemental diligence. GIC's Malaysia operations make the fund's Malaysian sourcing corridor of interest. The fund welcomes a quantitative diligence session with GIC's investment analytics team.</p>
+  </div>
+
+  <div class="card card-g" style="margin-bottom:16px;"><h3>Temasek Holdings — Singapore (~$300B)</h3>
+    <p>Temasek's portfolio philosophy emphasizes long-term value creation, portfolio resilience, and genuinely differentiated exposures. Physical commodity trade finance — generating yield from commodity price spreads rather than financial market beta — is differentiated from every asset class in Temasek's current allocation. The fund's evergreen structure with annual liquidity windows provides duration flexibility appropriate for Temasek's long-term capital orientation without PE-style 10-year lock-ups. Temasek's Southeast Asian investment focus makes the fund's Malaysia and Fiji sourcing corridors of geographic relevance.</p>
+  </div>
+
+  <div class="card card-a" style="margin-bottom:16px;"><h3>NBIM — Norges Bank Investment Management (~$1.7T) — ESG Emphasis</h3>
+    <p>NBIM applies the most rigorous ethical and ESG screening of any institutional investor globally. An NBIM investment requires comprehensive supply chain ethics documentation, responsible sourcing evidence, and alignment with NBIM's Council on Ethics guidelines. Section 15 (Responsible Sourcing &amp; ESG) of this data room addresses NBIM's requirements in full. In summary: the fund applies LBMA Responsible Gold Guidance to all physical holdings; all sourced metal is re-refined at the fund's Dubai LBMA-approved refinery (an audited responsible sourcing gate); FATF and OECD due diligence standards are applied to all counterparties; and a complete responsible sourcing documentation package — including policies, screening records, LBMA refinery certification, and supply chain maps — is available to NBIM upon request with a two-week preparation window. NBIM is the most demanding due diligence standard in the sovereign investor universe. Arabian Capital Partners is prepared to meet it.</p>
+  </div>
+
+  <div class="card">
+    <h3>Structural Features Common to All Seven Institutions</h3>
+    <table class="dt">
+      <thead><tr><th>Feature</th><th>All Seven Institutions</th></tr></thead>
+      <tbody>
+        <tr><td>3(c)(7) — No investor cap</td><td>All seven can invest simultaneously. No structural constraint on aggregate sovereign commitment.</td></tr>
+        <tr><td>LBMA Good Delivery standard</td><td>The institutional benchmark all seven recognize. No additional verification required.</td></tr>
+        <tr><td>U.S. domicile / Texas law</td><td>All seven have existing U.S. alternative fund exposure. Familiar legal framework.</td></tr>
+        <tr><td>Independent fund administration (NAV Fund Services)</td><td>Monthly statements from independent third party — not self-reported. All seven require this.</td></tr>
+        <tr><td>Annual independent audit (Spicer Jeffries)</td><td>Audited financials available to all investors. Satisfies institutional governance requirements.</td></tr>
+        <tr><td>Monthly distributions</td><td>Superior for sovereign treasury management and reinvestment cycles vs. quarterly. 12 verified events/year.</td></tr>
+        <tr><td>Zero fee structure</td><td>100% of contractual yield delivered net to investor. No fee reconciliation required in investor reporting.</td></tr>
+        <tr><td>Annual liquidity window</td><td>Meaningful liquidity optionality without PE lock-up structure. Compatible with sovereign investment committee governance requirements.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<div class="section" id="contact">
+  <div class="sec-head">
+    <div class="sec-num">—</div>
+    <h1 class="sec-title">Contact</h1>
+    <div class="sec-sub">Investment inquiries for Qualified Purchasers</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="ctbox">
+    <h3>Arabian Capital Partners LLC</h3>
+    <div class="ctline">Principal &amp; CIO: <span>Caleb Caraway</span></div>
+    <div class="ctline">Managing Entity: <span>Arabian Wealth Management LLC</span></div>
+    <div class="ctline">Platform: <span>Dark Horse Wealth Management LLC</span></div>
+    <div class="sp"></div>
+    <div class="ctline">Securities Counsel: <span>SCALE LLP — Dori Karjian, Esq.</span></div>
+    <div class="ctline">Fund Administrator: <span>NAV Fund Services</span></div>
+    <div class="ctline">Tax &amp; Audit: <span>Spicer Jeffries LLP</span></div>
+    <div class="sp"></div>
+    <div class="ctline" style="color:var(--text-muted);font-family:'Arial',sans-serif;font-size:12px;margin-top:12px;">All investment inquiries subject to Qualified Purchaser verification prior to disclosure of subscription documents. This data room is directed exclusively to Qualified Purchasers under Section 2(a)(51) of the Investment Company Act of 1940. Contact the Fund directly for subscription materials.</div>
+  </div>
+
+  <div class="bcall" style="margin-top:28px;">
+    <div class="bcall-k">Fixed Contractual Annual Yield — $1 Billion Commitment at $500M+ Tier — Not a Projected Return</div>
+    <div class="bcall-m">$1,000,000,000 → $200,000,000 Per Year</div>
+    <div class="bcall-s">$16,666,667 paid in cash every calendar month</div>
+    <div class="bcall-n">Physical Asset · Fixed Contractual Yield · Zero Fee · Arabian Capital Partners</div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function S(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
