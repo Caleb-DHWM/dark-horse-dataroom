@@ -130,7 +130,7 @@
       .then(data => {
         graphData = data;
         document.getElementById('loading').style.display = 'none';
-        buildGraph(data);
+        try { buildGraph(data); } catch(e) { console.error('Graph build error:', e); }
       })
       .catch(err => showError('data.json: ' + err.message));
 
