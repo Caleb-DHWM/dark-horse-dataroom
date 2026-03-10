@@ -4,520 +4,203 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Caleb Caraway — Entity Structure</title>
-  <script src="https://unpkg.com/3d-force-graph@1/dist/3d-force-graph.min.js"></script>
-  <script src="https://unpkg.com/three-spritetext@1/dist/three-spritetext.min.js"></script>
+  <script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: #05090f; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #dde4ef; }
-
-    /* ── TOOLBAR ── */
-    #toolbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 54px;
-      background: rgba(5,9,15,0.92); backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex; align-items: center; gap: 10px; padding: 0 18px;
-      z-index: 200;
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0f1a; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #dde4ef; }
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(10,15,26,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+      z-index: 100;
     }
-    .tb-logo { font-size: 13px; font-weight: 700; color: #f0c040; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; margin-right: 6px; }
-    .tb-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.1); }
-    #search-box {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 7px; padding: 5px 11px; color: #dde4ef; font-size: 13px;
-      outline: none; width: 200px; transition: border-color .2s, background .2s;
+    .logo { font-size: 13px; font-weight: 700; color: #f0c040; letter-spacing: 2px; text-transform: uppercase; }
+    .subtitle { font-size: 12px; color: rgba(255,255,255,0.4); margin-left: 12px; }
+    #graph { width: 100%; height: 100%; padding-top: 52px; }
+    .legend {
+      position: fixed; bottom: 16px; left: 16px; background: rgba(10,15,26,0.9);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 16px;
+      font-size: 11px; z-index: 100;
     }
-    #search-box::placeholder { color: rgba(255,255,255,0.28); }
-    #search-box:focus { border-color: rgba(240,192,64,0.45); background: rgba(255,255,255,0.09); }
-    .tb-btn {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 7px; padding: 5px 13px; color: #dde4ef; font-size: 12px;
-      cursor: pointer; white-space: nowrap; transition: background .15s, border-color .15s;
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .info-panel {
+      position: fixed; top: 60px; right: 16px; width: 280px;
+      background: rgba(10,15,26,0.95); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 16px; font-size: 13px; z-index: 100;
+      display: none;
     }
-    .tb-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
-    .tb-btn.gold { color: #f0c040; border-color: rgba(240,192,64,0.35); background: rgba(240,192,64,0.08); }
-    .tb-btn.gold:hover { background: rgba(240,192,64,0.16); border-color: rgba(240,192,64,0.55); }
-    .tb-btn.green { color: #2ecc71; border-color: rgba(46,204,113,0.35); background: rgba(46,204,113,0.07); }
-    .tb-btn.green:hover { background: rgba(46,204,113,0.15); }
-    .tb-spacer { flex: 1; }
-
-    /* ── GRAPH ── */
-    #graph { position: absolute; top: 54px; left: 0; right: 0; bottom: 0; }
-
-    /* ── LEGEND ── */
-    #legend {
-      position: fixed; bottom: 20px; left: 18px;
-      background: rgba(5,9,15,0.88); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.07); border-radius: 12px;
-      padding: 14px 16px; z-index: 150;
+    .info-panel h3 { color: #f0c040; margin-bottom: 8px; font-size: 14px; }
+    .info-panel .type-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 8px;
     }
-    #legend h5 { font-size: 10px; text-transform: uppercase; letter-spacing: 1.8px; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
-    .leg-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 11.5px; color: rgba(255,255,255,0.65); }
-    .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .leg-line { width: 22px; height: 2px; flex-shrink: 0; border-radius: 2px; }
-
-    /* ── EDIT PANEL ── */
-    #edit-panel {
-      position: fixed; top: 54px; right: 0; bottom: 0; width: 310px;
-      background: rgba(5,9,15,0.96); backdrop-filter: blur(16px);
-      border-left: 1px solid rgba(255,255,255,0.07);
-      padding: 22px 20px; z-index: 190;
-      transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
-      overflow-y: auto; display: flex; flex-direction: column; gap: 0;
+    .info-panel .connections { margin-top: 10px; }
+    .info-panel .conn-item { color: rgba(255,255,255,0.6); margin: 3px 0; }
+    .close-btn {
+      position: absolute; top: 8px; right: 10px; background: none; border: none;
+      color: rgba(255,255,255,0.4); cursor: pointer; font-size: 16px;
     }
-    #edit-panel.open { transform: translateX(0); }
-    #edit-panel .ep-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.3); margin-bottom: 18px; }
-    .ep-field { margin-bottom: 15px; }
-    .ep-field label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.35); margin-bottom: 5px; }
-    .ep-field textarea, .ep-field input, .ep-field select {
-      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 7px; padding: 8px 11px; color: #dde4ef; font-size: 12.5px;
-      outline: none; font-family: inherit; resize: vertical; transition: border-color .15s, background .15s;
-    }
-    .ep-field textarea:focus, .ep-field input:focus, .ep-field select:focus {
-      border-color: rgba(240,192,64,0.4); background: rgba(255,255,255,0.08);
-    }
-    .ep-field select option { background: #0c1120; }
-    .ep-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 20px; }
-    .ep-btn {
-      padding: 9px 14px; border-radius: 7px; font-size: 12.5px; font-weight: 500;
-      cursor: pointer; border: 1px solid; text-align: center; transition: all .15s;
-    }
-    .ep-btn.add-child { color: #2ecc71; border-color: rgba(46,204,113,0.35); background: rgba(46,204,113,0.08); }
-    .ep-btn.add-child:hover { background: rgba(46,204,113,0.18); }
-    .ep-btn.connect { color: #3498db; border-color: rgba(52,152,219,0.35); background: rgba(52,152,219,0.08); }
-    .ep-btn.connect:hover { background: rgba(52,152,219,0.18); }
-    .ep-btn.del { color: #e74c3c; border-color: rgba(231,76,60,0.35); background: rgba(231,76,60,0.08); }
-    .ep-btn.del:hover { background: rgba(231,76,60,0.18); }
-    .ep-btn.close-ep { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.09); background: transparent; }
-    .ep-btn.close-ep:hover { background: rgba(255,255,255,0.06); }
-    .ep-node-color { width: 14px; height: 14px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 5px; }
-
-    /* ── CONNECT MODE HINT ── */
-    #connect-hint {
-      position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
-      background: rgba(52,152,219,0.9); backdrop-filter: blur(8px);
-      border-radius: 8px; padding: 8px 18px; font-size: 13px; color: white;
-      z-index: 300; display: none; pointer-events: none;
-    }
-    #connect-hint.show { display: block; }
-
-    /* ── TOAST ── */
-    #toast {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(8px);
-      background: rgba(46,204,113,0.92); backdrop-filter: blur(8px);
-      border-radius: 8px; padding: 9px 20px; font-size: 13px; color: white;
-      opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; z-index: 500;
-    }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    #toast.err { background: rgba(231,76,60,0.92); }
-
-    /* ── MODAL ── */
-    #modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
-      display: none; align-items: center; justify-content: center; z-index: 400;
-    }
-    #modal-overlay.open { display: flex; }
-    .modal-box {
-      background: #0c1120; border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px; padding: 28px 26px; width: 420px; max-width: 92vw;
-    }
-    .modal-box h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-    .modal-box p { font-size: 12.5px; color: rgba(255,255,255,0.45); margin-bottom: 14px; line-height: 1.55; }
-    .modal-box input {
-      width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 7px; padding: 9px 12px; color: #dde4ef; font-size: 13px;
-      outline: none; margin-bottom: 16px; font-family: monospace;
-    }
-    .modal-box input:focus { border-color: rgba(240,192,64,0.45); }
-    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; }
-    .m-btn { padding: 8px 18px; border-radius: 7px; font-size: 13px; cursor: pointer; border: 1px solid; transition: all .15s; }
-    .m-btn.confirm { color: #f0c040; border-color: rgba(240,192,64,0.4); background: rgba(240,192,64,0.1); }
-    .m-btn.confirm:hover { background: rgba(240,192,64,0.2); }
-    .m-btn.cancel { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.1); background: transparent; }
-    .m-btn.cancel:hover { background: rgba(255,255,255,0.06); }
+    .close-btn:hover { color: #fff; }
   </style>
 </head>
 <body>
-
-<!-- TOOLBAR -->
-<div id="toolbar">
-  <span class="tb-logo">◈ Entity Map</span>
-  <div class="tb-divider"></div>
-  <input id="search-box" type="text" placeholder="Search…" />
-  <button class="tb-btn" onclick="G.zoomToFit(500)">⟳ Reset</button>
-  <button class="tb-btn green" onclick="addFloatingNode()">＋ Add Node</button>
-  <div class="tb-spacer"></div>
-  <button class="tb-btn gold" onclick="saveToGitHub()">↑ Save</button>
-  <button class="tb-btn" onclick="exportJSON()">⬇ Export</button>
-</div>
-
-<!-- GRAPH CANVAS -->
-<div id="graph"></div>
-
-<!-- LEGEND -->
-<div id="legend">
-  <h5>Entity Types</h5>
-  <div class="leg-row"><div class="leg-dot" style="background:#f0c040"></div>Trust</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#a8bccf"></div>Holdings LLC</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#154360"></div>Family Office</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#1a6fa8"></div>Wealth Mgmt</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#c0392b"></div>Capital / Fund</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#1e8449"></div>Operations</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#b7770d"></div>Investment</div>
-  <div style="height:10px"></div>
-  <div class="leg-row"><div class="leg-line" style="background:rgba(255,255,255,0.4)"></div>Ownership</div>
-  <div class="leg-row"><div class="leg-line" style="background:#e74c3c;opacity:.7"></div>Investment Link</div>
-</div>
-
-<!-- EDIT PANEL -->
-<div id="edit-panel">
-  <div class="ep-title">Node Editor</div>
-  <div class="ep-field">
-    <label>Label</label>
-    <textarea id="ep-label" rows="3" oninput="applyEdit('label', this.value)"></textarea>
+  <div id="header">
+    <div style="display:flex;align-items:center;">
+      <span class="logo">Dark Horse</span>
+      <span class="subtitle">Entity Structure — Caleb Caraway</span>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.3);">Click a node for details · Scroll to zoom · Drag to pan</div>
   </div>
-  <div class="ep-field">
-    <label>Entity Type</label>
-    <select id="ep-type" onchange="applyEdit('type', this.value)">
-      <option value="trust">Trust</option>
-      <option value="holdings">Holdings LLC</option>
-      <option value="family-office">Family Office</option>
-      <option value="mgmt">Wealth Mgmt / Mgmt Co</option>
-      <option value="fund">Capital / Fund</option>
-      <option value="operations">Operations</option>
-      <option value="investment">Investment</option>
-    </select>
-  </div>
-  <div class="ep-field">
-    <label>Notes (private)</label>
-    <textarea id="ep-notes" rows="3" placeholder="Optional…" oninput="applyEdit('notes', this.value)"></textarea>
-  </div>
-  <div class="ep-actions">
-    <button class="ep-btn add-child" onclick="addChildToSelected()">＋ Add Child Node</button>
-    <button class="ep-btn connect" onclick="startConnect()">↗ Connect to Another Node</button>
-    <button class="ep-btn del" onclick="deleteSelected()">✕ Delete Node</button>
-    <button class="ep-btn close-ep" onclick="closePanel()">Close</button>
-  </div>
-</div>
-
-<!-- CONNECT HINT -->
-<div id="connect-hint">Click a node to connect it to <strong id="connect-source-name"></strong> — or press Esc to cancel</div>
-
-<!-- GITHUB TOKEN MODAL -->
-<div id="modal-overlay">
-  <div class="modal-box">
-    <h3>GitHub Access Token</h3>
-    <p>Enter a Personal Access Token with <strong>repo</strong> write access. It's stored only in your browser's localStorage and never transmitted elsewhere.</p>
-    <input id="token-input" type="password" placeholder="ghp_xxxxxxxxxxxxxxxx" />
-    <div class="modal-footer">
-      <button class="m-btn cancel" onclick="closeModal()">Cancel</button>
-      <button class="m-btn confirm" onclick="confirmToken()">Save & Push</button>
+  <div id="graph"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#f0c040"></div>Trust</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c8dff"></div>Holdings</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4ecdc4"></div>Family Office</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff6b6b"></div>Management Co</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>Fund</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Operations</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>Investment</div>
+    <div style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.08);padding-top:6px;">
+      <div class="legend-item" style="color:rgba(255,255,255,0.4);">── Structural link</div>
+      <div class="legend-item" style="color:#ff6b6b;">- - Cross-investment</div>
     </div>
   </div>
-</div>
+  <div class="info-panel" id="info">
+    <button class="close-btn" onclick="document.getElementById('info').style.display='none'">✕</button>
+    <h3 id="info-label"></h3>
+    <div id="info-type" class="type-badge"></div>
+    <div class="connections" id="info-connections"></div>
+  </div>
 
-<div id="toast"></div>
-
-<script>
-// ─── CONSTANTS ────────────────────────────────────────────────────────────────
-const REPO      = 'Caleb-DHWM/dark-horse-dataroom';
-const FILE_PATH = 'mind-map/data.json';
-const GH_API    = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
-
-const NODE_COLORS = {
-  'trust':        '#f0c040',
-  'holdings':     '#a8bccf',
-  'family-office':'#154360',
-  'mgmt':         '#1a6fa8',
-  'fund':         '#c0392b',
-  'operations':   '#1e8449',
-  'investment':   '#b7770d'
-};
-
-const NODE_LABELS = {
-  'trust':        'Trust',
-  'holdings':     'Holdings LLC',
-  'family-office':'Family Office',
-  'mgmt':         'Wealth Mgmt / Mgmt Co',
-  'fund':         'Capital / Fund',
-  'operations':   'Operations',
-  'investment':   'Investment'
-};
-
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let graphData   = { nextId: 100, nodes: [], links: [] };
-let G           = null;
-let selectedNode= null;
-let connectMode = false;
-let connectFrom = null;
-let searchQuery = '';
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-(async function init() {
-  try {
-    const r = await fetch('./data.json?t=' + Date.now());
-    if (r.ok) graphData = await r.json();
-  } catch(e) { console.warn('Could not load data.json, using defaults.'); }
-  buildGraph();
-})();
-
-// ─── BUILD GRAPH ──────────────────────────────────────────────────────────────
-function buildGraph() {
-  const el = document.getElementById('graph');
-  el.innerHTML = '';
-
-  G = ForceGraph3D({ controlType: 'orbit', rendererConfig: { antialias: true } })(el)
-    .backgroundColor('#05090f')
-    .graphData(graphData)
-    .nodeVal(d => d.size || 6)
-    .nodeColor(d => dimmed(d) ? 'rgba(80,90,110,0.35)' : (NODE_COLORS[d.type] || '#888'))
-    .nodeThreeObjectExtend(true)
-    .nodeThreeObject(d => {
-      const sp = new SpriteText(d.label);
-      sp.material.depthWrite = false;
-      sp.color = dimmed(d) ? 'rgba(255,255,255,0.2)' : '#eef2ff';
-      sp.textHeight = 3.2;
-      sp.padding = 2.5;
-      sp.borderRadius = 4;
-      sp.backgroundColor = dimmed(d) ? 'rgba(5,9,15,0.4)' : 'rgba(5,9,15,0.82)';
-      sp.borderColor = dimmed(d) ? 'transparent' : (NODE_COLORS[d.type] || 'rgba(255,255,255,0.2)');
-      sp.borderWidth = 0.6;
-      sp.position.y = (d.size || 6) * 2 + 9;
-      return sp;
-    })
-    .linkColor(d => d.linkType === 'cross' ? 'rgba(231,76,60,0.65)' : 'rgba(255,255,255,0.28)')
-    .linkWidth(d => d.linkType === 'cross' ? 0.9 : 1.8)
-    .linkOpacity(1)
-    .linkCurvature(d => d.linkType === 'cross' ? 0.35 : 0)
-    .linkDirectionalArrowLength(d => d.linkType === 'cross' ? 6 : 9)
-    .linkDirectionalArrowRelPos(1)
-    .linkDirectionalArrowColor(d => d.linkType === 'cross' ? '#e74c3c' : 'rgba(255,255,255,0.45)')
-    .linkDirectionalParticles(d => d.linkType === 'cross' ? 2 : 0)
-    .linkDirectionalParticleColor(() => '#e74c3c')
-    .linkDirectionalParticleWidth(1.5)
-    .onNodeClick(onNodeClick)
-    .onBackgroundClick(() => {
-      if (connectMode) { cancelConnect(); return; }
-      closePanel();
-      selectedNode = null;
-    });
-
-  // Search handler
-  document.getElementById('search-box').addEventListener('input', e => {
-    searchQuery = e.target.value.toLowerCase().trim();
-    G.nodeColor(d => {
-      if (!searchQuery) return NODE_COLORS[d.type] || '#888';
-      return d.label.toLowerCase().includes(searchQuery) ? '#ffffff' : 'rgba(80,90,110,0.3)';
-    });
-    G.nodeThreeObject(d => makeSprite(d));
-  });
-
-  // Zoom to fit after physics settles
-  setTimeout(() => G.zoomToFit(600, 60), 1800);
-}
-
-function dimmed(d) { return false; } // reserved for future filter
-
-function makeSprite(d) {
-  const match = !searchQuery || d.label.toLowerCase().includes(searchQuery);
-  const sp = new SpriteText(d.label);
-  sp.material.depthWrite = false;
-  sp.color = match ? '#eef2ff' : 'rgba(255,255,255,0.18)';
-  sp.textHeight = 3.2;
-  sp.padding = 2.5;
-  sp.borderRadius = 4;
-  sp.backgroundColor = match ? 'rgba(5,9,15,0.82)' : 'rgba(5,9,15,0.3)';
-  sp.borderColor = match ? (NODE_COLORS[d.type] || 'rgba(255,255,255,0.2)') : 'transparent';
-  sp.borderWidth = 0.6;
-  sp.position.y = (d.size || 6) * 2 + 9;
-  return sp;
-}
-
-// ─── NODE CLICK ───────────────────────────────────────────────────────────────
-function onNodeClick(node) {
-  if (connectMode) {
-    if (node.id === connectFrom.id) { toast('Cannot connect a node to itself', true); return; }
-    graphData.links.push({ source: connectFrom.id, target: node.id, linkType: 'structural' });
-    G.graphData(graphData);
-    cancelConnect();
-    toast('Link created');
-    return;
-  }
-  selectedNode = node;
-  G.centerAt(node.x, node.y, node.z, 600);
-  G.zoom(3, 600);
-  openPanel(node);
-}
-
-// ─── EDIT PANEL ───────────────────────────────────────────────────────────────
-function openPanel(node) {
-  document.getElementById('ep-label').value = node.label || '';
-  document.getElementById('ep-type').value  = node.type  || 'fund';
-  document.getElementById('ep-notes').value = node.notes || '';
-  document.getElementById('edit-panel').classList.add('open');
-}
-
-function closePanel() {
-  document.getElementById('edit-panel').classList.remove('open');
-}
-
-function applyEdit(field, value) {
-  if (!selectedNode) return;
-  const node = graphData.nodes.find(n => n.id === selectedNode.id);
-  if (!node) return;
-  node[field] = value;
-  G.graphData(graphData);
-}
-
-// ─── ADD NODES ────────────────────────────────────────────────────────────────
-function addChildToSelected() {
-  if (!selectedNode) return toast('Select a node first', true);
-  const label = prompt('Label for new child node:');
-  if (!label) return;
-  const id = graphData.nextId++;
-  graphData.nodes.push({ id, label, type: 'fund', size: 6 });
-  graphData.links.push({ source: selectedNode.id, target: id, linkType: 'structural' });
-  G.graphData(graphData);
-  toast('Node added');
-}
-
-function addFloatingNode() {
-  const label = prompt('Label for new node:');
-  if (!label) return;
-  const id = graphData.nextId++;
-  graphData.nodes.push({ id, label, type: 'fund', size: 6 });
-  G.graphData(graphData);
-  toast('Node added — use Connect to link it');
-}
-
-// ─── DELETE ───────────────────────────────────────────────────────────────────
-function deleteSelected() {
-  if (!selectedNode) return;
-  const name = selectedNode.label.split('\n')[0];
-  if (!confirm(`Delete "${name}"?\n\nThis also removes all connections to this node.`)) return;
-  const id = selectedNode.id;
-  graphData.nodes = graphData.nodes.filter(n => n.id !== id);
-  graphData.links = graphData.links.filter(l => {
-    const s = l.source?.id ?? l.source;
-    const t = l.target?.id ?? l.target;
-    return s !== id && t !== id;
-  });
-  G.graphData(graphData);
-  closePanel();
-  selectedNode = null;
-  toast('Node deleted');
-}
-
-// ─── CONNECT MODE ─────────────────────────────────────────────────────────────
-function startConnect() {
-  if (!selectedNode) return;
-  connectFrom = selectedNode;
-  connectMode = true;
-  const name = selectedNode.label.split('\n')[0];
-  document.getElementById('connect-source-name').textContent = name;
-  document.getElementById('connect-hint').classList.add('show');
-  closePanel();
-}
-
-function cancelConnect() {
-  connectMode = false;
-  connectFrom = null;
-  document.getElementById('connect-hint').classList.remove('show');
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cancelConnect(); });
-
-// ─── GITHUB SAVE ─────────────────────────────────────────────────────────────
-async function saveToGitHub() {
-  let token = localStorage.getItem('gh_pat');
-  if (!token) { document.getElementById('modal-overlay').classList.add('open'); return; }
-  await pushToGitHub(token);
-}
-
-async function pushToGitHub(token) {
-  toast('Saving to GitHub…');
-  try {
-    const clean = buildCleanData();
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(clean, null, 2))));
-
-    // Fetch current SHA
-    const getRes = await fetch(GH_API, {
-      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
-    });
-    let sha;
-    if (getRes.ok) { const d = await getRes.json(); sha = d.sha; }
-
-    const body = {
-      message: `Update entity map — ${new Date().toLocaleString()}`,
-      content
+  <script>
+    const TYPE_COLORS = {
+      'trust':         { bg: '#f0c040', border: '#d4a017', font: '#000' },
+      'holdings':      { bg: '#7c8dff', border: '#5a6fe0', font: '#fff' },
+      'family-office': { bg: '#4ecdc4', border: '#36b3aa', font: '#000' },
+      'mgmt':          { bg: '#ff6b6b', border: '#e04545', font: '#fff' },
+      'fund':          { bg: '#a855f7', border: '#8b3fd6', font: '#fff' },
+      'operations':    { bg: '#22c55e', border: '#16a34a', font: '#fff' },
+      'investment':    { bg: '#94a3b8', border: '#6b7a8d', font: '#fff' }
     };
-    if (sha) body.sha = sha;
 
-    const putRes = await fetch(GH_API, {
-      method: 'PUT',
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
+    const TYPE_LABELS = {
+      'trust': 'Trust', 'holdings': 'Holdings', 'family-office': 'Family Office',
+      'mgmt': 'Management Co', 'fund': 'Fund', 'operations': 'Operations', 'investment': 'Investment'
+    };
+
+    fetch('data.json').then(r => r.json()).then(data => {
+      const nodes = new vis.DataSet(data.nodes.map(n => {
+        const c = TYPE_COLORS[n.type] || TYPE_COLORS['investment'];
+        return {
+          id: n.id,
+          label: n.label.replace(/\\n/g, '\n'),
+          font: { color: c.font, size: 13, face: 'Segoe UI, system-ui, sans-serif', multi: 'md', bold: { color: c.font } },
+          color: { background: c.bg, border: c.border, highlight: { background: c.bg, border: '#fff' } },
+          shape: n.type === 'trust' ? 'diamond' : n.type === 'fund' ? 'box' : 'ellipse',
+          size: (n.size || 8) * 3,
+          borderWidth: 2,
+          borderWidthSelected: 3,
+          shadow: { enabled: true, color: 'rgba(0,0,0,0.3)', size: 8 },
+          _type: n.type,
+          _origLabel: n.label
+        };
+      }));
+
+      const edges = new vis.DataSet(data.links.map((l, i) => ({
+        id: i,
+        from: typeof l.source === 'object' ? l.source.id : l.source,
+        to: typeof l.target === 'object' ? l.target.id : l.target,
+        label: l.label || '',
+        font: { color: '#ff6b6b', size: 10, strokeWidth: 2, strokeColor: '#0a0f1a' },
+        color: l.linkType === 'cross'
+          ? { color: 'rgba(255,107,107,0.6)', highlight: '#ff6b6b' }
+          : { color: 'rgba(255,255,255,0.25)', highlight: 'rgba(255,255,255,0.6)' },
+        dashes: l.linkType === 'cross' ? [8, 4] : false,
+        arrows: { to: { enabled: true, scaleFactor: 0.7 } },
+        width: l.linkType === 'cross' ? 1.5 : 2,
+        smooth: { type: l.linkType === 'cross' ? 'curvedCW' : 'continuous', roundness: l.linkType === 'cross' ? 0.2 : 0 },
+        _linkType: l.linkType
+      })));
+
+      const container = document.getElementById('graph');
+      const network = new vis.Network(container, { nodes, edges }, {
+        layout: {
+          hierarchical: {
+            enabled: true,
+            direction: 'UD',
+            sortMethod: 'directed',
+            levelSeparation: 140,
+            nodeSpacing: 200,
+            treeSpacing: 250,
+            blockShifting: true,
+            edgeMinimization: true
+          }
+        },
+        physics: {
+          hierarchicalRepulsion: { nodeDistance: 200, centralGravity: 0.1, springLength: 150 }
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 100,
+          navigationButtons: false,
+          keyboard: false,
+          zoomView: true,
+          dragView: true
+        },
+        edges: {
+          selectionWidth: 2
+        }
+      });
+
+      // Fit to screen after stabilization
+      network.once('stabilizationIterationsDone', () => {
+        network.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+      });
+
+      // Click handler for info panel
+      network.on('click', params => {
+        if (params.nodes.length > 0) {
+          const nodeId = params.nodes[0];
+          const node = nodes.get(nodeId);
+          const infoEl = document.getElementById('info');
+          const c = TYPE_COLORS[node._type] || TYPE_COLORS['investment'];
+
+          document.getElementById('info-label').textContent = node._origLabel.replace(/\\n/g, ' — ');
+          const badge = document.getElementById('info-type');
+          badge.textContent = TYPE_LABELS[node._type] || node._type;
+          badge.style.background = c.bg;
+          badge.style.color = c.font;
+
+          // Find connections
+          const connEdges = edges.get().filter(e => e.from === nodeId || e.to === nodeId);
+          const connHtml = connEdges.map(e => {
+            const otherId = e.from === nodeId ? e.to : e.from;
+            const other = nodes.get(otherId);
+            const dir = e.from === nodeId ? '→' : '←';
+            const linkLabel = e.label ? ` (${e.label})` : '';
+            const oc = TYPE_COLORS[other._type] || TYPE_COLORS['investment'];
+            return `<div class="conn-item">${dir} <span style="color:${oc.bg}">${other._origLabel.split('\\n')[0]}</span>${linkLabel}</div>`;
+          }).join('');
+
+          document.getElementById('info-connections').innerHTML =
+            `<div style="color:rgba(255,255,255,0.35);font-size:11px;margin-bottom:4px;">CONNECTIONS (${connEdges.length})</div>` + connHtml;
+
+          infoEl.style.display = 'block';
+        }
+      });
+
+      // Double-click to focus
+      network.on('doubleClick', params => {
+        if (params.nodes.length > 0) {
+          network.focus(params.nodes[0], { scale: 1.5, animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+        }
+      });
+    }).catch(err => {
+      document.getElementById('graph').innerHTML = '<div style="padding:80px 40px;text-align:center;"><h2 style="color:#ff6b6b;">Failed to load data</h2><p style="color:rgba(255,255,255,0.5);margin-top:12px;">' + err.message + '</p></div>';
     });
-
-    if (putRes.ok) {
-      toast('✓ Saved — live in ~60 seconds');
-    } else {
-      const err = await putRes.json();
-      toast(`GitHub error: ${err.message}`, true);
-    }
-  } catch(e) {
-    toast(`Error: ${e.message}`, true);
-  }
-}
-
-function buildCleanData() {
-  return {
-    nextId: graphData.nextId,
-    nodes: graphData.nodes.map(n => ({
-      id: n.id, label: n.label, type: n.type, size: n.size || 6, notes: n.notes || ''
-    })),
-    links: graphData.links.map(l => ({
-      source:   l.source?.id ?? l.source,
-      target:   l.target?.id ?? l.target,
-      linkType: l.linkType || 'structural',
-      label:    l.label || ''
-    }))
-  };
-}
-
-// ─── TOKEN MODAL ──────────────────────────────────────────────────────────────
-function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
-
-async function confirmToken() {
-  const t = document.getElementById('token-input').value.trim();
-  if (!t) return;
-  localStorage.setItem('gh_pat', t);
-  closeModal();
-  await pushToGitHub(t);
-}
-
-// ─── EXPORT JSON ─────────────────────────────────────────────────────────────
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(buildCleanData(), null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'entity-map-data.json';
-  a.click();
-  toast('JSON exported');
-}
-
-// ─── TOAST ────────────────────────────────────────────────────────────────────
-let _toastTimer;
-function toast(msg, isErr = false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'show' + (isErr ? ' err' : '');
-  clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(() => el.className = '', 2800);
-}
-</script>
+  </script>
 </body>
 </html>
