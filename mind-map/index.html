@@ -3,904 +3,598 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Horse — Entity Mind Map</title>
+<title>Dark Horse — Org Map</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #060a12; color: #fff; font-family: 'Inter', system-ui, -apple-system, sans-serif; overflow: hidden; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0c14; overflow:hidden; font-family:'Segoe UI',sans-serif; }
+canvas { display:block; }
 
-  #toolbar {
-    position: fixed; top: 0; left: 0; right: 0; height: 52px;
-    background: rgba(6,10,18,0.96);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: flex; align-items: center; padding: 0 16px; gap: 6px;
-    z-index: 100; backdrop-filter: blur(10px);
-  }
-  .logo {
-    font-size: 15px; font-weight: 700; color: #f0c040;
-    letter-spacing: 0.5px; margin-right: 12px; white-space: nowrap;
-  }
-  .sep { width: 1px; height: 24px; background: rgba(255,255,255,0.1); margin: 0 4px; }
-  .layout-btn {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-    color: #aaa; padding: 5px 11px; border-radius: 6px; cursor: pointer;
-    font-size: 11.5px; white-space: nowrap; transition: all 0.15s; font-family: inherit;
-  }
-  .layout-btn:hover { background: rgba(255,255,255,0.11); color: #fff; }
-  .layout-btn.active { background: rgba(240,192,64,0.15); border-color: rgba(240,192,64,0.5); color: #f0c040; }
-  .reset-btn {
-    background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.25);
-    color: #ff8888; padding: 5px 11px; border-radius: 6px; cursor: pointer;
-    font-size: 11.5px; transition: all 0.15s; font-family: inherit; margin-left: 2px;
-  }
-  .reset-btn:hover { background: rgba(255,107,107,0.18); color: #ffaaaa; }
-  #search {
-    margin-left: auto; background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1); color: #fff;
-    padding: 5px 11px; border-radius: 6px; font-size: 11.5px; width: 190px;
-    outline: none; font-family: inherit;
-  }
-  #search::placeholder { color: #444; }
-  #search:focus { border-color: rgba(240,192,64,0.4); background: rgba(255,255,255,0.08); }
+#toolbar {
+  position:fixed; top:16px; left:16px; z-index:100;
+  display:flex; flex-direction:column; gap:8px;
+}
+.tool-section {
+  background:rgba(10,12,20,0.88); border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px; padding:10px 12px;
+  backdrop-filter:blur(12px);
+}
+.tool-label {
+  color:rgba(255,255,255,0.45); font-size:10px; text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:6px;
+}
+.btn-row { display:flex; gap:6px; flex-wrap:wrap; }
+.btn {
+  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.8); font-size:11px; padding:5px 10px;
+  border-radius:6px; cursor:pointer; transition:all 0.2s; white-space:nowrap;
+}
+.btn:hover { background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); }
+.btn.active {
+  background:rgba(100,160,255,0.25); border-color:rgba(100,160,255,0.6);
+  color:#fff;
+}
 
-  #canvas-container {
-    position: fixed; top: 52px; left: 0; right: 0; bottom: 0;
-  }
-  #canvas-container canvas { display: block; }
+#legend {
+  position:fixed; bottom:16px; left:16px; z-index:100;
+  background:rgba(10,12,20,0.88); border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px; padding:12px 16px;
+  backdrop-filter:blur(12px);
+}
+.legend-item { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.7); font-size:11px; margin-bottom:4px; }
+.legend-dot { width:10px; height:10px; border-radius:50%; }
 
-  #legend {
-    position: fixed; bottom: 16px; left: 16px;
-    background: rgba(6,10,18,0.88); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 9px; padding: 10px 13px; z-index: 50; backdrop-filter: blur(8px);
-  }
-  .legend-title { color: #555; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; }
-  .legend-item { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; color: #999; font-size: 11px; }
-  .legend-item:last-child { margin-bottom: 0; }
-  .legend-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+#tooltip {
+  position:fixed; pointer-events:none; z-index:200;
+  background:rgba(10,12,20,0.95); border:1px solid rgba(100,160,255,0.4);
+  border-radius:8px; padding:10px 14px;
+  color:#fff; font-size:12px; line-height:1.5;
+  max-width:260px; display:none;
+  backdrop-filter:blur(16px);
+}
 
-  #info-panel {
-    position: fixed; top: 68px; right: 16px; width: 248px;
-    background: rgba(6,10,18,0.93); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px; padding: 14px 15px; z-index: 50;
-    display: none; backdrop-filter: blur(10px);
-  }
-  .info-close {
-    position: absolute; top: 9px; right: 12px; cursor: pointer;
-    color: #444; font-size: 15px; line-height: 1; transition: color 0.15s;
-  }
-  .info-close:hover { color: #aaa; }
-  .info-name { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; line-height: 1.4; padding-right: 16px; }
-  .info-type {
-    font-size: 10px; color: #666; text-transform: uppercase;
-    letter-spacing: 0.6px; margin-bottom: 10px;
-  }
-  .info-conn-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-  .info-conn-item { font-size: 11px; color: #888; padding: 2px 0; }
-
-  #status-bar {
-    position: fixed; bottom: 16px; right: 16px;
-    font-size: 10px; color: #333; z-index: 50;
-  }
+#save-indicator {
+  position:fixed; top:16px; right:16px; z-index:100;
+  background:rgba(10,12,20,0.88); border:1px solid rgba(100,255,150,0.3);
+  border-radius:8px; padding:6px 14px; color:rgba(100,255,150,0.9);
+  font-size:11px; display:none;
+}
 </style>
 </head>
 <body>
-
 <div id="toolbar">
-  <div class="logo">🐴 Dark Horse</div>
-  <div class="sep"></div>
-  <button class="layout-btn active" data-layout="levelTree">🌲 Level Tree</button>
-  <button class="layout-btn" data-layout="bothSides">⇔ Both Sides</button>
-  <button class="layout-btn" data-layout="radial3d">◎ Radial 3D</button>
-  <button class="layout-btn" data-layout="spherical">◉ Spherical</button>
-  <div class="sep"></div>
-  <button class="reset-btn" id="resetBtn">⊡ Reset Positions</button>
-  <input type="text" id="search" placeholder="🔍 Search entities...">
+  <div class="tool-section">
+    <div class="tool-label">Layout</div>
+    <div class="btn-row">
+      <button class="btn active" id="btn-cylinder" onclick="setLayout('cylinder')">⬡ Cylinder</button>
+      <button class="btn" id="btn-radial"   onclick="setLayout('radial')">⊛ Radial</button>
+      <button class="btn" id="btn-cascade"  onclick="setLayout('cascade')">↧ Cascade</button>
+      <button class="btn" id="btn-sphere"   onclick="setLayout('sphere')">◎ Globe</button>
+    </div>
+  </div>
+  <div class="tool-section">
+    <div class="tool-label">Node Shape</div>
+    <div class="btn-row">
+      <button class="btn active" id="shape-sphere"   onclick="setShape('sphere')">● Sphere</button>
+      <button class="btn" id="shape-box"      onclick="setShape('box')">■ Cube</button>
+      <button class="btn" id="shape-cylinder" onclick="setShape('cylinder')">⬤ Pillar</button>
+      <button class="btn" id="shape-cone"     onclick="setShape('cone')">▲ Cone</button>
+      <button class="btn" id="shape-diamond"  onclick="setShape('diamond')">◆ Diamond</button>
+      <button class="btn" id="shape-torus"    onclick="setShape('torus')">⊙ Ring</button>
+    </div>
+  </div>
+  <div class="tool-section">
+    <div class="tool-label">Actions</div>
+    <div class="btn-row">
+      <button class="btn" onclick="resetCamera()">↺ Reset View</button>
+      <button class="btn" onclick="clearSaved()">✕ Clear Saved</button>
+    </div>
+  </div>
 </div>
-
-<div id="canvas-container"></div>
 
 <div id="legend">
-  <div class="legend-title">Entity Types</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#f0c040"></div>Trust</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#7c8dff"></div>Holdings</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#4ecdc4"></div>Family Office</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#ff6b6b"></div>Management</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>Fund</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Operations</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>Investment</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f5c842"></div>Trust / Holdings</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#64a0ff"></div>Family Office / RIA</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#a06aff"></div>Management / GP</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3bd68a"></div>Fund Vehicle</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff7c4a"></div>Operations / Investment</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#888"></div>Dormant</div>
 </div>
 
-<div id="info-panel">
-  <span class="info-close" id="infoClose">✕</span>
-  <div class="info-name" id="infoName"></div>
-  <div class="info-type" id="infoType"></div>
-  <div class="info-conn-label">Connected To</div>
-  <div id="infoConns"></div>
-</div>
+<div id="tooltip"></div>
+<div id="save-indicator">✓ Layout Saved</div>
 
-<div id="status-bar" id="statusBar"></div>
-
-<!-- THREE.JS — r146 is last version with examples/js/ (non-module OrbitControls) -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
-<script src="https://unpkg.com/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
 <script>
-// Hard fallback: inline OrbitControls if CDN fails
-(function() {
-  if (typeof THREE !== 'undefined' && !THREE.OrbitControls) {
-    // Minimal OrbitControls shim — fetched from same jsdelivr CDN
-    var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js';
-    document.head.appendChild(s);
-  }
-})();
-</script>
+// ─── Scene Setup ───────────────────────────────────────────────────────────
+const scene    = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0c14);
+scene.fog        = new THREE.FogExp2(0x0a0c14, 0.018);
 
-<script>
-'use strict';
+const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, 0.1, 2000);
+camera.position.set(0, 60, 120);
+camera.lookAt(0, 0, 0);
 
-// ============================================================
-// DEFAULTS & COLORS
-// ============================================================
-const DEFAULTS = {
-  nodes: [
-    { id:7,  label:"In God We Trust\n(Caleb's Trust)",                      type:"trust",        size:14 },
-    { id:1,  label:"Caraway Holdings LLC",                                   type:"holdings",     size:10 },
-    { id:3,  label:"Dark Horse Wealth Mgmt\n(Family Office – 100% Caleb's)", type:"family-office",size:12 },
-    { id:4,  label:"Corinthian Capital Partners\n(75% Owner)",               type:"mgmt",         size:8  },
-    { id:5,  label:"Corinthian Capital Fund\n(Private Debt – PE Lending)",   type:"fund",         size:6  },
-    { id:6,  label:"Draft Horse Capital Partners\n(DORMANT SHELL)",          type:"mgmt",         size:7  },
-    { id:8,  label:"Draft Horse Capital Partners Fund\n(DORMANT)",           type:"fund",         size:5  },
-    { id:9,  label:"Quarter Horse Wealth Mgmt\n(DORMANT SHELL)",             type:"mgmt",         size:7  },
-    { id:10, label:"Quarter Horse Capital Partners\n(DORMANT)",              type:"fund",         size:5  },
-    { id:11, label:"Stateside Resources\n(Mining & Metals)",                 type:"operations",   size:8  },
-    { id:12, label:"Field Futures Texas\n(8% Owner)",                        type:"investment",   size:5  },
-    { id:13, label:"Virtue Mgmt Co",                                         type:"mgmt",         size:8  },
-    { id:14, label:"Virtue\n(Private Credit Fund)",                          type:"fund",         size:8  },
-    { id:15, label:"Supernature\n(Real Estate – 100% Adil's)",               type:"investment",   size:5  },
-    { id:16, label:"Supernature Fund",                                       type:"fund",         size:6  }
-  ],
-  links: [
-    { source:7,  target:1,  linkType:"structural" },
-    { source:1,  target:3,  linkType:"structural" },
-    { source:3,  target:4,  linkType:"structural" },
-    { source:3,  target:6,  linkType:"structural" },
-    { source:3,  target:9,  linkType:"structural" },
-    { source:3,  target:11, linkType:"structural" },
-    { source:3,  target:13, linkType:"structural" },
-    { source:4,  target:5,  linkType:"structural" },
-    { source:6,  target:8,  linkType:"structural" },
-    { source:9,  target:10, linkType:"structural" },
-    { source:11, target:12, linkType:"structural" },
-    { source:13, target:14, linkType:"structural" },
-    { source:14, target:16, linkType:"structural" },
-    { source:16, target:15, linkType:"structural" },
-    { source:14, target:11, linkType:"cross" },
-    { source:14, target:3,  linkType:"cross" },
-    { source:14, target:10, linkType:"cross" },
-    { source:14, target:8,  linkType:"cross" }
-  ]
-};
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(devicePixelRatio);
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
 
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping    = true;
+controls.dampingFactor    = 0.08;
+controls.minDistance      = 20;
+controls.maxDistance      = 500;
+controls.autoRotate       = false;
+
+// Lighting
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const dir1 = new THREE.DirectionalLight(0xffffff, 0.8);
+dir1.position.set(80, 120, 60);
+scene.add(dir1);
+const dir2 = new THREE.DirectionalLight(0x6080ff, 0.4);
+dir2.position.set(-80, -40, -60);
+scene.add(dir2);
+const pt = new THREE.PointLight(0x4060ff, 1.5, 300);
+pt.position.set(0, 80, 0);
+scene.add(pt);
+
+// ─── Data ──────────────────────────────────────────────────────────────────
 const COLORS = {
-  trust:          '#f0c040',
-  holdings:       '#7c8dff',
-  'family-office':'#4ecdc4',
-  mgmt:           '#ff6b6b',
-  fund:           '#a855f7',
-  operations:     '#22c55e',
-  investment:     '#94a3b8'
+  'trust':        0xf5c842,
+  'holdings':     0xf5c842,
+  'family-office':0x64a0ff,
+  'mgmt':         0xa06aff,
+  'fund':         0x3bd68a,
+  'operations':   0xff7c4a,
+  'investment':   0xff7c4a
 };
 
-const STORAGE_KEY = 'dhwm-positions-v1';
+function isDormant(label) { return label.includes('DORMANT'); }
 
-// ============================================================
-// RENDERER SETUP
-// ============================================================
-const container = document.getElementById('canvas-container');
+let graphData = null;
+let currentLayout = 'cylinder';
+let currentShape  = 'sphere';
+let nodeObjects   = {};  // id -> mesh
+let edgeObjects   = [];
+let nodePositions = {};  // id -> THREE.Vector3 (final/saved)
+const STORAGE_KEY = 'dhwm-positions-v2';
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.setClearColor(0x060a12, 1);
-container.appendChild(renderer.domElement);
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 1, 6000);
-camera.position.set(0, 0, 800);
-
-// ============================================================
-// ORBIT CONTROLS
-// ============================================================
-function initControls() {
-  if (controls) return; // already set up
-  if (typeof THREE.OrbitControls === 'undefined') {
-    console.warn('OrbitControls not loaded yet, retrying...');
-    setTimeout(initControls, 200);
-    return;
-  }
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.07;
-  controls.screenSpacePanning = true;
-  controls.minDistance = 80;
-  controls.maxDistance = 4000;
-  controls.zoomSpeed = 1.2;
-  controls.rotateSpeed = 0.8;
-  controls.panSpeed = 0.8;
-  controls.mouseButtons = {
-    LEFT:   THREE.MOUSE.ROTATE,
-    MIDDLE: THREE.MOUSE.DOLLY,
-    RIGHT:  THREE.MOUSE.PAN
-  };
-  controls.touches = {
-    ONE: THREE.TOUCH.ROTATE,
-    TWO: THREE.TOUCH.DOLLY_PAN
-  };
-  console.log('OrbitControls initialized ✓');
-}
-let controls = null;
-initControls();
-
-// ============================================================
-// LIGHTING
-// ============================================================
-scene.add(new THREE.AmbientLight(0xffffff, 0.75));
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.45);
-dirLight.position.set(300, 500, 300);
-scene.add(dirLight);
-
-// ============================================================
-// SCENE GROUPS (edges first so nodes render on top)
-// ============================================================
-const edgeGroup = new THREE.Group();
-const nodeGroup = new THREE.Group();
-scene.add(edgeGroup);
-scene.add(nodeGroup);
-
-// ============================================================
-// APP STATE
-// ============================================================
-let graphData    = null;
-let nodeMap      = {};      // id -> { mesh, data, connections:[ids] }
-let edgeObjects  = [];      // [{ line, arrow, srcId, tgtId }]
-let nodeMeshes   = [];      // flat array for raycasting
-let selectedId   = null;
-let currentLayout = 'levelTree';
-
-// ============================================================
-// DRAG STATE
-// ============================================================
-let dragNodeId   = null;
-let isDragging   = false;
-let mouseDownPos = { x: 0, y: 0 };
-let mouseDownTime = 0;
-const dragPlane  = new THREE.Plane();
-const dragOffset = new THREE.Vector3();
-const raycaster  = new THREE.Raycaster();
-const ndcMouse   = new THREE.Vector2();
-
-// ============================================================
-// HELPERS
-// ============================================================
-function hex3(hex) { return new THREE.Color(hex); }
-
-function getNodeId(val) {
-  return typeof val === 'object' ? val.id : val;
-}
-
-function getSavedPositions() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-  catch(e) { return {}; }
-}
-
-function savePositions(positions) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(positions)); }
-  catch(e) {}
-}
-
-// ============================================================
-// BUILD GRAPH
-// ============================================================
-function buildGraph(data) {
+// ─── Load Data ─────────────────────────────────────────────────────────────
+fetch('data.json').then(r=>r.json()).then(data => {
   graphData = data;
-  nodeMap   = {};
+  buildGraph();
+});
+
+// ─── Graph Build ───────────────────────────────────────────────────────────
+function buildGraph() {
+  // Clear scene objects
+  Object.values(nodeObjects).forEach(m => {
+    scene.remove(m);
+    if(m.labelSprite) scene.remove(m.labelSprite);
+  });
+  edgeObjects.forEach(e => scene.remove(e));
+  nodeObjects = {};
   edgeObjects = [];
-  nodeMeshes  = [];
 
-  // Clear groups
-  while (edgeGroup.children.length) edgeGroup.remove(edgeGroup.children[0]);
-  while (nodeGroup.children.length) nodeGroup.remove(nodeGroup.children[0]);
+  const saved = getSavedPositions();
+  const positions = computeLayout(graphData, currentLayout);
 
-  // Build adjacency
-  const adjMap = {};
-  data.nodes.forEach(n => { adjMap[n.id] = []; });
-  data.links.forEach(l => {
-    const s = getNodeId(l.source), t = getNodeId(l.target);
-    if (!adjMap[s]) adjMap[s] = [];
-    if (!adjMap[t]) adjMap[t] = [];
-    if (!adjMap[s].includes(t)) adjMap[s].push(t);
-    if (!adjMap[t].includes(s)) adjMap[t].push(s);
+  // Build node meshes
+  graphData.nodes.forEach(node => {
+    const pos = saved[node.id] || positions[node.id] || new THREE.Vector3(0,0,0);
+    nodePositions[node.id] = pos.clone();
+    const mesh = createNodeMesh(node, pos);
+    nodeObjects[node.id] = mesh;
+    scene.add(mesh);
+    const label = makeLabel(node.label, node.type, isDormant(node.label));
+    label.position.copy(pos);
+    label.position.y += getNodeRadius(node) + 3;
+    mesh.labelSprite = label;
+    scene.add(label);
   });
 
-  // Create node meshes
-  data.nodes.forEach(nodeData => {
-    const lines    = nodeData.label.split('\n');
-    const line1    = lines[0] || '';
-    const line2    = lines[1] || '';
-    const nodeColor = COLORS[nodeData.type] || '#888888';
-
-    const boxW = Math.max(80, line1.length * 7 + 20);
-    const boxH = 22;
-    const boxD = 8;
-
-    const geo = new THREE.BoxGeometry(boxW, boxH, boxD);
-    const mat = new THREE.MeshPhongMaterial({
-      color:            hex3(nodeColor),
-      emissive:         hex3(nodeColor),
-      emissiveIntensity: 0.12,
-      transparent:      true,
-      opacity:          0.88,
-      shininess:        35
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.userData = { id: nodeData.id, type: 'node', baseColor: nodeColor, boxW, boxH };
-
-    // --- SpriteText labels ---
-    if (typeof SpriteText !== 'undefined') {
-      const sp1 = new SpriteText(line1);
-      sp1.color      = '#ffffff';
-      sp1.fontWeight = 'bold';
-      sp1.textHeight = 6.5;
-      sp1.padding    = 0;
-      sp1.backgroundColor = false;
-      sp1.position.set(0, boxH * 0.5 + 7, 0);
-      mesh.add(sp1);
-
-      if (line2) {
-        const sp2 = new SpriteText(line2);
-        sp2.color      = '#aaaaaa';
-        sp2.textHeight = 5;
-        sp2.padding    = 0;
-        sp2.backgroundColor = false;
-        sp2.position.set(0, boxH * 0.5 + 16, 0);
-        mesh.add(sp2);
-      }
-    } else {
-      // Canvas-sprite fallback
-      addCanvasLabel(mesh, line1, line2, boxH);
-    }
-
-    nodeGroup.add(mesh);
-    nodeMeshes.push(mesh);
-
-    nodeMap[nodeData.id] = {
-      mesh,
-      data:        nodeData,
-      connections: adjMap[nodeData.id] || []
-    };
+  // Build edges
+  graphData.links.forEach(link => {
+    const srcPos = nodePositions[link.source];
+    const tgtPos = nodePositions[link.target];
+    if(!srcPos || !tgtPos) return;
+    const isCross = link.linkType === 'cross';
+    const edge = makeTube(srcPos, tgtPos, isCross);
+    scene.add(edge);
+    edgeObjects.push(edge);
   });
-
-  // Apply layout (sets mesh positions)
-  applyLayout(currentLayout, false);
-
-  // Create edges (after positions are set)
-  createEdges();
 }
 
-// ============================================================
-// CANVAS LABEL FALLBACK (no SpriteText)
-// ============================================================
-function addCanvasLabel(mesh, line1, line2, boxH) {
-  const canvas  = document.createElement('canvas');
-  canvas.width  = 512;
-  canvas.height = line2 ? 100 : 60;
-  const ctx = canvas.getContext('2d');
-
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 32px Inter, system-ui, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(line1, 256, 36);
-
-  if (line2) {
-    ctx.fillStyle = '#aaaaaa';
-    ctx.font = '24px Inter, system-ui, sans-serif';
-    ctx.fillText(line2, 256, 72);
-  }
-
-  const tex     = new THREE.CanvasTexture(canvas);
-  const spGeo   = new THREE.PlaneGeometry(canvas.width * 0.18, canvas.height * 0.18);
-  const spMat   = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
-  const spMesh  = new THREE.Mesh(spGeo, spMat);
-  spMesh.position.set(0, boxH * 0.5 + 12, 1);
-  mesh.add(spMesh);
-}
-
-// ============================================================
-// BFS DEPTHS
-// ============================================================
-function getBfsData(data) {
-  // Find structural children map
-  const childrenMap = {};
-  data.nodes.forEach(n => { childrenMap[n.id] = []; });
-  data.links.forEach(l => {
-    if (l.linkType === 'structural') {
-      const s = getNodeId(l.source), t = getNodeId(l.target);
-      if (!childrenMap[s]) childrenMap[s] = [];
-      childrenMap[s].push(t);
-    }
-  });
-
-  // Root = node with no incoming structural edges
-  const hasParent = new Set();
-  data.links.forEach(l => {
-    if (l.linkType === 'structural') hasParent.add(getNodeId(l.target));
-  });
-  let rootId = data.nodes.find(n => !hasParent.has(n.id))?.id ?? data.nodes[0].id;
-
-  // BFS
-  const depths = {};
-  const queue  = [rootId];
-  depths[rootId] = 0;
-  while (queue.length) {
-    const cur = queue.shift();
-    (childrenMap[cur] || []).forEach(child => {
-      if (depths[child] === undefined) {
-        depths[child] = depths[cur] + 1;
-        queue.push(child);
-      }
-    });
-  }
-
-  // Unreachable nodes: assign max + 1
-  const maxD = Math.max(0, ...Object.values(depths));
-  data.nodes.forEach(n => { if (depths[n.id] === undefined) depths[n.id] = maxD + 1; });
-
-  return { depths, rootId, childrenMap };
-}
-
-// ============================================================
-// LAYOUTS
-// ============================================================
-function computeLayout(layoutName, data) {
+// ─── Layout Algorithms ─────────────────────────────────────────────────────
+function computeLayout(data, mode) {
   const positions = {};
+  const nodes = data.nodes;
+  const links = data.links;
 
-  // ---- 1. Level Tree ----
-  if (layoutName === 'levelTree') {
-    const { depths } = getBfsData(data);
-    const maxDepth   = Math.max(0, ...Object.values(depths));
+  // Build adjacency for tree depth
+  const children = {};
+  const parents  = {};
+  nodes.forEach(n => { children[n.id] = []; });
+  links.filter(l=>l.linkType==='structural').forEach(l => {
+    if(children[l.source]) children[l.source].push(l.target);
+    parents[l.target] = l.source;
+  });
 
-    const byDepth = {};
-    data.nodes.forEach(n => {
-      const d = depths[n.id];
-      if (!byDepth[d]) byDepth[d] = [];
-      byDepth[d].push(n.id);
+  // Find roots
+  const allTargets = new Set(links.filter(l=>l.linkType==='structural').map(l=>l.target));
+  const roots = nodes.filter(n => !allTargets.has(n.id)).map(n=>n.id);
+
+  // BFS to assign depths
+  const depth = {};
+  const depthGroups = {};
+  const queue = [...roots];
+  roots.forEach(r => { depth[r] = 0; });
+  while(queue.length) {
+    const id = queue.shift();
+    const d = depth[id];
+    if(!depthGroups[d]) depthGroups[d] = [];
+    depthGroups[d].push(id);
+    (children[id]||[]).forEach(c => {
+      if(depth[c] === undefined) {
+        depth[c] = d + 1;
+        queue.push(c);
+      }
     });
+  }
+  const maxDepth = Math.max(...Object.values(depth));
 
-    const LEVEL_H  = 150;
-    const H_GAP    = 170;
+  if(mode === 'cylinder') {
+    // Cylindrical: each depth is a circle, stacked top-to-bottom
+    const LEVEL_HEIGHT = 28;
+    const BASE_RADIUS  = 22;
+    const RADIUS_SCALE = 9;
 
-    Object.entries(byDepth).forEach(([dStr, ids]) => {
-      const d     = parseInt(dStr);
-      const count = ids.length;
-      const y     = (maxDepth - d) * LEVEL_H;
-      ids.forEach((nid, i) => {
-        positions[nid] = { x: (i - (count - 1) / 2) * H_GAP, y, z: 0 };
+    Object.keys(depthGroups).forEach(d => {
+      const lvl = parseInt(d);
+      const ids = depthGroups[d];
+      const y   = (maxDepth - lvl) * LEVEL_HEIGHT - (maxDepth * LEVEL_HEIGHT / 2);
+      const r   = lvl === 0 ? 0 : BASE_RADIUS + RADIUS_SCALE * Math.sqrt(ids.length);
+
+      ids.forEach((id, i) => {
+        // Group by parent for visual clustering
+        const angle = (2 * Math.PI * i / ids.length) - Math.PI/2;
+        const x = r * Math.cos(angle);
+        const z = r * Math.sin(angle);
+        positions[id] = new THREE.Vector3(x, y, z);
       });
     });
 
-  // ---- 2. Both Sides ----
-  } else if (layoutName === 'bothSides') {
-    const { depths } = getBfsData(data);
-    const maxDepth   = Math.max(0, ...Object.values(depths));
-
-    const byDepth = {};
-    data.nodes.forEach(n => {
-      const d = depths[n.id];
-      if (!byDepth[d]) byDepth[d] = [];
-      byDepth[d].push(n.id);
-    });
-
-    const LEVEL_H = 145;
-    const H_GAP   = 185;
-
-    Object.entries(byDepth).forEach(([dStr, ids]) => {
-      const d     = parseInt(dStr);
-      const count = ids.length;
-      const y     = (maxDepth / 2 - d) * LEVEL_H;
-
-      ids.forEach((nid, i) => {
-        let x, z;
-        if (count === 1) {
-          x = 0; z = 0;
-        } else {
-          const side = (i % 2 === 0) ? 1 : -1;
-          const step = Math.ceil((i + 1) / 2);
-          x = side * step * H_GAP * 0.6;
-          z = (i % 4 < 2) ? 35 : -35;
-        }
-        positions[nid] = { x, y, z };
+  } else if(mode === 'radial') {
+    // Radial 3D: nodes orbit around centre by depth
+    const LEVEL_R = 30;
+    Object.keys(depthGroups).forEach(d => {
+      const lvl = parseInt(d);
+      const ids = depthGroups[d];
+      const r   = lvl * LEVEL_R;
+      ids.forEach((id, i) => {
+        const theta = (2 * Math.PI * i / Math.max(ids.length,1));
+        const phi   = (Math.PI * (lvl+1)) / (maxDepth+2);
+        positions[id] = new THREE.Vector3(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.cos(phi),
+          r * Math.sin(phi) * Math.sin(theta)
+        );
       });
     });
 
-  // ---- 3. Radial 3D ----
-  } else if (layoutName === 'radial3d') {
-    const { depths } = getBfsData(data);
-
-    const byDepth = {};
-    data.nodes.forEach(n => {
-      const d = depths[n.id];
-      if (!byDepth[d]) byDepth[d] = [];
-      byDepth[d].push(n.id);
-    });
-
-    const RADII  = [0,   200, 390, 540, 670];
-    const YLEVS  = [200, 95,   0, -100, -200];
-
-    Object.entries(byDepth).forEach(([dStr, ids]) => {
-      const d     = parseInt(dStr);
-      const count = ids.length;
-      const r     = RADII[Math.min(d, RADII.length - 1)];
-      const y     = YLEVS[Math.min(d, YLEVS.length - 1)];
-
-      ids.forEach((nid, i) => {
-        if (d === 0) {
-          positions[nid] = { x: 0, y, z: 0 };
-        } else {
-          const angle = (2 * Math.PI * i) / count - Math.PI / 2;
-          positions[nid] = { x: Math.cos(angle) * r, y, z: Math.sin(angle) * r };
-        }
+  } else if(mode === 'cascade') {
+    // Cascading waterfall: root at top, children fan out below and offset
+    const LEVEL_HEIGHT = 30;
+    const SPREAD = 25;
+    Object.keys(depthGroups).forEach(d => {
+      const lvl = parseInt(d);
+      const ids = depthGroups[d];
+      const y   = -lvl * LEVEL_HEIGHT;
+      const totalW = (ids.length - 1) * SPREAD;
+      ids.forEach((id, i) => {
+        const x = -totalW/2 + i*SPREAD;
+        const z = lvl % 2 === 0 ? 0 : (Math.random()-0.5)*10;
+        positions[id] = new THREE.Vector3(x, y, z);
       });
     });
 
-  // ---- 4. Spherical ----
-  } else if (layoutName === 'spherical') {
-    const n           = data.nodes.length;
-    const R           = 290;
-    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-
-    data.nodes.forEach((node, i) => {
-      const yNorm      = 1 - (2 * i + 1) / n;
-      const y          = yNorm * R;
-      const radiusAtY  = Math.sqrt(Math.max(0, R * R - y * y));
-      const theta      = goldenAngle * i;
-      positions[node.id] = { x: Math.cos(theta) * radiusAtY, y, z: Math.sin(theta) * radiusAtY };
+  } else if(mode === 'sphere') {
+    // Globe: nodes on surface of expanding sphere by depth
+    const R = 80;
+    nodes.forEach((node, i) => {
+      const phi   = Math.acos(1 - 2*(i+0.5)/nodes.length);
+      const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+      const r = 20 + (depth[node.id]||0) * 12;
+      positions[node.id] = new THREE.Vector3(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
     });
   }
 
   return positions;
 }
 
-function applyLayout(layoutName, resetCamera) {
-  currentLayout = layoutName;
-  if (!graphData) return;
-
-  const positions      = computeLayout(layoutName, graphData);
-  const savedPositions = getSavedPositions();
-
-  graphData.nodes.forEach(n => {
-    const obj = nodeMap[n.id];
-    if (!obj) return;
-
-    if (savedPositions[n.id]) {
-      const sp = savedPositions[n.id];
-      obj.mesh.position.set(sp.x, sp.y, sp.z);
-    } else if (positions[n.id]) {
-      const p = positions[n.id];
-      obj.mesh.position.set(p.x, p.y, p.z);
-    }
-  });
-
-  if (resetCamera !== false) setCameraForLayout(layoutName);
-  updateEdges();
+// ─── Node Mesh Factory ─────────────────────────────────────────────────────
+function getNodeRadius(node) {
+  return Math.max(3, (node.size||6) * 0.55);
 }
 
-function setCameraForLayout(layoutName) {
-  if (!controls) return;
-  const presets = {
-    levelTree: { pos: [0, 0, 820],  target: [0, 0, 0] },
-    bothSides: { pos: [0, 0, 950],  target: [0, 0, 0] },
-    radial3d:  { pos: [0, 320, 620], target: [0, 50, 0] },
-    spherical: { pos: [0, 0, 660],  target: [0, 0, 0] }
-  };
-  const p = presets[layoutName] || presets.levelTree;
-  camera.position.set(...p.pos);
-  controls.target.set(...p.target);
+function createNodeMesh(node, pos) {
+  const r     = getNodeRadius(node);
+  const color = isDormant(node.label) ? 0x555566 : (COLORS[node.type] || 0x888888);
+  const geo   = makeGeometry(currentShape, r);
+  const mat   = new THREE.MeshPhongMaterial({
+    color,
+    emissive: new THREE.Color(color).multiplyScalar(0.18),
+    shininess: 80,
+    transparent: true,
+    opacity: isDormant(node.label) ? 0.5 : 0.92
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(pos);
+  mesh.userData = { nodeId: node.id, node, origColor: color };
+  return mesh;
+}
+
+function makeGeometry(shape, r) {
+  switch(shape) {
+    case 'box':      return new THREE.BoxGeometry(r*1.6, r*1.6, r*1.6);
+    case 'cylinder': return new THREE.CylinderGeometry(r*0.7, r*0.9, r*2, 12);
+    case 'cone':     return new THREE.ConeGeometry(r, r*2.2, 10);
+    case 'diamond':  return new THREE.OctahedronGeometry(r*1.1);
+    case 'torus':    return new THREE.TorusGeometry(r*0.9, r*0.35, 10, 20);
+    default:         return new THREE.SphereGeometry(r, 18, 14);
+  }
+}
+
+// ─── Labels ────────────────────────────────────────────────────────────────
+function makeLabel(text, type, dormant) {
+  const lines   = text.split('\n');
+  const w=512, h=160;
+  const canvas  = document.createElement('canvas');
+  canvas.width  = w; canvas.height = h;
+  const ctx     = canvas.getContext('2d');
+  ctx.clearRect(0,0,w,h);
+
+  // Background pill
+  ctx.fillStyle = dormant ? 'rgba(20,20,30,0.7)' : 'rgba(10,12,24,0.82)';
+  const rx=14;
+  ctx.beginPath();
+  ctx.moveTo(rx,0); ctx.lineTo(w-rx,0);
+  ctx.arcTo(w,0,w,h,rx); ctx.lineTo(w,h-rx);
+  ctx.arcTo(w,h,0,h,rx); ctx.lineTo(rx,h);
+  ctx.arcTo(0,h,0,0,rx); ctx.lineTo(0,rx);
+  ctx.arcTo(0,0,w,0,rx); ctx.closePath();
+  ctx.fill();
+
+  const color = dormant ? '#777' : (COLORS[type] ? '#'+COLORS[type].toString(16).padStart(6,'0') : '#aaa');
+  const fontSize = lines.length > 2 ? 22 : 26;
+  ctx.font = `bold ${fontSize}px Segoe UI`;
+  ctx.textAlign = 'center';
+  ctx.fillStyle = color;
+  const lineH = fontSize + 6;
+  const startY = (h - lines.length * lineH) / 2 + fontSize;
+  lines.forEach((ln, i) => {
+    ctx.fillText(ln, w/2, startY + i*lineH);
+  });
+
+  const tex = new THREE.CanvasTexture(canvas);
+  const mat = new THREE.SpriteMaterial({ map:tex, transparent:true, depthWrite:false });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(22, 7, 1);
+  return sprite;
+}
+
+// ─── Tube Edges ────────────────────────────────────────────────────────────
+function makeTube(src, tgt, cross) {
+  // Curved path
+  const mid = src.clone().lerp(tgt, 0.5);
+  mid.y += cross ? 15 : 8;
+  const curve = new THREE.QuadraticBezierCurve3(src, mid, tgt);
+  const geo   = new THREE.TubeGeometry(curve, 16, cross ? 0.18 : 0.28, 6, false);
+  const mat   = new THREE.MeshBasicMaterial({
+    color: cross ? 0x4466aa : 0x334466,
+    transparent: true,
+    opacity: cross ? 0.35 : 0.55
+  });
+  return new THREE.Mesh(geo, mat);
+}
+
+// ─── Interaction ───────────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const mouse     = new THREE.Vector2();
+let   hoveredId = null;
+let   dragging  = null;
+let   dragOffset = new THREE.Vector3();
+let   isDragging = false;
+const dragPlane  = new THREE.Plane();
+
+renderer.domElement.addEventListener('mousemove', e => {
+  mouse.x =  (e.clientX/innerWidth)*2  - 1;
+  mouse.y = -(e.clientY/innerHeight)*2 + 1;
+
+  if(dragging) {
+    isDragging = true;
+    raycaster.setFromCamera(mouse, camera);
+    const pt = new THREE.Vector3();
+    raycaster.ray.intersectPlane(dragPlane, pt);
+    dragging.mesh.position.copy(pt.clone().add(dragOffset));
+    dragging.mesh.labelSprite.position.copy(dragging.mesh.position.clone().setY(
+      dragging.mesh.position.y + getNodeRadius(dragging.node) + 3
+    ));
+    nodePositions[dragging.node.id] = dragging.mesh.position.clone();
+    rebuildEdges();
+    return;
+  }
+
+  // Hover
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(Object.values(nodeObjects));
+  const tip  = document.getElementById('tooltip');
+  if(hits.length) {
+    const m = hits[0].object;
+    const n = m.userData.node;
+    if(!n) return;
+    tip.innerHTML = `<b style="color:#64a0ff">${n.label.replace(/\n/g,'<br>')}</b><br>
+      <span style="color:#aaa;font-size:11px">Type: ${n.type}</span>`;
+    tip.style.display = 'block';
+    tip.style.left = (e.clientX+14)+'px';
+    tip.style.top  = (e.clientY-10)+'px';
+    if(hoveredId !== n.id) {
+      if(hoveredId!==null && nodeObjects[hoveredId])
+        nodeObjects[hoveredId].material.emissive.set(
+          new THREE.Color(nodeObjects[hoveredId].userData.origColor).multiplyScalar(0.18));
+      m.material.emissive.set(new THREE.Color(m.userData.origColor).multiplyScalar(0.55));
+      hoveredId = n.id;
+    }
+  } else {
+    tip.style.display = 'none';
+    if(hoveredId!==null && nodeObjects[hoveredId])
+      nodeObjects[hoveredId].material.emissive.set(
+        new THREE.Color(nodeObjects[hoveredId].userData.origColor).multiplyScalar(0.18));
+    hoveredId = null;
+  }
+});
+
+renderer.domElement.addEventListener('mousedown', e => {
+  if(e.button !== 0) return;
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObjects(Object.values(nodeObjects));
+  if(hits.length) {
+    const m = hits[0].object;
+    if(!m.userData.node) return;
+    e.stopPropagation();
+    controls.enabled = false;
+    dragging = { mesh: m, node: m.userData.node };
+    isDragging = false;
+    // Set drag plane perpendicular to camera
+    dragPlane.setFromNormalAndCoplanarPoint(
+      camera.getWorldDirection(new THREE.Vector3()).negate(),
+      m.position
+    );
+    raycaster.ray.intersectPlane(dragPlane, dragOffset);
+    dragOffset.sub(m.position);
+  }
+});
+
+renderer.domElement.addEventListener('mouseup', () => {
+  if(dragging && isDragging) savePositions();
+  dragging   = null;
+  isDragging = false;
+  controls.enabled = true;
+});
+
+// ─── Edge Rebuild ──────────────────────────────────────────────────────────
+function rebuildEdges() {
+  edgeObjects.forEach(e => scene.remove(e));
+  edgeObjects = [];
+  graphData.links.forEach(link => {
+    const src = nodePositions[link.source];
+    const tgt = nodePositions[link.target];
+    if(!src||!tgt) return;
+    const e = makeTube(src, tgt, link.linkType==='cross');
+    scene.add(e);
+    edgeObjects.push(e);
+  });
+}
+
+// ─── Position Persistence ─────────────────────────────────────────────────
+function savePositions() {
+  const saved = {};
+  Object.entries(nodePositions).forEach(([id,v]) => {
+    saved[id] = { x:v.x, y:v.y, z:v.z };
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+  const ind = document.getElementById('save-indicator');
+  ind.style.display = 'block';
+  setTimeout(() => { ind.style.display='none'; }, 2000);
+}
+
+function getSavedPositions() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return {};
+    const parsed = JSON.parse(raw);
+    const out = {};
+    Object.entries(parsed).forEach(([id,v]) => {
+      out[parseInt(id)] = new THREE.Vector3(v.x, v.y, v.z);
+    });
+    return out;
+  } catch(e) { return {}; }
+}
+
+function clearSaved() {
+  localStorage.removeItem(STORAGE_KEY);
+  buildGraph();
+}
+
+// ─── Controls ──────────────────────────────────────────────────────────────
+function setLayout(mode) {
+  currentLayout = mode;
+  localStorage.removeItem(STORAGE_KEY);
+  document.querySelectorAll('[id^="btn-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-'+mode).classList.add('active');
+  buildGraph();
+  resetCamera();
+}
+
+function setShape(shape) {
+  currentShape = shape;
+  document.querySelectorAll('[id^="shape-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('shape-'+shape).classList.add('active');
+  // Rebuild geometry for all nodes
+  graphData.nodes.forEach(node => {
+    const m = nodeObjects[node.id];
+    if(!m) return;
+    m.geometry.dispose();
+    m.geometry = makeGeometry(shape, getNodeRadius(node));
+  });
+}
+
+function resetCamera() {
+  if(currentLayout === 'cylinder') {
+    camera.position.set(0, 80, 150);
+  } else if(currentLayout === 'radial') {
+    camera.position.set(80, 60, 120);
+  } else if(currentLayout === 'sphere') {
+    camera.position.set(0, 0, 200);
+  } else {
+    camera.position.set(0, 60, 180);
+  }
+  camera.lookAt(0, 0, 0);
+  controls.target.set(0, 0, 0);
   controls.update();
 }
 
-// ============================================================
-// EDGES
-// ============================================================
-function createEdges() {
-  while (edgeGroup.children.length) edgeGroup.remove(edgeGroup.children[0]);
-  edgeObjects = [];
-  if (!graphData) return;
+// ─── Grid Floor ────────────────────────────────────────────────────────────
+const gridHelper = new THREE.GridHelper(400, 40, 0x1a2040, 0x111828);
+gridHelper.position.y = -60;
+scene.add(gridHelper);
 
-  graphData.links.forEach(link => {
-    const srcId = getNodeId(link.source);
-    const tgtId = getNodeId(link.target);
-    const src   = nodeMap[srcId];
-    const tgt   = nodeMap[tgtId];
-    if (!src || !tgt) return;
-
-    const isStruct = link.linkType === 'structural';
-    const lineColor = isStruct ? 0xffffff : 0xff6b6b;
-    const lineAlpha = isStruct ? 0.40    : 0.35;
-
-    // Line
-    const pts = [src.mesh.position.clone(), tgt.mesh.position.clone()];
-    const geo = new THREE.BufferGeometry().setFromPoints(pts);
-    const mat = new THREE.LineBasicMaterial({ color: lineColor, transparent: true, opacity: lineAlpha });
-    const line = new THREE.Line(geo, mat);
-    edgeGroup.add(line);
-
-    // Arrow cone at target
-    const dir       = new THREE.Vector3().subVectors(tgt.mesh.position, src.mesh.position).normalize();
-    const arrowGeo  = new THREE.ConeGeometry(3.5, 11, 6);
-    const arrowMat  = new THREE.MeshBasicMaterial({ color: lineColor, transparent: true, opacity: isStruct ? 0.5 : 0.45 });
-    const arrow     = new THREE.Mesh(arrowGeo, arrowMat);
-    arrow.position.copy(tgt.mesh.position.clone().sub(dir.clone().multiplyScalar(18)));
-    arrow.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
-    edgeGroup.add(arrow);
-
-    edgeObjects.push({ line, arrow, srcId, tgtId });
-  });
-}
-
-function updateEdges() {
-  edgeObjects.forEach(({ line, arrow, srcId, tgtId }) => {
-    const src = nodeMap[srcId];
-    const tgt = nodeMap[tgtId];
-    if (!src || !tgt) return;
-
-    const sp = src.mesh.position;
-    const tp = tgt.mesh.position;
-
-    // Update line geometry
-    const attr = line.geometry.attributes.position;
-    attr.setXYZ(0, sp.x, sp.y, sp.z);
-    attr.setXYZ(1, tp.x, tp.y, tp.z);
-    attr.needsUpdate = true;
-    line.geometry.computeBoundingSphere();
-
-    // Update arrow
-    const dir = new THREE.Vector3().subVectors(tp, sp).normalize();
-    arrow.position.copy(tp.clone().sub(dir.clone().multiplyScalar(18)));
-    if (dir.lengthSq() > 0.001) {
-      arrow.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
-    }
-  });
-}
-
-// ============================================================
-// SELECTION
-// ============================================================
-function selectNode(id) {
-  // Deselect previous
-  if (selectedId !== null && nodeMap[selectedId]) {
-    const prev = nodeMap[selectedId].mesh;
-    prev.material.emissiveIntensity = 0.12;
-    prev.scale.set(1, 1, 1);
-  }
-
-  selectedId = id;
-
-  if (id !== null && nodeMap[id]) {
-    const mesh = nodeMap[id].mesh;
-    mesh.material.emissiveIntensity = 0.55;
-    mesh.scale.set(1.1, 1.1, 1.1);
-    showInfoPanel(id);
-  } else {
-    document.getElementById('info-panel').style.display = 'none';
-  }
-}
-
-function showInfoPanel(id) {
-  const obj  = nodeMap[id];
-  if (!obj) return;
-  const d    = obj.data;
-  const lbls = d.label.split('\n');
-
-  document.getElementById('infoName').textContent = lbls.join(' ');
-  document.getElementById('infoType').textContent = d.type.replace(/-/g, ' ');
-
-  const connsDiv = document.getElementById('infoConns');
-  connsDiv.innerHTML = '';
-  obj.connections.forEach(cid => {
-    const cn = nodeMap[cid];
-    if (!cn) return;
-    const div = document.createElement('div');
-    div.className = 'info-conn-item';
-    div.textContent = '→ ' + cn.data.label.split('\n')[0];
-    connsDiv.appendChild(div);
-  });
-
-  document.getElementById('info-panel').style.display = 'block';
-}
-
-// ============================================================
-// SEARCH
-// ============================================================
-function applySearch(query) {
-  if (!graphData) return;
-  const q = query.toLowerCase().trim();
-
-  graphData.nodes.forEach(n => {
-    const obj = nodeMap[n.id];
-    if (!obj) return;
-    const mat = obj.mesh.material;
-
-    if (!q) {
-      mat.opacity = 0.88;
-      if (n.id !== selectedId) mat.emissiveIntensity = 0.12;
-    } else {
-      const hit = n.label.toLowerCase().includes(q) || n.type.toLowerCase().includes(q);
-      mat.opacity           = hit ? 1.0 : 0.18;
-      mat.emissiveIntensity = hit ? 0.4 : 0.03;
-    }
-  });
-}
-
-// ============================================================
-// MOUSE HELPERS
-// ============================================================
-function getMouseNDC(e) {
-  const rect = renderer.domElement.getBoundingClientRect();
-  ndcMouse.set(
-    ((e.clientX - rect.left) / rect.width)  *  2 - 1,
-    ((e.clientY - rect.top)  / rect.height) * -2 + 1
-  );
-  return ndcMouse;
-}
-
-function hitTestNodes(e) {
-  raycaster.setFromCamera(getMouseNDC(e), camera);
-  const hits = raycaster.intersectObjects(nodeMeshes);
-  return hits.length > 0 ? hits[0].object : null;
-}
-
-// ============================================================
-// MOUSE EVENTS
-// ============================================================
-renderer.domElement.addEventListener('mousedown', e => {
-  if (e.button !== 0) return;
-  mouseDownPos  = { x: e.clientX, y: e.clientY };
-  mouseDownTime = Date.now();
-
-  const hitMesh = hitTestNodes(e);
-  if (hitMesh) {
-    dragNodeId = hitMesh.userData.id;
-    isDragging = false;
-
-    // Set drag plane at node's Y
-    dragPlane.setFromNormalAndCoplanarPoint(
-      new THREE.Vector3(0, 1, 0),
-      hitMesh.position
-    );
-
-    // Compute offset
-    raycaster.setFromCamera(getMouseNDC(e), camera);
-    const pt = new THREE.Vector3();
-    raycaster.ray.intersectPlane(dragPlane, pt);
-    dragOffset.subVectors(hitMesh.position, pt);
-
-    if (controls) controls.enabled = false;
-  }
-});
-
-renderer.domElement.addEventListener('mousemove', e => {
-  if (dragNodeId === null) return;
-
-  const dx = e.clientX - mouseDownPos.x;
-  const dy = e.clientY - mouseDownPos.y;
-  if (!isDragging && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) isDragging = true;
-  if (!isDragging) return;
-
-  raycaster.setFromCamera(getMouseNDC(e), camera);
-  const pt = new THREE.Vector3();
-  if (raycaster.ray.intersectPlane(dragPlane, pt)) {
-    const obj = nodeMap[dragNodeId];
-    if (obj) {
-      const newPos = pt.add(dragOffset);
-      obj.mesh.position.set(newPos.x, obj.mesh.position.y, newPos.z);
-      updateEdges();
-    }
-  }
-});
-
-renderer.domElement.addEventListener('mouseup', e => {
-  if (dragNodeId !== null && isDragging) {
-    // Persist position
-    const saved = getSavedPositions();
-    const obj   = nodeMap[dragNodeId];
-    if (obj) {
-      const p = obj.mesh.position;
-      saved[dragNodeId] = { x: p.x, y: p.y, z: p.z };
-      savePositions(saved);
-    }
-  }
-  if (controls) controls.enabled = true;
-  dragNodeId = null;
-  isDragging = false;
-});
-
-renderer.domElement.addEventListener('click', e => {
-  const dx = e.clientX - mouseDownPos.x;
-  const dy = e.clientY - mouseDownPos.y;
-  if (Math.abs(dx) > 5 || Math.abs(dy) > 5) return;     // was a drag
-  if (Date.now() - mouseDownTime > 350) return;            // too slow
-
-  const hitMesh = hitTestNodes(e);
-  if (hitMesh) {
-    const id = hitMesh.userData.id;
-    selectNode(id === selectedId ? null : id);
-  } else {
-    selectNode(null);
-  }
-});
-
-// ============================================================
-// TOOLBAR EVENTS
-// ============================================================
-document.querySelectorAll('.layout-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyLayout(btn.dataset.layout, true);
-    createEdges();
-  });
-});
-
-document.getElementById('resetBtn').addEventListener('click', () => {
-  localStorage.removeItem(STORAGE_KEY);
-  applyLayout(currentLayout, true);
-  createEdges();
-});
-
-document.getElementById('search').addEventListener('input', e => applySearch(e.target.value));
-
-document.getElementById('infoClose').addEventListener('click', () => selectNode(null));
-
-// ============================================================
-// RESIZE
-// ============================================================
-window.addEventListener('resize', () => {
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-});
-
-// ============================================================
-// RENDER LOOP
-// ============================================================
+// ─── Animate ───────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
-  if (controls) controls.update();
+  controls.update();
+  // Gentle node pulse
+  const t = Date.now() * 0.001;
+  Object.values(nodeObjects).forEach((m,i) => {
+    if(!dragging || dragging.mesh !== m) {
+      const s = 1 + 0.025 * Math.sin(t*1.2 + i*0.7);
+      m.scale.setScalar(s);
+    }
+  });
   renderer.render(scene, camera);
 }
 animate();
 
-// ============================================================
-// LOAD DATA
-// ============================================================
-async function loadData() {
-  try {
-    const resp = await fetch('data.json');
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    buildGraph(data);
-  } catch(err) {
-    console.log('Falling back to DEFAULTS:', err.message);
-    buildGraph(DEFAULTS);
-  }
-}
-
-// Ensure OrbitControls is initialized even if CDN loaded late
-window.addEventListener('load', () => { initControls(); });
-loadData();
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
 </script>
 </body>
 </html>
