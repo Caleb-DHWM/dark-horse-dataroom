@@ -119,10 +119,21 @@
 
 <div id="status-bar" id="statusBar"></div>
 
-<!-- THREE.JS -->
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<!-- THREE.JS — r146 is last version with examples/js/ (non-module OrbitControls) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://unpkg.com/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
+<script>
+// Hard fallback: inline OrbitControls if CDN fails
+(function() {
+  if (typeof THREE !== 'undefined' && !THREE.OrbitControls) {
+    // Minimal OrbitControls shim — fetched from same jsdelivr CDN
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 
 <script>
 'use strict';
@@ -201,22 +212,35 @@ camera.position.set(0, 0, 800);
 // ============================================================
 // ORBIT CONTROLS
 // ============================================================
-let controls = null;
-if (typeof THREE.OrbitControls !== 'undefined') {
+function initControls() {
+  if (controls) return; // already set up
+  if (typeof THREE.OrbitControls === 'undefined') {
+    console.warn('OrbitControls not loaded yet, retrying...');
+    setTimeout(initControls, 200);
+    return;
+  }
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.07;
   controls.screenSpacePanning = true;
   controls.minDistance = 80;
-  controls.maxDistance = 3000;
+  controls.maxDistance = 4000;
+  controls.zoomSpeed = 1.2;
+  controls.rotateSpeed = 0.8;
+  controls.panSpeed = 0.8;
   controls.mouseButtons = {
     LEFT:   THREE.MOUSE.ROTATE,
     MIDDLE: THREE.MOUSE.DOLLY,
     RIGHT:  THREE.MOUSE.PAN
   };
-} else {
-  console.warn('THREE.OrbitControls not available');
+  controls.touches = {
+    ONE: THREE.TOUCH.ROTATE,
+    TWO: THREE.TOUCH.DOLLY_PAN
+  };
+  console.log('OrbitControls initialized ✓');
 }
+let controls = null;
+initControls();
 
 // ============================================================
 // LIGHTING
@@ -874,6 +898,8 @@ async function loadData() {
   }
 }
 
+// Ensure OrbitControls is initialized even if CDN loaded late
+window.addEventListener('load', () => { initControls(); });
 loadData();
 </script>
 </body>
