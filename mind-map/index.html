@@ -138,6 +138,7 @@
   <button class="tb-btn danger" id="btn-del-sel" onclick="deleteSelected()" style="display:none">✕ Delete</button>
   <button class="tb-btn" onclick="openExport()">⬇ Export</button>
   <button class="tb-btn" onclick="doReset()" title="Reset to original data">↺ Reset</button>
+  <button class="tb-btn" onclick="clearPositions()" title="Clear all saved drag positions — re-run layout">⊡ Clear Positions</button>
   <span class="divider"></span>
   <span style="font-size:11px;color:rgba(255,255,255,0.35);flex-shrink:0;">Layout:</span>
   <div id="layout-btns" style="display:flex;gap:4px;">
@@ -323,6 +324,13 @@ function doReset() {
   toast('Reset to defaults');
 }
 
+function clearPositions() {
+  DATA.nodes.forEach(n => { delete n._fx; delete n._fy; delete n._fz; });
+  saveData();
+  rebuild();
+  toast('Saved positions cleared — layout re-applied');
+}
+
 let DATA = loadData();
 
 // ═══════════════════════════════════════════════════
@@ -406,11 +414,16 @@ function layoutTree(nodes, links) {
   const vals = Object.values(xSlot);
   const mid = vals.length ? (Math.min(...vals) + Math.max(...vals)) / 2 : 0;
 
-  // Pin positions (fx/fy/fz override force layout)
+  // Pin positions — respect user-dragged positions if saved
   nodes.forEach(n => {
-    n.fx = (xSlot[n.id] - mid) * H;
-    n.fy = (maxD - depth[n.id]) * V;  // Trust at top (+Y), leaves at bottom
-    n.fz = (Math.random() * 2 - 1) * ZS;
+    const dn = DATA.nodes.find(d => d.id === n.id);
+    if (dn && dn._fx !== undefined) {
+      n.fx = dn._fx; n.fy = dn._fy; n.fz = dn._fz;
+    } else {
+      n.fx = (xSlot[n.id] - mid) * H;
+      n.fy = (maxD - depth[n.id]) * V;
+      n.fz = (Math.random() * 2 - 1) * ZS;
+    }
   });
 }
 
@@ -447,15 +460,20 @@ function layoutCylinder(nodes, links) {
   const byDepth = {};
   nodes.forEach(n => { const d = depth[n.id]; if (!byDepth[d]) byDepth[d] = []; byDepth[d].push(n); });
   nodes.forEach(n => {
-    const d = depth[n.id];
-    const nodesAtDepth = byDepth[d];
-    const idx = nodesAtDepth.indexOf(n);
-    const count = nodesAtDepth.length;
-    const radius = d * 90;
-    const angle = (2 * Math.PI * idx) / count;
-    n.fx = d === 0 ? 0 : radius * Math.cos(angle);
-    n.fy = (maxD - d) * V;
-    n.fz = d === 0 ? 0 : radius * Math.sin(angle);
+    const dn = DATA.nodes.find(d => d.id === n.id);
+    if (dn && dn._fx !== undefined) {
+      n.fx = dn._fx; n.fy = dn._fy; n.fz = dn._fz;
+    } else {
+      const d = depth[n.id];
+      const nodesAtDepth = byDepth[d];
+      const idx = nodesAtDepth.indexOf(n);
+      const count = nodesAtDepth.length;
+      const radius = d * 90;
+      const angle = (2 * Math.PI * idx) / count;
+      n.fx = d === 0 ? 0 : radius * Math.cos(angle);
+      n.fy = (maxD - d) * V;
+      n.fz = d === 0 ? 0 : radius * Math.sin(angle);
+    }
   });
 }
 
@@ -640,6 +658,7 @@ function buildGraph() {
     .linkLabel(l => l.label || '')
     .onNodeClick(onNodeClick)
     .onBackgroundClick(onBgClick)
+    .onNodeDragEnd(onNodeDragEnd)
     .d3AlphaDecay(0.9)   // fast decay — positions are pinned
     .d3VelocityDecay(0.9);
 
@@ -716,12 +735,8 @@ function onNodeClick(node) {
   selectedId = node.id;
   document.getElementById('btn-del-sel').style.display = '';
   showPanel(node.id);
-  rebuild();
-  const d = 140;
-  Graph.cameraPosition(
-    { x: node.x + d * 0.25, y: node.y + d * 0.15, z: node.z + d },
-    { x: node.x, y: node.y, z: node.z }, 650
-  );
+  // Refresh selection highlight only — no layout reset, no camera jump
+  refreshNodeColors();
 }
 
 function onBgClick() {
@@ -729,7 +744,30 @@ function onBgClick() {
   selectedId = null;
   document.getElementById('btn-del-sel').style.display = 'none';
   closePanel();
-  rebuild();
+  // Refresh selection highlight only — no layout reset
+  refreshNodeColors();
+}
+
+// Update node visuals (selection glow) without re-running layout
+function refreshNodeColors() {
+  if (!Graph) return;
+  Graph.nodeThreeObject(node => makeNode(node));
+}
+
+// Drag end: pin the node at its new position and persist
+function onNodeDragEnd(node) {
+  node.fx = node.x;
+  node.fy = node.y;
+  node.fz = node.z;
+  // Persist position into DATA
+  const dn = DATA.nodes.find(n => n.id === node.id);
+  if (dn) {
+    dn._fx = node.x;
+    dn._fy = node.y;
+    dn._fz = node.z;
+    saveData();
+  }
+  toast('Position saved');
 }
 
 function deleteSelected() { if (selectedId) deleteSelectedNode(); }
