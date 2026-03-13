@@ -2,148 +2,265 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Dark Horse — Entity Map</title>
 <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.5/dist/3d-force-graph.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #050510; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; overflow: hidden; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #03030f;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  overflow: hidden;
+  color: white;
+}
+
 #graph { width: 100vw; height: 100vh; }
 
-/* Controls */
+/* ─── MAIN CONTROLS PANEL ─── */
 #controls {
-  position: fixed; top: 20px; left: 20px; z-index: 100;
-  background: rgba(10,10,30,0.85); backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-  padding: 16px; color: white; min-width: 200px;
+  position: fixed;
+  top: 20px; left: 20px;
+  z-index: 200;
+  background: rgba(8, 8, 24, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  padding: 18px 16px;
+  width: 220px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
 }
-#controls h2 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
-#controls h1 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 16px; }
-.btn { display: block; width: 100%; padding: 8px 12px; margin-bottom: 8px;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 8px; color: white; cursor: pointer; font-size: 13px;
-  transition: all 0.2s; text-align: left; }
-.btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
-.btn.active { background: rgba(74,158,255,0.2); border-color: rgba(74,158,255,0.5); color: #4A9EFF; }
 
-/* Legend */
-#legend { position: fixed; bottom: 20px; left: 20px; z-index: 100;
-  background: rgba(10,10,30,0.85); backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px; }
-.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; color: #aaa; }
+#controls .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #FFD700; margin-bottom: 4px; opacity: 0.8; }
+#controls h1 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 16px; letter-spacing: -0.3px; }
+
+.section-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #555; margin: 12px 0 7px;
+}
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+
+.btn {
+  flex: 1 1 calc(50% - 3px);
+  padding: 7px 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.18s ease;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+}
+.btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); color: #fff; }
+.btn.active {
+  background: rgba(74,158,255,0.18);
+  border-color: rgba(74,158,255,0.45);
+  color: #6eb8ff;
+}
+.btn.full { flex: 1 1 100%; }
+.btn.reset {
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+}
+
+/* ─── LEGEND ─── */
+#legend {
+  position: fixed;
+  bottom: 20px; left: 20px;
+  z-index: 200;
+  background: rgba(8, 8, 24, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.legend-item {
+  display: flex; align-items: center; gap: 9px;
+  margin-bottom: 7px; font-size: 11.5px;
+  color: rgba(255,255,255,0.6);
+}
 .legend-item:last-child { margin-bottom: 0; }
-.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  flex-shrink: 0; box-shadow: 0 0 6px currentColor;
+}
 
-/* Node detail panel */
+/* ─── DETAIL PANEL ─── */
 #panel {
-  position: fixed; top: 20px; right: -320px; z-index: 100;
-  background: rgba(10,10,30,0.92); backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-  padding: 20px; width: 300px; color: white;
-  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  position: fixed;
+  top: 20px; right: -340px;
+  z-index: 200;
+  width: 320px;
+  background: rgba(8, 8, 24, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  padding: 22px 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transition: right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
 #panel.open { right: 20px; }
-#panel-close { position: absolute; top: 12px; right: 12px; background: none; border: none;
-  color: #666; cursor: pointer; font-size: 18px; line-height: 1; }
-#panel-close:hover { color: #aaa; }
-#panel-color-bar { height: 3px; border-radius: 2px; margin-bottom: 14px; }
-#panel-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; line-height: 1.3; }
-#panel-type { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; opacity: 0.5; }
-#panel-desc { font-size: 13px; color: #ccc; line-height: 1.7; white-space: pre-line; }
 
-/* Hint */
-#hint {
-  position: fixed; bottom: 20px; right: 20px; z-index: 100;
-  background: rgba(10,10,30,0.7); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
-  padding: 10px 14px; font-size: 11px; color: #555;
-  line-height: 1.8;
+#panel-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 24px; height: 24px;
+  background: rgba(255,255,255,0.06);
+  border: none; border-radius: 50%;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
 }
+#panel-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+#panel-color-bar {
+  height: 3px; border-radius: 2px;
+  margin-bottom: 14px; opacity: 0.8;
+}
+#panel-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+#panel-type {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 14px;
+}
+#panel-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 14px; }
+#panel-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.65; white-space: pre-line; }
+
+/* ─── HINT ─── */
+#hint {
+  position: fixed; bottom: 20px; right: 20px;
+  z-index: 100; font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  text-align: right; line-height: 1.8;
+  pointer-events: none;
+}
+
+/* ─── LOADING ─── */
+#loading {
+  position: fixed; inset: 0; z-index: 999;
+  background: #03030f;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity 0.6s ease;
+}
+#loading.hidden { opacity: 0; pointer-events: none; }
+.loader-brand { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #FFD700; opacity: 0.7; margin-bottom: 8px; }
+.loader-title { font-size: 22px; font-weight: 700; color: white; margin-bottom: 32px; }
+.loader-bar-wrap { width: 160px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+.loader-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #4A9EFF, #7B68EE); border-radius: 2px; transition: width 0.4s ease; animation: loadpulse 1.4s ease-in-out infinite; }
+@keyframes loadpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
 </style>
 </head>
 <body>
+
+<div id="loading">
+  <div class="loader-brand">Dark Horse</div>
+  <div class="loader-title">Entity Map</div>
+  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+</div>
+
+<!-- Controls -->
 <div id="controls">
-  <h2>DARK HORSE</h2>
+  <div class="brand">Dark Horse</div>
   <h1>Entity Map</h1>
-  <button class="btn active" id="btn-3d" onclick="setLayout('3d')">⬡ 3D Force View</button>
-  <button class="btn" id="btn-dag" onclick="setLayout('dag')">▼ Hierarchy View</button>
-  <button class="btn" id="btn-reset" onclick="resetCamera()">↺ Reset Camera</button>
+
+  <div class="section-label">Layout Shape</div>
+  <div class="btn-row">
+    <button class="btn active" data-layout="force" onclick="setLayout('force')">🌐 3D Force</button>
+    <button class="btn" data-layout="radial" onclick="setLayout('radial')">⬤ Radial</button>
+    <button class="btn" data-layout="td" onclick="setLayout('td')">▼ Top-Down</button>
+    <button class="btn" data-layout="lr" onclick="setLayout('lr')">▶ Left-Right</button>
+    <button class="btn" data-layout="bu" onclick="setLayout('bu')">▲ Bottom-Up</button>
+    <button class="btn" data-layout="sphere" onclick="setLayout('sphere')">◎ Sphere</button>
+  </div>
+
+  <div class="section-label">Actions</div>
+  <div class="btn-row">
+    <button class="btn full reset" onclick="resetCamera()">↺ Reset Camera</button>
+  </div>
 </div>
 
+<!-- Legend -->
 <div id="legend">
-  <div class="legend-item"><div class="dot" style="background:#FFD700;box-shadow:0 0 6px #FFD700"></div>Trust / Holdings</div>
-  <div class="legend-item"><div class="dot" style="background:#4A9EFF;box-shadow:0 0 6px #4A9EFF"></div>Family Office</div>
-  <div class="legend-item"><div class="dot" style="background:#7B68EE;box-shadow:0 0 6px #7B68EE"></div>Management / GP / RIA</div>
-  <div class="legend-item"><div class="dot" style="background:#00CED1;box-shadow:0 0 6px #00CED1"></div>Fund Vehicle</div>
-  <div class="legend-item"><div class="dot" style="background:#FF8C00;box-shadow:0 0 6px #FF8C00"></div>Operations</div>
-  <div class="legend-item"><div class="dot" style="background:#444466"></div>Dormant</div>
+  <div class="legend-item"><div class="dot" style="background:#FFD700;color:#FFD700"></div>Trust / Holdings</div>
+  <div class="legend-item"><div class="dot" style="background:#4A9EFF;color:#4A9EFF"></div>Family Office</div>
+  <div class="legend-item"><div class="dot" style="background:#7B68EE;color:#7B68EE"></div>Management / GP / RIA</div>
+  <div class="legend-item"><div class="dot" style="background:#00CED1;color:#00CED1"></div>Fund Vehicle</div>
+  <div class="legend-item"><div class="dot" style="background:#FF8C00;color:#FF8C00"></div>Operations</div>
+  <div class="legend-item"><div class="dot" style="background:#4a4a6a;color:#4a4a6a"></div>Dormant</div>
 </div>
 
+<!-- Detail Panel -->
 <div id="panel">
   <button id="panel-close" onclick="closePanel()">✕</button>
   <div id="panel-color-bar"></div>
   <div id="panel-title"></div>
   <div id="panel-type"></div>
+  <div id="panel-divider"></div>
   <div id="panel-desc"></div>
 </div>
 
+<!-- Hint -->
 <div id="hint">
-  🖱 Drag to rotate &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Click node for details
+  Drag to rotate · Scroll to zoom<br>Click any node to explore
 </div>
 
 <div id="graph"></div>
 
 <script>
+// ─── DATA ───
 const NODE_COLORS = {
-  trust: '#FFD700',
+  trust:    '#FFD700',
   holdings: '#FFD700',
-  office: '#4A9EFF',
-  mgmt: '#7B68EE',
-  ria: '#7B68EE',
-  fund: '#00CED1',
-  ops: '#FF8C00',
-  dormant: '#444466'
+  office:   '#4A9EFF',
+  ria:      '#a78bfa',
+  mgmt:     '#7B68EE',
+  fund:     '#00CED1',
+  dormant:  '#4a4a6a',
+  ops:      '#FF8C00'
 };
-
 const NODE_SIZES = {
-  trust: 12,
-  holdings: 11,
-  office: 10,
-  ria: 9,
-  mgmt: 8,
-  fund: 7,
-  ops: 6,
-  dormant: 5
+  trust: 14, holdings: 13, office: 12, ria: 9,
+  mgmt: 8, fund: 7, ops: 7, dormant: 5
 };
-
 const TYPE_LABELS = {
-  trust: 'Family Trust',
+  trust:    'Family Trust',
   holdings: 'Holding Entity',
-  office: 'Family Office',
-  ria: 'Registered Investment Adviser',
-  mgmt: 'Management / GP',
-  fund: 'Fund Vehicle',
-  ops: 'Operations',
-  dormant: 'Dormant Entity'
+  office:   'Family Office',
+  ria:      'Registered Investment Adviser',
+  mgmt:     'Management / GP Entity',
+  fund:     'Fund Vehicle',
+  ops:      'Operations / Investment',
+  dormant:  'Dormant Entity'
 };
 
 const graphData = {
   nodes: [
-    {id:1, name:"In God We Trust",              type:"trust",    desc:"Family Mission"},
-    {id:2, name:"Caraway Holdings",              type:"holdings", desc:"Family Holding Entity"},
-    {id:3, name:"Dark Horse Wealth Management",  type:"office",   desc:"Private Family Office"},
-    {id:4, name:"Dark Horse Advisers LLC",       type:"ria",      desc:"RIA — Being Formed\nMadison Cornwell: IAR / CCO"},
-    {id:5, name:"Corinthian Capital Partners",   type:"mgmt",     desc:"Management / GP Entity (75%)"},
-    {id:6, name:"Corinthian Capital Fund LLC",   type:"fund",     desc:"Private Debt Fund"},
-    {id:7, name:"Draft Horse Wealth Mgmt",       type:"mgmt",     desc:"Management Entity"},
-    {id:8, name:"Draft Horse Capital Partners",  type:"fund",     desc:"Private Credit Fund\n⚠ DORMANT"},
-    {id:9, name:"Quarter Horse Wealth Mgmt",     type:"mgmt",     desc:"Management Entity"},
-    {id:10,name:"Quarter Horse Capital Partners",type:"fund",     desc:"Multi-Strategy Fund\n⚠ DORMANT"},
-    {id:11,name:"Stateside Resources",           type:"ops",      desc:"Mineral Resources & Commodities"},
-    {id:12,name:"Field Futures Texas",           type:"ops",      desc:"8% Interest"},
-    {id:13,name:"Virtue Management Co",          type:"mgmt",     desc:"Management Entity"},
-    {id:14,name:"Virtue",                        type:"fund",     desc:"Fund Vehicle"},
-    {id:15,name:"Supernature Fund",              type:"fund",     desc:"Fund Vehicle"}
+    {id:1,  name:"In God We Trust",               type:"trust",   desc:"Family Mission & Foundation"},
+    {id:2,  name:"Caraway Holdings",               type:"holdings",desc:"Family Holding Entity"},
+    {id:3,  name:"Dark Horse Wealth Management",   type:"office",  desc:"Private Family Office\nGoverning Entity"},
+    {id:4,  name:"Dark Horse Advisers LLC",        type:"ria",     desc:"Registered Investment Adviser\nBeing Formed\n\nIAR / CCO: Madison Cornwell"},
+    {id:5,  name:"Corinthian Capital Partners",    type:"mgmt",    desc:"Management / GP Entity\n75% ownership stake"},
+    {id:6,  name:"Corinthian Capital Fund LLC",    type:"fund",    desc:"Private Debt Fund\nLends to PE-backed borrowers"},
+    {id:7,  name:"Draft Horse Wealth Mgmt",        type:"mgmt",    desc:"Management Entity"},
+    {id:8,  name:"Draft Horse Capital Partners",   type:"fund",    desc:"Private Credit Fund\n⚠ DORMANT — not yet active"},
+    {id:9,  name:"Quarter Horse Wealth Mgmt",      type:"mgmt",    desc:"Management Entity"},
+    {id:10, name:"Quarter Horse Capital Partners", type:"fund",    desc:"Multi-Strategy Fund\n⚠ DORMANT — not yet active"},
+    {id:11, name:"Stateside Resources",            type:"ops",     desc:"Mineral Resources & Commodities\nHolding Company"},
+    {id:12, name:"Field Futures Texas",            type:"ops",     desc:"8% Interest"},
+    {id:13, name:"Virtue Management Co",           type:"mgmt",    desc:"Management Entity"},
+    {id:14, name:"Virtue",                         type:"fund",    desc:"Fund Vehicle"},
+    {id:15, name:"Supernature Fund",               type:"fund",    desc:"Fund Vehicle"}
   ],
   links: [
     {source:1, target:2},
@@ -157,100 +274,150 @@ const graphData = {
     {source:5, target:6},
     {source:7, target:8},
     {source:9, target:10},
-    {source:11,target:12},
-    {source:13,target:14},
-    {source:14,target:15}
+    {source:11, target:12},
+    {source:13, target:14},
+    {source:14, target:15}
   ]
 };
 
-let currentLayout = '3d';
-let hoveredNode = null;
+// ─── GRAPH INIT ───
+let currentLayout = 'force';
+let graphReady = false;
 
 const Graph = ForceGraph3D()(document.getElementById('graph'))
-  .backgroundColor('#050510')
+  .backgroundColor('#03030f')
   .graphData(graphData)
-  .nodeLabel(n => `<span style="background:rgba(5,5,16,0.85);padding:4px 8px;border-radius:6px;font-size:12px;color:white;border:1px solid rgba(255,255,255,0.1)">${n.name}</span>`)
-  .nodeColor(n => NODE_COLORS[n.type] || '#888888')
-  .nodeVal(n => {
-    const base = NODE_SIZES[n.type] || 6;
-    return hoveredNode && hoveredNode.id === n.id ? base * 1.6 : base;
-  })
+  .nodeLabel(n => `<div style="background:rgba(8,8,24,0.9);border:1px solid rgba(255,255,255,0.15);padding:6px 10px;border-radius:8px;font-family:-apple-system,sans-serif;font-size:12px;color:#fff;max-width:180px;line-height:1.4">${n.name}</div>`)
+  .nodeColor(n => NODE_COLORS[n.type] || '#888')
+  .nodeVal(n => NODE_SIZES[n.type] || 6)
   .nodeOpacity(0.92)
   .linkColor(l => {
-    const src = l.source && l.source.type ? l.source : graphData.nodes.find(n => n.id === l.source);
-    return NODE_COLORS[src?.type] || '#445566';
+    const srcType = l.source.type || l.source;
+    return NODE_COLORS[srcType] || '#555';
   })
-  .linkWidth(1.5)
-  .linkOpacity(0.55)
-  .linkDirectionalParticles(2)
-  .linkDirectionalParticleSpeed(0.004)
-  .linkDirectionalParticleWidth(2)
+  .linkWidth(1.2)
+  .linkOpacity(0.45)
+  .linkDirectionalParticles(3)
+  .linkDirectionalParticleSpeed(0.005)
+  .linkDirectionalParticleWidth(1.8)
   .linkDirectionalParticleColor(l => {
-    const src = l.source && l.source.type ? l.source : graphData.nodes.find(n => n.id === l.source);
-    return NODE_COLORS[src?.type] || '#ffffff';
+    const srcType = l.source.type || l.source;
+    return NODE_COLORS[srcType] || '#4A9EFF';
   })
-  .onNodeHover(node => {
-    hoveredNode = node;
-    document.body.style.cursor = node ? 'pointer' : 'default';
-    Graph.nodeVal(n => {
-      const base = NODE_SIZES[n.type] || 6;
-      return (node && node.id === n.id) ? base * 1.6 : base;
-    });
-  })
+  .linkCurvature(0)
+  .enableNodeDrag(true)
   .onNodeClick(node => {
-    // Smooth camera fly-to
     const dist = 120;
-    const mag = Math.hypot(node.x || 0.001, node.y || 0.001, node.z || 0.001);
-    const distRatio = 1 + dist / mag;
+    const distRatio = 1 + dist / Math.hypot(node.x || 1, node.y || 1, node.z || 1);
     Graph.cameraPosition(
-      { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+      { x: (node.x || 0) * distRatio, y: (node.y || 0) * distRatio, z: (node.z || 0) * distRatio },
       node,
-      1200
+      1000
     );
-
-    // Populate and open side panel
-    const color = NODE_COLORS[node.type] || '#888';
-    document.getElementById('panel-color-bar').style.background = color;
-    document.getElementById('panel-color-bar').style.boxShadow = `0 0 10px ${color}55`;
-    document.getElementById('panel-title').textContent = node.name;
-    document.getElementById('panel-type').textContent = TYPE_LABELS[node.type] || node.type;
-    document.getElementById('panel-desc').textContent = node.desc || '—';
-    document.getElementById('panel').classList.add('open');
+    openPanel(node);
   })
   .onBackgroundClick(() => closePanel())
-  .cooldownTicks(120)
-  .onEngineStop(() => Graph.zoomToFit(400, 100));
+  .cooldownTicks(150)
+  .onEngineStop(() => {
+    if (!graphReady) {
+      graphReady = true;
+      dismissLoader();
+      Graph.zoomToFit(600, 80);
+    }
+  });
 
-// Stronger repulsion for better spread
-Graph.d3Force('charge').strength(-200);
+// ─── LOADER ───
+let loaderPct = 0;
+const loaderInterval = setInterval(() => {
+  loaderPct = Math.min(loaderPct + Math.random() * 15, 90);
+  document.getElementById('loader-bar').style.width = loaderPct + '%';
+}, 200);
 
-function setLayout(mode) {
-  currentLayout = mode;
-  document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-  if (mode === 'dag') {
-    Graph.dagMode('td').dagLevelDistance(90);
-    document.getElementById('btn-dag').classList.add('active');
-  } else {
-    Graph.dagMode(null);
-    document.getElementById('btn-3d').classList.add('active');
-  }
+function dismissLoader() {
+  clearInterval(loaderInterval);
+  document.getElementById('loader-bar').style.width = '100%';
+  setTimeout(() => {
+    document.getElementById('loading').classList.add('hidden');
+    setTimeout(() => document.getElementById('loading').remove(), 700);
+  }, 300);
 }
 
+// Fallback: dismiss after 4s regardless
+setTimeout(() => { if (!graphReady) { graphReady = true; dismissLoader(); } }, 4000);
+
+// ─── LAYOUTS ───
+function setLayout(mode) {
+  currentLayout = mode;
+  document.querySelectorAll('.btn[data-layout]').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.btn[data-layout="${mode}"]`).classList.add('active');
+  closePanel();
+
+  switch(mode) {
+    case 'force':
+      Graph.dagMode(null);
+      Graph.d3Force('charge').strength(-120);
+      break;
+    case 'radial':
+      Graph.dagMode('radialout');
+      Graph.dagLevelDistance(80);
+      break;
+    case 'td':
+      Graph.dagMode('td');
+      Graph.dagLevelDistance(90);
+      break;
+    case 'bu':
+      Graph.dagMode('bu');
+      Graph.dagLevelDistance(90);
+      break;
+    case 'lr':
+      Graph.dagMode('lr');
+      Graph.dagLevelDistance(110);
+      break;
+    case 'sphere':
+      Graph.dagMode(null);
+      // Distribute nodes on sphere surface
+      const N = graphData.nodes.length;
+      graphData.nodes.forEach((node, i) => {
+        const phi = Math.acos(-1 + (2 * i) / N);
+        const theta = Math.sqrt(N * Math.PI) * phi;
+        const R = 200;
+        node.fx = R * Math.cos(theta) * Math.sin(phi);
+        node.fy = R * Math.sin(theta) * Math.sin(phi);
+        node.fz = R * Math.cos(phi);
+      });
+      Graph.graphData({...graphData});
+      break;
+  }
+
+  // Release sphere pinning when switching away
+  if (mode !== 'sphere') {
+    graphData.nodes.forEach(n => { n.fx = undefined; n.fy = undefined; n.fz = undefined; });
+    Graph.graphData({...graphData});
+  }
+
+  setTimeout(() => Graph.zoomToFit(800, 80), 1200);
+}
+
+// ─── CAMERA ───
 function resetCamera() {
+  closePanel();
   Graph.cameraPosition({ x: 0, y: 0, z: 500 }, { x: 0, y: 0, z: 0 }, 1000);
+  setTimeout(() => Graph.zoomToFit(600, 60), 1200);
+}
+
+// ─── PANEL ───
+function openPanel(node) {
+  const color = NODE_COLORS[node.type] || '#888';
+  document.getElementById('panel-color-bar').style.background = `linear-gradient(90deg, ${color}, transparent)`;
+  document.getElementById('panel-title').textContent = node.name;
+  document.getElementById('panel-type').textContent = TYPE_LABELS[node.type] || node.type;
+  document.getElementById('panel-desc').textContent = node.desc || '';
+  document.getElementById('panel').classList.add('open');
 }
 
 function closePanel() {
   document.getElementById('panel').classList.remove('open');
 }
-
-// Fade out hint after 5 seconds
-setTimeout(() => {
-  const hint = document.getElementById('hint');
-  hint.style.transition = 'opacity 1s';
-  hint.style.opacity = '0';
-  setTimeout(() => hint.style.display = 'none', 1000);
-}, 5000);
 </script>
 </body>
 </html>
