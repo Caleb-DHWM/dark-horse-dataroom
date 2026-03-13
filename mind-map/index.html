@@ -31,6 +31,7 @@
     .tb-btn.danger:hover { background: rgba(255,80,80,0.18); border-color: rgba(255,80,80,0.4); color: #ff6b6b; }
     .tb-btn.gold { background: rgba(240,192,64,0.12); border-color: rgba(240,192,64,0.32); color: #f0c040; }
     .tb-btn.gold:hover { background: rgba(240,192,64,0.22); }
+    .layout-btn { padding: 4px 9px; font-size: 11px; }
     #mode-badge {
       font-size: 11px; color: #f0c040; background: rgba(240,192,64,0.12);
       border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 3px 8px;
@@ -137,6 +138,14 @@
   <button class="tb-btn danger" id="btn-del-sel" onclick="deleteSelected()" style="display:none">✕ Delete</button>
   <button class="tb-btn" onclick="openExport()">⬇ Export</button>
   <button class="tb-btn" onclick="doReset()" title="Reset to original data">↺ Reset</button>
+  <span class="divider"></span>
+  <span style="font-size:11px;color:rgba(255,255,255,0.35);flex-shrink:0;">Layout:</span>
+  <div id="layout-btns" style="display:flex;gap:4px;">
+    <button class="tb-btn layout-btn" id="lbtn-tree" onclick="setLayout('tree')">🌲 Tree</button>
+    <button class="tb-btn layout-btn active" id="lbtn-cylinder" onclick="setLayout('cylinder')">⬤ Cylinder</button>
+    <button class="tb-btn layout-btn" id="lbtn-radial" onclick="setLayout('radial')">◎ Radial</button>
+    <button class="tb-btn layout-btn" id="lbtn-sphere" onclick="setLayout('sphere')">◉ Sphere</button>
+  </div>
   <span id="mode-badge">Connect: click source</span>
   <span class="hint">Click node · Scroll zoom · Drag orbit · ESC cancel</span>
 </div>
@@ -242,6 +251,7 @@
 <!-- ══════════════ LIBRARIES ══════════════ -->
 <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script src="https://unpkg.com/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
+<script src="https://unpkg.com/d3-force@3/dist/d3-force.min.js"></script>
 <script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
 
 <script>
@@ -330,7 +340,7 @@ const SHAPES = {
 // ═══════════════════════════════════════════════════
 // TREE LAYOUT ALGORITHM
 // ═══════════════════════════════════════════════════
-function computeLayout(nodes, links) {
+function layoutTree(nodes, links) {
   const H = 92;   // horizontal spacing between leaf slots
   const V = 115;  // vertical spacing between levels
   const ZS = 16;  // z scatter for depth feel
@@ -401,6 +411,101 @@ function computeLayout(nodes, links) {
     n.fx = (xSlot[n.id] - mid) * H;
     n.fy = (maxD - depth[n.id]) * V;  // Trust at top (+Y), leaves at bottom
     n.fz = (Math.random() * 2 - 1) * ZS;
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// CYLINDER LAYOUT — concentric rings by depth, top-down
+// ═══════════════════════════════════════════════════
+function layoutCylinder(nodes, links) {
+  const V = 80;
+  const ch = {}, pa = {};
+  nodes.forEach(n => { ch[n.id] = []; pa[n.id] = []; });
+  links.filter(l => l.linkType !== 'cross').forEach(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    if (!ch[s]) ch[s] = [];
+    if (!pa[t]) pa[t] = [];
+    if (!ch[s].includes(t)) ch[s].push(t);
+    if (!pa[t].includes(s)) pa[t].push(s);
+  });
+  const rootNode = nodes.find(n => n.type === 'trust') ||
+                   nodes.find(n => pa[n.id] && pa[n.id].length === 0) ||
+                   nodes[0];
+  const rootId = rootNode ? rootNode.id : nodes[0].id;
+  const depth = { [rootId]: 0 };
+  const q = [rootId];
+  const seen = new Set([rootId]);
+  while (q.length) {
+    const id = q.shift();
+    for (const c of (ch[id] || [])) {
+      if (!seen.has(c)) { seen.add(c); depth[c] = depth[id] + 1; q.push(c); }
+    }
+  }
+  nodes.forEach(n => { if (depth[n.id] === undefined) depth[n.id] = 0; });
+  const maxD = Math.max(...Object.values(depth), 0);
+  const byDepth = {};
+  nodes.forEach(n => { const d = depth[n.id]; if (!byDepth[d]) byDepth[d] = []; byDepth[d].push(n); });
+  nodes.forEach(n => {
+    const d = depth[n.id];
+    const nodesAtDepth = byDepth[d];
+    const idx = nodesAtDepth.indexOf(n);
+    const count = nodesAtDepth.length;
+    const radius = d * 90;
+    const angle = (2 * Math.PI * idx) / count;
+    n.fx = d === 0 ? 0 : radius * Math.cos(angle);
+    n.fy = (maxD - d) * V;
+    n.fz = d === 0 ? 0 : radius * Math.sin(angle);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// RADIAL LAYOUT — force-directed with d3 radial force
+// ═══════════════════════════════════════════════════
+function layoutRadial(nodes, links) {
+  const ch = {}, pa = {};
+  nodes.forEach(n => { ch[n.id] = []; pa[n.id] = []; });
+  links.filter(l => l.linkType !== 'cross').forEach(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    if (!ch[s]) ch[s] = [];
+    if (!pa[t]) pa[t] = [];
+    if (!ch[s].includes(t)) ch[s].push(t);
+    if (!pa[t].includes(s)) pa[t].push(s);
+  });
+  const rootNode = nodes.find(n => n.type === 'trust') ||
+                   nodes.find(n => pa[n.id] && pa[n.id].length === 0) ||
+                   nodes[0];
+  const rootId = rootNode ? rootNode.id : nodes[0].id;
+  const depth = { [rootId]: 0 };
+  const q = [rootId];
+  const seen = new Set([rootId]);
+  while (q.length) {
+    const id = q.shift();
+    for (const c of (ch[id] || [])) {
+      if (!seen.has(c)) { seen.add(c); depth[c] = depth[id] + 1; q.push(c); }
+    }
+  }
+  nodes.forEach(n => { if (depth[n.id] === undefined) depth[n.id] = 0; });
+  nodeDepths = depth;
+  // Unpin all nodes — let force engine run
+  nodes.forEach(n => { delete n.fx; delete n.fy; delete n.fz; });
+}
+
+// ═══════════════════════════════════════════════════
+// SPHERE LAYOUT — Fibonacci lattice on sphere surface
+// ═══════════════════════════════════════════════════
+function layoutSphere(nodes, links) {
+  const R = 220;
+  const N = nodes.length;
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  nodes.forEach((n, i) => {
+    const y = 1 - (i / Math.max(N - 1, 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const theta = golden * i;
+    n.fx = R * r * Math.cos(theta);
+    n.fy = R * y;
+    n.fz = R * r * Math.sin(theta);
   });
 }
 
@@ -478,6 +583,27 @@ let Graph = null;
 let selectedId  = null;
 let connectMode = false;
 let connectFrom = null;
+let currentLayout = 'cylinder';
+let nodeDepths = {};
+
+// ═══════════════════════════════════════════════════
+// LAYOUT SWITCHER
+// ═══════════════════════════════════════════════════
+function setLayout(name) {
+  currentLayout = name;
+  ['tree','cylinder','radial','sphere'].forEach(l => {
+    const btn = document.getElementById('lbtn-' + l);
+    if (btn) btn.classList.toggle('active', l === name);
+  });
+  if (Graph) {
+    if (name === 'radial') {
+      Graph.d3AlphaDecay(0.02).d3VelocityDecay(0.3);
+    } else {
+      Graph.d3AlphaDecay(0.9).d3VelocityDecay(0.9);
+    }
+  }
+  rebuild();
+}
 
 // ═══════════════════════════════════════════════════
 // BUILD / REBUILD
@@ -485,7 +611,10 @@ let connectFrom = null;
 function getGData() {
   const nodes = DATA.nodes.map(n => ({ ...n }));
   const links = DATA.links.map(l => ({ ...l }));
-  computeLayout(nodes, links);
+  if (currentLayout === 'cylinder') layoutCylinder(nodes, links);
+  else if (currentLayout === 'radial') layoutRadial(nodes, links);
+  else if (currentLayout === 'sphere') layoutSphere(nodes, links);
+  else layoutTree(nodes, links);
   return { nodes, links };
 }
 
@@ -522,11 +651,9 @@ function buildGraph() {
   const pl = new THREE.PointLight(0xf0c040, 0.38, 650);
   pl.position.set(0, 200, 0); sc.add(pl);
 
-  // Initial camera: looking slightly down at the tree
-  const maxY = Math.max(...gd.nodes.map(n => n.fy || 0), 0);
-  const midY = maxY / 2;
+  // Initial camera: cylinder default — straight down from above
   setTimeout(() => {
-    Graph.cameraPosition({ x: 0, y: midY + 80, z: 560 }, { x: 0, y: midY, z: 0 }, 1600);
+    Graph.cameraPosition({ x: 0, y: 600, z: 0.01 }, { x: 0, y: 0, z: 0 }, 1600);
   }, 300);
 
   window.addEventListener('resize', () => {
@@ -537,12 +664,35 @@ function buildGraph() {
 
 function rebuild() {
   if (!Graph) return;
+  // Clear radial force when switching away from radial
+  if (currentLayout !== 'radial') {
+    try { Graph.d3Force('radial', null); } catch(e) {}
+  }
   const gd = getGData();
   Graph.graphData(gd);
-  setTimeout(() => {
-    const maxY = Math.max(...gd.nodes.map(n => n.fy || 0), 0);
-    Graph.cameraPosition({ x: 0, y: maxY / 2 + 80, z: 560 }, { x: 0, y: maxY / 2, z: 0 }, 700);
-  }, 200);
+  if (currentLayout === 'cylinder') {
+    setTimeout(() => {
+      Graph.cameraPosition({ x: 0, y: 600, z: 0.01 }, { x: 0, y: 0, z: 0 }, 700);
+    }, 200);
+  } else if (currentLayout === 'radial') {
+    if (typeof d3 !== 'undefined' && d3.forceRadial) {
+      Graph.d3Force('radial', d3.forceRadial(node => (nodeDepths[node.id] || 0) * 80, 0, 0));
+      Graph.d3ReheatSimulation();
+    }
+    setTimeout(() => {
+      Graph.cameraPosition({ x: 0, y: 100, z: 500 }, { x: 0, y: 0, z: 0 }, 700);
+    }, 200);
+  } else if (currentLayout === 'sphere') {
+    setTimeout(() => {
+      Graph.cameraPosition({ x: 0, y: 80, z: 500 }, { x: 0, y: 0, z: 0 }, 700);
+    }, 200);
+  } else {
+    // Tree
+    setTimeout(() => {
+      const maxY = Math.max(...gd.nodes.map(n => n.fy || 0), 0);
+      Graph.cameraPosition({ x: 0, y: maxY / 2 + 80, z: 560 }, { x: 0, y: maxY / 2, z: 0 }, 700);
+    }, 200);
+  }
 }
 
 // ═══════════════════════════════════════════════════
