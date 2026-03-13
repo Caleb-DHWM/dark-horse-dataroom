@@ -8,315 +8,809 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #060a12; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #dde4ef; }
 
+    /* ── TOOLBAR ── */
     #toolbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 50px;
-      background: rgba(6,10,18,0.94); backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex; align-items: center; gap: 12px; padding: 0 20px; z-index: 200;
+      position: fixed; top: 0; left: 0; right: 0; height: 52px;
+      background: rgba(6,10,18,0.97); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 8px; padding: 0 16px; z-index: 200;
     }
-    .logo { font-size: 13px; font-weight: 700; color: #f0c040; letter-spacing: 2px; text-transform: uppercase; }
-    .divider { width: 1px; height: 22px; background: rgba(255,255,255,0.1); }
-    #search { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 5px 10px; color: #dde4ef; font-size: 13px; outline: none; width: 180px; }
+    .logo { font-size: 12px; font-weight: 700; color: #f0c040; letter-spacing: 2px; text-transform: uppercase; flex-shrink: 0; }
+    .divider { width: 1px; height: 22px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+    #search { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 5px 10px; color: #dde4ef; font-size: 12px; outline: none; width: 150px; }
     #search:focus { border-color: rgba(240,192,64,0.4); }
     #search::placeholder { color: rgba(255,255,255,0.25); }
-    .hint { font-size: 11px; color: rgba(255,255,255,0.25); margin-left: auto; }
+    .tb-btn {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 5px 11px; color: #dde4ef; font-size: 12px; cursor: pointer;
+      display: flex; align-items: center; gap: 5px; white-space: nowrap; transition: all 0.15s; flex-shrink: 0;
+    }
+    .tb-btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.22); }
+    .tb-btn.active { background: rgba(240,192,64,0.18); border-color: rgba(240,192,64,0.5); color: #f0c040; }
+    .tb-btn.danger { }
+    .tb-btn.danger:hover { background: rgba(255,80,80,0.18); border-color: rgba(255,80,80,0.4); color: #ff6b6b; }
+    .tb-btn.gold { background: rgba(240,192,64,0.12); border-color: rgba(240,192,64,0.32); color: #f0c040; }
+    .tb-btn.gold:hover { background: rgba(240,192,64,0.22); }
+    #mode-badge {
+      font-size: 11px; color: #f0c040; background: rgba(240,192,64,0.12);
+      border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 3px 8px;
+      display: none; flex-shrink: 0;
+    }
+    .hint { font-size: 11px; color: rgba(255,255,255,0.2); margin-left: auto; flex-shrink: 0; }
 
-    #graph { width: 100%; height: 100%; }
+    /* ── GRAPH ── */
+    #graph { position: fixed; top: 52px; left: 0; right: 0; bottom: 0; }
 
+    /* ── LEGEND ── */
     .legend {
-      position: fixed; bottom: 14px; left: 14px; background: rgba(6,10,18,0.92);
-      border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px;
-      font-size: 11px; z-index: 200; pointer-events: none;
+      position: fixed; bottom: 14px; left: 14px;
+      background: rgba(6,10,18,0.93); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 10px 14px; font-size: 11px; z-index: 200; pointer-events: none;
     }
     .legend-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
-    #info {
-      position: fixed; top: 58px; right: 14px; width: 280px;
-      background: rgba(6,10,18,0.95); border: 1px solid rgba(255,255,255,0.1);
+    /* ── SIDE PANEL ── */
+    #panel {
+      position: fixed; top: 60px; right: 14px; width: 288px;
+      background: rgba(6,10,18,0.97); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px; padding: 16px; font-size: 13px; z-index: 200; display: none;
+      max-height: calc(100vh - 80px); overflow-y: auto;
     }
-    #info h3 { color: #f0c040; margin-bottom: 6px; font-size: 14px; }
-    #info .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-    #info .conns { margin-top: 8px; }
-    #info .conn { color: rgba(255,255,255,0.55); margin: 2px 0; }
-    .close-info { position: absolute; top: 8px; right: 10px; background: none; border: none; color: rgba(255,255,255,0.35); cursor: pointer; font-size: 15px; }
-    .close-info:hover { color: #fff; }
+    .panel-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .panel-title { font-size: 10px; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 1px; }
+    .close-x { background: none; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 16px; line-height: 1; }
+    .close-x:hover { color: #fff; }
+    .fl { font-size: 10px; color: rgba(255,255,255,0.32); text-transform: uppercase; letter-spacing: 1px; margin: 10px 0 4px; }
+    .fl:first-of-type { margin-top: 0; }
+    .fi {
+      width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 6px 10px; color: #dde4ef; font-size: 13px; outline: none;
+    }
+    .fi:focus { border-color: rgba(240,192,64,0.45); }
+    select.fi { cursor: pointer; }
+    select.fi option { background: #0d1420; color: #dde4ef; }
+    .panel-btns { display: flex; gap: 8px; margin-top: 14px; }
+    .btn { border-radius: 6px; padding: 7px 14px; font-size: 12px; cursor: pointer; border: 1px solid; transition: all 0.15s; }
+    .btn-save { background: rgba(240,192,64,0.13); border-color: rgba(240,192,64,0.38); color: #f0c040; flex: 1; }
+    .btn-save:hover { background: rgba(240,192,64,0.23); }
+    .btn-del { background: rgba(255,80,80,0.1); border-color: rgba(255,80,80,0.28); color: #ff6b6b; }
+    .btn-del:hover { background: rgba(255,80,80,0.2); }
+    .sec-title { font-size: 10px; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 1px; margin: 14px 0 6px; }
+    .conn-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px;
+    }
+    .conn-row:last-child { border-bottom: none; }
+    .conn-dir { color: rgba(255,255,255,0.28); margin-right: 4px; }
+    .conn-del { background: none; border: none; color: rgba(255,80,80,0.4); cursor: pointer; font-size: 12px; padding: 0 3px; }
+    .conn-del:hover { color: #ff6b6b; }
 
-    #loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 300; }
-    #loading .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: #f0c040; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #error { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 300; }
-    #error h2 { color: #ff6b6b; margin-bottom: 8px; }
-    #error p { color: rgba(255,255,255,0.5); max-width: 400px; }
+    /* ── MODALS ── */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 500;
+      display: none; align-items: center; justify-content: center;
+    }
+    .overlay.show { display: flex; }
+    .modal {
+      background: #0d1421; border: 1px solid rgba(255,255,255,0.13); border-radius: 12px;
+      padding: 24px; width: 360px; font-size: 13px;
+    }
+    .modal h3 { color: #f0c040; font-size: 15px; margin-bottom: 16px; }
+    .modal .fl { margin-top: 12px; }
+    .modal .fl:first-of-type { margin-top: 0; }
+    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+    .btn-cancel { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .btn-ok { background: rgba(240,192,64,0.13); border: 1px solid rgba(240,192,64,0.4); color: #f0c040; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 13px; flex: 1; }
+    .btn-ok:hover { background: rgba(240,192,64,0.23); }
+    .btn-green { background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.35); color: #4ade80; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .btn-green:hover { background: rgba(74,222,128,0.22); }
+
+    /* Export */
+    #export-modal .modal { width: 460px; }
+    .json-box {
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+      padding: 10px; font-family: monospace; font-size: 10px; max-height: 260px; overflow-y: auto;
+      color: rgba(255,255,255,0.65); white-space: pre-wrap; margin-top: 8px;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 56px; left: 50%; transform: translateX(-50%) translateY(8px);
+      background: rgba(240,192,64,0.14); border: 1px solid rgba(240,192,64,0.3);
+      border-radius: 8px; padding: 7px 16px; font-size: 12px; color: #f0c040;
+      z-index: 999; pointer-events: none; opacity: 0; transition: opacity 0.25s, transform 0.25s;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
-  <div id="toolbar">
-    <span class="logo">Dark Horse</span>
-    <span class="divider"></span>
-    <input id="search" type="text" placeholder="Search entities…" />
-    <span class="hint">Click node for details · Scroll to zoom · Drag to orbit</span>
+
+<!-- ══════════════ TOOLBAR ══════════════ -->
+<div id="toolbar">
+  <span class="logo">Dark Horse</span>
+  <span class="divider"></span>
+  <input id="search" type="text" placeholder="Search entities…" />
+  <span class="divider"></span>
+  <button class="tb-btn gold" onclick="openAddModal()">＋ Add Node</button>
+  <button class="tb-btn" id="btn-connect" onclick="toggleConnect()">⌁ Connect</button>
+  <button class="tb-btn danger" id="btn-del-sel" onclick="deleteSelected()" style="display:none">✕ Delete</button>
+  <button class="tb-btn" onclick="openExport()">⬇ Export</button>
+  <button class="tb-btn" onclick="doReset()" title="Reset to original data">↺ Reset</button>
+  <span id="mode-badge">Connect: click source</span>
+  <span class="hint">Click node · Scroll zoom · Drag orbit · ESC cancel</span>
+</div>
+
+<!-- ══════════════ GRAPH ══════════════ -->
+<div id="graph"></div>
+
+<!-- ══════════════ LEGEND ══════════════ -->
+<div class="legend">
+  <div class="legend-row"><span class="dot" style="background:#f0c040"></span>Trust</div>
+  <div class="legend-row"><span class="dot" style="background:#7c8dff"></span>Holdings</div>
+  <div class="legend-row"><span class="dot" style="background:#4ecdc4"></span>Family Office</div>
+  <div class="legend-row"><span class="dot" style="background:#ff6b6b"></span>Management Co</div>
+  <div class="legend-row"><span class="dot" style="background:#a855f7"></span>Fund</div>
+  <div class="legend-row"><span class="dot" style="background:#22c55e"></span>Operations</div>
+  <div class="legend-row"><span class="dot" style="background:#94a3b8"></span>Investment</div>
+  <div style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;">
+    <div class="legend-row" style="color:rgba(255,255,255,0.35);">━ Structural</div>
+    <div class="legend-row" style="color:#ff6b6b;">╌ Cross-investment</div>
   </div>
+</div>
 
-  <div id="graph"></div>
+<!-- ══════════════ SIDE PANEL ══════════════ -->
+<div id="panel">
+  <div class="panel-hdr">
+    <span class="panel-title">Edit Node</span>
+    <button class="close-x" onclick="closePanel()">✕</button>
+  </div>
+  <div class="fl">Name (use \n for line break)</div>
+  <input type="text" id="p-name" class="fi" placeholder="Entity name" />
+  <div class="fl">Second line</div>
+  <input type="text" id="p-line2" class="fi" placeholder="e.g. (75% Owner)" />
+  <div class="fl">Third line</div>
+  <input type="text" id="p-line3" class="fi" placeholder="optional" />
+  <div class="fl">Type</div>
+  <select id="p-type" class="fi">
+    <option value="trust">Trust</option>
+    <option value="holdings">Holdings LLC</option>
+    <option value="family-office">Family Office</option>
+    <option value="mgmt">Management Co</option>
+    <option value="fund">Fund</option>
+    <option value="operations">Operations</option>
+    <option value="investment">Investment</option>
+  </select>
+  <div class="panel-btns">
+    <button class="btn btn-save" onclick="saveEdit()">Save Changes</button>
+    <button class="btn btn-del" onclick="deleteSelectedNode()">Delete</button>
+  </div>
+  <div class="sec-title" id="conn-hdr">Connections (0)</div>
+  <div id="conn-list"></div>
+</div>
 
-  <div class="legend">
-    <div class="legend-row"><span class="dot" style="background:#f0c040"></span> Trust</div>
-    <div class="legend-row"><span class="dot" style="background:#7c8dff"></span> Holdings</div>
-    <div class="legend-row"><span class="dot" style="background:#4ecdc4"></span> Family Office</div>
-    <div class="legend-row"><span class="dot" style="background:#ff6b6b"></span> Management Co</div>
-    <div class="legend-row"><span class="dot" style="background:#a855f7"></span> Fund</div>
-    <div class="legend-row"><span class="dot" style="background:#22c55e"></span> Operations</div>
-    <div class="legend-row"><span class="dot" style="background:#94a3b8"></span> Investment</div>
-    <div style="margin-top:5px;border-top:1px solid rgba(255,255,255,0.06);padding-top:5px;">
-      <div class="legend-row" style="color:rgba(255,255,255,0.35);">━ Structural</div>
-      <div class="legend-row" style="color:#ff6b6b;">╌ Cross-investment</div>
+<!-- ══════════════ ADD NODE MODAL ══════════════ -->
+<div class="overlay" id="add-modal" onclick="if(event.target===this)closeAddModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Add New Node</h3>
+    <div class="fl">Name *</div>
+    <input type="text" id="a-name" class="fi" placeholder="Entity name" />
+    <div class="fl">Second line (optional)</div>
+    <input type="text" id="a-line2" class="fi" placeholder="e.g. (75% Owner)" />
+    <div class="fl">Type</div>
+    <select id="a-type" class="fi">
+      <option value="holdings">Holdings LLC</option>
+      <option value="family-office">Family Office</option>
+      <option value="mgmt">Management Co</option>
+      <option value="fund">Fund</option>
+      <option value="operations">Operations</option>
+      <option value="investment">Investment</option>
+      <option value="trust">Trust</option>
+    </select>
+    <div class="fl">Connect from (type entity name)</div>
+    <input type="text" id="a-parent" class="fi" placeholder="Parent entity name" list="node-datalist" autocomplete="off" />
+    <datalist id="node-datalist"></datalist>
+    <div class="fl">Connection type</div>
+    <select id="a-linktype" class="fi">
+      <option value="structural">Structural (solid line)</option>
+      <option value="cross">Cross-investment (dashed)</option>
+    </select>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeAddModal()">Cancel</button>
+      <button class="btn-ok" onclick="confirmAdd()">Add Node</button>
     </div>
   </div>
+</div>
 
-  <div id="info">
-    <button class="close-info" onclick="document.getElementById('info').style.display='none'">✕</button>
-    <h3 id="info-name"></h3>
-    <div id="info-badge" class="badge"></div>
-    <div class="conns" id="info-conns"></div>
+<!-- ══════════════ EXPORT MODAL ══════════════ -->
+<div class="overlay" id="export-modal" onclick="if(event.target===this)closeExport()">
+  <div class="modal" style="width:460px" onclick="event.stopPropagation()">
+    <h3>Export / Save</h3>
+    <p style="color:rgba(255,255,255,0.38);font-size:12px;">Changes auto-save in your browser. To make permanent: download <code style="color:#f0c040">data.json</code> and commit it to GitHub, replacing <code style="color:#f0c040">mind-map/data.json</code>.</p>
+    <div class="json-box" id="export-json"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeExport()">Close</button>
+      <button class="btn-ok" onclick="copyExport()">Copy JSON</button>
+      <button class="btn-green" onclick="dlExport()">⬇ Download</button>
+    </div>
   </div>
+</div>
 
-  <div id="loading"><div class="spinner"></div><div style="color:rgba(255,255,255,0.4);font-size:13px;">Loading 3D graph…</div></div>
-  <div id="error"><h2>Failed to load</h2><p id="error-msg"></p></div>
+<!-- ══════════════ TOAST ══════════════ -->
+<div id="toast"></div>
 
-  <!-- Three.js + 3d-force-graph + SpriteText from CDN with fallback -->
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
-  <script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+<!-- ══════════════ LIBRARIES ══════════════ -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three-spritetext@1.8.2/dist/three-spritetext.min.js"></script>
+<script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
 
-  <script>
-    // ── CONFIG ──
-    const TYPE_COLORS = {
-      'trust':         '#f0c040',
-      'holdings':      '#7c8dff',
-      'family-office': '#4ecdc4',
-      'mgmt':          '#ff6b6b',
-      'fund':          '#a855f7',
-      'operations':    '#22c55e',
-      'investment':    '#94a3b8'
-    };
-    const TYPE_LABELS = {
-      'trust':'Trust','holdings':'Holdings','family-office':'Family Office',
-      'mgmt':'Management Co','fund':'Fund','operations':'Operations','investment':'Investment'
-    };
-    const TYPE_SHAPES = {
-      'trust': 'diamond', 'holdings': 'sphere', 'family-office': 'sphere',
-      'mgmt': 'box', 'fund': 'octahedron', 'operations': 'sphere', 'investment': 'sphere'
-    };
+<script>
+// ═══════════════════════════════════════════════════
+// DEFAULT DATA
+// ═══════════════════════════════════════════════════
+const DEFAULTS = {
+  nextId: 100,
+  nodes: [
+    { id:7,  label:"In God We Trust\n(Caleb's Trust)",                              type:"trust",        size:14 },
+    { id:1,  label:"Caraway Holdings LLC",                                           type:"holdings",     size:10 },
+    { id:3,  label:"Dark Horse Wealth Mgmt\n(Family Office – 100% Caleb's)\n(Art Portfolio)", type:"family-office", size:12 },
+    { id:4,  label:"Corinthian Capital Partners\n(75% Owner)",                       type:"mgmt",         size:8  },
+    { id:5,  label:"Corinthian Capital Fund",                                        type:"fund",         size:6  },
+    { id:6,  label:"Draft Horse Wealth Mgmt",                                        type:"mgmt",         size:8  },
+    { id:8,  label:"Draft Horse Capital Partners\n(Ecom Cashflow – Debt & Equity)",  type:"fund",         size:6  },
+    { id:9,  label:"Quarter Horse Wealth Mgmt",                                      type:"mgmt",         size:8  },
+    { id:10, label:"Quarter Horse Capital Partners\n(Aviation)",                     type:"fund",         size:6  },
+    { id:11, label:"Stateside Resources\n(Mining & Metals)",                         type:"operations",   size:8  },
+    { id:12, label:"Field Futures Texas\n(8% Owner)",                                type:"investment",   size:5  },
+    { id:13, label:"Virtue Mgmt Co",                                                 type:"mgmt",         size:8  },
+    { id:14, label:"Virtue\n(Private Credit Fund)",                                  type:"fund",         size:8  },
+    { id:15, label:"Supernature\n(Real Estate – 100% Adil's)",                       type:"investment",   size:5  },
+    { id:16, label:"Supernature Fund",                                               type:"fund",         size:6  }
+  ],
+  links: [
+    { source:7,  target:1,  linkType:"structural" },
+    { source:1,  target:3,  linkType:"structural" },
+    { source:3,  target:4,  linkType:"structural" },
+    { source:3,  target:6,  linkType:"structural" },
+    { source:3,  target:9,  linkType:"structural" },
+    { source:3,  target:11, linkType:"structural" },
+    { source:3,  target:13, linkType:"structural" },
+    { source:4,  target:5,  linkType:"structural" },
+    { source:6,  target:8,  linkType:"structural" },
+    { source:9,  target:10, linkType:"structural" },
+    { source:11, target:12, linkType:"structural" },
+    { source:13, target:14, linkType:"structural" },
+    { source:14, target:16, linkType:"structural" },
+    { source:16, target:15, linkType:"structural" },
+    { source:14, target:11, linkType:"cross", label:"invests" },
+    { source:14, target:3,  linkType:"cross", label:"invests" },
+    { source:14, target:10, linkType:"cross", label:"invests" },
+    { source:14, target:8,  linkType:"cross", label:"invests" }
+  ]
+};
 
-    function showError(msg) {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('error').style.display = 'block';
-      document.getElementById('error-msg').textContent = msg;
-    }
+// ═══════════════════════════════════════════════════
+// PERSISTENCE
+// ═══════════════════════════════════════════════════
+const STORE_KEY = 'dhwm-tree-v3';
 
-    // Verify libraries loaded
-    if (typeof THREE === 'undefined') { showError('Three.js failed to load from CDN.'); throw new Error('no THREE'); }
-    if (typeof ForceGraph3D === 'undefined') { showError('3d-force-graph failed to load from CDN.'); throw new Error('no ForceGraph3D'); }
-    if (typeof SpriteText === 'undefined') { showError('SpriteText failed to load from CDN.'); throw new Error('no SpriteText'); }
+function loadData() {
+  try {
+    const s = localStorage.getItem(STORE_KEY);
+    if (s) return JSON.parse(s);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveData() { localStorage.setItem(STORE_KEY, JSON.stringify(DATA)); }
 
-    let graphData = null;
-    let Graph = null;
-    let highlightNode = null;
+function doReset() {
+  if (!confirm('Reset to original data? All edits will be lost.')) return;
+  localStorage.removeItem(STORE_KEY);
+  DATA = JSON.parse(JSON.stringify(DEFAULTS));
+  selectedId = null;
+  closePanel();
+  rebuild();
+  toast('Reset to defaults');
+}
 
-    fetch('data.json')
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(data => {
-        graphData = data;
-        document.getElementById('loading').style.display = 'none';
-        try { buildGraph(data); } catch(e) { console.error('Graph build error:', e); }
-      })
-      .catch(err => showError('data.json: ' + err.message));
+let DATA = loadData();
 
-    function buildGraph(data) {
-      const container = document.getElementById('graph');
+// ═══════════════════════════════════════════════════
+// TYPE CONFIG
+// ═══════════════════════════════════════════════════
+const COLORS = {
+  trust:'#f0c040', holdings:'#7c8dff', 'family-office':'#4ecdc4',
+  mgmt:'#ff6b6b', fund:'#a855f7', operations:'#22c55e', investment:'#94a3b8'
+};
+const SHAPES = {
+  trust:'diamond', holdings:'sphere', 'family-office':'sphere',
+  mgmt:'box', fund:'octahedron', operations:'sphere', investment:'sphere'
+};
 
-      Graph = ForceGraph3D()(container)
-        .backgroundColor('#060a12')
-        .width(window.innerWidth)
-        .height(window.innerHeight)
-        .graphData({
-          nodes: data.nodes.map(n => ({ ...n })),
-          links: data.links.map(l => ({ ...l }))
-        })
-        // ── NODES ──
-        .nodeThreeObject(node => {
-          const color = TYPE_COLORS[node.type] || '#94a3b8';
-          const sz = (node.size || 8) * 1.2;
+// ═══════════════════════════════════════════════════
+// TREE LAYOUT ALGORITHM
+// ═══════════════════════════════════════════════════
+function computeLayout(nodes, links) {
+  const H = 92;   // horizontal spacing between leaf slots
+  const V = 115;  // vertical spacing between levels
+  const ZS = 16;  // z scatter for depth feel
 
-          // Create group
-          const group = new THREE.Group();
+  // Build structural tree only
+  const ch = {}, pa = {};
+  nodes.forEach(n => { ch[n.id] = []; pa[n.id] = []; });
+  links.filter(l => l.linkType !== 'cross').forEach(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    if (!ch[s]) ch[s] = [];
+    if (!pa[t]) pa[t] = [];
+    if (!ch[s].includes(t)) ch[s].push(t);
+    if (!pa[t].includes(s)) pa[t].push(s);
+  });
 
-          // Shape
-          let geom;
-          const shape = TYPE_SHAPES[node.type] || 'sphere';
-          if (shape === 'diamond') {
-            geom = new THREE.OctahedronGeometry(sz * 0.8);
-          } else if (shape === 'box') {
-            geom = new THREE.BoxGeometry(sz, sz, sz);
-          } else if (shape === 'octahedron') {
-            geom = new THREE.OctahedronGeometry(sz * 0.6);
-          } else {
-            geom = new THREE.SphereGeometry(sz * 0.5, 24, 24);
-          }
-          const mat = new THREE.MeshPhongMaterial({
-            color: new THREE.Color(color),
-            transparent: true,
-            opacity: 0.85,
-            shininess: 80,
-            emissive: new THREE.Color(color),
-            emissiveIntensity: 0.15
-          });
-          const mesh = new THREE.Mesh(geom, mat);
-          group.add(mesh);
+  // Find root: trust node or node with no structural parents
+  const rootNode = nodes.find(n => n.type === 'trust') ||
+                   nodes.find(n => pa[n.id] && pa[n.id].length === 0) ||
+                   nodes[0];
+  const rootId = rootNode ? rootNode.id : nodes[0].id;
 
-          // Glow
-          const glowGeom = new THREE.SphereGeometry(sz * 0.75, 16, 16);
-          const glowMat = new THREE.MeshBasicMaterial({
-            color: new THREE.Color(color),
-            transparent: true,
-            opacity: 0.08
-          });
-          group.add(new THREE.Mesh(glowGeom, glowMat));
-
-          // Label
-          const lines = (node.label || '').split('\n');
-          const sprite = new SpriteText(lines[0], 4.5, '#ffffff');
-          sprite.fontFace = 'Segoe UI, system-ui, sans-serif';
-          sprite.fontWeight = '600';
-          sprite.backgroundColor = 'rgba(0,0,0,0.55)';
-          sprite.borderRadius = 3;
-          sprite.padding = [2, 5];
-          sprite.position.set(0, -sz - 4, 0);
-          group.add(sprite);
-
-          // Subtitle (2nd line)
-          if (lines[1]) {
-            const sub = new SpriteText(lines[1], 3.2, 'rgba(255,255,255,0.55)');
-            sub.fontFace = 'Segoe UI, system-ui, sans-serif';
-            sub.backgroundColor = 'rgba(0,0,0,0.4)';
-            sub.borderRadius = 2;
-            sub.padding = [1, 4];
-            sub.position.set(0, -sz - 9, 0);
-            group.add(sub);
-          }
-
-          return group;
-        })
-        .nodeLabel(() => '') // we handle labels ourselves
-        // ── LINKS ──
-        .linkWidth(link => link.linkType === 'cross' ? 1 : 2)
-        .linkColor(link => link.linkType === 'cross' ? 'rgba(255,107,107,0.5)' : 'rgba(255,255,255,0.18)')
-        .linkDirectionalArrowLength(5)
-        .linkDirectionalArrowRelPos(1)
-        .linkDirectionalArrowColor(link => link.linkType === 'cross' ? '#ff6b6b' : 'rgba(255,255,255,0.3)')
-        .linkDirectionalParticles(link => link.linkType === 'cross' ? 3 : 0)
-        .linkDirectionalParticleWidth(1.5)
-        .linkDirectionalParticleColor(() => '#ff6b6b')
-        .linkLineDash(link => link.linkType === 'cross' ? [4, 2] : null)
-        .linkLabel(link => link.label || '')
-        // ── INTERACTION ──
-        .onNodeClick(node => showInfo(node, data))
-        .onBackgroundClick(() => { document.getElementById('info').style.display = 'none'; })
-        // ── FORCES ──
-        .d3AlphaDecay(0.02)
-        .d3VelocityDecay(0.3)
-        .warmupTicks(60)
-        .cooldownTicks(120);
-
-      // Add lights
-      const scene = Graph.scene();
-      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      dirLight.position.set(100, 200, 100);
-      scene.add(dirLight);
-      const pointLight = new THREE.PointLight(0xf0c040, 0.4, 500);
-      pointLight.position.set(0, 100, 0);
-      scene.add(pointLight);
-
-      // Custom forces for hierarchy
-      Graph.d3Force('charge').strength(-180);
-      Graph.d3Force('link').distance(link => link.linkType === 'cross' ? 120 : 60);
-
-      // Resize
-      window.addEventListener('resize', () => {
-        Graph.width(window.innerWidth);
-        Graph.height(window.innerHeight);
-      });
-
-      // Initial camera position
-      setTimeout(() => {
-        Graph.cameraPosition({ x: 0, y: 0, z: 300 }, { x: 0, y: 0, z: 0 }, 1500);
-      }, 500);
-    }
-
-    // ── INFO PANEL ──
-    function showInfo(node, data) {
-      const el = document.getElementById('info');
-      const color = TYPE_COLORS[node.type] || '#94a3b8';
-      document.getElementById('info-name').textContent = node.label.replace(/\n/g, ' — ');
-      const badge = document.getElementById('info-badge');
-      badge.textContent = TYPE_LABELS[node.type] || node.type;
-      badge.style.background = color;
-      badge.style.color = ['#f0c040','#4ecdc4'].includes(color) ? '#000' : '#fff';
-
-      const conns = data.links.filter(l => {
-        const s = typeof l.source === 'object' ? l.source.id : l.source;
-        const t = typeof l.target === 'object' ? l.target.id : l.target;
-        return s === node.id || t === node.id;
-      });
-      let html = '<div style="color:rgba(255,255,255,0.3);font-size:10px;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;">Connections (' + conns.length + ')</div>';
-      conns.forEach(l => {
-        const s = typeof l.source === 'object' ? l.source.id : l.source;
-        const t = typeof l.target === 'object' ? l.target.id : l.target;
-        const otherId = s === node.id ? t : s;
-        const other = data.nodes.find(n => n.id === otherId);
-        if (!other) return;
-        const dir = s === node.id ? '→' : '←';
-        const oc = TYPE_COLORS[other.type] || '#94a3b8';
-        const lbl = l.label ? ' <span style="color:rgba(255,255,255,0.3);">(' + l.label + ')</span>' : '';
-        html += '<div class="conn">' + dir + ' <span style="color:' + oc + '">' + other.label.split('\n')[0] + '</span>' + lbl + '</div>';
-      });
-      document.getElementById('info-conns').innerHTML = html;
-      el.style.display = 'block';
-
-      // Fly camera to node
-      if (Graph) {
-        const dist = 120;
-        const pos = node;
-        Graph.cameraPosition(
-          { x: pos.x + dist * 0.5, y: pos.y + dist * 0.3, z: pos.z + dist },
-          { x: pos.x, y: pos.y, z: pos.z },
-          800
-        );
+  // BFS depths
+  const depth = { [rootId]: 0 };
+  const q = [rootId];
+  const seen = new Set([rootId]);
+  while (q.length) {
+    const id = q.shift();
+    for (const c of (ch[id] || [])) {
+      if (!seen.has(c)) {
+        seen.add(c);
+        depth[c] = depth[id] + 1;
+        q.push(c);
       }
     }
+  }
+  // Orphans get depth 0
+  nodes.forEach(n => { if (depth[n.id] === undefined) depth[n.id] = 0; });
 
-    // ── SEARCH ──
-    document.getElementById('search').addEventListener('input', function() {
-      const q = this.value.toLowerCase().trim();
-      if (!graphData || !Graph) return;
-      if (!q) {
-        // Reset all
-        Graph.nodeThreeObject(Graph.nodeThreeObject()); // force refresh
-        return;
-      }
-      const match = graphData.nodes.find(n => n.label.toLowerCase().includes(q));
-      if (match && match.x !== undefined) {
-        const dist = 100;
-        Graph.cameraPosition(
-          { x: match.x + dist * 0.3, y: match.y + dist * 0.2, z: match.z + dist },
-          { x: match.x, y: match.y, z: match.z },
-          600
-        );
-      }
-    });
-  </script>
+  const maxD = Math.max(...Object.values(depth), 0);
+
+  // Assign x via leaf-numbering DFS
+  const xSlot = {};
+  let leafN = 0;
+  const dv = new Set();
+
+  function dfs(id) {
+    if (dv.has(id)) return;
+    dv.add(id);
+    const kids = (ch[id] || []).filter(k => !dv.has(k));
+    if (!kids.length) {
+      xSlot[id] = leafN++;
+    } else {
+      kids.forEach(k => dfs(k));
+      const xs = kids.map(k => xSlot[k]).filter(x => x !== undefined);
+      xSlot[id] = xs.length ? (xs[0] + xs[xs.length - 1]) / 2 : leafN++;
+    }
+  }
+  dfs(rootId);
+  nodes.forEach(n => { if (xSlot[n.id] === undefined) xSlot[n.id] = leafN++; });
+
+  // Center
+  const vals = Object.values(xSlot);
+  const mid = vals.length ? (Math.min(...vals) + Math.max(...vals)) / 2 : 0;
+
+  // Pin positions (fx/fy/fz override force layout)
+  nodes.forEach(n => {
+    n.fx = (xSlot[n.id] - mid) * H;
+    n.fy = (maxD - depth[n.id]) * V;  // Trust at top (+Y), leaves at bottom
+    n.fz = (Math.random() * 2 - 1) * ZS;
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// NODE 3D OBJECT
+// ═══════════════════════════════════════════════════
+function makeNode(node) {
+  const col = COLORS[node.type] || '#94a3b8';
+  const sz  = (node.size || 7) * 1.2;
+  const sel = node.id === selectedId;
+  const g   = new THREE.Group();
+
+  // Shape
+  let geom;
+  const sh = SHAPES[node.type] || 'sphere';
+  if (sh === 'diamond')   geom = new THREE.OctahedronGeometry(sz * 0.82);
+  else if (sh === 'box')  geom = new THREE.BoxGeometry(sz, sz, sz);
+  else if (sh === 'octahedron') geom = new THREE.OctahedronGeometry(sz * 0.62);
+  else                    geom = new THREE.SphereGeometry(sz * 0.5, 24, 24);
+
+  const mat = new THREE.MeshPhongMaterial({
+    color: new THREE.Color(col), transparent: true,
+    opacity: sel ? 1 : 0.86, shininess: sel ? 130 : 75,
+    emissive: new THREE.Color(col), emissiveIntensity: sel ? 0.55 : 0.14
+  });
+  g.add(new THREE.Mesh(geom, mat));
+
+  // Selection ring
+  if (sel) {
+    const rg = new THREE.RingGeometry(sz * 0.9, sz * 1.18, 40);
+    const rm = new THREE.MeshBasicMaterial({ color: new THREE.Color(col), transparent: true, opacity: 0.65, side: THREE.DoubleSide });
+    const ring = new THREE.Mesh(rg, rm);
+    ring.rotation.x = Math.PI / 2;
+    g.add(ring);
+  }
+
+  // Ambient glow
+  const gg = new THREE.SphereGeometry(sz * 0.88, 14, 14);
+  const gm = new THREE.MeshBasicMaterial({ color: new THREE.Color(col), transparent: true, opacity: sel ? 0.16 : 0.07 });
+  g.add(new THREE.Mesh(gg, gm));
+
+  // Labels
+  const lines = (node.label || '').split('\n');
+  const s1 = new SpriteText(lines[0], 4.6, '#ffffff');
+  s1.fontFace = 'Segoe UI,system-ui,sans-serif';
+  s1.fontWeight = '600';
+  s1.backgroundColor = sel ? 'rgba(240,192,64,0.22)' : 'rgba(0,0,0,0.56)';
+  s1.borderRadius = 3; s1.padding = [2,5];
+  s1.position.set(0, -sz - 5, 0);
+  g.add(s1);
+
+  if (lines[1]) {
+    const s2 = new SpriteText(lines[1], 3.2, 'rgba(255,255,255,0.55)');
+    s2.fontFace = 'Segoe UI,system-ui,sans-serif';
+    s2.backgroundColor = 'rgba(0,0,0,0.4)';
+    s2.borderRadius = 2; s2.padding = [1,4];
+    s2.position.set(0, -sz - 10.5, 0);
+    g.add(s2);
+  }
+  if (lines[2]) {
+    const s3 = new SpriteText(lines[2], 3.0, 'rgba(255,255,255,0.35)');
+    s3.fontFace = 'Segoe UI,system-ui,sans-serif';
+    s3.backgroundColor = 'rgba(0,0,0,0.32)';
+    s3.borderRadius = 2; s3.padding = [1,3];
+    s3.position.set(0, -sz - 15.5, 0);
+    g.add(s3);
+  }
+  return g;
+}
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let Graph = null;
+let selectedId  = null;
+let connectMode = false;
+let connectFrom = null;
+
+// ═══════════════════════════════════════════════════
+// BUILD / REBUILD
+// ═══════════════════════════════════════════════════
+function getGData() {
+  const nodes = DATA.nodes.map(n => ({ ...n }));
+  const links = DATA.links.map(l => ({ ...l }));
+  computeLayout(nodes, links);
+  return { nodes, links };
+}
+
+function buildGraph() {
+  const container = document.getElementById('graph');
+  const gd = getGData();
+
+  Graph = ForceGraph3D()(container)
+    .backgroundColor('#060a12')
+    .width(window.innerWidth)
+    .height(window.innerHeight - 52)
+    .graphData(gd)
+    .nodeThreeObject(n => makeNode(n))
+    .nodeLabel(() => '')
+    .linkWidth(l => l.linkType === 'cross' ? 1 : 2.2)
+    .linkColor(l => l.linkType === 'cross' ? 'rgba(255,107,107,0.6)' : 'rgba(255,255,255,0.22)')
+    .linkDirectionalArrowLength(5)
+    .linkDirectionalArrowRelPos(1)
+    .linkDirectionalArrowColor(l => l.linkType === 'cross' ? '#ff6b6b' : 'rgba(255,255,255,0.38)')
+    .linkDirectionalParticles(l => l.linkType === 'cross' ? 3 : 0)
+    .linkDirectionalParticleWidth(1.5)
+    .linkDirectionalParticleColor(() => '#ff6b6b')
+    .linkLabel(l => l.label || '')
+    .onNodeClick(onNodeClick)
+    .onBackgroundClick(onBgClick)
+    .d3AlphaDecay(0.9)   // fast decay — positions are pinned
+    .d3VelocityDecay(0.9);
+
+  // Lights
+  const sc = Graph.scene();
+  sc.add(new THREE.AmbientLight(0xffffff, 0.62));
+  const dl = new THREE.DirectionalLight(0xffffff, 0.82);
+  dl.position.set(80, 180, 80); sc.add(dl);
+  const pl = new THREE.PointLight(0xf0c040, 0.38, 650);
+  pl.position.set(0, 200, 0); sc.add(pl);
+
+  // Initial camera: looking slightly down at the tree
+  const maxY = Math.max(...gd.nodes.map(n => n.fy || 0), 0);
+  const midY = maxY / 2;
+  setTimeout(() => {
+    Graph.cameraPosition({ x: 0, y: midY + 80, z: 560 }, { x: 0, y: midY, z: 0 }, 1600);
+  }, 300);
+
+  window.addEventListener('resize', () => {
+    Graph.width(window.innerWidth);
+    Graph.height(window.innerHeight - 52);
+  });
+}
+
+function rebuild() {
+  if (!Graph) return;
+  const gd = getGData();
+  Graph.graphData(gd);
+  setTimeout(() => {
+    const maxY = Math.max(...gd.nodes.map(n => n.fy || 0), 0);
+    Graph.cameraPosition({ x: 0, y: maxY / 2 + 80, z: 560 }, { x: 0, y: maxY / 2, z: 0 }, 700);
+  }, 200);
+}
+
+// ═══════════════════════════════════════════════════
+// INTERACTION
+// ═══════════════════════════════════════════════════
+function onNodeClick(node) {
+  if (connectMode) {
+    if (connectFrom === null) {
+      connectFrom = node.id;
+      document.getElementById('mode-badge').textContent = '→ now click TARGET node';
+      toast('Now click the target node to connect');
+    } else if (connectFrom !== node.id) {
+      DATA.links.push({ source: connectFrom, target: node.id, linkType: 'structural' });
+      saveData();
+      exitConnect();
+      rebuild();
+      toast('Connection added');
+    }
+    return;
+  }
+  selectedId = node.id;
+  document.getElementById('btn-del-sel').style.display = '';
+  showPanel(node.id);
+  rebuild();
+  const d = 140;
+  Graph.cameraPosition(
+    { x: node.x + d * 0.25, y: node.y + d * 0.15, z: node.z + d },
+    { x: node.x, y: node.y, z: node.z }, 650
+  );
+}
+
+function onBgClick() {
+  if (connectMode) return;
+  selectedId = null;
+  document.getElementById('btn-del-sel').style.display = 'none';
+  closePanel();
+  rebuild();
+}
+
+function deleteSelected() { if (selectedId) deleteSelectedNode(); }
+
+// ═══════════════════════════════════════════════════
+// PANEL
+// ═══════════════════════════════════════════════════
+function showPanel(id) {
+  const n = DATA.nodes.find(x => x.id === id);
+  if (!n) return;
+  const lines = n.label.split('\n');
+  document.getElementById('p-name').value  = lines[0] || '';
+  document.getElementById('p-line2').value = lines[1] || '';
+  document.getElementById('p-line3').value = lines[2] || '';
+  document.getElementById('p-type').value  = n.type;
+  renderConnections(id);
+  document.getElementById('panel').style.display = 'block';
+}
+
+function renderConnections(id) {
+  const conns = DATA.links.filter(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    return s === id || t === id;
+  });
+  document.getElementById('conn-hdr').textContent = `Connections (${conns.length})`;
+  let html = '';
+  conns.forEach(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    const oid = s === id ? t : s;
+    const other = DATA.nodes.find(n => n.id === oid);
+    const dir = s === id ? '→' : '←';
+    const oc = other ? (COLORS[other.type] || '#94a3b8') : '#94a3b8';
+    const nm = other ? other.label.split('\n')[0] : oid;
+    const badge = l.linkType === 'cross' ? '<span style="color:rgba(255,107,107,0.6);font-size:10px"> ╌</span>' : '';
+    html += `<div class="conn-row">
+      <span><span class="conn-dir">${dir}</span><span style="color:${oc}">${nm}</span>${badge}</span>
+      <button class="conn-del" onclick="rmLink(${s},${t})">✕</button>
+    </div>`;
+  });
+  document.getElementById('conn-list').innerHTML = html ||
+    '<div style="color:rgba(255,255,255,0.22);font-size:12px;padding:4px 0">No connections</div>';
+}
+
+function closePanel() { document.getElementById('panel').style.display = 'none'; }
+
+function saveEdit() {
+  if (!selectedId) return;
+  const n = DATA.nodes.find(x => x.id === selectedId);
+  if (!n) return;
+  const l1 = document.getElementById('p-name').value.trim();
+  const l2 = document.getElementById('p-line2').value.trim();
+  const l3 = document.getElementById('p-line3').value.trim();
+  if (!l1) { toast('Name cannot be empty'); return; }
+  n.label = [l1, l2, l3].filter(Boolean).join('\n');
+  n.type  = document.getElementById('p-type').value;
+  saveData();
+  renderConnections(selectedId);
+  rebuild();
+  toast('Saved');
+}
+
+function deleteSelectedNode() {
+  if (!selectedId) return;
+  const n = DATA.nodes.find(x => x.id === selectedId);
+  const nm = n ? n.label.split('\n')[0] : 'this node';
+  if (!confirm(`Delete "${nm}" and all its connections?`)) return;
+  DATA.nodes = DATA.nodes.filter(x => x.id !== selectedId);
+  DATA.links = DATA.links.filter(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    return s !== selectedId && t !== selectedId;
+  });
+  saveData();
+  selectedId = null;
+  closePanel();
+  document.getElementById('btn-del-sel').style.display = 'none';
+  rebuild();
+  toast('Node deleted');
+}
+
+// ═══════════════════════════════════════════════════
+// ADD NODE
+// ═══════════════════════════════════════════════════
+function openAddModal() {
+  document.getElementById('a-name').value = '';
+  document.getElementById('a-line2').value = '';
+  document.getElementById('a-type').value = 'fund';
+  document.getElementById('a-parent').value = '';
+  // Populate datalist
+  const dl = document.getElementById('node-datalist');
+  dl.innerHTML = DATA.nodes.map(n => `<option value="${n.label.split('\n')[0]}">`).join('');
+  document.getElementById('add-modal').classList.add('show');
+  setTimeout(() => document.getElementById('a-name').focus(), 60);
+}
+
+function closeAddModal() { document.getElementById('add-modal').classList.remove('show'); }
+
+function confirmAdd() {
+  const l1 = document.getElementById('a-name').value.trim();
+  if (!l1) { toast('Name required'); return; }
+  const l2   = document.getElementById('a-line2').value.trim();
+  const type = document.getElementById('a-type').value;
+  const pStr = document.getElementById('a-parent').value.trim().toLowerCase();
+  const lt   = document.getElementById('a-linktype').value;
+  const label = l2 ? `${l1}\n${l2}` : l1;
+  const newId = DATA.nextId++;
+  DATA.nodes.push({ id: newId, label, type, size: 6 });
+  if (pStr) {
+    const par = DATA.nodes.find(n => n.label.split('\n')[0].toLowerCase().includes(pStr) && n.id !== newId);
+    if (par) DATA.links.push({ source: par.id, target: newId, linkType: lt });
+    else toast('Parent not found — node added without connection');
+  }
+  saveData();
+  closeAddModal();
+  rebuild();
+  toast(`"${l1}" added`);
+}
+
+// ═══════════════════════════════════════════════════
+// CONNECT MODE
+// ═══════════════════════════════════════════════════
+function toggleConnect() {
+  connectMode ? exitConnect() : enterConnect();
+}
+function enterConnect() {
+  connectMode = true; connectFrom = null;
+  document.getElementById('btn-connect').classList.add('active');
+  document.getElementById('mode-badge').textContent = 'Connect: click SOURCE';
+  document.getElementById('mode-badge').style.display = '';
+  toast('Connect mode: click the source node first');
+}
+function exitConnect() {
+  connectMode = false; connectFrom = null;
+  document.getElementById('btn-connect').classList.remove('active');
+  document.getElementById('mode-badge').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════
+// LINK OPS
+// ═══════════════════════════════════════════════════
+function rmLink(src, tgt) {
+  if (!confirm('Remove this connection?')) return;
+  DATA.links = DATA.links.filter(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    return !(s === src && t === tgt);
+  });
+  saveData();
+  if (selectedId) renderConnections(selectedId);
+  rebuild();
+  toast('Connection removed');
+}
+
+// ═══════════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════════
+function openExport() {
+  const exp = {
+    nextId: DATA.nextId,
+    nodes: DATA.nodes.map(n => ({ id: n.id, label: n.label, type: n.type, size: n.size || 6 })),
+    links: DATA.links.map(l => {
+      const s = typeof l.source === 'object' ? l.source.id : l.source;
+      const t = typeof l.target === 'object' ? l.target.id : l.target;
+      const o = { source: s, target: t, linkType: l.linkType };
+      if (l.label) o.label = l.label;
+      return o;
+    })
+  };
+  document.getElementById('export-json').textContent = JSON.stringify(exp, null, 2);
+  document.getElementById('export-modal').classList.add('show');
+}
+function closeExport() { document.getElementById('export-modal').classList.remove('show'); }
+function copyExport() {
+  navigator.clipboard.writeText(document.getElementById('export-json').textContent)
+    .then(() => toast('Copied'));
+}
+function dlExport() {
+  const blob = new Blob([document.getElementById('export-json').textContent], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'data.json'; a.click();
+  toast('Download started');
+}
+
+// ═══════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if (!q || !Graph) return;
+  const nodes = Graph.graphData().nodes;
+  const m = nodes.find(n => n.label.toLowerCase().includes(q));
+  if (m) {
+    const d = 130;
+    Graph.cameraPosition(
+      { x: m.x + d * 0.25, y: m.y + d * 0.2, z: m.z + d },
+      { x: m.x, y: m.y, z: m.z }, 600
+    );
+  }
+});
+
+// ═══════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════
+let toastT;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+// ═══════════════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { exitConnect(); if (!selectedId) return; selectedId = null; closePanel(); document.getElementById('btn-del-sel').style.display='none'; rebuild(); }
+  if ((e.key === 'Delete' || e.key === 'Backspace') && selectedId && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    deleteSelectedNode();
+  }
+  if (e.key === 'Enter' && document.getElementById('add-modal').classList.contains('show')) {
+    confirmAdd();
+  }
+});
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+buildGraph();
+</script>
 </body>
 </html>
