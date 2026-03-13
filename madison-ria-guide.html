@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RIA Registration Guide — Dark Horse Advisers LLC + Madison Cornwell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --text-xs: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
+  --text-sm: clamp(0.85rem, 0.78rem + 0.3vw, 0.95rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
+  --text-lg: clamp(1.15rem, 1rem + 0.75vw, 1.45rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
+  --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.2rem);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem;
+  --radius-xl: 1rem; --radius-full: 9999px;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+:root, [data-theme="dark"] {
+  --bg: #0f1117; --surface: #161820; --surface2: #1c1e28; --surface-off: #1a1c25;
+  --border: #2a2d3a; --border-subtle: #222432;
+  --text: #e4e4e8; --text-muted: #8b8d9a; --text-faint: #5a5c6a;
+  --primary: #6ea8fe; --primary-dim: #3d6db3; --primary-bg: rgba(110,168,254,0.08);
+  --gold: #d4a843; --gold-bg: rgba(212,168,67,0.08);
+  --green: #5cb87a; --green-bg: rgba(92,184,122,0.08);
+  --warn: #e8a838; --warn-bg: rgba(232,168,56,0.08);
+  --red: #e05c5c; --red-bg: rgba(224,92,92,0.08);
+  --purple: #c084fc; --purple-bg: rgba(192,132,252,0.08);
+  --sky: #38bdf8; --sky-bg: rgba(56,189,248,0.08);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3); --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+}
+[data-theme="light"] {
+  --bg: #f4f5f7; --surface: #ffffff; --surface2: #f9f9fb; --surface-off: #edeef2;
+  --border: #d4d6de; --border-subtle: #e4e5ea;
+  --text: #1a1c24; --text-muted: #6b6d7a; --text-faint: #9a9ca8;
+  --primary: #2563eb; --primary-dim: #7ba3f0; --primary-bg: rgba(37,99,235,0.06);
+  --gold: #b8860b; --gold-bg: rgba(184,134,11,0.06);
+  --green: #16a34a; --green-bg: rgba(22,163,74,0.06);
+  --warn: #ca8a04; --warn-bg: rgba(202,138,4,0.06);
+  --red: #dc2626; --red-bg: rgba(220,38,38,0.06);
+  --purple: #9333ea; --purple-bg: rgba(147,51,234,0.06);
+  --sky: #0284c7; --sky-bg: rgba(2,132,199,0.06);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; -webkit-font-smoothing: antialiased; }
+body { min-height: 100dvh; line-height: 1.6; font-family: var(--font-body); font-size: var(--text-base); color: var(--text); background: var(--bg); }
+h1,h2,h3,h4,h5,h6 { text-wrap: balance; line-height: 1.2; }
+p, li { text-wrap: pretty; max-width: 72ch; }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: rgba(110,168,254,0.25); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* Layout */
+.wrapper { max-width: 1100px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+@media (min-width: 768px) { .wrapper { padding: var(--space-10) var(--space-8); } }
+
+/* Header */
+.site-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-8); border-bottom: 1px solid var(--border-subtle); margin-bottom: var(--space-10); }
+.header-left { display: flex; flex-direction: column; gap: var(--space-2); }
+.header-brand { display: flex; align-items: center; gap: var(--space-3); }
+.brand-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--primary-bg); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--primary); flex-shrink: 0; }
+.header-title { font-family: var(--font-display); font-size: var(--text-xl); color: var(--text); }
+.header-sub { font-size: var(--text-sm); color: var(--text-muted); padding-left: calc(40px + var(--space-3)); }
+.theme-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text-muted); flex-shrink: 0; transition: color var(--transition), border-color var(--transition); }
+.theme-btn:hover { color: var(--text); border-color: var(--primary); }
+
+/* Alert banner */
+.alert { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-4) var(--space-5); border-radius: var(--radius-lg); margin-bottom: var(--space-8); border: 1px solid; font-size: var(--text-sm); }
+.alert.gold { background: var(--gold-bg); border-color: rgba(212,168,67,0.25); color: var(--text); }
+.alert.green { background: var(--green-bg); border-color: rgba(92,184,122,0.25); color: var(--text); }
+.alert.blue { background: var(--primary-bg); border-color: rgba(110,168,254,0.25); color: var(--text); }
+.alert-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+.alert.gold .alert-icon { color: var(--gold); }
+.alert.green .alert-icon { color: var(--green); }
+.alert.blue .alert-icon { color: var(--primary); }
+.alert strong { color: var(--text); font-weight: 600; }
+
+/* Context cards */
+.context-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-bottom: var(--space-10); }
+@media (min-width: 700px) { .context-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .context-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.context-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); }
+.context-label { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); }
+.context-name { font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); }
+.context-detail { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; }
+.badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: 2px var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; width: fit-content; margin-top: var(--space-1); }
+.badge.green { background: var(--green-bg); border: 1px solid rgba(92,184,122,0.2); color: var(--green); }
+.badge.gold { background: var(--gold-bg); border: 1px solid rgba(212,168,67,0.2); color: var(--gold); }
+.badge.blue { background: var(--primary-bg); border: 1px solid rgba(110,168,254,0.2); color: var(--primary); }
+.badge.purple { background: var(--purple-bg); border: 1px solid rgba(192,132,252,0.2); color: var(--purple); }
+.badge.warn { background: var(--warn-bg); border: 1px solid rgba(232,168,56,0.2); color: var(--warn); }
+
+/* Section headers */
+.section { margin-bottom: var(--space-12); }
+.section-header { display: flex; align-items: flex-start; gap: var(--space-4); padding-bottom: var(--space-4); border-bottom: 1px solid var(--border-subtle); margin-bottom: var(--space-6); }
+.section-icon { width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); flex-shrink: 0; font-size: 22px; }
+.section-icon.blue { background: var(--primary-bg); color: var(--primary); }
+.section-icon.gold { background: var(--gold-bg); color: var(--gold); }
+.section-icon.green { background: var(--green-bg); color: var(--green); }
+.section-icon.purple { background: var(--purple-bg); color: var(--purple); }
+.section-icon.warn { background: var(--warn-bg); color: var(--warn); }
+.section-icon.sky { background: var(--sky-bg); color: var(--sky); }
+.section-icon.red { background: var(--red-bg); color: var(--red); }
+.section-meta { flex: 1; }
+.section-title { font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); margin-bottom: var(--space-1); }
+.section-desc { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; }
+.section-badge { padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); white-space: nowrap; }
+
+/* Org map */
+.org-tree { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); font-family: 'Courier New', monospace; font-size: var(--text-sm); line-height: 2; overflow-x: auto; }
+.org-tree .highlight { color: var(--gold); font-weight: 700; }
+.org-tree .new { color: var(--green); font-weight: 700; }
+.org-tree .advised { color: var(--primary); }
+.org-tree .dormant { color: var(--text-faint); }
+
+/* Step cards */
+.steps { display: flex; flex-direction: column; gap: var(--space-4); }
+.step-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color var(--transition), box-shadow var(--transition); }
+.step-card:hover { border-color: var(--text-faint); box-shadow: var(--shadow-md); }
+.step-head { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-5); cursor: pointer; user-select: none; }
+.step-num { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.step-num.blue { background: rgba(110,168,254,0.15); color: var(--primary); }
+.step-num.gold { background: rgba(212,168,67,0.15); color: var(--gold); }
+.step-num.green { background: rgba(92,184,122,0.15); color: var(--green); }
+.step-num.purple { background: rgba(192,132,252,0.15); color: var(--purple); }
+.step-num.warn { background: rgba(232,168,56,0.15); color: var(--warn); }
+.step-num.sky { background: rgba(56,189,248,0.15); color: var(--sky); }
+.step-title { flex: 1; font-weight: 600; font-size: var(--text-sm); color: var(--text); }
+.step-who { font-size: var(--text-xs); color: var(--text-faint); background: var(--surface-off); padding: 2px var(--space-2); border-radius: var(--radius-sm); white-space: nowrap; }
+.chevron { color: var(--text-faint); transition: transform var(--transition); flex-shrink: 0; }
+.step-card.open .chevron { transform: rotate(180deg); }
+.step-body { display: none; padding: 0 var(--space-5) var(--space-5); border-top: 1px solid var(--border-subtle); }
+.step-card.open .step-body { display: block; }
+.step-body p { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.7; margin-top: var(--space-3); }
+.step-body h4 { font-size: var(--text-sm); font-weight: 700; color: var(--text); margin-top: var(--space-4); margin-bottom: var(--space-2); }
+.step-body ul { margin-top: var(--space-3); padding-left: var(--space-5); list-style: none; }
+.step-body ul li { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.7; position: relative; padding-left: var(--space-4); margin-bottom: 2px; }
+.step-body ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-faint); }
+.step-body ul li strong { color: var(--text); font-weight: 600; }
+.callout { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: var(--text-sm); line-height: 1.6; }
+.callout.warn { border-left: 3px solid var(--warn); background: var(--warn-bg); color: var(--text); }
+.callout.blue { border-left: 3px solid var(--primary); background: var(--primary-bg); color: var(--text); }
+.callout.green { border-left: 3px solid var(--green); background: var(--green-bg); color: var(--text); }
+.callout.gold { border-left: 3px solid var(--gold); background: var(--gold-bg); color: var(--text); }
+.callout.red { border-left: 3px solid var(--red); background: var(--red-bg); color: var(--text); }
+.fee-tag { display: inline-block; padding: 2px var(--space-3); background: var(--gold-bg); border: 1px solid rgba(212,168,67,0.2); border-radius: var(--radius-sm); font-size: var(--text-sm); font-weight: 700; color: var(--gold); margin-top: var(--space-2); }
+.doc-tag { display: inline-flex; align-items: center; gap: var(--space-1); padding: 2px var(--space-2); background: var(--surface-off); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 500; color: var(--text-muted); margin-right: var(--space-1); margin-bottom: var(--space-1); }
+
+/* Phase nav */
+.phase-nav { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-8); }
+.phase-tab { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 500; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); white-space: nowrap; transition: color var(--transition), border-color var(--transition), background var(--transition); }
+.phase-tab:hover { color: var(--text); border-color: var(--text-faint); }
+.phase-tab.active { border-color: var(--primary); background: var(--primary-bg); color: var(--primary); }
+.phase-tab .num { width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; background: var(--border); color: var(--text-muted); }
+.phase-tab.active .num { background: var(--primary); color: #fff; }
+
+/* Connector */
+.connector { display: flex; justify-content: center; padding: var(--space-3) 0; }
+.connector-line { width: 2px; height: 28px; background: linear-gradient(to bottom, var(--border), var(--text-faint), var(--border)); border-radius: 1px; }
+
+/* AUM tracker */
+.aum-track { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-4); }
+@media (min-width: 640px) { .aum-track { grid-template-columns: 1fr 1fr 1fr; } }
+.aum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); }
+.aum-label { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); margin-bottom: var(--space-2); }
+.aum-value { font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); }
+.aum-note { font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1); line-height: 1.5; }
+
+/* Summary grid */
+.summary-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+@media (min-width: 640px) { .summary-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); }
+.sum-label { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: var(--space-2); }
+.sum-value { font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); margin-bottom: var(--space-1); }
+.sum-note { font-size: var(--text-xs); color: var(--text-muted); line-height: 1.5; }
+
+/* Contacts table */
+.table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); margin-top: var(--space-6); }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-faint); padding: var(--space-3) var(--space-4); text-align: left; border-bottom: 1px solid var(--border); background: var(--surface); }
+td { font-size: var(--text-sm); color: var(--text-muted); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+td strong { color: var(--text); }
+tr:last-child td { border-bottom: none; }
+
+/* Footer */
+.site-footer { margin-top: var(--space-12); padding: var(--space-6) 0; border-top: 1px solid var(--border-subtle); text-align: center; }
+.site-footer p { font-size: var(--text-xs); color: var(--text-faint); }
+
+/* Print */
+@media print { .phase-nav, .theme-btn { display: none; } .step-body { display: block !important; } }
+@media (max-width: 600px) { .step-who { display: none; } .section-badge { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-left">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>
+        </div>
+        <h1 class="header-title">Dark Horse RIA — Registration Guide</h1>
+      </div>
+      <p class="header-sub">Madison Cornwell, IAR · Caleb Caraway, Principal · Texas State Registration · March 2026</p>
+    </div>
+    <button class="theme-btn" data-theme-toggle aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </header>
+
+  <!-- TOP ALERT -->
+  <div class="alert gold">
+    <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+    <div>
+      <strong>Recommendation: Form a new LLC — not Dark Horse Wealth Management.</strong>
+      Register as <em>Dark Horse Advisers LLC</em> (or similar). Detailed rationale in Section 0 below. This is the most important structural decision before anything else.
+    </div>
+  </div>
+
+  <!-- CONTEXT CARDS -->
+  <div class="context-grid">
+    <div class="context-card">
+      <span class="context-label">Investment Adviser Representative</span>
+      <span class="context-name">Madison Cornwell</span>
+      <span class="context-detail">Series 65 licensed · will serve as IAR and Chief Compliance Officer of the new RIA entity</span>
+      <div class="badge green">✓ Series 65 — Passed</div>
+    </div>
+    <div class="context-card">
+      <span class="context-label">Principal / Beneficial Owner</span>
+      <span class="context-name">Caleb Caraway</span>
+      <span class="context-detail">Managing Partner, Dark Horse Wealth Management · 100% owner of all entities · listed as control person on Form ADV Schedule A</span>
+      <div class="badge gold">Full Authority</div>
+    </div>
+    <div class="context-card">
+      <span class="context-label">Target RIA Entity</span>
+      <span class="context-name">Dark Horse Advisers LLC</span>
+      <span class="context-detail">New Texas LLC to be formed · registers with TSSB as the Investment Adviser firm · Madison is the affiliated IAR · Caleb is the 100% owner</span>
+      <div class="badge blue">To Be Formed</div>
+    </div>
+  </div>
+
+  <!-- PHASE NAV -->
+  <nav class="phase-nav">
+    <button class="phase-tab active" data-phase="0"><span class="num">0</span> Entity Decision</button>
+    <button class="phase-tab" data-phase="1"><span class="num">1</span> Foundation</button>
+    <button class="phase-tab" data-phase="2"><span class="num">2</span> Documents</button>
+    <button class="phase-tab" data-phase="3"><span class="num">3</span> IARD Filing</button>
+    <button class="phase-tab" data-phase="4"><span class="num">4</span> State Review</button>
+    <button class="phase-tab" data-phase="5"><span class="num">5</span> Go Live</button>
+    <button class="phase-tab" data-phase="6"><span class="num">6</span> Ongoing</button>
+    <button class="phase-tab" data-phase="7"><span class="num">7</span> AUM Scaling</button>
+  </nav>
+
+  <!-- ========================================================
+       PHASE 0: ENTITY DECISION
+  ========================================================= -->
+  <section class="section" id="phase0">
+    <div class="section-header">
+      <div class="section-icon gold">🏛️</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 0 — Entity Decision: Where Does the RIA Live?</h2>
+        <p class="section-desc">The single most important structural decision before filing anything. This directly affects liability, regulatory exposure, and scalability.</p>
+      </div>
+      <span class="section-badge">Decide First</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card open">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">A</span>
+          <span class="step-title">Why NOT to register Dark Horse Wealth Management as the RIA</span>
+          <span class="step-who">Caleb + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Dark Horse Wealth Management (DHWM) is structured as a private family office — the governing entity at the top of Caleb's organizational hierarchy. Registering it directly as an RIA creates three significant problems:</p>
+          <h4>Problem 1 — Family Office Exemption Risk</h4>
+          <ul>
+            <li>The SEC's "family office" exemption under the Investment Advisers Act excludes entities that <em>only</em> advise family members and certain key employees from RIA registration requirements</li>
+            <li>If DHWM begins providing advisory services to external clients (fund LPs, outside investors), it may lose this exemption and create unexpected registration obligations at the federal level</li>
+            <li>Keeping DHWM as a pure family office preserves flexibility and avoids regulatory entanglement</li>
+          </ul>
+          <h4>Problem 2 — Regulatory Examination Exposure</h4>
+          <ul>
+            <li>Registered investment advisers are subject to periodic examination by the TSSB (and SEC when AUM threshold is crossed)</li>
+            <li>Putting that examination risk inside DHWM — the top-of-house entity that controls everything — exposes the entire structure to regulatory scrutiny</li>
+            <li>A dedicated advisory entity limits examination scope to that entity only</li>
+          </ul>
+          <h4>Problem 3 — Structural Clarity and Scalability</h4>
+          <ul>
+            <li>As Caleb's fund platform grows, the advisory entity will need to clearly delineate its role relative to each active fund</li>
+            <li>Multiple funds with different investor bases and strategies are cleaner when managed by a purpose-built advisory entity</li>
+            <li>State-to-SEC transition (when AUM hits $110M) is more straightforward with a dedicated RIA entity</li>
+          </ul>
+          <div class="callout warn">Bottom line: Do NOT register DHWM as the RIA. The structural and regulatory costs outweigh any simplicity gains.</div>
+        </div>
+      </div>
+
+      <div class="step-card open">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">B</span>
+          <span class="step-title">The Recommended Structure: Dark Horse Advisers LLC</span>
+          <span class="step-who">Caleb + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Form a new Texas LLC — recommended name: <strong>Dark Horse Advisers LLC</strong> (or <em>Corinthian Capital Advisers LLC</em> if branding to the flagship fund). This entity registers as the RIA with the TSSB.</p>
+          <h4>Structure</h4>
+          <ul>
+            <li><strong>Caleb Caraway:</strong> 100% owner / Sole Member — listed as control person on Form ADV Schedule A</li>
+            <li><strong>Madison Cornwell:</strong> Manager (advisory) / IAR / Chief Compliance Officer — the registered representative. Madison does not need to be an owner; her role is defined operationally in the Operating Agreement</li>
+            <li><strong>No outside investors:</strong> This entity is a management/advisory company, not a fund. It earns management fees or advisory fees; it does not hold investor capital</li>
+          </ul>
+          <h4>How It Fits in the Org Map</h4>
+          <div class="org-tree">
+<span style="color:var(--text-faint)">In God We Trust</span>
+└── <span style="color:var(--text-faint)">Caraway Holdings (family trust)</span>
+    └── <span class="highlight">Dark Horse Wealth Management LLC</span> (family office, governing entity)
+        ├── <span class="new">Dark Horse Advisers LLC ← NEW — RIA REGISTRATION HERE</span>
+        │   ├── Registered with TSSB as Investment Adviser
+        │   ├── Madison Cornwell (IAR / CCO)
+        │   └── <span class="advised">Advises all funds below ↓</span>
+        ├── <span class="advised">Corinthian Capital Partners LLC</span> (management/GP entity, 75% Caleb)
+        │   └── <span class="advised">Corinthian Capital Fund LLC</span> (the fund — Reg D 506(b) private debt)
+        ├── <span class="dormant">Draft Horse Capital Partners (DORMANT — no action needed)</span>
+        ├── <span class="dormant">Quarter Horse Capital Partners (DORMANT — no action needed)</span>
+        └── Stateside Resources → Field Futures Texas (8%)
+          </div>
+          <h4>Cost to Form</h4>
+          <ul>
+            <li>Texas LLC formation: ~$300 (Secretary of State filing fee + registered agent)</li>
+            <li>Operating Agreement: drafted by Dori Karjian or with template + attorney review</li>
+            <li>EIN from IRS: free, 10 minutes online</li>
+            <li>Business bank account: typically free with most business banks</li>
+          </ul>
+          <div class="callout green">✓ This is the right answer. One clean advisory entity, clear ownership, limited exam exposure, scalable as AUM grows toward $100M and beyond.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">C</span>
+          <span class="step-title">Madison's Role and Compensation: What She's Agreeing To</span>
+          <span class="step-who">Caleb + Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Before Madison commits to this structure, both parties need a clear, written understanding of exactly what she's responsible for and what she earns in return. The Operating Agreement should codify all of this.</p>
+          <h4>What Madison Is Responsible For</h4>
+          <ul>
+            <li>Serving as the firm's Investment Adviser Representative (IAR) — the licensed individual who provides investment advice</li>
+            <li>Serving as Chief Compliance Officer (CCO) — maintaining policies, conducting annual reviews, keeping books and records current</li>
+            <li>Signing off on client-facing advisory agreements before clients execute them</li>
+            <li>Completing continuing education requirements (NASAA IAR CE program — ~12 credits/year)</li>
+            <li>Keeping her Series 65 license in good standing via IARD/FINRA</li>
+            <li>Responding to any TSSB comment letters or examination requests</li>
+          </ul>
+          <h4>What Madison Is NOT Responsible For</h4>
+          <ul>
+            <li>Investment decisions — Caleb makes those; Madison's advisory role is formal/regulatory, not portfolio management (unless Caleb specifically delegates this)</li>
+            <li>Finding clients, fundraising, or investor relations — Caleb handles this</li>
+            <li>Fund operations, LP reporting, or financial accounting — separate functions</li>
+          </ul>
+          <h4>Compensation Options to Discuss</h4>
+          <ul>
+            <li><strong>Option A — Fixed annual retainer:</strong> Madison receives a flat fee (e.g., $X,000/year) for serving as CCO/IAR — clean, predictable, minimal involvement needed</li>
+            <li><strong>Option B — Percentage of advisory fees:</strong> Madison earns a percentage of the management fees the RIA entity collects — aligns her upside with Caleb's fund growth</li>
+            <li><strong>Option C — Hybrid:</strong> Small retainer + percentage of revenue above a threshold</li>
+          </ul>
+          <div class="callout blue">Whatever compensation is agreed, it must be disclosed in Form ADV Part 2B (Madison's brochure supplement). Have Dori Karjian draft or review the Operating Agreement before signing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 1: FOUNDATION
+  ========================================================= -->
+  <section class="section" id="phase1">
+    <div class="section-header">
+      <div class="section-icon blue">🔒</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 1 — Foundation and Entity Setup</h2>
+        <p class="section-desc">Form Dark Horse Advisers LLC, establish roles, and confirm registration level. Timeline: 1–2 weeks.</p>
+      </div>
+      <span class="section-badge">Weeks 1–2</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num blue">1</span>
+          <span class="step-title">Confirm Registration Level: TSSB (State) vs. SEC</span>
+          <span class="step-who">Caleb + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The governing threshold is $100M in regulatory assets under management (RAUM). Caleb's target is $100M AUM by end of 2026 — which means this decision will need to be revisited in the near term.</p>
+          <h4>Current Decision Tree</h4>
+          <ul>
+            <li><strong>Below $100M AUM:</strong> Register with Texas State Securities Board (TSSB) — correct path now</li>
+            <li><strong>$100M–$110M AUM:</strong> Buffer zone — may register with either state or SEC</li>
+            <li><strong>Above $110M AUM:</strong> Must transition to SEC registration; file Form ADV as SEC-registered adviser</li>
+            <li><strong>Clients in 15+ states:</strong> Must register with SEC regardless of AUM</li>
+          </ul>
+          <h4>Caleb's Specific Situation</h4>
+          <ul>
+            <li>Corinthian Capital Partners LLC is the management/GP entity (75% Caleb via Caraway Holdings, 25% Atlas Wealth Group). It owns and manages Corinthian Capital Fund LLC — the Reg D 506(b) private debt fund — Texas-based, accredited investors only</li>
+            <li>Most investors are likely in Texas and adjacent states — state registration is correct for now</li>
+            <li>Given the $100M AUM target by end of 2026: anticipate transitioning from TSSB to SEC registration within 12–18 months of initial registration</li>
+          </ul>
+          <div class="callout gold">⚡ Action: Confirm Caleb's current AUM across all active funds with Dori Karjian before filing. This determines the filing venue.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num blue">2</span>
+          <span class="step-title">Form Dark Horse Advisers LLC with Texas Secretary of State</span>
+          <span class="step-who">Caleb / Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <h4>Required Actions</h4>
+          <ul>
+            <li>File Certificate of Formation with the Texas Secretary of State — online via SOSDirect (~$300 filing fee)</li>
+            <li>Name check: confirm "Dark Horse Advisers LLC" is available at <a href="https://mycpa.cpa.state.tx.us/coa/" target="_blank">Texas SOS name search</a></li>
+            <li>Designate a registered agent in Texas (Caleb or use a registered agent service)</li>
+            <li>Use DHWM address: 1211 Explorer Lane, Granbury, Texas 76049</li>
+            <li>Draft Operating Agreement defining Caleb as Sole Member/Manager and Madison as Advisory Manager / CCO</li>
+            <li>Obtain EIN from IRS (free, immediate online at irs.gov)</li>
+            <li>Open a business bank account in the entity name</li>
+            <li>Request certified copies of Certificate of Formation — needed for TSSB submission</li>
+          </ul>
+          <div class="callout blue">Dori Karjian should draft or review the Operating Agreement. Madison's role, compensation, authority limits, and removal provisions all need to be specified clearly.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num blue">3</span>
+          <span class="step-title">Confirm Madison's Series 65 Status and Eligibility</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The Series 65 (NASAA Uniform Investment Adviser Law Examination) is Madison's qualifying license. However, there is a critical time-based rule:</p>
+          <h4>The 2-Year Clock Rule</h4>
+          <ul>
+            <li>If Madison passed the Series 65 <strong>more than 2 years ago</strong> and has not been affiliated with a registered investment adviser during that time, the exam result may be considered expired</li>
+            <li>If this applies, she would need to <strong>re-take the Series 65</strong> before her IAR registration can be processed</li>
+            <li>Madison should verify her current Series 65 status at <a href="https://www.finra.org/investors/have-problem/check-broker-backgrounds" target="_blank">FINRA BrokerCheck</a> or by logging into FINRA's FinPro Gateway</li>
+          </ul>
+          <h4>If Re-Exam Is Needed</h4>
+          <ul>
+            <li>Series 65 exam fee: ~$187</li>
+            <li>3-hour exam, 130 questions, 71% passing score required</li>
+            <li>Study time typically 60–120 hours; Kaplan or NASAA prep materials available</li>
+            <li>Schedule through Prometric testing centers</li>
+          </ul>
+          <div class="callout warn">⚠️ Check this FIRST. If the Series 65 is expired, it adds 2–4 months to the timeline. Do not start the entity formation process until Madison's exam status is confirmed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 2: DOCUMENTS
+  ========================================================= -->
+  <section class="section" id="phase2">
+    <div class="section-header">
+      <div class="section-icon gold">📄</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 2 — Document Preparation</h2>
+        <p class="section-desc">Draft Form ADV, advisory contracts, and compliance policies. These documents form the regulatory backbone and must be internally consistent. Timeline: 2–4 weeks.</p>
+      </div>
+      <span class="section-badge">Weeks 2–4</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">4</span>
+          <span class="step-title">Draft Form ADV Part 2A — Firm Brochure</span>
+          <span class="step-who">Madison + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The Part 2A is a plain-English narrative brochure disclosing the firm's services, fees, conflicts, and business practices. Uploaded to IARD as a text-searchable PDF. Must be consistent with every other document filed.</p>
+          <h4>Key Items for Dark Horse Advisers LLC</h4>
+          <ul>
+            <li><strong>Item 4 — Advisory Business:</strong> Describe advisory services provided to Corinthian Capital Fund LLC (the fund) via its manager Corinthian Capital Partners LLC, and any other active fund vehicles at time of filing. Note that the firm advises pooled investment vehicles, not individual retail accounts</li>
+            <li><strong>Item 5 — Fees:</strong> Management fee structure for each active fund. Must match the advisory contract exactly</li>
+            <li><strong>Item 7 — Types of Clients:</strong> Private funds / accredited investors only (consistent with Reg D 506(b) structure)</li>
+            <li><strong>Item 10 — Other Activities:</strong> Disclose Caleb's role as owner/principal across multiple affiliated entities (DHWM, Stateside Resources, etc.)</li>
+            <li><strong>Item 19 (State only) — Principal Background:</strong> Education and business experience of Madison and Caleb (required for state-registered advisers only)</li>
+          </ul>
+          <div class="callout warn">⚠️ The #1 cause of TSSB application delay: inconsistencies between Part 1 (client types, services, compensation) and Part 2A. Triple-check Items 5.D, 5.E, 5.G in Part 1 against Items 4, 5, 7 in Part 2A before filing.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">5</span>
+          <span class="step-title">Draft Form ADV Part 2B — Brochure Supplement (Madison)</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>A separate supplement covering Madison as the individual supervised person providing advisory services.</p>
+          <ul>
+            <li>Educational background and professional history (minimum 5 years)</li>
+            <li>Series 65 exam pass details and date</li>
+            <li>Other business activities (if any outside employment exists)</li>
+            <li>Disciplinary history (if any)</li>
+            <li>Supervision: how Caleb, as principal, supervises Madison's advisory activities</li>
+            <li>Any additional compensation beyond the firm arrangement</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">6</span>
+          <span class="step-title">Draft the Investment Advisory Agreement(s)</span>
+          <span class="step-who">Madison + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The advisory contract is executed between Dark Horse Advisers LLC and each fund (or fund manager entity). Since Caleb advises private funds rather than individual retail clients, these may be structured as fund-level advisory agreements rather than individual client agreements.</p>
+          <h4>Required Contract Provisions</h4>
+          <ul>
+            <li>Description of advisory services provided to the fund</li>
+            <li>Fee schedule — must match Form ADV Part 2A Item 5 exactly (same numbers, same billing method)</li>
+            <li>Whether the adviser has discretionary authority over the fund's investments</li>
+            <li>Term and termination provisions (typically 30–60 days written notice)</li>
+            <li><strong>Anti-assignment clause:</strong> Required — advisory agreement cannot be assigned to another adviser without client/fund written consent</li>
+            <li>Disclosure that TSSB registration does not imply a certain level of skill or training (Texas Securities Act §4004.002)</li>
+            <li>Governing law: Texas</li>
+          </ul>
+          <div class="callout warn">Do NOT reference registration status as a marketing endorsement. Per Texas Securities Act §4004.002, the fact of TSSB registration cannot be used to imply competence or quality of service in any advertisement.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">7</span>
+          <span class="step-title">Create Compliance Policies and Procedures Manual</span>
+          <span class="step-who">Madison (CCO)</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Written compliance policies are required for every registered investment adviser. Madison, as CCO, owns this document and is responsible for enforcing it.</p>
+          <h4>Required Policies</h4>
+          <ul>
+            <li><strong>Written Compliance Policies &amp; Procedures:</strong> Reasonably designed to prevent violations of Texas Securities Act and Advisers Act rules</li>
+            <li><strong>Code of Ethics:</strong> Standards of conduct, personal securities transaction reporting, insider trading prevention, violation reporting</li>
+            <li><strong>Privacy Policy (Reg S-P):</strong> How non-public personal information of fund investors is protected and used</li>
+            <li><strong>MNPI Policy:</strong> Prevent misuse of material non-public information (especially relevant given Caleb's deal flow activity across multiple sectors)</li>
+            <li><strong>Business Continuity Plan (BCP):</strong> Operations continuity in event of disruption — key person (if Madison is unavailable, who handles CCO duties?)</li>
+            <li><strong>Cybersecurity Policy:</strong> Data protection, encryption, incident response</li>
+            <li><strong>Books and Records Retention:</strong> 5-year retention minimum per Advisers Act Rule 204-2 (2 years easily accessible)</li>
+            <li><strong>Annual Review Procedures:</strong> How Madison conducts and documents the required annual compliance review</li>
+          </ul>
+          <div class="callout blue">Compliance manual templates are available from NASAA or compliance consultant services for $500–2,000. Given Dori Karjian's involvement, he may have a preferred template or vendor to recommend.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num gold">8</span>
+          <span class="step-title">Prepare Certified Balance Sheet (Form 133.18)</span>
+          <span class="step-who">Caleb (Principal Financial Officer)</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The TSSB requires a balance sheet for Dark Horse Advisers LLC, certified by Caleb as the Principal Financial Officer using TSSB Form 133.18. This must be submitted via email alongside the IARD filing.</p>
+          <ul>
+            <li>Balance sheet must demonstrate financial solvency of the advisory entity</li>
+            <li>If the firm collects fees more than $500 per client six months or more in advance, an audited balance sheet may be required</li>
+            <li>Complete Form 133.18 and sign as Principal Financial Officer</li>
+            <li>Submit by email to: <strong>submissions@ssb.texas.gov</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 3: IARD FILING
+  ========================================================= -->
+  <section class="section" id="phase3">
+    <div class="section-header">
+      <div class="section-icon green">🖥️</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 3 — IARD Filing and Registration</h2>
+        <p class="section-desc">Complete all electronic filings through FINRA's IARD system and submit supporting documents to the TSSB. Timeline: 2–4 weeks.</p>
+      </div>
+      <span class="section-badge">Weeks 4–6</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num green">9</span>
+          <span class="step-title">Complete IARD Entitlement Process</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>IARD (Investment Adviser Registration Depository) is FINRA's electronic filing system for all investment adviser registrations. Dark Horse Advisers LLC must be "entitled" to access the system before filing.</p>
+          <ul>
+            <li>Go to <a href="https://www.iard.com" target="_blank">iard.com</a> and complete the firm entitlement process</li>
+            <li>Create the firm account and obtain a CRD number for Dark Horse Advisers LLC</li>
+            <li>Set up Electronic Funds Transfer (EFT) from the firm's business bank account to FINRA</li>
+            <li>Fund the flex funding account with at least $310 (Texas fees + FINRA buffer)</li>
+          </ul>
+          <div class="fee-tag">Texas Fees: $75 (IA firm) + $35 (per IAR) + ~$200 FINRA system fees = ~$310</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num green">10</span>
+          <span class="step-title">File Form ADV Part 1 (Electronic, via IARD)</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Form ADV Part 1 is the formal registration application. Completed online in IARD. Details about Dark Horse Advisers LLC's business, ownership, clients, and conflicts of interest.</p>
+          <h4>Key Sections — Caleb-Specific Notes</h4>
+          <ul>
+            <li><strong>Schedule A (Direct Owners):</strong> Caleb Caraway — 100% direct owner. No other ownership interests</li>
+            <li><strong>Item 5.D (Client Types):</strong> Pooled investment vehicles (private funds) — consistent with Corinthian Capital Partners and any other active funds at time of filing</li>
+            <li><strong>Item 5.E (Compensation):</strong> Management fees — must match Part 2A Item 5</li>
+            <li><strong>Item 10 (Affiliations):</strong> Disclose all affiliated entities — DHWM, Corinthian Capital Partners, Stateside Resources, and any other entities under Caleb's control</li>
+            <li><strong>Item 1B.1 (State-only):</strong> Confirm principal office is Texas (1211 Explorer Lane, Granbury, TX 76049)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num green">11</span>
+          <span class="step-title">Upload Form ADV Parts 2A and 2B</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The firm brochure (2A) and Madison's individual supplement (2B) are uploaded as text-searchable PDFs through the IARD Part 2 Brochure Filing section.</p>
+          <ul>
+            <li>Convert Word/Google Doc drafts to text-searchable PDF before upload</li>
+            <li>Brochure is published to IAPD (public database) upon approval</li>
+            <li>Any client must be able to access the brochure at any time once the firm is registered</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num green">12</span>
+          <span class="step-title">File Form U4 for Madison (IAR Registration)</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The Uniform Application for Securities Industry Registration registers Madison as an IAR affiliated with Dark Horse Advisers LLC. This is submitted through IARD.</p>
+          <ul>
+            <li>Personal identifying information and residential history (5+ years)</li>
+            <li>Employment history (10+ years)</li>
+            <li>Full disclosure questions — criminal, regulatory, civil, financial (bankruptcy)</li>
+            <li>Series 65 pass confirmation — should auto-populate from FINRA records if the exam is current</li>
+            <li>Affiliation: Dark Horse Advisers LLC (use the CRD number obtained in Step 9)</li>
+          </ul>
+          <div class="callout green">✓ Once Form U4 is filed and the Series 65 is linked, Madison's IAR registration is pending TSSB approval. The $35 IAR fee is paid at this step via the IARD flex funding account.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num green">13</span>
+          <span class="step-title">Submit Supporting Documents to TSSB by Email</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Simultaneously with the IARD electronic filing, email the following to <strong>submissions@ssb.texas.gov</strong>. Include the CRD number and firm name in the subject line.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-1);margin-top:var(--space-3);">
+            <span class="doc-tag">📄 Certified Certificate of Formation (Dark Horse Advisers LLC)</span>
+            <span class="doc-tag">📄 Operating Agreement</span>
+            <span class="doc-tag">📄 Certified Balance Sheet + Form 133.18</span>
+            <span class="doc-tag">📄 Standard Investment Advisory Agreement</span>
+          </div>
+          <div class="callout warn">All documents must be internally consistent with Form ADV Part 1 and Part 2A. Inconsistencies trigger comment letters and delay approval by weeks.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 4: TSSB REVIEW
+  ========================================================= -->
+  <section class="section" id="phase4">
+    <div class="section-header">
+      <div class="section-icon purple">✅</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 4 — TSSB Review and Approval</h2>
+        <p class="section-desc">The Texas State Securities Board reviews all filings, background checks individuals, and may issue comment letters before granting registration. Timeline: 4–8 weeks.</p>
+      </div>
+      <span class="section-badge">Weeks 6–10</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num purple">14</span>
+          <span class="step-title">Background Check and Qualification Review</span>
+          <span class="step-who">TSSB</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The TSSB reviews both the firm and each individual listed. Madison undergoes a background check as part of her IAR registration. Caleb is reviewed as the disclosed control person.</p>
+          <ul>
+            <li>Criminal and regulatory history review for all applicants</li>
+            <li>Financial solvency review of Dark Horse Advisers LLC balance sheet</li>
+            <li>Series 65 pass verification for Madison</li>
+            <li>Consistency review — Form ADV vs. supporting documents</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num purple">15</span>
+          <span class="step-title">Respond to Comment Letters (If Issued)</span>
+          <span class="step-who">Madison + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Comment letters are extremely common — especially on first-time filings. Treat them as routine, not as a red flag. Most are resolved in one round of corrections.</p>
+          <h4>Most Common TSSB Comment Letter Issues</h4>
+          <ul>
+            <li>Inconsistency between Part 1 Item 5.D (client types) and Part 2A Item 7 (types of clients)</li>
+            <li>Fee schedule in Part 2A Item 5 doesn't match the advisory contract exactly</li>
+            <li>Discretionary authority in Part 1 Item 8.C inconsistent with Part 2A Item 16</li>
+            <li>Services in Part 1 Item 5.G don't match Part 2A Item 4</li>
+            <li>Missing or incomplete financial disclosures (Items 18.A / 18.B)</li>
+          </ul>
+          <div class="callout warn">Respond within the timeframe specified (typically 30 days). Failure to respond results in abandonment of the application and a new filing is required.</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num purple">16</span>
+          <span class="step-title">Receive Registration Confirmation</span>
+          <span class="step-who">TSSB → Madison → Caleb</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Once approved, Dark Horse Advisers LLC is a Texas-registered Investment Adviser and Madison is a registered IAR in Texas.</p>
+          <ul>
+            <li>Firm and individual CRD numbers confirmed and publicly visible on IAPD (<a href="https://adviserinfo.sec.gov" target="_blank">adviserinfo.sec.gov</a>)</li>
+            <li>Dark Horse Advisers LLC can now legally provide investment advisory services in Texas</li>
+            <li>Madison can serve as IAR for all of Caleb's active funds</li>
+          </ul>
+          <div class="callout green">✓ At this point the RIA is live. Caleb's fund platform has a registered advisory structure in place.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 5: GO LIVE
+  ========================================================= -->
+  <section class="section" id="phase5">
+    <div class="section-header">
+      <div class="section-icon warn">🚀</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 5 — Go Live and Launch Operations</h2>
+        <p class="section-desc">Activate advisory relationships, onboard funds formally, deliver brochures, and implement all compliance procedures. Timeline: Weeks 10–12.</p>
+      </div>
+      <span class="section-badge">Weeks 10–12</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num warn">17</span>
+          <span class="step-title">Deliver Form ADV Part 2A Brochure to All Fund Clients</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Before or at the time of entering any advisory agreement, each fund/client must receive the firm brochure (Part 2A) and Madison's supplement (Part 2B).</p>
+          <ul>
+            <li>Deliver to: Corinthian Capital Fund LLC (the fund vehicle, via Corinthian Capital Partners LLC as manager) and any other active fund clients at time of registration</li>
+            <li>Obtain written acknowledgment of receipt from each client/fund</li>
+            <li>Annually: deliver updated brochure (or summary of material changes) within 120 days of the firm's fiscal year end</li>
+            <li>Maintain delivery records in books and records system</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num warn">18</span>
+          <span class="step-title">Execute Investment Advisory Agreements with All Funds</span>
+          <span class="step-who">Caleb + Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Formally execute advisory agreements between Dark Horse Advisers LLC and each fund. This establishes the legal basis for the advisory relationship and the management fee.</p>
+          <ul>
+            <li><strong>Corinthian Capital Fund LLC</strong> (via Corinthian Capital Partners LLC as manager): Execute advisory agreement — fees per fund documents</li>
+            <li>Maintain executed originals in the firm's books and records</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num warn">19</span>
+          <span class="step-title">Establish Books and Records System</span>
+          <span class="step-who">Madison + Caleb</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>All required records must be maintained for at least 5 years (2 years easily accessible) per Advisers Act Rule 204-2.</p>
+          <h4>Required Records</h4>
+          <ul>
+            <li>Advisory agreements (executed originals)</li>
+            <li>Financial records — general ledger, bank statements, invoices</li>
+            <li>All marketing and advertising materials</li>
+            <li>Client/fund correspondence</li>
+            <li>Personal securities transaction reports (Code of Ethics compliance)</li>
+            <li>Compliance review documentation and annual review reports</li>
+            <li>Brochure delivery records and acknowledgments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 6: ONGOING COMPLIANCE
+  ========================================================= -->
+  <section class="section" id="phase6">
+    <div class="section-header">
+      <div class="section-icon sky">🕐</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 6 — Ongoing Compliance Obligations</h2>
+        <p class="section-desc">Registration is not a one-time event. These are Madison's and Caleb's recurring obligations for as long as the RIA is active.</p>
+      </div>
+      <span class="section-badge">Perpetual</span>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num sky">20</span>
+          <span class="step-title">Annual Form ADV Amendment (within 90 days of fiscal year end)</span>
+          <span class="step-who">Madison (CCO)</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Update AUM figures in Part 1A each year — this is critical as Caleb's AUM grows toward $100M and then $110M (SEC transition trigger)</li>
+            <li>Update Part 2A brochure with any material changes</li>
+            <li>Deliver updated brochure or summary of material changes to all fund clients within 120 days of fiscal year end</li>
+            <li>Promptly amend for material changes outside the annual cycle (change of ownership, new disciplinary events, change of CCO, etc.)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num sky">21</span>
+          <span class="step-title">Annual Compliance Review</span>
+          <span class="step-who">Madison (CCO)</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Review and update all compliance policies annually</li>
+            <li>Test the effectiveness of supervisory procedures</li>
+            <li>Review personal securities transaction reports for Code of Ethics compliance</li>
+            <li>Document findings in a written annual review report</li>
+            <li>Present findings to Caleb as principal and record the meeting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num sky">22</span>
+          <span class="step-title">IAR Continuing Education — 12 Credits per Period</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Texas has adopted NASAA's IAR Continuing Education model rule. Madison is required to complete continuing education each year to maintain her IAR registration.</p>
+          <ul>
+            <li><strong>Products and Practices:</strong> 12 CE credits per reporting period covering investment products, strategies, and professional practices</li>
+            <li><strong>Ethics and Professional Responsibility:</strong> Required ethics training component</li>
+            <li>Track and verify via FINRA's FinPro Gateway</li>
+            <li>Failure to complete CE results in suspension of IAR registration</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num sky">23</span>
+          <span class="step-title">Annual Registration Renewal (December each year)</span>
+          <span class="step-who">Madison</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <ul>
+            <li>Texas RIA registration renews annually in December via IARD</li>
+            <li>Ensure IARD flex funding account has sufficient balance for renewal fees</li>
+            <li>Failure to renew = lapsed registration; firm cannot legally provide advisory services</li>
+            <li>Budget: IA firm renewal + IAR renewal (same fee schedule as initial registration)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num sky">24</span>
+          <span class="step-title">Prepare for TSSB Examination (expect within Year 1–2)</span>
+          <span class="step-who">Madison (CCO) + Caleb</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>The TSSB typically examines newly registered firms within the first 1–2 years. Being "regulatory ready" at all times is the only correct posture.</p>
+          <h4>What Examiners Will Review</h4>
+          <ul>
+            <li>Form ADV accuracy — are AUM and business description current?</li>
+            <li>Client/fund files — agreements, brochure delivery records, correspondence</li>
+            <li>Compliance manual — is it current, signed, and has the annual review been documented?</li>
+            <li>Code of Ethics — personal securities transaction reports</li>
+            <li>Advertising and marketing materials — any use of registration as an implied endorsement?</li>
+            <li>Fee calculations — are actual fees charged consistent with the disclosed schedule?</li>
+            <li>Books and records completeness and retention</li>
+          </ul>
+          <div class="callout warn">The first examination is the most heavily scrutinized. Do not let books and records fall behind from day one. Madison's CCO obligations are not ceremonial — they are substantive.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector"><div class="connector-line"></div></div>
+
+  <!-- ========================================================
+       PHASE 7: AUM SCALING — TSSB TO SEC
+  ========================================================= -->
+  <section class="section" id="phase7">
+    <div class="section-header">
+      <div class="section-icon red">📈</div>
+      <div class="section-meta">
+        <h2 class="section-title">Phase 7 — AUM Scaling: State to SEC Registration</h2>
+        <p class="section-desc">Caleb's target is $100M AUM by end of 2026. This puts the firm directly in SEC registration territory within 12–18 months of RIA launch. Plan for this now.</p>
+      </div>
+      <span class="section-badge">2026–2027</span>
+    </div>
+
+    <div class="aum-track">
+      <div class="aum-card">
+        <div class="aum-label">State Registration (TSSB)</div>
+        <div class="aum-value">&lt; $100M AUM</div>
+        <div class="aum-note">Register now with TSSB. This is where the firm launches. Annual filings, periodic TSSB examination.</div>
+      </div>
+      <div class="aum-card" style="border-color: var(--gold); background: var(--gold-bg);">
+        <div class="aum-label" style="color: var(--gold);">⚡ Transition Zone</div>
+        <div class="aum-value" style="color: var(--gold);">$100M–$110M AUM</div>
+        <div class="aum-note">May register with either TSSB or SEC. Caleb's $100M target by end of 2026 puts this threshold within ~12 months of RIA launch. Start SEC Form ADV prep in this window.</div>
+      </div>
+      <div class="aum-card">
+        <div class="aum-label">SEC Registration Required</div>
+        <div class="aum-value">&gt; $110M AUM</div>
+        <div class="aum-note">Must file Form ADV with SEC and withdraw from TSSB registration. Madison remains IAR under the same entity. CCO obligations scale up significantly.</div>
+      </div>
+    </div>
+
+    <div class="steps" style="margin-top: var(--space-6);">
+      <div class="step-card">
+        <div class="step-head" onclick="toggleStep(this)">
+          <span class="step-num red">25</span>
+          <span class="step-title">What Changes at SEC Registration — Madison's Obligations Scale Up</span>
+          <span class="step-who">Madison + Dori Karjian</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="step-body">
+          <p>Transitioning from state to SEC registration is not a small step. Madison's CCO role becomes materially more complex:</p>
+          <h4>SEC-Specific Additional Requirements</h4>
+          <ul>
+            <li><strong>Form ADV Part 1 — SEC Filing:</strong> Annual updating amendment due within 90 days of fiscal year end; more granular AUM and client disclosures required</li>
+            <li><strong>Advisers Act Compliance:</strong> Full suite of SEC Advisers Act rules apply — custody rule (Rule 206(4)-2), performance advertising rule (Rule 206(4)-1 as amended), code of ethics rule (Rule 204A-1)</li>
+            <li><strong>Custody Rule:</strong> If the adviser has custody of fund assets (common in private fund context), annual surprise examination by an independent auditor may be required — or the fund must meet the pooled vehicle audit exception</li>
+            <li><strong>Marketing Rule (Rule 206(4)-1):</strong> Strict rules on performance advertising, testimonials, and hypothetical performance in marketing materials</li>
+            <li><strong>Form PF:</strong> If Caleb's funds qualify as private funds with $150M+ in AUM, Form PF reporting to SEC may be triggered quarterly or annually</li>
+            <li><strong>Examinations:</strong> SEC Office of Compliance Inspections and Examinations (OCIE) examinations are more comprehensive than TSSB examinations</li>
+          </ul>
+          <div class="callout gold">⚡ Plan for this now. The Corinthian Form D/A is already ~4 months overdue (CIK 0002036278). Before the RIA is live, Dori Karjian should get Corinthian's EDGAR filings current to ensure there are no outstanding compliance issues that would surface in an examination.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SUMMARY
+  ========================================================= -->
+  <section style="margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--border);">
+    <h2 style="font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); margin-bottom: var(--space-6);">Registration Summary</h2>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="sum-label">Estimated Timeline</div>
+        <div class="sum-value">4–6 Months</div>
+        <div class="sum-note">From Dark Horse Advisers LLC formation to approved registration. TSSB review typically 4–8 weeks after filing.</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-label">Total Cost (Registration)</div>
+        <div class="sum-value">~$700–1,500</div>
+        <div class="sum-note">$300 LLC formation + $110 TSSB fees + ~$200 FINRA fees + compliance template ($100–500). Attorney fees (Dori) additional.</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-label">SEC Threshold Watch</div>
+        <div class="sum-value">$110M AUM</div>
+        <div class="sum-note">Caleb's $100M AUM target by end of 2026 means SEC registration planning should start immediately after TSSB registration is granted.</div>
+      </div>
+    </div>
+
+    <!-- Contacts Table -->
+    <h3 style="font-family: var(--font-display); font-size: var(--text-lg); color: var(--text); margin-top: var(--space-8); margin-bottom: var(--space-4);">Key Regulatory Contacts and Resources</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Entity</th><th>Purpose</th><th>Contact / URL</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Texas State Securities Board</strong></td>
+            <td>State IA registration authority. Reviews and approves TSSB-registered advisers</td>
+            <td><a href="https://www.ssb.texas.gov" target="_blank">ssb.texas.gov</a> · submissions@ssb.texas.gov</td>
+          </tr>
+          <tr>
+            <td><strong>IARD / FINRA</strong></td>
+            <td>Electronic filing system for Form ADV and Form U4</td>
+            <td><a href="https://www.iard.com" target="_blank">iard.com</a></td>
+          </tr>
+          <tr>
+            <td><strong>IAPD (Public Database)</strong></td>
+            <td>Public search for registered advisers; verify registration status</td>
+            <td><a href="https://adviserinfo.sec.gov" target="_blank">adviserinfo.sec.gov</a></td>
+          </tr>
+          <tr>
+            <td><strong>NASAA</strong></td>
+            <td>IAR CE requirements; state securities law resources</td>
+            <td><a href="https://www.nasaa.org" target="_blank">nasaa.org</a></td>
+          </tr>
+          <tr>
+            <td><strong>FINRA FinPro Gateway</strong></td>
+            <td>Madison's personal portal for CE tracking and license status</td>
+            <td><a href="https://finpro.finra.org" target="_blank">finpro.finra.org</a></td>
+          </tr>
+          <tr>
+            <td><strong>Dori Karjian, PLLC</strong></td>
+            <td>Caleb's securities attorney — Operating Agreement, Form ADV review, Corinthian compliance</td>
+            <td>Contact via Caleb</td>
+          </tr>
+          <tr>
+            <td><strong>Texas Secretary of State</strong></td>
+            <td>LLC formation and certified entity documents</td>
+            <td><a href="https://www.sos.state.tx.us" target="_blank">sos.state.tx.us</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>Prepared by Dark Horse Wealth Management · For Madison Cornwell and Caleb Caraway · Confidential · March 2026</p>
+    <p style="margin-top: var(--space-2); color: var(--text-faint);">This document is informational only and does not constitute legal advice. Consult Dori Karjian (securities attorney) before filing.</p>
+  </footer>
+
+</div>
+
+<script>
+// Theme toggle
+(function(){
+  const btn = document.querySelector('[data-theme-toggle]');
+  const root = document.documentElement;
+  let theme = root.getAttribute('data-theme') || 'dark';
+  root.setAttribute('data-theme', theme);
+  btn && btn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', theme);
+  });
+})();
+
+// Step toggle
+function toggleStep(header) {
+  header.closest('.step-card').classList.toggle('open');
+}
+
+// Phase nav
+document.querySelectorAll('.phase-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const id = 'phase' + tab.dataset.phase;
+    const target = document.getElementById(id);
+    if (target) {
+      document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Scroll spy
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const num = e.target.id.replace('phase','');
+      document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+      const tab = document.querySelector(`.phase-tab[data-phase="${num}"]`);
+      if (tab) tab.classList.add('active');
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('.section[id]').forEach(s => observer.observe(s));
+
+// Open first card in each section by default
+document.querySelectorAll('.section').forEach(sec => {
+  const first = sec.querySelector('.step-card');
+  if (first) first.classList.add('open');
+});
+</script>
+</body>
+</html>
