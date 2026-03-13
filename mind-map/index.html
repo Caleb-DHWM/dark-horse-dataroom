@@ -5,382 +5,353 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Dark Horse — Entity Map</title>
 <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.5/dist/3d-force-graph.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three-spritetext@1.9.0/dist/three-spritetext.min.js"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: #03030f;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-  overflow: hidden;
-  color: white;
-}
-
+body { background: #03030f; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; overflow: hidden; color: white; }
 #graph { width: 100vw; height: 100vh; }
 
-/* ─── MAIN CONTROLS PANEL ─── */
+/* ─── TOGGLE BUTTON (always visible) ─── */
+#toggle-btn {
+  position: fixed; top: 16px; left: 16px; z-index: 300;
+  width: 40px; height: 40px;
+  background: rgba(8,8,24,0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+#toggle-btn:hover { background: rgba(20,20,50,0.95); color: white; border-color: rgba(255,255,255,0.25); }
+
+/* ─── CONTROLS PANEL ─── */
 #controls {
   position: fixed;
-  top: 20px; left: 20px;
-  z-index: 200;
-  background: rgba(8, 8, 24, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
-  padding: 18px 16px;
-  width: 220px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  top: 0; left: -260px;
+  height: 100%;
+  z-index: 250;
+  background: rgba(6,6,20,0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  width: 250px;
+  padding: 70px 18px 24px;
+  transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+  box-shadow: 4px 0 40px rgba(0,0,0,0.5);
 }
+#controls.open { left: 0; }
 
-#controls .brand { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #FFD700; margin-bottom: 4px; opacity: 0.8; }
-#controls h1 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 16px; letter-spacing: -0.3px; }
+.brand { font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase; color: #FFD700; opacity: 0.75; margin-bottom: 3px; }
+#controls h1 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 22px; }
+.section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #444; margin: 16px 0 8px; }
 
-.section-label {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: #555; margin: 12px 0 7px;
-}
-
-.btn-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
-
-.btn {
-  flex: 1 1 calc(50% - 3px);
-  padding: 7px 6px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 500;
-  transition: all 0.18s ease;
-  text-align: center;
-  white-space: nowrap;
+.layout-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 12px; margin-bottom: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer; font-size: 13px; font-weight: 500;
+  transition: all 0.18s; text-align: left;
   user-select: none;
 }
-.btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); color: #fff; }
-.btn.active {
-  background: rgba(74,158,255,0.18);
-  border-color: rgba(74,158,255,0.45);
-  color: #6eb8ff;
-}
-.btn.full { flex: 1 1 100%; }
-.btn.reset {
+.layout-btn .icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.layout-btn:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.15); color: #fff; }
+.layout-btn.active { background: rgba(74,158,255,0.15); border-color: rgba(74,158,255,0.4); color: #6eb8ff; }
+
+.action-btn {
+  display: block; width: 100%; padding: 9px 12px; margin-bottom: 6px;
   background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.5);
-  font-size: 11px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; color: rgba(255,255,255,0.5);
+  cursor: pointer; font-size: 12px;
+  transition: all 0.18s; text-align: center;
 }
+.action-btn:hover { background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.8); }
 
 /* ─── LEGEND ─── */
 #legend {
-  position: fixed;
-  bottom: 20px; left: 20px;
-  z-index: 200;
-  background: rgba(8, 8, 24, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 14px 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  position: fixed; bottom: 18px; right: 18px; z-index: 200;
+  background: rgba(6,6,20,0.85);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; padding: 12px 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
-
-.legend-item {
-  display: flex; align-items: center; gap: 9px;
-  margin-bottom: 7px; font-size: 11.5px;
-  color: rgba(255,255,255,0.6);
-}
+.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 11px; color: rgba(255,255,255,0.5); }
 .legend-item:last-child { margin-bottom: 0; }
-.dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  flex-shrink: 0; box-shadow: 0 0 6px currentColor;
-}
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 5px currentColor; }
 
 /* ─── DETAIL PANEL ─── */
 #panel {
-  position: fixed;
-  top: 20px; right: -340px;
-  z-index: 200;
-  width: 320px;
-  background: rgba(8, 8, 24, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  position: fixed; top: 16px; right: -310px; z-index: 200;
+  width: 290px;
+  background: rgba(6,6,20,0.94);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
-  padding: 22px 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  transition: right 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 14px; padding: 20px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.6);
+  transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
-#panel.open { right: 20px; }
-
+#panel.open { right: 16px; }
 #panel-close {
-  position: absolute; top: 14px; right: 14px;
-  width: 24px; height: 24px;
-  background: rgba(255,255,255,0.06);
-  border: none; border-radius: 50%;
-  color: rgba(255,255,255,0.4);
-  cursor: pointer; font-size: 14px;
+  position: absolute; top: 12px; right: 12px;
+  width: 22px; height: 22px;
+  background: rgba(255,255,255,0.06); border: none; border-radius: 50%;
+  color: rgba(255,255,255,0.4); cursor: pointer; font-size: 12px;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.15s;
 }
-#panel-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
-
-#panel-color-bar {
-  height: 3px; border-radius: 2px;
-  margin-bottom: 14px; opacity: 0.8;
-}
-#panel-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
-#panel-type {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 14px;
-}
-#panel-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 14px; }
-#panel-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.65; white-space: pre-line; }
-
-/* ─── HINT ─── */
-#hint {
-  position: fixed; bottom: 20px; right: 20px;
-  z-index: 100; font-size: 11px;
-  color: rgba(255,255,255,0.2);
-  text-align: right; line-height: 1.8;
-  pointer-events: none;
-}
+#panel-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+#panel-bar { height: 3px; border-radius: 2px; margin-bottom: 14px; }
+#panel-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 3px; line-height: 1.3; }
+#panel-type { font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+#panel-hr { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 12px; }
+#panel-desc { font-size: 12.5px; color: rgba(255,255,255,0.6); line-height: 1.65; white-space: pre-line; }
 
 /* ─── LOADING ─── */
 #loading {
   position: fixed; inset: 0; z-index: 999;
   background: #03030f;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  transition: opacity 0.6s ease;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.5s ease;
 }
 #loading.hidden { opacity: 0; pointer-events: none; }
-.loader-brand { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #FFD700; opacity: 0.7; margin-bottom: 8px; }
-.loader-title { font-size: 22px; font-weight: 700; color: white; margin-bottom: 32px; }
-.loader-bar-wrap { width: 160px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-.loader-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #4A9EFF, #7B68EE); border-radius: 2px; transition: width 0.4s ease; animation: loadpulse 1.4s ease-in-out infinite; }
-@keyframes loadpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+.l-brand { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #FFD700; opacity: 0.7; margin-bottom: 6px; }
+.l-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 28px; }
+.l-bar-wrap { width: 140px; height: 2px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.l-bar { height: 100%; background: linear-gradient(90deg, #4A9EFF, #7B68EE); border-radius: 2px; animation: lpulse 1.2s ease-in-out infinite; }
+@keyframes lpulse { 0%,100%{opacity:0.4;width:30%} 50%{opacity:1;width:80%} }
 </style>
 </head>
 <body>
 
 <div id="loading">
-  <div class="loader-brand">Dark Horse</div>
-  <div class="loader-title">Entity Map</div>
-  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  <div class="l-brand">Dark Horse</div>
+  <div class="l-title">Entity Map</div>
+  <div class="l-bar-wrap"><div class="l-bar"></div></div>
 </div>
 
-<!-- Controls -->
+<!-- Toggle button — always visible -->
+<button id="toggle-btn" onclick="togglePanel()" title="Toggle menu">☰</button>
+
+<!-- Side panel -->
 <div id="controls">
   <div class="brand">Dark Horse</div>
   <h1>Entity Map</h1>
 
-  <div class="section-label">Layout Shape</div>
-  <div class="btn-row">
-    <button class="btn active" data-layout="force" onclick="setLayout('force')">🌐 3D Force</button>
-    <button class="btn" data-layout="radial" onclick="setLayout('radial')">⬤ Radial</button>
-    <button class="btn" data-layout="td" onclick="setLayout('td')">▼ Top-Down</button>
-    <button class="btn" data-layout="lr" onclick="setLayout('lr')">▶ Left-Right</button>
-    <button class="btn" data-layout="bu" onclick="setLayout('bu')">▲ Bottom-Up</button>
-    <button class="btn" data-layout="sphere" onclick="setLayout('sphere')">◎ Sphere</button>
-  </div>
+  <div class="section-label">Layout</div>
+  <button class="layout-btn" data-layout="td" onclick="setLayout('td')">
+    <span class="icon">↓</span> Top-Down Tree
+  </button>
+  <button class="layout-btn" data-layout="lr" onclick="setLayout('lr')">
+    <span class="icon">→</span> Left-Right Tree
+  </button>
+  <button class="layout-btn" data-layout="radial" onclick="setLayout('radial')">
+    <span class="icon">◉</span> Radial / Spider
+  </button>
+  <button class="layout-btn" data-layout="force" onclick="setLayout('force')">
+    <span class="icon">✦</span> 3D Force
+  </button>
+  <button class="layout-btn" data-layout="bu" onclick="setLayout('bu')">
+    <span class="icon">↑</span> Bottom-Up
+  </button>
+  <button class="layout-btn" data-layout="sphere" onclick="setLayout('sphere')">
+    <span class="icon">⬤</span> Globe
+  </button>
 
   <div class="section-label">Actions</div>
-  <div class="btn-row">
-    <button class="btn full reset" onclick="resetCamera()">↺ Reset Camera</button>
-  </div>
+  <button class="action-btn" onclick="resetCamera()">↺ Reset Camera</button>
+  <button class="action-btn" onclick="togglePanel()">✕ Close Menu</button>
 </div>
 
 <!-- Legend -->
 <div id="legend">
   <div class="legend-item"><div class="dot" style="background:#FFD700;color:#FFD700"></div>Trust / Holdings</div>
   <div class="legend-item"><div class="dot" style="background:#4A9EFF;color:#4A9EFF"></div>Family Office</div>
-  <div class="legend-item"><div class="dot" style="background:#7B68EE;color:#7B68EE"></div>Management / GP / RIA</div>
+  <div class="legend-item"><div class="dot" style="background:#a78bfa;color:#a78bfa"></div>RIA</div>
+  <div class="legend-item"><div class="dot" style="background:#7B68EE;color:#7B68EE"></div>Management / GP</div>
   <div class="legend-item"><div class="dot" style="background:#00CED1;color:#00CED1"></div>Fund Vehicle</div>
   <div class="legend-item"><div class="dot" style="background:#FF8C00;color:#FF8C00"></div>Operations</div>
   <div class="legend-item"><div class="dot" style="background:#4a4a6a;color:#4a4a6a"></div>Dormant</div>
 </div>
 
-<!-- Detail Panel -->
+<!-- Node detail panel -->
 <div id="panel">
-  <button id="panel-close" onclick="closePanel()">✕</button>
-  <div id="panel-color-bar"></div>
-  <div id="panel-title"></div>
+  <button id="panel-close" onclick="closeDetail()">✕</button>
+  <div id="panel-bar"></div>
+  <div id="panel-name"></div>
   <div id="panel-type"></div>
-  <div id="panel-divider"></div>
+  <div id="panel-hr"></div>
   <div id="panel-desc"></div>
-</div>
-
-<!-- Hint -->
-<div id="hint">
-  Drag to rotate · Scroll to zoom<br>Click any node to explore
 </div>
 
 <div id="graph"></div>
 
 <script>
-// ─── DATA ───
 const NODE_COLORS = {
-  trust:    '#FFD700',
-  holdings: '#FFD700',
-  office:   '#4A9EFF',
-  ria:      '#a78bfa',
-  mgmt:     '#7B68EE',
-  fund:     '#00CED1',
-  dormant:  '#4a4a6a',
-  ops:      '#FF8C00'
+  trust:'#FFD700', holdings:'#FFD700',
+  office:'#4A9EFF', ria:'#a78bfa',
+  mgmt:'#7B68EE', fund:'#00CED1',
+  ops:'#FF8C00', dormant:'#4a4a6a'
 };
+// Smaller node sizes
 const NODE_SIZES = {
-  trust: 14, holdings: 13, office: 12, ria: 9,
-  mgmt: 8, fund: 7, ops: 7, dormant: 5
+  trust:5, holdings:4.5, office:4.5, ria:3.5,
+  mgmt:3, fund:2.8, ops:3, dormant:2
 };
 const TYPE_LABELS = {
-  trust:    'Family Trust',
-  holdings: 'Holding Entity',
-  office:   'Family Office',
-  ria:      'Registered Investment Adviser',
-  mgmt:     'Management / GP Entity',
-  fund:     'Fund Vehicle',
-  ops:      'Operations / Investment',
-  dormant:  'Dormant Entity'
+  trust:'Family Trust', holdings:'Holding Entity', office:'Family Office',
+  ria:'Registered Investment Adviser', mgmt:'Management / GP Entity',
+  fund:'Fund Vehicle', ops:'Operations', dormant:'Dormant Entity'
 };
 
 const graphData = {
-  nodes: [
+  nodes:[
     {id:1,  name:"In God We Trust",               type:"trust",   desc:"Family Mission & Foundation"},
     {id:2,  name:"Caraway Holdings",               type:"holdings",desc:"Family Holding Entity"},
-    {id:3,  name:"Dark Horse Wealth Management",   type:"office",  desc:"Private Family Office\nGoverning Entity"},
-    {id:4,  name:"Dark Horse Advisers LLC",        type:"ria",     desc:"Registered Investment Adviser\nBeing Formed\n\nIAR / CCO: Madison Cornwell"},
-    {id:5,  name:"Corinthian Capital Partners",    type:"mgmt",    desc:"Management / GP Entity\n75% ownership stake"},
-    {id:6,  name:"Corinthian Capital Fund LLC",    type:"fund",    desc:"Private Debt Fund\nLends to PE-backed borrowers"},
-    {id:7,  name:"Draft Horse Wealth Mgmt",        type:"mgmt",    desc:"Management Entity"},
-    {id:8,  name:"Draft Horse Capital Partners",   type:"fund",    desc:"Private Credit Fund\n⚠ DORMANT — not yet active"},
-    {id:9,  name:"Quarter Horse Wealth Mgmt",      type:"mgmt",    desc:"Management Entity"},
-    {id:10, name:"Quarter Horse Capital Partners", type:"fund",    desc:"Multi-Strategy Fund\n⚠ DORMANT — not yet active"},
-    {id:11, name:"Stateside Resources",            type:"ops",     desc:"Mineral Resources & Commodities\nHolding Company"},
+    {id:3,  name:"Dark Horse\nWealth Management",  type:"office",  desc:"Private Family Office\nGoverning Entity"},
+    {id:4,  name:"Dark Horse\nAdvisers LLC",        type:"ria",     desc:"Registered Investment Adviser\nBeing Formed\nMadison Cornwell: IAR / CCO"},
+    {id:5,  name:"Corinthian Capital\nPartners",   type:"mgmt",    desc:"Management / GP Entity\n75% ownership stake"},
+    {id:6,  name:"Corinthian Capital\nFund LLC",   type:"fund",    desc:"Private Debt Fund\nLends to PE-backed borrowers"},
+    {id:7,  name:"Draft Horse\nWealth Mgmt",       type:"mgmt",    desc:"Management Entity"},
+    {id:8,  name:"Draft Horse\nCapital Partners",  type:"fund",    desc:"Private Credit Fund\n⚠ DORMANT"},
+    {id:9,  name:"Quarter Horse\nWealth Mgmt",     type:"mgmt",    desc:"Management Entity"},
+    {id:10, name:"Quarter Horse\nCapital Partners",type:"fund",    desc:"Multi-Strategy Fund\n⚠ DORMANT"},
+    {id:11, name:"Stateside Resources",            type:"ops",     desc:"Mineral Resources & Commodities"},
     {id:12, name:"Field Futures Texas",            type:"ops",     desc:"8% Interest"},
     {id:13, name:"Virtue Management Co",           type:"mgmt",    desc:"Management Entity"},
     {id:14, name:"Virtue",                         type:"fund",    desc:"Fund Vehicle"},
     {id:15, name:"Supernature Fund",               type:"fund",    desc:"Fund Vehicle"}
   ],
-  links: [
-    {source:1, target:2},
-    {source:2, target:3},
-    {source:3, target:4},
-    {source:3, target:5},
-    {source:3, target:7},
-    {source:3, target:9},
-    {source:3, target:11},
-    {source:3, target:13},
-    {source:5, target:6},
-    {source:7, target:8},
-    {source:9, target:10},
-    {source:11, target:12},
-    {source:13, target:14},
-    {source:14, target:15}
+  links:[
+    {source:1,target:2},{source:2,target:3},
+    {source:3,target:4},{source:3,target:5},{source:3,target:7},
+    {source:3,target:9},{source:3,target:11},{source:3,target:13},
+    {source:5,target:6},{source:7,target:8},{source:9,target:10},
+    {source:11,target:12},{source:13,target:14},{source:14,target:15}
   ]
 };
 
-// ─── GRAPH INIT ───
-let currentLayout = 'force';
-let graphReady = false;
+let currentLayout = 'td';
+let ready = false;
+let controlsOpen = false;
 
+// Build graph
 const Graph = ForceGraph3D()(document.getElementById('graph'))
   .backgroundColor('#03030f')
   .graphData(graphData)
-  .nodeLabel(n => `<div style="background:rgba(8,8,24,0.9);border:1px solid rgba(255,255,255,0.15);padding:6px 10px;border-radius:8px;font-family:-apple-system,sans-serif;font-size:12px;color:#fff;max-width:180px;line-height:1.4">${n.name}</div>`)
-  .nodeColor(n => NODE_COLORS[n.type] || '#888')
-  .nodeVal(n => NODE_SIZES[n.type] || 6)
-  .nodeOpacity(0.92)
+  // Always-visible labels using SpriteText
+  .nodeThreeObject(node => {
+    const group = new THREE.Group();
+    // Sphere
+    const geo = new THREE.SphereGeometry(NODE_SIZES[node.type] || 3, 16, 12);
+    const mat = new THREE.MeshLambertMaterial({ color: NODE_COLORS[node.type] || '#888', transparent: true, opacity: 0.92 });
+    const mesh = new THREE.Mesh(geo, mat);
+    group.add(mesh);
+    // Label
+    const label = new SpriteText(node.name.replace(/\n/g,' · '));
+    label.color = 'rgba(255,255,255,0.9)';
+    label.textHeight = 3.5;
+    label.backgroundColor = 'rgba(0,0,0,0)';
+    label.strokeColor = 'rgba(0,0,0,0.6)';
+    label.strokeWidth = 3;
+    label.fontFace = '-apple-system, BlinkMacSystemFont, sans-serif';
+    label.fontWeight = '600';
+    const nodeR = NODE_SIZES[node.type] || 3;
+    label.position.y = nodeR + 5;
+    group.add(label);
+    return group;
+  })
+  .nodeThreeObjectExtend(false)
   .linkColor(l => {
-    const srcType = l.source.type || l.source;
-    return NODE_COLORS[srcType] || '#555';
+    const t = (typeof l.source === 'object' ? l.source.type : null) || 'mgmt';
+    return NODE_COLORS[t] || '#555';
   })
-  .linkWidth(1.2)
-  .linkOpacity(0.45)
-  .linkDirectionalParticles(3)
+  .linkWidth(0.8)
+  .linkOpacity(0.4)
+  .linkDirectionalParticles(2)
   .linkDirectionalParticleSpeed(0.005)
-  .linkDirectionalParticleWidth(1.8)
+  .linkDirectionalParticleWidth(1.5)
   .linkDirectionalParticleColor(l => {
-    const srcType = l.source.type || l.source;
-    return NODE_COLORS[srcType] || '#4A9EFF';
+    const t = (typeof l.source === 'object' ? l.source.type : null) || 'mgmt';
+    return NODE_COLORS[t] || '#4A9EFF';
   })
-  .linkCurvature(0)
   .enableNodeDrag(true)
   .onNodeClick(node => {
-    const dist = 120;
-    const distRatio = 1 + dist / Math.hypot(node.x || 1, node.y || 1, node.z || 1);
-    Graph.cameraPosition(
-      { x: (node.x || 0) * distRatio, y: (node.y || 0) * distRatio, z: (node.z || 0) * distRatio },
-      node,
-      1000
-    );
-    openPanel(node);
+    const dist = 80;
+    const x = node.x || 0, y = node.y || 0, z = node.z || 0;
+    const hyp = Math.hypot(x, y, z) || 1;
+    const ratio = 1 + dist / hyp;
+    Graph.cameraPosition({ x: x*ratio, y: y*ratio, z: z*ratio }, node, 900);
+    openDetail(node);
   })
-  .onBackgroundClick(() => closePanel())
-  .cooldownTicks(150)
+  .onBackgroundClick(closeDetail)
+  // Start in top-down DAG mode
+  .dagMode('td')
+  .dagLevelDistance(100)
+  .cooldownTicks(180)
   .onEngineStop(() => {
-    if (!graphReady) {
-      graphReady = true;
+    if (!ready) {
+      ready = true;
       dismissLoader();
-      Graph.zoomToFit(600, 80);
+      setTimeout(() => Graph.zoomToFit(600, 100), 200);
     }
   });
 
-// ─── LOADER ───
-let loaderPct = 0;
-const loaderInterval = setInterval(() => {
-  loaderPct = Math.min(loaderPct + Math.random() * 15, 90);
-  document.getElementById('loader-bar').style.width = loaderPct + '%';
-}, 200);
+// Mark td button active on init
+document.querySelector('[data-layout="td"]').classList.add('active');
 
+// Loader
+setTimeout(() => { if (!ready) { ready = true; dismissLoader(); } }, 5000);
 function dismissLoader() {
-  clearInterval(loaderInterval);
-  document.getElementById('loader-bar').style.width = '100%';
-  setTimeout(() => {
-    document.getElementById('loading').classList.add('hidden');
-    setTimeout(() => document.getElementById('loading').remove(), 700);
-  }, 300);
+  const el = document.getElementById('loading');
+  el.classList.add('hidden');
+  setTimeout(() => el.remove(), 600);
 }
-
-// Fallback: dismiss after 4s regardless
-setTimeout(() => { if (!graphReady) { graphReady = true; dismissLoader(); } }, 4000);
 
 // ─── LAYOUTS ───
 function setLayout(mode) {
   currentLayout = mode;
-  document.querySelectorAll('.btn[data-layout]').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.btn[data-layout="${mode}"]`).classList.add('active');
-  closePanel();
+  document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-layout="${mode}"]`).classList.add('active');
+  closeDetail();
+  ready = false;
+
+  // Release sphere pins
+  graphData.nodes.forEach(n => { n.fx = undefined; n.fy = undefined; n.fz = undefined; });
 
   switch(mode) {
     case 'force':
       Graph.dagMode(null);
-      Graph.d3Force('charge').strength(-120);
-      break;
-    case 'radial':
-      Graph.dagMode('radialout');
-      Graph.dagLevelDistance(80);
+      Graph.graphData({...graphData});
       break;
     case 'td':
-      Graph.dagMode('td');
-      Graph.dagLevelDistance(90);
+      Graph.dagMode('td').dagLevelDistance(100);
       break;
     case 'bu':
-      Graph.dagMode('bu');
-      Graph.dagLevelDistance(90);
+      Graph.dagMode('bu').dagLevelDistance(100);
       break;
     case 'lr':
-      Graph.dagMode('lr');
-      Graph.dagLevelDistance(110);
+      Graph.dagMode('lr').dagLevelDistance(130);
+      break;
+    case 'radial':
+      Graph.dagMode('radialout').dagLevelDistance(90);
       break;
     case 'sphere':
       Graph.dagMode(null);
-      // Distribute nodes on sphere surface
       const N = graphData.nodes.length;
       graphData.nodes.forEach((node, i) => {
-        const phi = Math.acos(-1 + (2 * i) / N);
+        const phi = Math.acos(-1 + (2*i)/N);
         const theta = Math.sqrt(N * Math.PI) * phi;
-        const R = 200;
+        const R = 180;
         node.fx = R * Math.cos(theta) * Math.sin(phi);
         node.fy = R * Math.sin(theta) * Math.sin(phi);
         node.fz = R * Math.cos(phi);
@@ -389,34 +360,36 @@ function setLayout(mode) {
       break;
   }
 
-  // Release sphere pinning when switching away
-  if (mode !== 'sphere') {
-    graphData.nodes.forEach(n => { n.fx = undefined; n.fy = undefined; n.fz = undefined; });
-    Graph.graphData({...graphData});
-  }
-
-  setTimeout(() => Graph.zoomToFit(800, 80), 1200);
+  setTimeout(() => { ready = true; Graph.zoomToFit(800, 100); }, 1400);
 }
 
 // ─── CAMERA ───
 function resetCamera() {
-  closePanel();
-  Graph.cameraPosition({ x: 0, y: 0, z: 500 }, { x: 0, y: 0, z: 0 }, 1000);
-  setTimeout(() => Graph.zoomToFit(600, 60), 1200);
+  closeDetail();
+  Graph.cameraPosition({ x:0, y:0, z:600 }, { x:0, y:0, z:0 }, 900);
+  setTimeout(() => Graph.zoomToFit(600, 100), 1100);
 }
 
-// ─── PANEL ───
-function openPanel(node) {
+// ─── DETAIL PANEL ───
+function openDetail(node) {
   const color = NODE_COLORS[node.type] || '#888';
-  document.getElementById('panel-color-bar').style.background = `linear-gradient(90deg, ${color}, transparent)`;
-  document.getElementById('panel-title').textContent = node.name;
+  document.getElementById('panel-bar').style.background = `linear-gradient(90deg,${color},transparent)`;
+  document.getElementById('panel-name').textContent = node.name.replace(/\n/g,' ');
   document.getElementById('panel-type').textContent = TYPE_LABELS[node.type] || node.type;
   document.getElementById('panel-desc').textContent = node.desc || '';
   document.getElementById('panel').classList.add('open');
 }
-
-function closePanel() {
+function closeDetail() {
   document.getElementById('panel').classList.remove('open');
+}
+
+// ─── CONTROLS TOGGLE ───
+function togglePanel() {
+  controlsOpen = !controlsOpen;
+  document.getElementById('controls').classList.toggle('open', controlsOpen);
+  document.getElementById('toggle-btn').textContent = controlsOpen ? '✕' : '☰';
+  // Shift toggle button when panel opens
+  document.getElementById('toggle-btn').style.left = controlsOpen ? '266px' : '16px';
 }
 </script>
 </body>
