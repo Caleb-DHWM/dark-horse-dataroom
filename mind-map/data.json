@@ -4,7 +4,7 @@
     { "id": 7,  "label": "In God We Trust\n(Caleb's Trust)",                                    "type": "trust",        "size": 14 },
     { "id": 1,  "label": "Caraway Holdings LLC",                                                 "type": "holdings",     "size": 10 },
     { "id": 3,  "label": "Dark Horse Wealth Mgmt\n(Family Office – 100% Caleb's)\n(Art Portfolio)", "type": "family-office", "size": 12 },
-    { "id": 100,"label": "Dark Horse Advisers LLC\n(RIA – Being Formed)\nMadison Cornwell: IAR/CCO", "type": "mgmt",      "size": 7  },
+    { "id": 100,"label": "Dark Horse Advisers LLC\n(RIA – Being Formed)\nMadison Cornwell: IAR + Ops Director\nDori Karjian: CCO", "type": "mgmt",      "size": 7  },
     { "id": 4,  "label": "Corinthian Capital Partners LLC\n(Management/GP – 75% Caleb)",        "type": "mgmt",         "size": 8  },
     { "id": 5,  "label": "Corinthian Capital Fund LLC\n(Private Debt – PE Lending)",            "type": "fund",         "size": 6  },
     { "id": 6,  "label": "Draft Horse Capital Partners\n(DORMANT SHELL)",                       "type": "mgmt",         "size": 7  },
