@@ -1,415 +1,889 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Dark Horse — Org Chart</title>
-<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100%; height: 100%; overflow: hidden; background: #06060f; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif; color: white; }
-#chart { width: 100vw; height: 100vh; cursor: grab; display: block; }
-#chart:active { cursor: grabbing; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Dark Horse Wealth Management — 3D Entity Map</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── MENU BUTTON ── */
-#menu-btn {
-  position: fixed; top: 14px; left: 14px; z-index: 500;
-  width: 40px; height: 40px;
-  background: rgba(10,10,28,0.92); backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
-  color: rgba(255,255,255,0.8); font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.55); transition: all 0.18s;
-  user-select: none;
-}
-#menu-btn:hover { background: rgba(20,20,50,0.98); color: white; }
+    body {
+      background: #0a0e1a;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: #fff;
+      user-select: none;
+    }
 
-/* ── SIDEBAR ── */
-#sidebar {
-  position: fixed; top: 0; left: -252px; height: 100%; width: 246px;
-  z-index: 450; background: rgba(5,5,16,0.97); backdrop-filter: blur(24px);
-  border-right: 1px solid rgba(255,255,255,0.07); padding: 64px 14px 22px;
-  transition: left 0.28s cubic-bezier(0.22,1,0.36,1);
-  box-shadow: 3px 0 36px rgba(0,0,0,0.65); overflow-y: auto;
-}
-#sidebar.open { left: 0; }
-.sb-brand { font-size: 10px; letter-spacing: 3.5px; color: #FFD700; opacity: 0.72; text-transform: uppercase; margin-bottom: 3px; }
-.sb-title { font-size: 17px; font-weight: 700; margin-bottom: 20px; }
-.sb-sec { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #3a3a5a; margin: 14px 0 7px; }
-.sb-btn {
-  display: flex; align-items: center; gap: 9px;
-  width: 100%; padding: 8px 10px; margin-bottom: 5px;
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px; color: rgba(255,255,255,0.52); cursor: pointer;
-  font-size: 12px; font-weight: 500; transition: all 0.15s; text-align: left;
-}
-.sb-btn .ic { font-size: 13px; width: 18px; text-align: center; }
-.sb-btn:hover { background: rgba(255,255,255,0.09); color: white; }
-.sb-btn.active { background: rgba(74,158,255,0.13); border-color: rgba(74,158,255,0.35); color: #7ec8ff; }
-.sb-act {
-  display: block; width: 100%; padding: 8px 10px; margin-bottom: 5px;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 8px; color: rgba(255,255,255,0.38); cursor: pointer; font-size: 11.5px;
-  transition: all 0.15s; text-align: center;
-}
-.sb-act:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.72); }
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+    }
 
-/* ── LEGEND ── */
-#legend {
-  position: fixed; bottom: 14px; right: 14px; z-index: 400;
-  background: rgba(5,5,16,0.88); backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.07); border-radius: 11px;
-  padding: 11px 13px;
-}
-.leg-row { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; font-size: 10.5px; color: rgba(255,255,255,0.45); }
-.leg-row:last-child { margin: 0; }
-.leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    canvas { display: block; }
 
-/* ── DETAIL PANEL ── */
-#detail {
-  position: fixed; top: 14px; right: -290px; z-index: 400; width: 274px;
-  background: rgba(5,5,16,0.96); backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.09); border-radius: 13px;
-  padding: 17px; box-shadow: 0 14px 46px rgba(0,0,0,0.7);
-  transition: right 0.3s cubic-bezier(0.22,1,0.36,1);
-}
-#detail.open { right: 14px; }
-#det-x {
-  position: absolute; top: 11px; right: 11px;
-  width: 21px; height: 21px; background: rgba(255,255,255,0.06);
-  border: none; border-radius: 50%; color: rgba(255,255,255,0.3);
-  cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center;
-  transition: all 0.14s;
-}
-#det-x:hover { background: rgba(255,255,255,0.14); color: white; }
-#det-bar { height: 2px; border-radius: 2px; margin-bottom: 11px; }
-#det-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; line-height: 1.35; }
-#det-type { font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 10px; }
-#det-hr { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 10px; }
-#det-desc { font-size: 11.5px; color: rgba(255,255,255,0.55); line-height: 1.62; white-space: pre-line; }
-</style>
+    /* ── TITLE ── */
+    #title-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 60;
+    }
+    #title-inner {
+      text-align: center;
+    }
+    #title-inner h1 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+    }
+    #title-inner p {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── INFO PANEL (right) ── */
+    #info-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 100%;
+      background: rgba(8, 12, 26, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #info-panel.open { transform: translateX(0); }
+
+    #info-panel-header {
+      padding: 52px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    #info-panel-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+      z-index: 1;
+    }
+    #info-panel-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    #info-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+    }
+    #info-type-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    #info-name {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #fff;
+      white-space: pre-line;
+    }
+    #info-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px 24px;
+    }
+    #info-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+    #info-meta {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    #info-meta-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
+    #info-meta-type {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── LEGEND PANEL (left) ── */
+    #legend-panel {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      width: 210px;
+      background: rgba(8, 12, 26, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: none;
+      border-radius: 0 12px 12px 0;
+      transform: translateX(-100%);
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      padding: 16px 16px 20px;
+    }
+    #legend-panel.open { transform: translateX(0); }
+
+    #legend-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+      padding-right: 28px;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 9px;
+    }
+    .legend-swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .legend-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+    }
+    .legend-section {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .legend-conn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 8px;
+    }
+    .legend-line {
+      width: 22px;
+      height: 1px;
+      flex-shrink: 0;
+    }
+    #legend-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.6);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    #legend-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    /* ── MENU BTN ── */
+    #menu-btn {
+      position: fixed;
+      top: 11px;
+      left: 14px;
+      z-index: 200;
+      background: rgba(10,14,30,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      transition: background 0.15s, color 0.15s;
+    }
+    #menu-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    /* ── LOADING ── */
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0e1a;
+      z-index: 999;
+      gap: 16px;
+      transition: opacity 0.5s;
+    }
+    #loading.fade { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 600px) {
+      #info-panel { width: 100%; }
+      #info-panel-header { padding-top: 48px; }
+    }
+  </style>
 </head>
 <body>
 
-<svg id="chart"></svg>
-
-<button id="menu-btn" onclick="toggleMenu()">☰</button>
-
-<div id="sidebar">
-  <div class="sb-brand">Dark Horse</div>
-  <div class="sb-title">Org Chart</div>
-
-  <div class="sb-sec">Layout</div>
-  <button class="sb-btn active" data-l="td" onclick="setLayout('td')"><span class="ic">↓</span>Top-Down</button>
-  <button class="sb-btn" data-l="lr" onclick="setLayout('lr')"><span class="ic">→</span>Left-Right</button>
-  <button class="sb-btn" data-l="radial" onclick="setLayout('radial')"><span class="ic">◉</span>Radial</button>
-
-  <div class="sb-sec">Actions</div>
-  <button class="sb-act" onclick="fitView()">↺ Reset View</button>
-  <button class="sb-act" onclick="toggleMenu()">✕ Close Menu</button>
+<div id="loading">
+  <div class="spinner"></div>
+  <p>BUILDING 3D ENTITY MAP…</p>
 </div>
 
-<div id="legend">
-  <div class="leg-row"><div class="leg-dot" style="background:#c9a800"></div>Trust / Holdings</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#1a6fc4"></div>Family Office</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#6d4fc4"></div>RIA</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#5548a8"></div>Management / GP</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#0e8f8f"></div>Fund Vehicle</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#b55e00"></div>Operations</div>
-  <div class="leg-row"><div class="leg-dot" style="background:#383852"></div>Dormant</div>
+<div id="canvas-container"></div>
+
+<div id="title-bar">
+  <div id="title-inner">
+    <h1>Dark Horse Wealth Management</h1>
+    <p>Drag to rotate · Scroll to zoom · Click nodes for details</p>
+  </div>
 </div>
 
-<div id="detail">
-  <button id="det-x" onclick="closeDetail()">✕</button>
-  <div id="det-bar"></div>
-  <div id="det-name"></div>
-  <div id="det-type"></div>
-  <div id="det-hr"></div>
-  <div id="det-desc"></div>
+<button id="menu-btn" title="Legend / Entity Types">☰</button>
+
+<!-- ── LEGEND ── -->
+<div id="legend-panel">
+  <button id="legend-close" title="Close">×</button>
+  <div id="legend-title">Entity Types</div>
+
+  <div class="legend-row"><div class="legend-swatch" style="background:#8b5cf6"></div><span class="legend-text">Trust</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#2563eb"></div><span class="legend-text">Holdings</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#1d4ed8"></div><span class="legend-text">Family Office</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#0f766e"></div><span class="legend-text">Management / RIA / GP</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#0369a1"></div><span class="legend-text">Fund Vehicle</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#6b7280"></div><span class="legend-text">Dormant Entity</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#b45309"></div><span class="legend-text">Operations / Resources</span></div>
+  <div class="legend-row"><div class="legend-swatch" style="background:#78716c"></div><span class="legend-text">Investment / Portfolio</span></div>
+
+  <div class="legend-section">
+    <div id="legend-title" style="margin-bottom:10px">Connections</div>
+    <div class="legend-conn">
+      <div class="legend-line" style="background:rgba(255,255,255,0.45)"></div>
+      <span class="legend-text">Structural</span>
+    </div>
+    <div class="legend-conn">
+      <div class="legend-line" style="background:rgba(100,200,255,0.6); border-top:1px dashed rgba(100,200,255,0.6); height:0"></div>
+      <span class="legend-text">Cross-investment</span>
+    </div>
+  </div>
 </div>
+
+<!-- ── INFO PANEL ── -->
+<div id="info-panel">
+  <div id="info-panel-header">
+    <button id="info-panel-close" title="Close">×</button>
+    <div id="info-type-badge">
+      <div id="info-type-dot"></div>
+      <span id="info-type-text">Type</span>
+    </div>
+    <div id="info-name">Entity Name</div>
+  </div>
+  <div id="info-body">
+    <div id="info-desc"></div>
+    <div id="info-meta">
+      <div id="info-meta-label">Entity Type</div>
+      <div id="info-meta-type"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Three.js r146 -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-hierarchy@3/dist/d3-hierarchy.min.js"></script>
 
 <script>
-// ── COLORS ──────────────────────────────────────────────────────────────────
-const C = {
-  trust:   { bg:'#1a1500', border:'#c9a800', text:'#ffe066', badge:'rgba(201,168,0,0.18)' },
-  holdings:{ bg:'#1a1500', border:'#c9a800', text:'#ffe066', badge:'rgba(201,168,0,0.18)' },
-  office:  { bg:'#081628', border:'#1a6fc4', text:'#7ec8ff', badge:'rgba(26,111,196,0.18)' },
-  ria:     { bg:'#130e28', border:'#6d4fc4', text:'#b8a4ff', badge:'rgba(109,79,196,0.18)' },
-  mgmt:    { bg:'#100e22', border:'#5548a8', text:'#9e97df', badge:'rgba(85,72,168,0.18)' },
-  fund:    { bg:'#041818', border:'#0e8f8f', text:'#4ddede', badge:'rgba(14,143,143,0.18)' },
-  ops:     { bg:'#1a0e00', border:'#b55e00', text:'#ffaa44', badge:'rgba(181,94,0,0.18)' },
-  dormant: { bg:'#0e0e18', border:'#383852', text:'#6a6a88', badge:'rgba(56,56,82,0.18)' },
+// ═══════════════════════════════════════════════════════
+//  DATA  (inlined — avoids CORS on file://)
+// ═══════════════════════════════════════════════════════
+const NODES = [
+  { id: 7,   label: "In God We Trust\n(Caleb's Trust)",                                     type: "trust",        desc: "Governing trust entity at the top of the Caraway family structure." },
+  { id: 1,   label: "Caraway Holdings LLC",                                                   type: "holdings",     desc: "Holding company that sits beneath the trust and above operating entities." },
+  { id: 3,   label: "Dark Horse Wealth Mgmt\n(Family Office – 100% Caleb's)\n(Art Portfolio)", type: "family-office", desc: "Private family office owned 100% by Caleb. Governs all operating subsidiaries. Includes art portfolio assets." },
+  { id: 100, label: "Dark Horse Advisers LLC\n(RIA – Being Formed)\nMadison Cornwell: IAR/CCO", type: "mgmt",     desc: "Registered Investment Adviser currently being formed. Madison Cornwell serves as IAR and CCO." },
+  { id: 4,   label: "Corinthian Capital Partners LLC\n(Management/GP – 75% Caleb)",          type: "mgmt",         desc: "Management and General Partner entity for Corinthian Capital Fund. 75% owned by Caleb." },
+  { id: 5,   label: "Corinthian Capital Fund LLC\n(Private Debt – PE Lending)",              type: "fund",         desc: "Private debt fund focused on lending to private equity firms. Core active fund." },
+  { id: 6,   label: "Draft Horse Capital Partners\n(DORMANT SHELL)",                         type: "dormant",      desc: "Dormant shell entity. Preserved for future use; currently inactive." },
+  { id: 8,   label: "Draft Horse Capital Partners Fund\n(DORMANT)",                          type: "dormant",      desc: "Dormant fund vehicle under Draft Horse Capital Partners. Currently inactive." },
+  { id: 9,   label: "Quarter Horse Wealth Mgmt\n(DORMANT SHELL)",                            type: "dormant",      desc: "Dormant shell management entity. Preserved for future deployment." },
+  { id: 10,  label: "Quarter Horse Capital Partners\n(DORMANT)",                             type: "dormant",      desc: "Dormant fund vehicle under Quarter Horse Wealth Management. Currently inactive." },
+  { id: 11,  label: "Stateside Resources\n(Mining & Metals – Commodities)",                  type: "operations",   desc: "Commodities and mining entity focused on metals. Active operations." },
+  { id: 12,  label: "Field Futures Texas\n(8% Owner)",                                       type: "investment",   desc: "Portfolio investment — Stateside Resources holds an 8% ownership stake." },
+  { id: 13,  label: "Virtue Mgmt Co",                                                        type: "mgmt",         desc: "Management company for the Virtue Private Credit Fund structure." },
+  { id: 14,  label: "Virtue\n(Private Credit Fund)",                                         type: "fund",         desc: "Private credit fund with cross-investments into multiple Dark Horse entities including Stateside Resources and Corinthian." },
+  { id: 15,  label: "Supernature\n(Real Estate – 100% Adil's)",                              type: "investment",   desc: "Real estate entity owned 100% by Adil. Part of the Supernature Fund vehicle." },
+  { id: 16,  label: "Supernature Fund",                                                      type: "fund",         desc: "Fund vehicle for the Supernature real estate investment." }
+];
+
+const LINKS = [
+  { source: 7,  target: 1,   linkType: "structural" },
+  { source: 1,  target: 3,   linkType: "structural" },
+  { source: 3,  target: 100, linkType: "structural" },
+  { source: 3,  target: 4,   linkType: "structural" },
+  { source: 3,  target: 6,   linkType: "structural" },
+  { source: 3,  target: 9,   linkType: "structural" },
+  { source: 3,  target: 11,  linkType: "structural" },
+  { source: 3,  target: 13,  linkType: "structural" },
+  { source: 4,  target: 5,   linkType: "structural" },
+  { source: 6,  target: 8,   linkType: "structural" },
+  { source: 9,  target: 10,  linkType: "structural" },
+  { source: 11, target: 12,  linkType: "structural" },
+  { source: 13, target: 14,  linkType: "structural" },
+  { source: 14, target: 16,  linkType: "structural" },
+  { source: 16, target: 15,  linkType: "structural" },
+  { source: 14, target: 11,  linkType: "cross", label: "invests in" },
+  { source: 14, target: 3,   linkType: "cross", label: "invests in" },
+  { source: 14, target: 10,  linkType: "cross", label: "invests in" },
+  { source: 14, target: 8,   linkType: "cross", label: "invests in" }
+];
+
+// ═══════════════════════════════════════════════════════
+//  TYPE CONFIG
+// ═══════════════════════════════════════════════════════
+const TYPE_CFG = {
+  "trust":        { color: "#8b5cf6", accent: "#a78bfa", label: "Trust" },
+  "holdings":     { color: "#2563eb", accent: "#3b82f6", label: "Holdings LLC" },
+  "family-office":{ color: "#1d4ed8", accent: "#2563eb", label: "Family Office" },
+  "mgmt":         { color: "#0f766e", accent: "#14b8a6", label: "Management / RIA" },
+  "fund":         { color: "#0369a1", accent: "#0ea5e9", label: "Fund Vehicle" },
+  "dormant":      { color: "#4b5563", accent: "#6b7280", label: "Dormant Entity" },
+  "operations":   { color: "#b45309", accent: "#f59e0b", label: "Operations" },
+  "investment":   { color: "#78716c", accent: "#a8a29e", label: "Investment / Portfolio" }
 };
-const TYPE_LABEL = {
-  trust:'Family Trust', holdings:'Holding Entity', office:'Family Office',
-  ria:'Registered Investment Adviser', mgmt:'Management / GP Entity',
-  fund:'Fund Vehicle', ops:'Operations', dormant:'Dormant Entity',
-};
 
-// ── DATA ────────────────────────────────────────────────────────────────────
-const DATA = {
-  id:'n1', name:'In God We Trust', type:'trust', desc:'Family Mission & Foundation',
-  children:[{ id:'n2', name:'Caraway Holdings', type:'holdings', desc:'Family Holding Entity',
-    children:[{ id:'n3', name:'Dark Horse Wealth Management', type:'office', desc:'Private Family Office — Governing Entity',
-      children:[
-        { id:'n4', name:'Dark Horse Advisers LLC', type:'ria',
-          desc:'Registered Investment Adviser\nBeing Formed\nMadison Cornwell: IAR / CCO\nDori Karjian: CCO (contracted)' },
-        { id:'n5', name:'Corinthian Capital Partners', type:'mgmt', desc:'Management / GP Entity — 75% ownership stake',
-          children:[{ id:'n6', name:'Corinthian Capital Fund LLC', type:'fund', desc:'Private Debt Fund\nLends to PE-backed borrowers' }] },
-        { id:'n7', name:'Draft Horse Wealth Mgmt', type:'mgmt', desc:'Management Entity',
-          children:[{ id:'n8', name:'Draft Horse Capital Partners', type:'dormant', desc:'Private Credit Fund\n⚠ DORMANT — not yet active' }] },
-        { id:'n9', name:'Quarter Horse Wealth Mgmt', type:'mgmt', desc:'Management Entity',
-          children:[{ id:'n10', name:'Quarter Horse Capital Partners', type:'dormant', desc:'Multi-Strategy Fund\n⚠ DORMANT — not yet active' }] },
-        { id:'n11', name:'Stateside Resources', type:'ops', desc:'Mineral Resources & Commodities',
-          children:[{ id:'n12', name:'Field Futures Texas', type:'ops', desc:'8% Interest' }] },
-        { id:'n13', name:'Virtue Management Co', type:'mgmt', desc:'Management Entity',
-          children:[{ id:'n14', name:'Virtue', type:'fund', desc:'Fund Vehicle',
-            children:[{ id:'n15', name:'Supernature Fund', type:'fund', desc:'Fund Vehicle' }] }] }
-      ]
-    }]
-  }]
-};
+function typeCfg(t) {
+  return TYPE_CFG[t] || TYPE_CFG["investment"];
+}
 
-// ── CARD DIMENSIONS ─────────────────────────────────────────────────────────
-const CW = 172; // card width
-const CH = 48;  // card height
-const RX = 8;   // corner radius
-const PAD_X = 38; // horizontal gap between sibling cards
-const PAD_Y = 72; // vertical gap between levels
+// ═══════════════════════════════════════════════════════
+//  BUILD HIERARCHY
+// ═══════════════════════════════════════════════════════
+const nodeMap = {};
+NODES.forEach(n => { nodeMap[n.id] = { ...n, children: [] }; });
 
-// ── SVG SETUP ───────────────────────────────────────────────────────────────
-let W = window.innerWidth, H = window.innerHeight;
-const svg = d3.select('#chart').attr('width', W).attr('height', H);
-
-// Background
-svg.append('rect').attr('width','100%').attr('height','100%').attr('fill','#06060f');
-
-const g = svg.append('g');
-const zoom = d3.zoom().scaleExtent([0.1, 3]).on('zoom', e => g.attr('transform', e.transform));
-svg.call(zoom).on('dblclick.zoom', null);
-
-const linksG = g.append('g');
-const nodesG = g.append('g');
-
-// ── CURRENT LAYOUT ──────────────────────────────────────────────────────────
-let currentLayout = 'td';
-let menuOpen = false;
-
-// ── LAYOUT ENGINE ───────────────────────────────────────────────────────────
-function computeLayout(mode) {
-  const root = d3.hierarchy(DATA);
-
-  if (mode === 'td') {
-    const tree = d3.tree().nodeSize([CW + PAD_X, CH + PAD_Y]);
-    tree(root);
-    root.each(d => { d.px = d.x; d.py = d.y; });
-
-  } else if (mode === 'lr') {
-    const tree = d3.tree().nodeSize([CH + PAD_X, CW + PAD_Y]);
-    tree(root);
-    root.each(d => { d.px = d.y; d.py = d.x; });
-
-  } else if (mode === 'radial') {
-    const tree = d3.tree().size([2 * Math.PI, 320]);
-    tree(root);
-    root.each(d => {
-      d.px = d.y * Math.cos(d.x - Math.PI / 2);
-      d.py = d.y * Math.sin(d.x - Math.PI / 2);
-    });
+const structLinks = LINKS.filter(l => l.linkType === "structural");
+const hasParent = {};
+structLinks.forEach(l => {
+  if (nodeMap[l.source] && nodeMap[l.target]) {
+    nodeMap[l.source].children.push(nodeMap[l.target]);
+    hasParent[l.target] = true;
   }
-
-  return root;
-}
-
-// ── DRAW ────────────────────────────────────────────────────────────────────
-function draw(mode, animate) {
-  const root = computeLayout(mode);
-
-  // ── LINKS ──
-  const links = root.links();
-  const linkSel = linksG.selectAll('path.edge').data(links, d => d.source.data.id + '-' + d.target.data.id);
-  linkSel.exit().transition().duration(300).attr('opacity', 0).remove();
-
-  const linkEnter = linkSel.enter().append('path')
-    .attr('class', 'edge')
-    .attr('fill', 'none')
-    .attr('stroke-width', 1.5)
-    .attr('stroke-linecap', 'round')
-    .attr('opacity', 0);
-
-  const linkMerge = linkEnter.merge(linkSel);
-  linkMerge.attr('stroke', d => C[d.source.data.type]?.border || '#555');
-
-  function edgePath(d) {
-    const sx = d.source.px, sy = d.source.py;
-    const tx = d.target.px, ty = d.target.py;
-    if (mode === 'lr') {
-      const mx = (sx + tx) / 2;
-      return `M${sx + CW/2},${sy} C${mx},${sy} ${mx},${ty} ${tx - CW/2},${ty}`;
-    } else if (mode === 'radial') {
-      return `M${sx},${sy} L${tx},${ty}`;
-    } else {
-      // Top-down: elbow connector from bottom of parent to top of child
-      const srcX = sx, srcY = sy + CH/2;
-      const tgtX = tx, tgtY = ty - CH/2;
-      const midY = (srcY + tgtY) / 2;
-      return `M${srcX},${srcY} L${srcX},${midY} L${tgtX},${midY} L${tgtX},${tgtY}`;
-    }
-  }
-
-  if (animate) {
-    linkMerge.transition().duration(600).ease(d3.easeCubicInOut)
-      .attr('opacity', 0.55)
-      .attr('d', edgePath);
-  } else {
-    linkMerge.attr('d', edgePath).attr('opacity', 0.55);
-  }
-
-  // ── NODES ──
-  const nodes = root.descendants();
-  const nodeSel = nodesG.selectAll('g.card').data(nodes, d => d.data.id);
-  nodeSel.exit().transition().duration(300).attr('opacity', 0).remove();
-
-  const cardEnter = nodeSel.enter().append('g')
-    .attr('class', 'card')
-    .attr('opacity', 0)
-    .attr('transform', d => `translate(${d.px - CW/2},${d.py - CH/2})`)
-    .style('cursor', 'pointer')
-    .on('click', (event, d) => { event.stopPropagation(); showDetail(d.data); });
-
-  // Card background
-  cardEnter.append('rect')
-    .attr('width', CW).attr('height', CH)
-    .attr('rx', RX).attr('ry', RX)
-    .attr('fill', d => C[d.data.type]?.bg || '#111')
-    .attr('stroke', d => C[d.data.type]?.border || '#444')
-    .attr('stroke-width', 1.5);
-
-  // Left accent bar
-  cardEnter.append('rect')
-    .attr('x', 0).attr('y', RX)
-    .attr('width', 3)
-    .attr('height', CH - RX * 2)
-    .attr('rx', 1.5)
-    .attr('fill', d => C[d.data.type]?.border || '#555');
-
-  // Type badge
-  cardEnter.append('rect')
-    .attr('x', 10).attr('y', 6)
-    .attr('width', d => {
-      const t = (TYPE_LABEL[d.data.type] || d.data.type).length * 5.5 + 8;
-      return Math.min(t, CW - 20);
-    })
-    .attr('height', 13)
-    .attr('rx', 3)
-    .attr('fill', d => C[d.data.type]?.badge || 'rgba(255,255,255,0.06)');
-
-  cardEnter.append('text')
-    .attr('class', 'badge-text')
-    .attr('x', 14).attr('y', 15.5)
-    .attr('font-size', '8px').attr('font-weight', '600')
-    .style('letter-spacing', '0.6px').style('text-transform', 'uppercase')
-    .attr('fill', d => C[d.data.type]?.text || '#aaa')
-    .text(d => (TYPE_LABEL[d.data.type] || d.data.type).toUpperCase().substring(0, 22));
-
-  // Entity name
-  cardEnter.append('text')
-    .attr('class', 'name-text')
-    .attr('x', 10).attr('y', 34)
-    .attr('font-size', '11px').attr('font-weight', '700')
-    .attr('fill', 'rgba(255,255,255,0.92)')
-    .text(d => {
-      const name = d.data.name;
-      return name.length > 22 ? name.substring(0, 21) + '…' : name;
-    });
-
-  // Second line if name is long
-  cardEnter.append('text')
-    .attr('class', 'name-text2')
-    .attr('x', 10).attr('y', 44)
-    .attr('font-size', '10px').attr('font-weight', '600')
-    .attr('fill', 'rgba(255,255,255,0.6)')
-    .text(d => {
-      const name = d.data.name;
-      if (name.length > 22) return name.substring(21);
-      return '';
-    });
-
-  // Hover effect
-  cardEnter.on('mouseenter', function(event, d) {
-    d3.select(this).select('rect').attr('stroke-width', 2.5);
-  }).on('mouseleave', function() {
-    d3.select(this).select('rect').attr('stroke-width', 1.5);
-  });
-
-  const cardMerge = cardEnter.merge(nodeSel);
-
-  if (animate) {
-    cardMerge.transition().duration(600).ease(d3.easeCubicInOut)
-      .attr('opacity', 1)
-      .attr('transform', d => `translate(${d.px - CW/2},${d.py - CH/2})`);
-  } else {
-    cardMerge
-      .attr('opacity', 1)
-      .attr('transform', d => `translate(${d.px - CW/2},${d.py - CH/2})`);
-  }
-}
-
-// ── FIT VIEW ─────────────────────────────────────────────────────────────────
-function fitView() {
-  requestAnimationFrame(() => {
-    const b = g.node().getBBox();
-    if (!b.width || !b.height) return;
-    W = window.innerWidth; H = window.innerHeight;
-    const pad = 60;
-    const scale = Math.min(1, Math.min((W - pad*2) / b.width, (H - pad*2) / b.height));
-    const tx = (W - b.width * scale) / 2 - b.x * scale;
-    const ty = (H - b.height * scale) / 2 - b.y * scale;
-    svg.transition().duration(700).ease(d3.easeCubicInOut)
-      .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
-  });
-}
-
-// ── SET LAYOUT ───────────────────────────────────────────────────────────────
-function setLayout(mode, init) {
-  currentLayout = mode;
-  document.querySelectorAll('.sb-btn[data-l]').forEach(b => b.classList.remove('active'));
-  const btn = document.querySelector(`.sb-btn[data-l="${mode}"]`);
-  if (btn) btn.classList.add('active');
-  closeDetail();
-  draw(mode, !init);
-  setTimeout(fitView, init ? 0 : 700);
-}
-
-// ── DETAIL PANEL ─────────────────────────────────────────────────────────────
-function showDetail(d) {
-  const col = C[d.type]?.border || '#888';
-  document.getElementById('det-bar').style.background = `linear-gradient(90deg,${col},transparent)`;
-  document.getElementById('det-name').textContent = d.name;
-  document.getElementById('det-type').textContent = TYPE_LABEL[d.type] || d.type;
-  document.getElementById('det-desc').textContent = d.desc || '';
-  document.getElementById('detail').classList.add('open');
-}
-function closeDetail() { document.getElementById('detail').classList.remove('open'); }
-svg.on('click', closeDetail);
-
-// ── MENU ─────────────────────────────────────────────────────────────────────
-function toggleMenu() {
-  menuOpen = !menuOpen;
-  document.getElementById('sidebar').classList.toggle('open', menuOpen);
-  const btn = document.getElementById('menu-btn');
-  btn.textContent = menuOpen ? '✕' : '☰';
-  btn.style.left = menuOpen ? '262px' : '14px';
-}
-
-// ── RESIZE ───────────────────────────────────────────────────────────────────
-window.addEventListener('resize', () => {
-  W = window.innerWidth; H = window.innerHeight;
-  svg.attr('width', W).attr('height', H);
 });
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
-setLayout('td', true);
+const root = NODES.find(n => !hasParent[n.id]);
+const treeRoot = nodeMap[root.id];
+
+// ═══════════════════════════════════════════════════════
+//  THREE.JS SCENE
+// ═══════════════════════════════════════════════════════
+const container = document.getElementById('canvas-container');
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0e1a);
+
+const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 300);
+camera.position.set(0, 3, 18);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.sortObjects = true;
+container.appendChild(renderer.domElement);
+
+// Lights
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+dirLight.position.set(6, 10, 4);
+scene.add(dirLight);
+
+// Grid floor
+const grid = new THREE.GridHelper(60, 24, 0x1a2040, 0x131829);
+grid.position.y = -13;
+scene.add(grid);
+
+// Subtle fog
+scene.fog = new THREE.FogExp2(0x0a0e1a, 0.018);
+
+// OrbitControls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.autoRotate = false;
+controls.minDistance = 3;
+controls.maxDistance = 45;
+controls.target.set(0, 1, 0);
+controls.update();
+
+// ═══════════════════════════════════════════════════════
+//  D3 LAYOUT
+// ═══════════════════════════════════════════════════════
+// Build d3 hierarchy from our treeRoot
+const hier = d3.hierarchy(treeRoot, d => d.children && d.children.length ? d.children : null);
+
+// Use nodeSize for consistent spacing
+// [horizontal-gap-between-nodes, vertical-gap-between-levels]
+// Then we'll map d3.y (depth) → Three.js Y
+const treeLayout = d3.tree().nodeSize([3.4, 1]);
+treeLayout(hier);
+
+// Map each node's d3 position → Three.js 3D position
+// d3.x = horizontal position, d3.y = depth * 1 (since nodeSize y-sep = 1)
+// We'll remap depth to Y manually for full control
+const DEPTH_Y = [11, 7.5, 4, 0.5, -3, -6.5, -10, -13.5];
+
+const posMap = {}; // nodeId → THREE.Vector3
+hier.each(d => {
+  const x = d.x;                                      // d3 horizontal
+  const y = DEPTH_Y[Math.min(d.depth, DEPTH_Y.length - 1)];
+  const z = (Math.random() * 2 - 1) * 0.06;           // tiny z-jitter
+  posMap[d.data.id] = new THREE.Vector3(x, y, z);
+});
+
+// ═══════════════════════════════════════════════════════
+//  CANVAS TEXTURE FACTORY
+// ═══════════════════════════════════════════════════════
+const TEX_W = 512;
+const TEX_H = 230;
+const CARD_W = 2.9;    // Three.js units
+const CARD_H = 1.3;
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y,     x + w, y + r,     r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x,     y + h, x,     y + h - r, r);
+  ctx.lineTo(x,     y + r);
+  ctx.arcTo(x,     y,     x + r, y,         r);
+  ctx.closePath();
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return { r, g, b };
+}
+
+function lighten(hex, amt) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgb(${Math.min(255,r+amt)},${Math.min(255,g+amt)},${Math.min(255,b+amt)})`;
+}
+
+function buildTexture(node, highlighted) {
+  const canvas = document.createElement('canvas');
+  canvas.width = TEX_W;
+  canvas.height = TEX_H;
+  const ctx = canvas.getContext('2d');
+  const cfg = typeCfg(node.type);
+  const { r, g, b } = hexToRgb(cfg.color);
+
+  // ── Background ──
+  roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
+  const grad = ctx.createLinearGradient(0, 0, 0, TEX_H);
+  grad.addColorStop(0, `rgba(${r},${g},${b},0.94)`);
+  grad.addColorStop(1, `rgba(${Math.max(0,r-28)},${Math.max(0,g-28)},${Math.max(0,b-28)},0.98)`);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // ── Border ──
+  roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
+  ctx.strokeStyle = highlighted ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.14)';
+  ctx.lineWidth = highlighted ? 5 : 2;
+  ctx.stroke();
+
+  // ── Left accent bar ──
+  ctx.save();
+  ctx.beginPath();
+  roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
+  ctx.clip();
+  const { r: ar, g: ag, b: ab } = hexToRgb(cfg.accent);
+  ctx.fillStyle = `rgba(${ar},${ag},${ab},0.55)`;
+  ctx.fillRect(2, 2, 18, TEX_H - 4);
+  ctx.restore();
+
+  // ── Dormant diagonal hatch ──
+  if (node.type === 'dormant') {
+    ctx.save();
+    roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
+    ctx.clip();
+    ctx.globalAlpha = 0.06;
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 10;
+    for (let i = -TEX_H; i < TEX_W + TEX_H; i += 36) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i + TEX_H, TEX_H);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // ── Text: split label on \n ──
+  const lines = node.label.split('\n');
+  const leftPad = 28;
+  const rightPad = 16;
+  const maxW = TEX_W - leftPad - rightPad;
+  let curY = 26;
+
+  lines.forEach((rawLine, li) => {
+    const isFirst = li === 0;
+    const fontSize = isFirst ? (rawLine.length > 24 ? 22 : 26) : 17;
+    ctx.font = `${isFirst ? 700 : 400} ${fontSize}px -apple-system, sans-serif`;
+    ctx.fillStyle = isFirst ? '#ffffff' : 'rgba(255,255,255,0.72)';
+    ctx.textBaseline = 'top';
+
+    // Word-wrap
+    const words = rawLine.split(' ');
+    let line = '';
+    words.forEach((word, wi) => {
+      const test = line + (wi > 0 ? ' ' : '') + word;
+      if (ctx.measureText(test).width > maxW && wi > 0) {
+        ctx.fillText(line, leftPad, curY);
+        curY += fontSize + 3;
+        line = word;
+      } else {
+        line = test;
+      }
+    });
+    ctx.fillText(line, leftPad, curY);
+    curY += fontSize + (isFirst ? 6 : 3);
+  });
+
+  // ── Type badge (bottom left) ──
+  const badgeText = cfg.label;
+  const badgeFontSize = 16;
+  ctx.font = `600 ${badgeFontSize}px -apple-system, sans-serif`;
+  const badgePadH = 12;
+  const badgePadV = 5;
+  const bw = ctx.measureText(badgeText).width + badgePadH * 2;
+  const bh = badgeFontSize + badgePadV * 2;
+  const bx = leftPad;
+  const by = TEX_H - bh - 12;
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  roundRect(ctx, bx, by, bw, bh, bh / 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.82)';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(badgeText, bx + badgePadH, by + bh / 2);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+// ═══════════════════════════════════════════════════════
+//  BUILD CARDS
+// ═══════════════════════════════════════════════════════
+const cardGroup = new THREE.Group();
+scene.add(cardGroup);
+
+const allCards = [];     // all card meshes
+const meshById = {};     // id → mesh
+
+NODES.forEach(node => {
+  const pos = posMap[node.id];
+  if (!pos) return;
+
+  const tex = buildTexture(node, false);
+  const geo = new THREE.PlaneGeometry(CARD_W, CARD_H);
+  const mat = new THREE.MeshBasicMaterial({
+    map: tex,
+    transparent: true,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(pos);
+  mesh.renderOrder = 1;
+  mesh.userData = { node };
+  cardGroup.add(mesh);
+  allCards.push(mesh);
+  meshById[node.id] = mesh;
+});
+
+// ═══════════════════════════════════════════════════════
+//  BUILD CONNECTIONS
+// ═══════════════════════════════════════════════════════
+function makeConnection(srcId, tgtId, isStructural) {
+  const src = posMap[srcId];
+  const tgt = posMap[tgtId];
+  if (!src || !tgt) return;
+
+  // From bottom of source card → top of target card
+  const pts = [
+    new THREE.Vector3(src.x, src.y - CARD_H / 2, src.z),
+    new THREE.Vector3(tgt.x, tgt.y + CARD_H / 2, tgt.z)
+  ];
+
+  const geo = new THREE.BufferGeometry().setFromPoints(pts);
+  const mat = new THREE.LineBasicMaterial({
+    color: isStructural ? 0xffffff : 0x64c8ff,
+    transparent: true,
+    opacity: isStructural ? 0.22 : 0.38
+  });
+  const line = new THREE.Line(geo, mat);
+  line.renderOrder = 0;
+  scene.add(line);
+}
+
+LINKS.forEach(l => makeConnection(l.source, l.target, l.linkType === 'structural'));
+
+// ═══════════════════════════════════════════════════════
+//  UI — Info panel & Legend
+// ═══════════════════════════════════════════════════════
+const infoPanel    = document.getElementById('info-panel');
+const infoPanelClose = document.getElementById('info-panel-close');
+const infoTypeBadge = document.getElementById('info-type-badge');
+const infoTypeDot  = document.getElementById('info-type-dot');
+const infoTypeText = document.getElementById('info-type-text');
+const infoName     = document.getElementById('info-name');
+const infoDesc     = document.getElementById('info-desc');
+const infoMetaType = document.getElementById('info-meta-type');
+
+const legendPanel  = document.getElementById('legend-panel');
+const menuBtn      = document.getElementById('menu-btn');
+const legendClose  = document.getElementById('legend-close');
+
+let selectedMesh = null;
+let hoveredMesh  = null;
+
+function refreshCard(mesh, highlighted) {
+  if (!mesh) return;
+  mesh.material.map.dispose();
+  mesh.material.map = buildTexture(mesh.userData.node, highlighted);
+  mesh.material.needsUpdate = true;
+}
+
+function showInfo(node) {
+  const cfg = typeCfg(node.type);
+  infoTypeDot.style.background = cfg.color;
+  infoTypeText.textContent = cfg.label;
+  infoTypeBadge.style.background = cfg.color + '22';
+  infoTypeBadge.style.borderColor = cfg.color + '66';
+  infoTypeBadge.style.border = `1px solid ${cfg.color}66`;
+  infoName.textContent = node.label;
+  infoDesc.textContent = node.desc || '';
+  infoMetaType.textContent = cfg.label;
+  infoPanel.classList.add('open');
+}
+
+function hideInfo() {
+  infoPanel.classList.remove('open');
+  if (selectedMesh) {
+    const prev = selectedMesh;
+    selectedMesh = null;
+    prev.scale.setScalar(1);
+    refreshCard(prev, hoveredMesh === prev);
+  }
+}
+
+function selectMesh(mesh) {
+  if (mesh === selectedMesh) { hideInfo(); return; }
+  // Deselect old
+  if (selectedMesh) {
+    const prev = selectedMesh;
+    selectedMesh = null;
+    prev.scale.setScalar(1);
+    refreshCard(prev, hoveredMesh === prev);
+  }
+  selectedMesh = mesh;
+  mesh.scale.setScalar(1.06);
+  refreshCard(mesh, true);
+  showInfo(mesh.userData.node);
+  // Camera DOES NOT MOVE — ever
+}
+
+infoPanelClose.addEventListener('click', hideInfo);
+menuBtn.addEventListener('click', () => legendPanel.classList.toggle('open'));
+legendClose.addEventListener('click', () => legendPanel.classList.remove('open'));
+
+// ═══════════════════════════════════════════════════════
+//  RAYCASTING
+// ═══════════════════════════════════════════════════════
+const raycaster = new THREE.Raycaster();
+raycaster.params.Line = { threshold: 0.05 };
+const mouse2d = new THREE.Vector2();
+
+let dragStartX = 0, dragStartY = 0, didDrag = false;
+
+function toNDC(clientX, clientY) {
+  mouse2d.x =  (clientX / window.innerWidth)  * 2 - 1;
+  mouse2d.y = -(clientY / window.innerHeight) * 2 + 1;
+}
+
+function getHit(clientX, clientY) {
+  toNDC(clientX, clientY);
+  raycaster.setFromCamera(mouse2d, camera);
+  const hits = raycaster.intersectObjects(allCards);
+  return hits.length ? hits[0].object : null;
+}
+
+// Mouse
+renderer.domElement.addEventListener('mousedown', e => {
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  didDrag = false;
+});
+
+renderer.domElement.addEventListener('mousemove', e => {
+  const dx = e.clientX - dragStartX, dy = e.clientY - dragStartY;
+  if (Math.hypot(dx, dy) > 4) didDrag = true;
+
+  const hit = getHit(e.clientX, e.clientY);
+  renderer.domElement.style.cursor = hit ? 'pointer' : 'default';
+
+  if (hit !== hoveredMesh) {
+    // Unhover old
+    if (hoveredMesh && hoveredMesh !== selectedMesh) {
+      hoveredMesh.scale.setScalar(1);
+      refreshCard(hoveredMesh, false);
+    }
+    hoveredMesh = hit;
+    // Hover new
+    if (hoveredMesh && hoveredMesh !== selectedMesh) {
+      hoveredMesh.scale.setScalar(1.05);
+      refreshCard(hoveredMesh, true);
+    }
+  }
+});
+
+renderer.domElement.addEventListener('click', e => {
+  if (didDrag) return;
+  const hit = getHit(e.clientX, e.clientY);
+  if (hit) {
+    selectMesh(hit);
+  } else {
+    hideInfo();
+  }
+});
+
+// Touch
+let touchStartX = 0, touchStartY = 0, touchDidMove = false;
+renderer.domElement.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchDidMove = false;
+}, { passive: true });
+
+renderer.domElement.addEventListener('touchmove', e => {
+  const dx = e.touches[0].clientX - touchStartX;
+  const dy = e.touches[0].clientY - touchStartY;
+  if (Math.hypot(dx, dy) > 8) touchDidMove = true;
+}, { passive: true });
+
+renderer.domElement.addEventListener('touchend', e => {
+  if (touchDidMove) return;
+  if (!e.changedTouches.length) return;
+  const t = e.changedTouches[0];
+  const hit = getHit(t.clientX, t.clientY);
+  if (hit) selectMesh(hit);
+}, { passive: true });
+
+// ═══════════════════════════════════════════════════════
+//  RESIZE
+// ═══════════════════════════════════════════════════════
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ═══════════════════════════════════════════════════════
+//  RENDER LOOP
+// ═══════════════════════════════════════════════════════
+let firstFrame = true;
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (firstFrame) {
+    // Safe to set final camera state on first rendered frame
+    camera.position.set(0, 3, 18);
+    camera.lookAt(0, 1, 0);
+    controls.target.set(0, 1, 0);
+    controls.update();
+
+    // Hide loading screen
+    const loading = document.getElementById('loading');
+    if (loading) {
+      loading.classList.add('fade');
+      setTimeout(() => loading.remove(), 600);
+    }
+    firstFrame = false;
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+animate();
 </script>
 </body>
 </html>
