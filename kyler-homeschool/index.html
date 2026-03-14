@@ -3,520 +3,2190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Schedule — Smith Homeschool</title>
+<title>Kyler's Homeschool Dashboard</title>
 <style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #12182e;
+    --surface2: #1a2240;
+    --border: rgba(255,255,255,0.08);
+    --clive: #3b82f6;
+    --clive-dim: rgba(59,130,246,0.15);
+    --gideon: #10b981;
+    --gideon-dim: rgba(16,185,129,0.15);
+    --simon: #f59e0b;
+    --simon-dim: rgba(245,158,11,0.15);
+    --aar: #ef4444;
+    --aar-dim: rgba(239,68,68,0.18);
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --gold: #f59e0b;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
+    background: var(--bg);
+    color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f7f5f0;
-    color: #2d2d2d;
-    padding: 16px;
-    max-width: 680px;
-    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
   }
-  h1 { font-size: 1.4rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
-  .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
 
-  .feedback-banner {
-    background: #fffbea;
-    border: 1.5px solid #f5c842;
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-bottom: 20px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: #5a4a00;
+  /* ── BANNER ── */
+  .banner {
+    background: rgba(245,158,11,0.12);
+    border-bottom: 1px solid rgba(245,158,11,0.3);
+    color: #fbbf24;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .feedback-banner strong { color: #3d3000; }
 
-  .enrichment-banner {
-    background: #f0f7f0;
-    border: 1.5px solid #6ab87a;
-    border-radius: 10px;
-    padding: 11px 14px;
-    margin-bottom: 14px;
-    font-size: 0.82rem;
-    line-height: 1.5;
-    color: #1a4a1a;
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px 0;
+    position: sticky;
+    top: 33px;
+    z-index: 90;
   }
-  .enrichment-banner strong { color: #0d3a0d; }
 
-  .section-label {
-    font-size: 0.72rem;
+  .site-header h1 {
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .site-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  /* ── TABS ── */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: #fff; border-bottom-color: var(--clive); }
+
+  /* ── CONTENT ── */
+  .tab-content { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
     text-transform: uppercase;
-    color: #aaa;
-    margin: 20px 0 8px;
-  }
-  .section-label.core-label { color: #2a5bd7; }
-  .section-label.enrichment-label { color: #1a8a3a; }
-
-  .schedule { display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
-
-  .block { border-radius: 10px; overflow: hidden; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
-  .block-header { display: flex; align-items: stretch; }
-  .block-time {
-    background: #e8e4dc; color: #555;
-    font-size: 0.78rem; font-weight: 600;
-    padding: 10px 10px;
-    min-width: 76px;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; line-height: 1.3; flex-shrink: 0;
-  }
-  .block-body { padding: 10px 13px; flex: 1; }
-  .block-title {
-    font-size: 0.95rem; font-weight: 700; margin-bottom: 3px;
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  }
-  .block-badge {
-    font-size: 0.68rem; font-weight: 600;
-    padding: 2px 7px; border-radius: 20px; letter-spacing: 0.03em;
-  }
-  .badge-together { background: #e8f0fe; color: #2a5bd7; }
-  .badge-split    { background: #fce8ff; color: #9a2ab8; }
-  .badge-break    { background: #e8fce8; color: #1a8a1a; }
-  .badge-core     { background: #fff0e0; color: #b05000; font-size: 0.64rem; }
-
-  .block-detail { font-size: 0.82rem; color: #555; line-height: 1.5; }
-  .block-detail .boy { font-weight: 600; }
-  .clive-c  { color: #1a5eb8; }
-  .gideon-c { color: #1a8a3a; }
-  .simon-c  { color: #c86a00; }
-
-  .block.together .block-time { background: #dde8ff; color: #2a5bd7; }
-  .block.split    .block-time { background: #f3e0ff; color: #8a2aaa; }
-  .block.break    .block-time { background: #d8f5d8; color: #1a7a1a; }
-  .block.morning  .block-time { background: #fff3cc; color: #8a6a00; }
-
-  .dyslexia-note {
-    background: #fff3e0;
-    border-left: 3px solid #e07000;
-    padding: 7px 10px; margin-top: 8px;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.8rem; color: #7a3a00; line-height: 1.5;
-  }
-  .dyslexia-note strong { color: #5a2800; }
-
-  .inline-note {
-    background: #f5f5f5;
-    border-left: 3px solid #bbb;
-    padding: 6px 10px; margin-top: 7px;
-    border-radius: 0 6px 6px 0;
-    font-size: 0.78rem; color: #666; line-height: 1.5;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
   }
 
-  h2 { font-size: 1.1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; margin-top: 8px; }
-  .section-note { font-size: 0.8rem; color: #888; margin-bottom: 14px; line-height: 1.5; }
-
-  .activity-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
-  .activity-row {
-    background: white; border-radius: 10px;
-    padding: 11px 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    display: flex; gap: 12px; align-items: flex-start;
+  /* ── CHILD PILLS ── */
+  .child-pill {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
   }
-  .activity-slot {
-    font-size: 0.75rem; font-weight: 700; color: #c86a00;
-    min-width: 80px; padding-top: 2px; line-height: 1.3; flex-shrink: 0;
-  }
-  .activity-content { flex: 1; }
-  .activity-name { font-size: 0.9rem; font-weight: 700; color: #2d2d2d; margin-bottom: 2px; }
-  .activity-detail { font-size: 0.8rem; color: #666; line-height: 1.5; }
-  .activity-setup { font-size: 0.78rem; color: #888; margin-top: 4px; font-style: italic; }
+  .pill-clive  { background: var(--clive-dim);  color: var(--clive); }
+  .pill-gideon { background: var(--gideon-dim); color: var(--gideon); }
+  .pill-simon  { background: var(--simon-dim);  color: var(--simon); }
 
-  .day-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-  .day-tab {
-    background: white; border: 1.5px solid #e0d8cc;
-    border-radius: 20px; padding: 5px 14px;
-    font-size: 0.82rem; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s;
+  /* ── WEEK OVERVIEW ── */
+  .week-grid {
+    overflow-x: auto;
   }
-  .day-tab.active { background: #c86a00; border-color: #c86a00; color: white; }
-  .day-panel { display: none; }
-  .day-panel.active { display: block; }
 
-  .notes-section {
-    background: white; border-radius: 10px;
-    padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-bottom: 20px;
+  .week-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
   }
-  .notes-section h3 { font-size: 0.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
-  .note-item {
-    font-size: 0.82rem; color: #555; padding: 6px 0;
-    border-bottom: 1px solid #f0ece4; line-height: 1.5;
+
+  .week-table th {
+    background: var(--surface2);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
   }
-  .note-item:last-child { border-bottom: none; }
-  .note-item strong { color: #2d2d2d; }
-  .note-flag { color: #b05000; font-weight: 600; }
 
-  .footer { text-align: center; font-size: 0.75rem; color: #bbb; margin-top: 16px; padding-bottom: 24px; }
+  .week-table td {
+    vertical-align: top;
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    font-size: 13px;
+  }
 
-  /* ===== PRINT ===== */
+  .week-table .day-col { background: var(--surface2); font-weight: 700; color: #fff; width: 80px; }
+
+  .subj-block {
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .sb-clive  { background: var(--clive-dim);  border-left: 3px solid var(--clive); }
+  .sb-gideon { background: var(--gideon-dim); border-left: 3px solid var(--gideon); }
+  .sb-simon  { background: var(--simon-dim);  border-left: 3px solid var(--simon); }
+  .sb-all    { background: rgba(148,163,184,0.1); border-left: 3px solid #64748b; }
+  .sb-aar    { background: var(--aar-dim);    border-left: 3px solid var(--aar); }
+
+  .print-btn {
+    background: var(--clive);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    transition: opacity 0.2s;
+  }
+  .print-btn:hover { opacity: 0.85; }
+
+  /* ── DAILY PLANNER ── */
+  .day-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .day-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 18px;
+    transition: all 0.2s;
+  }
+  .day-btn:hover { border-color: var(--clive); color: #fff; }
+  .day-btn.active { background: var(--clive); border-color: var(--clive); color: #fff; }
+
+  .focus-banner {
+    background: var(--aar-dim);
+    border: 1px solid rgba(239,68,68,0.4);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .focus-banner .icon { font-size: 20px; }
+  .focus-banner strong { color: var(--aar); }
+
+  .planner-child-section {
+    margin-bottom: 20px;
+  }
+
+  .planner-child-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .planner-child-name {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .task-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+
+  .task-item.aar-task {
+    background: var(--aar-dim);
+    border-color: rgba(239,68,68,0.3);
+  }
+
+  .task-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .task-check {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--clive);
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .task-check.gideon-check { accent-color: var(--gideon); }
+  .task-check.simon-check  { accent-color: var(--simon); }
+  .task-check.aar-check    { accent-color: var(--aar); }
+
+  .task-label {
+    flex: 1;
+    font-size: 14px;
+  }
+  .task-label span { font-weight: 600; }
+  .task-label .time-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 6px;
+  }
+
+  .task-notes {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    resize: vertical;
+    min-height: 50px;
+  }
+  .task-notes::placeholder { color: var(--text-dim); }
+
+  .planner-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--clive);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+
+  .save-status {
+    font-size: 13px;
+    color: var(--gideon);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  /* ── LESSON PLANS ── */
+  .week-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .week-tab-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: all 0.2s;
+  }
+  .week-tab-btn.active { background: var(--surface2); border-color: var(--gideon); color: #fff; }
+
+  .lesson-week { display: none; }
+  .lesson-week.active { display: block; }
+
+  .lesson-day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .lesson-day-header {
+    background: var(--surface2);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lesson-day-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    min-width: 80px;
+  }
+
+  .lesson-day-theme {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .lesson-day-body {
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .lesson-child-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lesson-item {
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .li-subject { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .lesson-aar {
+    background: var(--aar-dim);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+
+  /* ── ADMIN CHECK-IN ── */
+  .admin-form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .admin-form .form-group {
+    margin-bottom: 20px;
+  }
+
+  .star-rating {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    color: var(--text-dim);
+    transition: color 0.15s;
+    padding: 0;
+  }
+  .star-btn.lit { color: var(--gold); }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+
+  .check-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    font-size: 13px;
+  }
+  .check-option input { accent-color: var(--clive); }
+  .check-option:has(input:checked) { border-color: var(--clive); background: rgba(59,130,246,0.1); }
+
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: border-color 0.2s;
+  }
+  .radio-option input { accent-color: var(--clive); }
+  .radio-option:has(input:checked) { border-color: var(--clive); background: rgba(59,130,246,0.1); }
+
+  .admin-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 14px;
+    width: auto;
+    min-width: 140px;
+  }
+
+  .admin-textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 100px;
+  }
+  .admin-textarea::placeholder { color: var(--text-dim); }
+
+  .recommendations-box {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.35);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 20px;
+    display: none;
+  }
+  .recommendations-box.visible { display: block; }
+  .recommendations-box h3 { color: var(--gideon); margin-bottom: 12px; font-size: 15px; }
+
+  .rec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .rec-item:last-child { border-bottom: none; }
+  .rec-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── RESOURCES ── */
+  .resource-section { margin-bottom: 24px; }
+  .resource-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: block;
+  }
+  .resource-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+  .resource-card .rc-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .resource-card .rc-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .resource-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .tag-clive  { color: var(--clive);  background: var(--clive-dim); }
+  .tag-gideon { color: var(--gideon); background: var(--gideon-dim); }
+  .tag-simon  { color: var(--simon);  background: var(--simon-dim); }
+  .tag-aar    { color: var(--aar);    background: var(--aar-dim); }
+  .tag-all    { color: #94a3b8; background: rgba(148,163,184,0.1); }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .site-header { top: 0; }
+    .tab-content { padding: 16px; }
+    .lesson-day-body { grid-template-columns: 1fr; }
+    .week-table { min-width: 600px; }
+  }
+
+  /* ── PRINT STYLES ── */
   @media print {
-    body { background: white; padding: 0; max-width: 100%; font-size: 11pt; }
-    .feedback-banner { display: none; }
-    .block, .activity-row, .notes-section { box-shadow: none; border: 1px solid #ddd; }
-    .day-tabs { display: none; }
-    .day-panel { display: block !important; }
-    .day-panel .activity-slot::before { font-weight: 700; }
-    .print-day-label {
-      display: block !important;
-      font-weight: 700; font-size: 0.85rem; color: #c86a00;
-      margin-bottom: 4px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 8px;
-    }
-    .enrichment-banner { border: 1px solid #6ab87a; }
-    h1::after { content: " — Smith Homeschool"; }
-    .footer { color: #888; }
-    a { text-decoration: none; color: inherit; }
-    .section-label { color: #333 !important; }
-  }
-  @media screen {
-    .print-day-label { display: none; }
+    .banner, .site-header, .print-btn { display: none !important; }
+    body { background: #fff; color: #000; }
+    .tab-content { display: block !important; padding: 0; }
+    #tab-overview { display: block !important; }
+    #tab-planner, #tab-lessons, #tab-admin, #tab-resources { display: none !important; }
+    .week-table { border-collapse: collapse; }
+    .week-table th, .week-table td { border: 1px solid #ccc; }
+    .week-table .day-col { background: #eee !important; }
+    .subj-block { border-left: 2px solid #999; background: #f5f5f5 !important; }
+    .sb-clive  { border-color: #3b82f6; }
+    .sb-gideon { border-color: #10b981; }
+    .sb-simon  { border-color: #f59e0b; }
+    .sb-all    { border-color: #64748b; }
+    .sb-aar    { border-color: #ef4444; }
   }
 </style>
 </head>
 <body>
 
-<h1>Smith Homeschool</h1>
-<p class="subtitle">Daily Schedule — Draft for Kyler's Review • March 2026</p>
-
-<div class="feedback-banner">
-  <strong>Hey Kyler 👋</strong> — Caleb asked me to put together a draft daily schedule based on your curriculum materials in OneDrive. This is a starting point, not a finished product. Everything here is adjustable — timing, order, what each boy is doing. Please look it over and send feedback to Caleb (especially the questions at the bottom). Once you tell us what works and what doesn't, we'll build a full interactive lesson planning dashboard with 2 weeks of pre-written lesson plans so you don't have to prep from scratch.
+<!-- BANNER -->
+<div class="banner">
+  ⚠️ Defaults in use — confirming ToG Year 1 unit, Apologia Flying Creatures, and 9:00 AM start time with Kyler
 </div>
 
-<!-- ======= CORE ACADEMICS ======= -->
-<div class="section-label core-label">▸ Core Academics (Morning)</div>
-
-<div class="schedule">
-
-  <div class="block morning">
-    <div class="block-header">
-      <div class="block-time">8:00<br>8:30</div>
-      <div class="block-body">
-        <div class="block-title">Morning Launch <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          US + Texas Pledges of Allegiance • New City Catechism question of the week (recite together) • Song School Latin warm-up song (3 min) • Preview the day's Tapestry of Grace topic
-        </div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy simon-c">Simon:</span> Sits at table with a coloring page or Alphabet Poster activity during catechism
-        </div>
-        <div class="inline-note">
-          <strong>Memoria Press Christian Studies</strong> is a standalone workbook program (not part of ToG). If you want to keep it, add a separate 15–20 min block here — each boy opens his level's workbook (Year 1/2/3) and reads the assigned passage + answers comprehension questions. If Tapestry of Grace already covers enough Bible/church history for your family, you can set Memoria Press aside without losing much. <em>Your call — just don't try to run both ToG Bible and Memoria Press in the same block.</em>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block together">
-    <div class="block-header">
-      <div class="block-time">8:30<br>9:30</div>
-      <div class="block-body">
-        <div class="block-title">Tapestry of Grace Core <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          History read-aloud (ToG assigned reading) • Map work (continent maps + ToG Maps &amp; Instructions) • Discussion at each boy's level. This is the spine — all other subjects orbit this.
-        </div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive:</span> Takes written narration notes (Upper Grammar level)<br>
-          <span class="boy gideon-c">Gideon:</span> Oral narration + simple labeled drawing (Lower Grammar level)<br>
-          <span class="boy simon-c">Simon:</span> Listens, colors the ToG picture page or a related coloring sheet
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block split">
-    <div class="block-header">
-      <div class="block-time">9:30<br>10:15</div>
-      <div class="block-body">
-        <div class="block-title">Math — Independent <span class="block-badge badge-split">Each Boy</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          45 minutes — each boy works at his own level. Math Mammoth lessons typically take 30–45 min at these grades; don't rush.
-        </div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive:</span> Math Mammoth Grade 3 — works independently, flags questions for you to answer at the end of the block<br>
-          <span class="boy gideon-c">Gideon:</span> Math Mammoth Grade 2 — works independently<br>
-          <span class="boy simon-c">Simon:</span> Dimensions Math Kinder — number bond sheets + 10 counting objects with you (5–8 min one-on-one, then Simon free plays with manipulatives)
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block break">
-    <div class="block-header">
-      <div class="block-time">10:15<br>10:30</div>
-      <div class="block-body">
-        <div class="block-title">Break <span class="block-badge badge-break">Free Time</span></div>
-        <div class="block-detail">Snack + outside or free play. Set out Simon's activity bin for the next block before break ends.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block split">
-    <div class="block-header">
-      <div class="block-time">10:30<br>11:00</div>
-      <div class="block-body">
-        <div class="block-title">OG Literacy + Independent Work <span class="block-badge badge-split">Split</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          <span class="boy gideon-c">Gideon (one-on-one with you):</span> All About Reading — one lesson, multisensory (letter tiles + say it + trace it + write it). 25–30 min. This is the most important academic block in Gideon's day.
-        </div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive (independent):</span> Silent reading from ToG book list or Memoria Press reader<br>
-          <span class="boy simon-c">Simon (independent):</span> Activity bin (see rotation below) — do not interrupt this block
-        </div>
-        <div class="dyslexia-note">
-          <strong>⚠️ Gideon — Dyslexia:</strong> Standard phonics programs won't work for him. All About Reading uses the Orton-Gillingham method — multisensory, structured, and sequential. It must be one-on-one with no distractions.<br><br>
-          <strong>Which level to start:</strong> If Gideon can already sound out simple 3-letter words (cat, bed, sit), start with <strong>Level 2</strong>. If he's struggling with basic letter sounds or can't reliably blend, start with <strong>Level 1</strong>. When in doubt, start Level 1 — it moves quickly and won't feel like going backward. Ideally, ask his pediatrician for a referral to a school psychologist for a formal evaluation — this also unlocks accommodations and tells you exactly where to begin.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block split">
-    <div class="block-header">
-      <div class="block-time">11:00<br>11:30</div>
-      <div class="block-body">
-        <div class="block-title">Writing <span class="block-badge badge-split">Each Boy</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          <span class="boy clive-c">Clive:</span> Cursive workbook — one page daily. Also: what grammar program are you using? (see questions below — a 3rd grader in classical education typically has a standalone grammar program)<br>
-          <span class="boy gideon-c">Gideon:</span> Print handwriting copywork — copy one Bible verse or sentence from the week's ToG topic (5–7 words, careful formation, not speed). Consider pairing with <em>All About Spelling</em> (OG-based spelling companion to AAR) once his reading picks up.<br>
-          <span class="boy simon-c">Simon:</span> Name tracing or Alphabet Poster letter tracing — 5–10 min fine motor practice
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block together">
-    <div class="block-header">
-      <div class="block-time">11:30<br>12:00</div>
-      <div class="block-body">
-        <div class="block-title">Science <span class="block-badge badge-together">Together</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">
-          Apologia "Exploring Creation" — Clive &amp; Gideon use the same book at different expectation levels. Simon joins for any hands-on observations or simple experiments.
-        </div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive:</span> Full notebooking journal entry after reading<br>
-          <span class="boy gideon-c">Gideon:</span> Draw and label what you observed; oral narration is fine<br>
-          <span class="boy simon-c">Simon:</span> Touch it, look at it, ask questions — no written output expected
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block together">
-    <div class="block-header">
-      <div class="block-time">12:00<br>12:15</div>
-      <div class="block-body">
-        <div class="block-title">Song School Latin <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
-        <div class="block-detail">One Song School Latin song + vocabulary cards. Keep it musical and light — all three boys. This is memory work through song; it sticks better than drills.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="block break">
-    <div class="block-header">
-      <div class="block-time">12:15<br>1:15</div>
-      <div class="block-body">
-        <div class="block-title">Lunch + Rest <span class="block-badge badge-break">Free Time</span></div>
-        <div class="block-detail">Lunch, outdoor play, or quiet rest. If Simon still naps, this is the window. Core academics are done — the afternoon blocks below are enrichment.</div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /core schedule -->
-
-<!-- ======= ENRICHMENT ======= -->
-<div class="enrichment-banner">
-  <strong>Everything below is enrichment.</strong> Art and Spanish are valuable, but they are not the core. On hard days — when someone is sick, when you're exhausted, when the morning ran long — skip the afternoon without guilt. The boys will not fall behind. Core academics ended at noon.
+<!-- HEADER -->
+<div class="site-header">
+  <h1>📚 Kyler's Homeschool Dashboard</h1>
+  <p>Clive (3rd) · Gideon (2nd, AAR daily) · Simon (Pre-K) &nbsp;|&nbsp; Tapestry of Grace Year 1 Ancient</p>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('overview')">📅 Week Overview</button>
+    <button class="tab-btn" onclick="showTab('planner')">✅ Daily Planner</button>
+    <button class="tab-btn" onclick="showTab('lessons')">📖 2-Week Plans</button>
+    <button class="tab-btn" onclick="showTab('admin')">📊 Weekly Check-In</button>
+    <button class="tab-btn" onclick="showTab('resources')">🔗 Resources</button>
+  </nav>
 </div>
 
-<div class="section-label enrichment-label">▸ Enrichment (Afternoon — Do When You Can)</div>
+<!-- ══════════════════════════════════════════════
+     TAB 1: WEEK OVERVIEW
+════════════════════════════════════════════════ -->
+<div id="tab-overview" class="tab-content active">
+  <button class="print-btn" onclick="window.print()">🖨️ Print Week Overview</button>
 
-<div class="schedule" style="margin-bottom:28px">
+  <!-- LEGEND -->
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
+    <div class="subj-block sb-all" style="margin:0;">🏫 All Three</div>
+    <div class="subj-block sb-clive" style="margin:0;">🔵 Clive</div>
+    <div class="subj-block sb-gideon" style="margin:0;">🟢 Gideon</div>
+    <div class="subj-block sb-simon" style="margin:0;">🟡 Simon</div>
+    <div class="subj-block sb-aar" style="margin:0;">🔴 AAR (Top Priority)</div>
+  </div>
 
-  <div class="block together">
-    <div class="block-header">
-      <div class="block-time">1:15<br>1:45</div>
-      <div class="block-body">
-        <div class="block-title">Art History <span class="block-badge badge-together">All Together</span></div>
-        <div class="block-detail">Chronological art study — one artist or era per week, synced to the ToG historical period you're studying. Look at prints, discuss, then make a related project or coloring sheet.</div>
-        <div class="block-detail" style="margin-top:6px">
-          <span class="boy simon-c">Simon:</span> Free draw or coloring while listening — no expectations
+  <div class="week-grid">
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day-col">9:00–9:30</td>
+          <td colspan="5">
+            <div class="subj-block sb-all">🙏 Morning Meeting — Bible &amp; Prayer, Pledges, ToG Map/Timeline Intro (all 3)</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">9:30–10:15</td>
+          <td colspan="5">
+            <div class="subj-block sb-clive">➗ Math Mammoth Grade 3 (Clive)</div>
+            <div class="subj-block sb-gideon">➗ Math Mammoth Grade 2 (Gideon)</div>
+            <div class="subj-block sb-simon">➗ Dimensions Math K (Simon)</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">10:15–10:30</td>
+          <td colspan="5">
+            <div class="subj-block sb-all">☕ Break</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">10:30–11:15</td>
+          <td>
+            <div class="subj-block sb-all">🗺️ ToG: Map intro, Timeline card</div>
+            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+          </td>
+          <td>
+            <div class="subj-block sb-all">📖 ToG: Read-aloud (Story of the World)</div>
+            <div class="subj-block sb-clive">✍️ Clive: oral narration</div>
+            <div class="subj-block sb-gideon">🗣️ Gideon: verbal narration</div>
+            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+          </td>
+          <td>
+            <div class="subj-block sb-all">🎨 ToG: Hands-on project day</div>
+            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+          </td>
+          <td>
+            <div class="subj-block sb-clive">✍️ Clive: written narration</div>
+            <div class="subj-block sb-gideon">🗣️ Gideon: dictated narration</div>
+            <div class="subj-block sb-simon">📚 Simon: activity books + map</div>
+          </td>
+          <td>
+            <div class="subj-block sb-all">🔄 ToG: Review + memory work</div>
+            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">11:15–11:45</td>
+          <td colspan="5">
+            <div class="subj-block sb-aar">🔴 AAR One-on-One: Kyler + Gideon (20-30 min, OG-based — TOP PRIORITY)</div>
+            <div class="subj-block sb-clive">📝 Clive: All About Spelling Level 3 (independent)</div>
+            <div class="subj-block sb-simon">🧸 Simon: activity bin (independent)</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">11:45–12:00</td>
+          <td colspan="5">
+            <div class="subj-block sb-clive">🏛️ Song School Latin (Clive)</div>
+            <div class="subj-block sb-gideon">🏛️ Song School Latin (Gideon)</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">12:00–1:00</td>
+          <td colspan="5">
+            <div class="subj-block sb-all">🍎 Lunch + Free Play</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">1:00–2:00</td>
+          <td colspan="5">
+            <div class="subj-block sb-simon">😴 Simon: Nap</div>
+            <div class="subj-block sb-clive">✏️ Clive: Handwriting Without Tears + Writing</div>
+            <div class="subj-block sb-gideon">✏️ Gideon: Handwriting Without Tears + Reading Practice</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">2:00–2:30</td>
+          <td colspan="5">
+            <div class="subj-block sb-clive">🦜 Apologia: Flying Creatures (Clive)</div>
+            <div class="subj-block sb-gideon">🦜 Apologia: Flying Creatures (Gideon)</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="day-col">2:30–3:00</td>
+          <td>—</td>
+          <td>
+            <div class="subj-block sb-all">🎨 Art (optional enrichment)</div>
+          </td>
+          <td>—</td>
+          <td>
+            <div class="subj-block sb-all">🇪🇸 Spanish (optional enrichment)</div>
+          </td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DAY THEMES -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title">Weekly ToG Rhythm</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;">
+      <div style="background:var(--surface2);border-radius:8px;padding:12px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#fff;margin-bottom:4px;">Monday</div>
+        <div style="font-size:12px;color:var(--text-muted);">Map intro · Timeline card · Introduce unit</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#fff;margin-bottom:4px;">Tuesday</div>
+        <div style="font-size:12px;color:var(--text-muted);">Read-aloud (SotW) · Narration activities</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#fff;margin-bottom:4px;">Wednesday</div>
+        <div style="font-size:12px;color:var(--text-muted);">Hands-on projects · Map crafts</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#fff;margin-bottom:4px;">Thursday</div>
+        <div style="font-size:12px;color:var(--text-muted);">Written/dictated narration · Deep dive</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#fff;margin-bottom:4px;">Friday</div>
+        <div style="font-size:12px;color:var(--text-muted);">Review · Memory verse · Spelling test</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 2: DAILY PLANNER
+════════════════════════════════════════════════ -->
+<div id="tab-planner" class="tab-content">
+  <div class="day-selector">
+    <button class="day-btn active" onclick="selectDay('Mon', this)">Monday</button>
+    <button class="day-btn" onclick="selectDay('Tue', this)">Tuesday</button>
+    <button class="day-btn" onclick="selectDay('Wed', this)">Wednesday</button>
+    <button class="day-btn" onclick="selectDay('Thu', this)">Thursday</button>
+    <button class="day-btn" onclick="selectDay('Fri', this)">Friday</button>
+  </div>
+
+  <div class="focus-banner">
+    <span class="icon">🔴</span>
+    <div>
+      <strong>Today's Top Priority: Gideon's AAR</strong><br>
+      <span style="font-size:13px;color:var(--text-muted);">20-30 minutes, one-on-one OG-based reading. This happens every single day, no exceptions.</span>
+    </div>
+  </div>
+
+  <div id="planner-body"></div>
+
+  <div class="planner-actions">
+    <button class="btn-primary" onclick="savePlanner()">💾 Save Progress</button>
+    <button class="btn-secondary" onclick="clearDay()">🗑️ Clear Day</button>
+    <span class="save-status" id="save-status" style="display:none;">✓ Saved</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 3: 2-WEEK LESSON PLANS
+════════════════════════════════════════════════ -->
+<div id="tab-lessons" class="tab-content">
+  <div class="week-tabs">
+    <button class="week-tab-btn active" onclick="showLessonWeek(1, this)">Week 1 — Creation &amp; Ancient Near East</button>
+    <button class="week-tab-btn" onclick="showLessonWeek(2, this)">Week 2 — Ancient Egypt &amp; Noah's Ark</button>
+  </div>
+
+  <!-- WEEK 1 -->
+  <div id="lesson-week-1" class="lesson-week active">
+
+    <!-- W1 MON -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Monday</span>
+        <span class="lesson-day-theme">ToG Wk1: "In the Beginning" — Map Intro &amp; Creation Timeline</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Morning Meeting</div>
+            Bible: Genesis 1:1–5, Pledge of Allegiance + Christian flag pledge, discuss "what does 'ancient' mean?"
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Grade 3 — Ch. 1</div>
+            Review place value through thousands; lesson "Thousands" p.10–11. Complete 10 problems independently.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — Map Work</div>
+            Label blank world map: Fertile Crescent, Tigris &amp; Euphrates rivers, Mesopotamia. Color land/water.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">ToG — Timeline Card</div>
+            Place "Creation" card at 4000 BC on timeline. Read <em>Story of the World Vol.1</em> pp.1–3 (intro). Write 2-sentence preview in history notebook.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Afternoon — AAS Level 3</div>
+            Unit 1 Word List introduction; complete Step 1 spelling activity. HWT: Cursive practice p.1–2.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Grade 2 — Ch. 1</div>
+            Review counting to 1,000; lesson "Counting in Hundreds" p.8–9. Use base-ten blocks if needed. 8 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — Map Work</div>
+            Point to and say: Tigris, Euphrates, Fertile Crescent. Color map with Clive — narrate 2 things he notices.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">ToG — Timeline Card</div>
+            Place "Creation" card. Listen to Ch.1 intro (Kyler reads aloud). Oral narration: "What did God make?"
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Lesson 1 Review (20-30 min one-on-one)</div>
+            Review phonogram cards: short vowels a, e, i, o, u. Blend 3-letter CVC words (cat, bed, sit, hot, bug). Read 5 decodable words from flashcard deck. Practice segmenting 1 word orally.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT + Reading Practice</div>
+            HWT: Lowercase b, d, p (reversals focus). Reading practice: re-read decodable reader from AAR deck.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Morning Meeting</div>
+            Say pledge with brothers; clap &amp; count to 10; sing calendar song.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Chapter 1: Matching &amp; Sorting. Sort 10 objects by color. "Which are the same?"
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">ToG — Picture Books</div>
+            Read: <em>In the Beginning</em> (picture Bible). Point to the world map; say "earth" and "ocean." Color page.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin (11:15–11:45)</div>
+            Playdough, puzzles, or lacing cards while Kyler does Gideon's AAR.
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="block together">
-    <div class="block-header">
-      <div class="block-time">1:45<br>2:15</div>
-      <div class="block-body">
-        <div class="block-title">Song School Spanish <span class="block-badge badge-together">All Together</span></div>
-        <div class="block-detail">One Song School Spanish song + vocabulary cards + bilingual poster review. Same format as Latin — musical, light, all three boys.</div>
-        <div class="inline-note">
-          <strong>Latin AND Spanish daily?</strong> Most families doing both Song School programs alternate days rather than doing both daily (e.g., Latin on Mon/Wed/Fri, Spanish on Tue/Thu). Daily both is doable but adds 30 min and may feel like a lot for Gideon, who is already working hard on English reading. Let us know which you prefer and we'll adjust the schedule.
+    <!-- W1 TUE -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Tuesday</span>
+        <span class="lesson-day-theme">SotW Vol.1 Ch.1 Read-Aloud — The Earliest People</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3 — Ch.1 cont.</div>
+            "Comparing 4-Digit Numbers" p.12–13. Greater than / less than. 12 problems. Self-check with answer key.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Read-Aloud</div>
+            <em>Story of the World Vol.1</em> Ch.1 "The Earliest People." Kyler reads aloud (15 min). Clive: oral narration — retell in 4–5 sentences to Kyler.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">ToG — Narration Activity</div>
+            Draw and label a scene from the chapter (cave, river, family). Write 1 caption sentence below drawing.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS Level 3 (independent)</div>
+            Unit 1 Step 2: practice word sort. Sort words into short-vowel groups.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2 — Ch.1 cont.</div>
+            "Hundreds, Tens, and Ones" p.10–11. Use place-value mat. 8 problems with manipulatives.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Read-Aloud</div>
+            Listens to SotW Ch.1. Gideon: verbal narration — "Tell me one thing the earliest people did." Kyler scribes his answer on sticky note.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">ToG — Narration Activity</div>
+            Draw a picture of "people who lived long ago." Dictate 1–2 sentences to Kyler to write beneath.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Blending Drill (20-30 min)</div>
+            Blending: use letter tiles to build and read 6 CVC words. Tap-and-say each phoneme (c-a-t → cat). Practice decoding 2 decodable sentences from AAR reader. Praise fluency attempts enthusiastically.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT + Reading</div>
+            HWT: Lowercase l, k, f (tall letters). Re-read today's decodable sentences aloud 2 times.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.1: Sorting by shape. Circle vs. square vs. triangle hunt around the house.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">ToG Listening</div>
+            Sits with brothers for SotW read-aloud (may draw or use quiet toy). Afterward: "What animal did you imagine?"
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin</div>
+            Pattern blocks, stacking cups, or shape sorter during Gideon's AAR block.
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="block break">
-    <div class="block-header">
-      <div class="block-time">2:15</div>
-      <div class="block-body">
-        <div class="block-title">Done <span class="block-badge badge-break">Free</span></div>
-        <div class="block-detail">Structured school is finished. Free play, outdoor time, or co-op prep.</div>
+    <!-- W1 WED -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Wednesday</span>
+        <span class="lesson-day-theme">Project Day — Salt Dough Map of Mesopotamia</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3 — Ch.1</div>
+            "Rounding to Nearest Ten &amp; Hundred" p.14–15. Number line method. 10 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Project — Salt Dough Map</div>
+            Mix salt dough (2c flour, 1c salt, 1c water). Shape Mesopotamia region on cardboard. Clive: label Tigris River, Euphrates River, Persian Gulf, Fertile Crescent with toothpick flags.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Apologia Science</div>
+            <em>Flying Creatures</em> Ch.1: "What Is a Bird?" Read pp.1–10. Fill in notebooking journal p.1.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS + Writing</div>
+            AAS Level 3 Unit 1 Step 3: practice board. Afternoon writing: describe the salt dough map in 3 sentences.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            "Adding with Whole Tens" p.12–13. Jump strategy on number line. 10 problems using manipulatives.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Project — Salt Dough Map</div>
+            Works alongside Clive. Gideon: points to and says "Tigris" and "Euphrates." Places 2 labeled flags with help. Narrates: "These rivers gave people water to grow food."
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Apologia Science</div>
+            Listens to Ch.1 read-aloud. Colors bird anatomy picture in notebooking journal. Names 3 birds aloud.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Fluency Session (20-30 min)</div>
+            Repeated reading: read the same decodable passage 3 times. Time the third read. Celebrate improvements. Introduce 2 new sight words from AAR list. Use word cards: read, flip, say.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT</div>
+            HWT: Lowercase r, n, m. Practice on wet-dry-try board before paper.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.1: Big/Little comparisons. Line up 5 objects from smallest to biggest.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Project Participation</div>
+            Simon gets his own small dough ball to sculpt freely. Paints hills with watercolors after dough dries.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin / Nap</div>
+            Independent play or activity bin during AAR. Nap 1–2 PM.
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-</div><!-- /enrichment schedule -->
+    <!-- W1 THU -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Thursday</span>
+        <span class="lesson-day-theme">Written &amp; Dictated Narration Day</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3</div>
+            "Mental Addition Strategies" p.16–17. Practice breaking apart numbers. 12 problems.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">ToG — Written Narration</div>
+            Clive writes 1 paragraph (5–7 sentences) on "The Earliest Peoples of Mesopotamia." Must include: who, where, what they did, and one fact about the rivers. Kyler proofreads together — praise content first.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS + Writing</div>
+            AAS Unit 1 Step 4: dictation practice (5 words). HWT: Cursive p.3–4.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Apologia + Latin</div>
+            Re-read 2 pages from Ch.1 independently. Song School Latin Ch.1: learn Latin greeting "Salve!" song.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            "Subtracting Whole Tens" p.14–15. Use number line. 8 problems. Verbal check: "How did you get that?"
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">ToG — Dictated Narration</div>
+            Kyler asks: "Tell me about the people of Mesopotamia." Scribes Gideon's oral answer (3–5 sentences). Gideon illustrates his narration with 1 drawing. No writing pressure — oral expression is the goal.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Spelling &amp; Dictation (20-30 min)</div>
+            Spell 5 CVC words using letter tiles (not pencil — reduce frustration). Kyler reads word; Gideon builds with tiles. Dictate 1 simple sentence: "The cat sat." Gideon writes, Kyler supports. Phonogram review: 10 cards, keep brisk pace.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Latin + HWT</div>
+            Song School Latin Ch.1: sing "Salve!" with Clive. HWT p.3: lowercase letters practice.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.2 intro: Counting to 5. Count out 5 blocks into a cup.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">ToG Picture Books</div>
+            Read <em>The Usborne Book of the Ancient World</em> pp.1–5 (picture-focused). Point to boats on the river.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin</div>
+            Playdough animals during AAR time. Nap 1–2 PM.
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- W1 FRI -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Friday</span>
+        <span class="lesson-day-theme">Review, Memory Work &amp; Celebration</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3</div>
+            Chapter 1 review page p.18. Complete all review problems. Self-grade with key.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — Timeline Review</div>
+            Quiz: point to timeline cards placed this week. Where is Mesopotamia? What happened at Creation? Both boys answer together.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Memory Verse — Psalm 1:1</div>
+            "Blessed is the man who walks not in the counsel of the wicked…" Say together 3 times. Clive writes verse in memory notebook. Gideon illustrates.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS Level 3 — Spelling Test</div>
+            Unit 1 spelling test: Kyler calls out 10 words. Clive writes on dry-erase board. Self-check together. Celebrate every correct answer.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Latin Review</div>
+            Review Song School Latin Ch.1: sing "Salve!" song together. Practice: Salve (Hello), Vale (Goodbye).
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            Ch.1 mixed review p.16. 8 problems. Manipulatives available. Verbal check-in.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Phonogram Review + Passage (25-30 min)</div>
+            Review all phonogram cards from Week 1. Sort into "confident" and "still learning" piles. Read decodable passage #1 from beginning to end independently. Celebrate completion — this is BIG. Record time for fluency tracking. Gideon gets to choose a small reward sticker.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Memory Verse Illustration</div>
+            Draw Psalm 1:1 scene in memory notebook. Kyler writes verse caption for Gideon.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Review: count 1–5 using toy animals. "How many cows?" "How many horses?"
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Week Celebration</div>
+            Simon gets to put a sticker on the "We did school!" chart. Everyone celebrates with a special snack.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Free Choice</div>
+            Simon picks Friday afternoon activity: coloring, blocks, or outdoor play.
+          </div>
+        </div>
+      </div>
+    </div>
 
-<!-- ======= SIMON ACTIVITY ROTATION ======= -->
-<h2>Simon's Daily Activity Bins</h2>
-<p class="section-note">
-  During Gideon's OG literacy block (10:30–11:00), Simon needs to play independently without interrupting you. The solution: prep a small activity bin or tray the night before and set it out silently during the break. He discovers it when school resumes. Rotate daily so it stays fresh. Limit to 3–4 items per bin max.
-</p>
+  </div><!-- end lesson-week-1 -->
 
-<div class="day-tabs">
-  <div class="day-tab active" onclick="showDay('mon')">Monday</div>
-  <div class="day-tab" onclick="showDay('tue')">Tuesday</div>
-  <div class="day-tab" onclick="showDay('wed')">Wednesday</div>
-  <div class="day-tab" onclick="showDay('thu')">Thursday</div>
-  <div class="day-tab" onclick="showDay('fri')">Friday</div>
+  <!-- WEEK 2 -->
+  <div id="lesson-week-2" class="lesson-week">
+
+    <!-- W2 MON -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Monday</span>
+        <span class="lesson-day-theme">ToG Wk2: Ancient Egypt — Map of the Nile &amp; Noah's Ark Timeline</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Morning Meeting</div>
+            Bible: Genesis 7:1–5 (God tells Noah to build the ark). Discuss: Why did God send the flood? Pledges.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3 — Ch.2</div>
+            "Introduction to Multiplication" p.20–21. Arrays and equal groups. Draw 3 arrays in math notebook.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — Egypt Map</div>
+            Label new map: Egypt, Nile River (north/south), Delta, Upper/Lower Egypt, Red Sea, Mediterranean Sea. Color-code Egypt territory.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">ToG — Timeline Card</div>
+            Place "Noah's Ark / The Flood" and "Early Egypt" cards. Connect to Mesopotamia from Week 1. Clive: "How are Egypt and Mesopotamia similar?" — write 1 sentence.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS Level 3 — Unit 2</div>
+            Introduce Unit 2 word list (blends: bl, cl, fl). Read through words aloud. Step 1 activity.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2 — Ch.2</div>
+            "Adding with Two-Digit Numbers" p.18–19. Decompose tens and ones. 10 problems with place-value mat.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — Egypt Map</div>
+            Points to and traces the Nile River. Narrates: "The Nile River helped farmers grow food." Places flag at Egypt.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">ToG — Timeline</div>
+            Place Noah's Ark card. Gideon narrates: "Noah built the ark because God said there would be a flood."
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Week 2 New Lesson (20-30 min)</div>
+            Introduce next phonogram lesson: consonant digraphs (sh, ch, th). Use hand motions for each. Build 4 words with digraphs using letter tiles (ship, chin, that, when). Read 3 words independently.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT</div>
+            HWT: Lowercase s, e, c (curves). Wet-dry-try board first. HWT p.4–5.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K — Ch.2</div>
+            Counting 1–5 review with picture cards. Clap and count together.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">ToG Picture Books</div>
+            Read <em>Bill &amp; Pete Go Down the Nile</em> (Tomie dePaola). Point to crocodiles. "The Nile is a big river!"
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin</div>
+            Noah's ark toy set or animal figurines during AAR time.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W2 TUE -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Tuesday</span>
+        <span class="lesson-day-theme">SotW Vol.1 Ch.2 — The Egyptians; Narration Activities</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3 — Ch.2</div>
+            "Multiplication and Arrays" p.22–23. Write multiplication equations for picture arrays. 10 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Read-Aloud</div>
+            <em>Story of the World Vol.1</em> Ch.2 "Egyptians and Their Unusual Habits." Kyler reads aloud. Clive: oral narration — 5 sentences. Focus on: Pharaoh, pyramids, mummification intro.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Narration Activity</div>
+            Draw a labelled diagram: "Parts of Ancient Egypt" (Nile, Delta, pyramid, pharaoh palace). Write 3 labels. Color.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS Independent</div>
+            Unit 2 Step 2: sort blend words. bl/cl/fl sort activity.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2 — Ch.2</div>
+            "Subtracting Two-Digit Numbers" p.20–21. Base-ten blocks. 8 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Read-Aloud</div>
+            Listens to SotW Ch.2. Gideon: verbal narration — "What surprised you about the Egyptians?" Kyler scribes 2 sentences.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Narration Activity</div>
+            Draw a pyramid scene. Dictate 1 sentence: "Egyptians built pyramids for the Pharaoh." Kyler writes it beneath.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Digraph Blending (20-30 min)</div>
+            Review sh, ch, th, wh cards. Blend digraph + vowel + consonant: shop, chip, then, when. Play "build-a-word" — Kyler says sound, Gideon selects tiles. Decode 2 new decodable sentences. Celebrate every attempt.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT + Reading</div>
+            HWT: Lowercase o, a, d. Reading: re-read today's 2 decodable sentences 3 times.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.2: Count and match (dot cards to numeral cards 1–5).
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">ToG Listening</div>
+            Listens to SotW Ch.2. May draw with crayons. Afterward: "What animal lives by the Nile?" (crocodile!)
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin</div>
+            Stacking pyramid blocks during AAR time.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W2 WED -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Wednesday</span>
+        <span class="lesson-day-theme">Project Day — Paper Pyramid &amp; Nile River Painting</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3</div>
+            "Multiplying by 2 and 4" p.24–25. Skip-count to find products. 12 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Project — Paper Pyramid</div>
+            Print pyramid net template; cut, fold, tape into 3D pyramid. Clive: write on each face — "Built for Pharaoh," "Workers used ramps," "Made of limestone." Paint desert tan.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Project — Nile River Painting</div>
+            Watercolor scene: blue river (Nile), green crops along banks, tan desert beyond. Add small pyramids in distance.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Apologia Science</div>
+            <em>Flying Creatures</em> Ch.1: review bird features. Draw and label a bird (beak, wings, talons, feathers).
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            "Adding Three Numbers" p.22–23. Look for doubles or tens. 10 problems.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG Project — Paper Pyramid</div>
+            Cuts and folds pyramid net with help. Gideon: draw one symbol on pyramid face (eye, sun, or person). Paints with Clive.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Nile River Painting</div>
+            Paints alongside Clive. Gideon narrates: "The Nile floods every year and makes the land good for farming."
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Fluency with Digraphs (20-30 min)</div>
+            Repeated reading of new decodable passage featuring sh/ch/th words. Read 3 times — Kyler models first, then Gideon follows, then Gideon reads alone. Track time. Chart improvement on reading log.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Afternoon — HWT</div>
+            HWT: Practice g, q, j. Wet-dry-try board, then paper.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.2: Counting to 5 — count goldfish crackers into 5 cups.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Project Participation</div>
+            Simon paints his own "Nile River" paper (big blue stripe = water). Stamps handprint as "crocodile."
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin / Nap</div>
+            Kinetic sand or water table during AAR. Nap 1–2 PM.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W2 THU -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Thursday</span>
+        <span class="lesson-day-theme">Written Narration (Egypt) &amp; Gideon's Illustrated Narration</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3</div>
+            "Multiplying by 5 and 10" p.26–27. Skip-count by 5s and 10s. 12 problems.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">ToG — Written Narration: Egypt</div>
+            Clive writes 1 full paragraph about Ancient Egypt. Must include: Nile River, Pharaoh, pyramids, one surprising fact. Goal: 6–8 sentences. Kyler reviews grammar gently — praise ideas first.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS Level 3</div>
+            Unit 2 Step 3: dictation (5 blend words). HWT: Cursive p.5–6.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Apologia + Latin</div>
+            <em>Flying Creatures</em>: skim Ch.1 for 2 "wow facts." Song School Latin Ch.2: count in Latin (unus, duo, tres).
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            "Regrouping in Addition" p.24–25. Use base-ten blocks. 8 problems at slow pace.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">ToG — Illustrated Narration</div>
+            Gideon draws a 4-panel comic strip about Egypt Week: Panel 1=Nile River, 2=Pyramid, 3=Pharaoh, 4=Noah's Ark. Kyler writes 1 caption per panel from Gideon's dictation. Celebrates the artwork!
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Dictation Practice (20-30 min)</div>
+            Review digraph phonogram cards (sh, ch, th, wh, ph). Dictate 3 simple sentences using digraph words: "The ship is big." "Chip can run fast." "Is that thing red?" Gideon builds each sentence with tiles before writing. Reduce writing load — tiles first, pen second.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Latin + HWT</div>
+            Song School Latin Ch.2: count in Latin with Clive. HWT p.6: mixed letter review.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Ch.3 intro: Counting to 10. Count 10 blocks into a row. Point and count each one.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Comic Strip Art</div>
+            Simon draws his own 4-panel "story" while Gideon draws his narration. Shares finished work at lunch.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Activity Bin / Nap</div>
+            Sticker books during AAR. Nap 1–2 PM.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W2 FRI -->
+    <div class="lesson-day-card">
+      <div class="lesson-day-header">
+        <span class="lesson-day-name">Friday</span>
+        <span class="lesson-day-theme">Timeline Review, Memory Verse (Gen 1:1), Gideon's Full Week AAR Review</span>
+      </div>
+      <div class="lesson-day-body">
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-clive">Clive</span></h4>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">Math Mammoth Gr3</div>
+            Ch.2 review p.28. Mixed multiplication problems. Self-grade.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">ToG — 2-Week Timeline Quiz</div>
+            Lay out all 4 timeline cards (Creation, Earliest People, Noah's Flood, Early Egypt) in order. Boys take turns placing and explaining each one. Quiz each other!
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Memory Verse — Genesis 1:1</div>
+            "In the beginning, God created the heavens and the earth." Say together 3 times. Clive writes in memory notebook. Both boys illustrate the verse.
+          </div>
+          <div class="lesson-item sb-clive subj-block">
+            <div class="li-subject">AAS — Spelling Test</div>
+            Unit 2 spelling test (10 blend words). Dry-erase board. Celebrate every correct word. Record score.
+          </div>
+          <div class="lesson-item sb-all subj-block">
+            <div class="li-subject">Latin Review</div>
+            Review Ch.1–2: Salve, Vale, unus through quinque. Sing counting song together.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-gideon">Gideon</span></h4>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Math Mammoth Gr2</div>
+            Ch.2 review p.26. 8 mixed problems. Manipulatives available.
+          </div>
+          <div class="lesson-aar">
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Full Week Review (25-30 min)</div>
+            Review ALL phonograms from Weeks 1–2 (short vowels + digraphs). Sort cards into confident/learning. Timed read of both decodable passages back-to-back. Compare today's time to Week 1 Friday — celebrate EVERY second of improvement. Gideon chooses his sticker reward. Read his favorite passage one more time for fun.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Genesis 1:1 Illustration</div>
+            Draw full-page illustration of Creation for memory verse page. Kyler writes verse; Gideon dates it.
+          </div>
+          <div class="lesson-item sb-gideon subj-block">
+            <div class="li-subject">Timeline Participation</div>
+            Gideon places and explains 1 timeline card independently. Celebrate his answer regardless of detail level.
+          </div>
+        </div>
+        <div class="lesson-child-col">
+          <h4><span class="child-pill pill-simon">Simon</span></h4>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Dimensions Math K</div>
+            Count 1–10 with number flashcards. Clap for each number.
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Week Celebration</div>
+            Simon places sticker on 2-week achievement chart. Everyone gets a special treat!
+          </div>
+          <div class="lesson-item sb-simon subj-block">
+            <div class="li-subject">Free Choice Friday</div>
+            Simon picks: outdoor play, blocks, or storytime with Kyler.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end lesson-week-2 -->
+
 </div>
 
-<div class="activity-grid">
+<!-- ══════════════════════════════════════════════
+     TAB 4: WEEKLY ADMIN CHECK-IN
+════════════════════════════════════════════════ -->
+<div id="tab-admin" class="tab-content">
+  <div class="card">
+    <div class="card-title">📊 Friday Weekly Reflection — Kyler's Check-In</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;">Take 5 minutes at the end of each week to reflect. Your answers generate personalized recommendations for next week.</p>
 
-  <div id="simon-mon" class="day-panel active">
-    <span class="print-day-label">Monday</span>
-    <div class="activity-row">
-      <div class="activity-slot">Monday<br>10:30–11:00</div>
-      <div class="activity-content">
-        <div class="activity-name">🔤 Alphabet Puzzle Bin</div>
-        <div class="activity-detail">Foam or wooden letter puzzle, Rustic Animal Alphabet Poster (laminated if possible), foam/magnet letters for matching to the poster animals. Focus on 5–6 letters.</div>
-        <div class="activity-setup">Night-before prep: Pull 5–6 letters from this week's focus (e.g., A–E). Place next to matching poster animals. Add a name tracing sheet.</div>
+    <div class="admin-form">
+
+      <!-- OVERALL RATING -->
+      <div class="form-group">
+        <label>1. How did this week go overall?</label>
+        <div class="star-rating" id="star-rating">
+          <button class="star-btn" data-val="1" onclick="setStars(1)">★</button>
+          <button class="star-btn" data-val="2" onclick="setStars(2)">★</button>
+          <button class="star-btn" data-val="3" onclick="setStars(3)">★</button>
+          <button class="star-btn" data-val="4" onclick="setStars(4)">★</button>
+          <button class="star-btn" data-val="5" onclick="setStars(5)">★</button>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);" id="star-label">Click a star to rate</div>
       </div>
-    </div>
-    <div class="activity-row">
-      <div class="activity-slot">Monday<br>Afternoon</div>
-      <div class="activity-content">
-        <div class="activity-name">🎨 ToG Coloring Page</div>
-        <div class="activity-detail">Simon colors the Tapestry of Grace picture page for the week's history topic while Clive and Gideon do art history discussion. Same topic, age-appropriate output.</div>
-        <div class="activity-setup">Night-before prep: Print one ToG coloring page. Set out crayons.</div>
+
+      <!-- WENT WELL -->
+      <div class="form-group">
+        <label>2. Which subjects went well this week?</label>
+        <div class="check-grid" id="went-well">
+          <label class="check-option"><input type="checkbox" value="morning-meeting"> Morning Meeting</label>
+          <label class="check-option"><input type="checkbox" value="math"> Math Block</label>
+          <label class="check-option"><input type="checkbox" value="tog"> Tapestry of Grace</label>
+          <label class="check-option"><input type="checkbox" value="aar"> Gideon's AAR</label>
+          <label class="check-option"><input type="checkbox" value="aas"> Clive's AAS</label>
+          <label class="check-option"><input type="checkbox" value="latin"> Latin</label>
+          <label class="check-option"><input type="checkbox" value="science"> Science</label>
+          <label class="check-option"><input type="checkbox" value="hwt"> Handwriting</label>
+          <label class="check-option"><input type="checkbox" value="enrichment"> Enrichment</label>
+        </div>
       </div>
+
+      <!-- STRUGGLED -->
+      <div class="form-group">
+        <label>3. Which subjects struggled or felt hard?</label>
+        <div class="check-grid" id="struggled">
+          <label class="check-option"><input type="checkbox" value="morning-meeting"> Morning Meeting</label>
+          <label class="check-option"><input type="checkbox" value="math"> Math Block</label>
+          <label class="check-option"><input type="checkbox" value="tog"> Tapestry of Grace</label>
+          <label class="check-option"><input type="checkbox" value="aar"> Gideon's AAR</label>
+          <label class="check-option"><input type="checkbox" value="aas"> Clive's AAS</label>
+          <label class="check-option"><input type="checkbox" value="latin"> Latin</label>
+          <label class="check-option"><input type="checkbox" value="science"> Science</label>
+          <label class="check-option"><input type="checkbox" value="hwt"> Handwriting</label>
+          <label class="check-option"><input type="checkbox" value="enrichment"> Enrichment</label>
+        </div>
+      </div>
+
+      <!-- AAR EVERY DAY -->
+      <div class="form-group">
+        <label>4. Did Gideon complete his AAR session every day?</label>
+        <div class="radio-group" id="aar-completion">
+          <label class="radio-option"><input type="radio" name="aar" value="yes"> ✅ Yes, every day</label>
+          <label class="radio-option"><input type="radio" name="aar" value="most"> 🟡 Most days (3–4)</label>
+          <label class="radio-option"><input type="radio" name="aar" value="no"> ❌ No (1–2 days or missed)</label>
+        </div>
+      </div>
+
+      <!-- MATH BLOCK -->
+      <div class="form-group">
+        <label>5. How did the 45-minute math block work?</label>
+        <div class="radio-group" id="math-block">
+          <label class="radio-option"><input type="radio" name="math" value="yes"> ✅ Worked great</label>
+          <label class="radio-option"><input type="radio" name="math" value="split"> 🔀 Needed to split it</label>
+          <label class="radio-option"><input type="radio" name="math" value="long"> ⏰ Too long</label>
+          <label class="radio-option"><input type="radio" name="math" value="short"> ⚡ Too short</label>
+        </div>
+      </div>
+
+      <!-- ENRICHMENT -->
+      <div class="form-group">
+        <label>6. How many enrichment sessions (Art or Spanish) did you complete?</label>
+        <select class="admin-select" id="enrichment-count">
+          <option value="">Select...</option>
+          <option value="0">0 — Didn't happen</option>
+          <option value="1">1 session</option>
+          <option value="2">2 sessions</option>
+          <option value="3">3 sessions</option>
+          <option value="4">4 sessions</option>
+          <option value="5">5 sessions</option>
+        </select>
+      </div>
+
+      <!-- NOTES -->
+      <div class="form-group">
+        <label>7. Notes, wins, flags, or anything to remember for next week:</label>
+        <textarea class="admin-textarea" id="admin-notes" placeholder="What worked great? What was hard? Any funny moments? Behavior notes? Curriculum flags?"></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="submitAdmin()" style="font-size:15px;padding:12px 28px;">
+        Generate My Recommendations →
+      </button>
     </div>
   </div>
 
-  <div id="simon-tue" class="day-panel">
-    <span class="print-day-label">Tuesday</span>
-    <div class="activity-row">
-      <div class="activity-slot">Tuesday<br>10:30–11:00</div>
-      <div class="activity-content">
-        <div class="activity-name">🧱 Building Challenge Bin</div>
-        <div class="activity-detail">LEGO Duplo, wooden blocks, or magnetic tiles. Give a simple challenge card: "Build a tower taller than your head" or "Make a house with a door and two windows."</div>
-        <div class="activity-setup">Night-before prep: Write or draw one challenge on an index card. Put blocks in a small tray.</div>
-      </div>
-    </div>
-    <div class="activity-row">
-      <div class="activity-slot">Tuesday<br>Afternoon</div>
-      <div class="activity-content">
-        <div class="activity-name">🎵 Music Exploration</div>
-        <div class="activity-detail">Play his kinder music program files on a tablet or speaker. Simon listens, dances, or sings along. No structure needed — just exposure to musical concepts.</div>
-        <div class="activity-setup">Night-before prep: Queue up the music.</div>
-      </div>
-    </div>
+  <!-- RECOMMENDATIONS BOX -->
+  <div class="recommendations-box" id="recs-box">
+    <h3>📋 Recommendations for Next Week</h3>
+    <div id="recs-list"></div>
   </div>
-
-  <div id="simon-wed" class="day-panel">
-    <span class="print-day-label">Wednesday</span>
-    <div class="activity-row">
-      <div class="activity-slot">Wednesday<br>10:30–11:00</div>
-      <div class="activity-content">
-        <div class="activity-name">🎭 Playdough + Letter Molds</div>
-        <div class="activity-detail">Playdough + letter-shaped cookie cutters or molds. Roll snakes, make letter shapes, count out small objects onto a sorting mat (10 circles drawn on cardstock).</div>
-        <div class="activity-setup">Night-before prep: Set out playdough, 3–4 letter molds, one counting mat (10 circles on cardstock), 10 small objects (beans, pennies).</div>
-      </div>
-    </div>
-    <div class="activity-row">
-      <div class="activity-slot">Wednesday<br>Afternoon</div>
-      <div class="activity-content">
-        <div class="activity-name">🌍 Map Exploration</div>
-        <div class="activity-detail">Give Simon a blank continent map and the bilingual animal posters. He points, pastes stickers, or colors. Purely exploratory — no expectations, no right answers.</div>
-        <div class="activity-setup">Night-before prep: Print one blank continent map. Set out washable markers or crayons.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="simon-thu" class="day-panel">
-    <span class="print-day-label">Thursday</span>
-    <div class="activity-row">
-      <div class="activity-slot">Thursday<br>10:30–11:00</div>
-      <div class="activity-content">
-        <div class="activity-name">🃏 Animal Matching / Memory Game</div>
-        <div class="activity-detail">Print and laminate 2 sets of 10 animal alphabet cards (from the Rustic Poster series). Shuffle them face-down in a grid and play memory/concentration solo. Simple concentration is excellent for pre-K executive function.</div>
-        <div class="activity-setup">Night-before prep: Shuffle 10 pairs of matching cards. Lay face-down in a 4×5 grid on the table.</div>
-      </div>
-    </div>
-    <div class="activity-row">
-      <div class="activity-slot">Thursday<br>Afternoon</div>
-      <div class="activity-content">
-        <div class="activity-name">📖 One-on-One Read-Aloud</div>
-        <div class="activity-detail">15–20 min picture book read-aloud with you — Simon's personal time. When possible, pick books tied to the ToG topic (e.g., Egypt week → a picture book about pyramids or ancient Egypt).</div>
-        <div class="activity-setup">Night-before prep: Set one picture book by his place at the table.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="simon-fri" class="day-panel">
-    <span class="print-day-label">Friday</span>
-    <div class="activity-row">
-      <div class="activity-slot">Friday<br>10:30–11:00</div>
-      <div class="activity-content">
-        <div class="activity-name">🔢 Dimensions Math Hands-On</div>
-        <div class="activity-detail">One number bond worksheet from the Dimensions Math Kinder PDF + 20 small counting objects (beans, pennies, or counting bears). Let him play with the objects freely if he finishes fast — it still counts as math.</div>
-        <div class="activity-setup">Night-before prep: Print one number bond sheet. Set out 20 small objects.</div>
-      </div>
-    </div>
-    <div class="activity-row">
-      <div class="activity-slot">Friday<br>Afternoon</div>
-      <div class="activity-content">
-        <div class="activity-name">🌟 Free Choice Friday</div>
-        <div class="activity-detail">Simon picks any bin from earlier in the week. Low-prep end to the week. He feels ownership; you get a break.</div>
-        <div class="activity-setup">Night-before prep: None.</div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /activity-grid -->
-
-
-<!-- ======= NOTES FOR KYLER ======= -->
-<div class="notes-section">
-  <h3>Questions for You — Help Us Get This Right</h3>
-  <div class="note-item"><strong>What time do you actually start school most mornings?</strong> If it's 9:00 or 9:30, everything shifts — just tell us and we'll update the whole schedule.</div>
-  <div class="note-item"><strong>Does Simon still nap?</strong> If yes, his nap window is actually the ideal slot for Gideon's OG literacy (zero distractions, you're fully present). We'd restructure the morning around that.</div>
-  <div class="note-item"><strong class="note-flag">Which Apologia "Exploring Creation" book are you currently in?</strong> Botany, Zoology 1, Zoology 2, Astronomy, Physical Science, or another? The science block is written generically right now — once we know the book, we'll write specific chapter-by-chapter lesson notes.</div>
-  <div class="note-item"><strong class="note-flag">Which Tapestry of Grace Year and Unit are you in?</strong> Year 1 = Ancient History (Creation → Rome), Year 2 = Medieval, Year 3 = Renaissance–Early Modern, Year 4 = Modern. Week number if you know it — we'll write the lesson plans around exactly where you are.</div>
-  <div class="note-item"><strong>Is the 10:30 OG literacy block workable?</strong> For Gideon's dyslexia work to succeed, it must be genuinely one-on-one with no distractions. If Simon is still a disruption at 10:30 AM, we move Gideon's OG block to after lunch (during Simon's nap/rest). What's realistic?</div>
-  <div class="note-item"><strong>Latin AND Spanish — alternating days or both daily?</strong> Most Song School families alternate: Latin on Mon/Wed/Fri, Spanish on Tue/Thu. Both daily is 30 minutes of languages and may feel like a lot, especially for Gideon. What works for your family?</div>
-  <div class="note-item"><strong class="note-flag">What grammar program is Clive using?</strong> A 3rd grader in a classical program typically has a standalone grammar curriculum (Memoria Press English Grammar, First Language Lessons 3, Rod &amp; Staff, or similar). If you're not doing one yet, we can add a recommendation. If you are, tell us which one so we can include it in the lesson plans.</div>
-  <div class="note-item"><strong>Are you doing explicit spelling instruction?</strong> For Gideon especially, All About Spelling (same OG method as All About Reading) is highly recommended once his reading stabilizes. For Clive, a traditional spelling program or spelling lists from his reading material both work. What are you doing now, if anything?</div>
-  <div class="note-item"><strong>Which cursive program is Clive using?</strong> (Memoria Press New American Cursive, Cursive Logic, Handwriting Without Tears cursive, other?) We'll write the daily cursive assignments to match the specific program's sequence.</div>
-  <div class="note-item"><strong>Do you have regular co-op days?</strong> If you have co-op 1–2 days/week, those become no-school or half-school days in the dashboard and we won't schedule ToG lessons on those days.</div>
-  <div class="note-item"><strong>Has Gideon had a formal dyslexia evaluation?</strong> A school psychologist or educational psychologist evaluation (often free through your local school district even for homeschoolers) will tell you exactly which AAR level to start at and whether he needs additional support. If not, ask his pediatrician for a referral — it's worth doing.</div>
 </div>
 
-<div class="footer">
-  Draft v2 — Built for Kyler Smith by Toby (Caleb's AI) • March 2026<br>
-  Send feedback to Caleb — we'll refine and build the full interactive lesson planning dashboard once the schedule is confirmed
-</div>
+<!-- ══════════════════════════════════════════════
+     TAB 5: RESOURCES
+════════════════════════════════════════════════ -->
+<div id="tab-resources" class="tab-content">
 
+  <!-- AAR / DYSLEXIA -->
+  <div class="resource-section">
+    <h3>🔴 Gideon's AAR &amp; Dyslexia Support</h3>
+    <div class="resource-grid">
+      <a href="https://www.allaboutlearningpress.com/free-resources/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-aar">AAR Official</div>
+        <div class="rc-title">🔗 All About Learning Press — Free Resources</div>
+        <div class="rc-desc">Phonogram cards, activity pages, and teaching tips from the AAR publisher. Bookmark this.</div>
+      </a>
+      <a href="https://www.readingrockets.org/topics/dyslexia" target="_blank" class="resource-card">
+        <div class="resource-tag tag-aar">Dyslexia</div>
+        <div class="rc-title">🔗 Reading Rockets — Dyslexia Hub</div>
+        <div class="rc-desc">Research-backed OG strategies, parent guides, and classroom tools for dyslexic readers.</div>
+      </a>
+      <a href="https://www.dyslexiagames.com/free-worksheets/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-aar">Dyslexia</div>
+        <div class="rc-title">🔗 Dyslexia Games — Free Worksheets</div>
+        <div class="rc-desc">Visual-spatial phonics worksheets designed for dyslexic kids. Great supplement to AAR.</div>
+      </a>
+      <a href="https://www.understood.org/en/school-learning/learning-at-home/homework-study-tools/the-orton-gillingham-approach" target="_blank" class="resource-card">
+        <div class="resource-tag tag-aar">OG Method</div>
+        <div class="rc-title">🔗 Understood.org — OG Approach Guide</div>
+        <div class="rc-desc">Parent-friendly explanation of the Orton-Gillingham method that AAR is based on.</div>
+      </a>
+      <a href="https://www.thecuriousreader.in/blogs/news/free-decodable-books" target="_blank" class="resource-card">
+        <div class="resource-tag tag-aar">Free Books</div>
+        <div class="rc-title">🔗 Free Decodable Books List</div>
+        <div class="rc-desc">Curated list of free online decodable readers aligned with systematic phonics progression.</div>
+      </a>
+      <a href="https://www.starfall.com/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-gideon">Gideon</div>
+        <div class="rc-title">🔗 Starfall.com — Interactive Phonics</div>
+        <div class="rc-desc">Free interactive phonics games. Great for 5-min warm-up before AAR or screen reward time.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- TAPESTRY OF GRACE -->
+  <div class="resource-section">
+    <h3>🗺️ Tapestry of Grace &amp; Ancient History</h3>
+    <div class="resource-grid">
+      <a href="https://www.tapestryofgrace.com/extras" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">ToG</div>
+        <div class="rc-title">🔗 ToG Free Extras &amp; Downloads</div>
+        <div class="rc-desc">Official ToG supplemental materials, maps, and planning helps. Free member resources.</div>
+      </a>
+      <a href="https://www.ancienthistoryencyclopedia.com/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Ancient History</div>
+        <div class="rc-title">🔗 World History Encyclopedia — Ancient</div>
+        <div class="rc-desc">Free, illustrated encyclopedia of ancient civilizations. Great for Clive's independent reading.</div>
+      </a>
+      <a href="https://www.ducksters.com/history/ancient_mesopotamia.php" target="_blank" class="resource-card">
+        <div class="resource-tag tag-clive">Clive</div>
+        <div class="rc-title">🔗 Ducksters — Ancient Mesopotamia</div>
+        <div class="rc-desc">Kid-friendly Mesopotamia articles. Reading level appropriate for Grade 3.</div>
+      </a>
+      <a href="https://www.ducksters.com/history/ancient_egypt.php" target="_blank" class="resource-card">
+        <div class="resource-tag tag-clive">Clive + Gideon</div>
+        <div class="rc-title">🔗 Ducksters — Ancient Egypt</div>
+        <div class="rc-desc">Egypt facts, pharaoh profiles, and pyramid info at kid reading level. Week 2 supplement.</div>
+      </a>
+      <a href="https://www.bible.com/bible/111/GEN.1.NIV" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Bible</div>
+        <div class="rc-title">🔗 YouVersion Bible — Genesis 1</div>
+        <div class="rc-desc">Free online Bible for scripture reading during morning meeting and memory work.</div>
+      </a>
+      <a href="https://printablemaps.net/blank-world-map/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Maps</div>
+        <div class="rc-title">🔗 Printable Blank World Maps</div>
+        <div class="rc-desc">Free blank outline maps for ToG geography work. Print as many as you need.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- MATH -->
+  <div class="resource-section">
+    <h3>➗ Math Resources</h3>
+    <div class="resource-grid">
+      <a href="https://www.mathmammoth.com/freebies/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Math Mammoth</div>
+        <div class="rc-title">🔗 Math Mammoth — Free Worksheets</div>
+        <div class="rc-desc">Official MM supplemental worksheets by grade and topic. Useful for extra practice days.</div>
+      </a>
+      <a href="https://www.khanacademy.org/math/cc-third-grade-math" target="_blank" class="resource-card">
+        <div class="resource-tag tag-clive">Clive — Gr3</div>
+        <div class="rc-title">🔗 Khan Academy — 3rd Grade Math</div>
+        <div class="rc-desc">Free video lessons and practice. Excellent for concepts Clive needs extra help with.</div>
+      </a>
+      <a href="https://www.khanacademy.org/math/cc-2nd-grade-math" target="_blank" class="resource-card">
+        <div class="resource-tag tag-gideon">Gideon — Gr2</div>
+        <div class="rc-title">🔗 Khan Academy — 2nd Grade Math</div>
+        <div class="rc-desc">Free video lessons for Grade 2 math. Good visual support for Gideon's learning style.</div>
+      </a>
+      <a href="https://www.mathplayground.com/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Fun Math</div>
+        <div class="rc-title">🔗 Math Playground</div>
+        <div class="rc-desc">Free math games by grade level. Friday reward activity or rainy-day brain break.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SCIENCE -->
+  <div class="resource-section">
+    <h3>🦜 Science — Apologia Flying Creatures</h3>
+    <div class="resource-grid">
+      <a href="https://www.apologia.com/free-stuff/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Apologia</div>
+        <div class="rc-title">🔗 Apologia — Free Downloads</div>
+        <div class="rc-desc">Official free resources including notebooking pages and supplemental materials.</div>
+      </a>
+      <a href="https://www.allaboutbirds.org/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Birds</div>
+        <div class="rc-title">🔗 All About Birds (Cornell Lab)</div>
+        <div class="rc-desc">Free bird ID, photos, sounds, and videos. Perfect companion to Flying Creatures. Kids love the bird calls!</div>
+      </a>
+      <a href="https://www.youtube.com/playlist?list=PLjWbEAsBXKzM6E3RgVFnDCfOe3EBatL3W" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Video</div>
+        <div class="rc-title">🔗 Wild Kratts — Bird Episodes</div>
+        <div class="rc-desc">YouTube-friendly bird science episodes. Great science enrichment reward for all three kids.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LATIN -->
+  <div class="resource-section">
+    <h3>🏛️ Song School Latin</h3>
+    <div class="resource-grid">
+      <a href="https://classicalacademicpress.com/pages/song-school-latin-resources" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Latin</div>
+        <div class="rc-title">🔗 Classical Academic Press — SSL Resources</div>
+        <div class="rc-desc">Official Song School Latin free resources, songs, and supplemental materials.</div>
+      </a>
+      <a href="https://www.youtube.com/results?search_query=song+school+latin+songs" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Latin Songs</div>
+        <div class="rc-title">🔗 Song School Latin — YouTube Songs</div>
+        <div class="rc-desc">The SSL songs on YouTube. Play during car rides and lunch to reinforce vocabulary without effort.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SIMON PRE-K -->
+  <div class="resource-section">
+    <h3>🟡 Simon's Pre-K Resources</h3>
+    <div class="resource-grid">
+      <a href="https://www.singplaylearn.com/dimensions-math-kindergarten-free/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-simon">Simon</div>
+        <div class="rc-title">🔗 Dimensions Math K — Supplemental</div>
+        <div class="rc-desc">Free companion activities for Dimensions Math Kindergarten by unit.</div>
+      </a>
+      <a href="https://www.pbskids.org/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-simon">Simon</div>
+        <div class="rc-title">🔗 PBS Kids</div>
+        <div class="rc-desc">Free educational games for Pre-K. Approved screen time during Simon's activity bin period.</div>
+      </a>
+      <a href="https://www.starfall.com/h/prek/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-simon">Simon</div>
+        <div class="rc-title">🔗 Starfall Pre-K</div>
+        <div class="rc-desc">Free Pre-K literacy and number games. Engaging and appropriately leveled for Simon.</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- PLANNING + HOMESCHOOL -->
+  <div class="resource-section">
+    <h3>📋 Planning &amp; Homeschool Management</h3>
+    <div class="resource-grid">
+      <a href="https://www.simplehomeschool.net/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Planning</div>
+        <div class="rc-title">🔗 Simple Homeschool</div>
+        <div class="rc-desc">Practical articles on scheduling, burnout prevention, and multi-age homeschooling. Great for Kyler.</div>
+      </a>
+      <a href="https://www.welltrainedmind.com/forums/" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Community</div>
+        <div class="rc-title">🔗 Well-Trained Mind Forums</div>
+        <div class="rc-desc">Active homeschool community with ToG-specific discussion boards. Real mom answers to real questions.</div>
+      </a>
+      <a href="https://www.iHomeschool.net" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Planning</div>
+        <div class="rc-title">🔗 iHomeschool Network</div>
+        <div class="rc-desc">Free planning printables, blog posts, and seasonal homeschool resources from veteran homeschoolers.</div>
+      </a>
+      <a href="https://www.hslda.org/legal" target="_blank" class="resource-card">
+        <div class="resource-tag tag-all">Legal</div>
+        <div class="rc-title">🔗 HSLDA — Texas Homeschool Law</div>
+        <div class="rc-desc">Know your rights. Texas has no reporting requirements, but good to have HSLDA bookmarked.</div>
+      </a>
+    </div>
+  </div>
+
+</div><!-- end resources tab -->
+
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
 <script>
-function showDay(day) {
-  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('[onclick="showDay(\'' + day + '\')"]').classList.add('active');
-  document.getElementById('simon-' + day).classList.add('active');
+// ── TAB NAVIGATION ──────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
 }
+
+// ── LESSON WEEK TOGGLE ──────────────────────────
+function showLessonWeek(n, btn) {
+  document.querySelectorAll('.lesson-week').forEach(w => w.classList.remove('active'));
+  document.querySelectorAll('.week-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lesson-week-' + n).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── DAILY PLANNER DATA ──────────────────────────
+const PLANNER_DATA = {
+  Mon: {
+    focus: "Gideon's AAR (Monday Lesson Review) — do this first after Math",
+    children: {
+      Clive: [
+        { id:'c-mon-1', label:'Morning Meeting', time:'9:00–9:30', note:true },
+        { id:'c-mon-2', label:'Math Mammoth Grade 3', time:'9:30–10:15', note:true },
+        { id:'c-mon-3', label:'ToG: Map intro + Timeline card (Creation)', time:'10:30–11:15', note:true },
+        { id:'c-mon-4', label:'All About Spelling Level 3 (independent)', time:'11:15–11:45', note:true },
+        { id:'c-mon-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'c-mon-6', label:'HWT + Writing (afternoon)', time:'1:00–2:00', note:true },
+        { id:'c-mon-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Gideon: [
+        { id:'g-mon-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'g-mon-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
+        { id:'g-mon-3', label:'ToG: Map + Timeline (narrate 2 things)', time:'10:30–11:15', note:true },
+        { id:'g-mon-4', label:'🔴 AAR — Lesson 1 Review (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-mon-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'g-mon-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
+        { id:'g-mon-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Simon: [
+        { id:'s-mon-1', label:'Morning Meeting (calendar, pledges)', time:'9:00–9:30', note:false },
+        { id:'s-mon-2', label:'Dimensions Math K', time:'9:30–10:15', note:false },
+        { id:'s-mon-3', label:'ToG Picture Books + Map', time:'10:30–11:15', note:false },
+        { id:'s-mon-4', label:'Activity Bin (during AAR)', time:'11:15–11:45', note:false },
+      ]
+    }
+  },
+  Tue: {
+    focus: "Gideon's AAR (Blending Drill) — maintain the daily rhythm",
+    children: {
+      Clive: [
+        { id:'c-tue-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'c-tue-2', label:'Math Mammoth Grade 3', time:'9:30–10:15', note:true },
+        { id:'c-tue-3', label:'ToG Read-Aloud: Story of the World (oral narration)', time:'10:30–11:15', note:true },
+        { id:'c-tue-4', label:'All About Spelling Level 3 (independent)', time:'11:15–11:45', note:true },
+        { id:'c-tue-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'c-tue-6', label:'HWT + Writing (afternoon)', time:'1:00–2:00', note:true },
+        { id:'c-tue-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+        { id:'c-tue-8', label:'Art (optional enrichment)', time:'2:30–3:00', note:false },
+      ],
+      Gideon: [
+        { id:'g-tue-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'g-tue-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
+        { id:'g-tue-3', label:'ToG Read-Aloud: listen + verbal narration', time:'10:30–11:15', note:true },
+        { id:'g-tue-4', label:'🔴 AAR — Blending Drill (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-tue-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'g-tue-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
+        { id:'g-tue-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Simon: [
+        { id:'s-tue-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'s-tue-2', label:'Dimensions Math K', time:'9:30–10:15', note:false },
+        { id:'s-tue-3', label:'ToG: Listening to read-aloud + picture books', time:'10:30–11:15', note:false },
+        { id:'s-tue-4', label:'Activity Bin (during AAR)', time:'11:15–11:45', note:false },
+      ]
+    }
+  },
+  Wed: {
+    focus: "Gideon's AAR (Fluency — repeated reading) + Project Day energy",
+    children: {
+      Clive: [
+        { id:'c-wed-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'c-wed-2', label:'Math Mammoth Grade 3', time:'9:30–10:15', note:true },
+        { id:'c-wed-3', label:'ToG Project (salt dough map / paper pyramid)', time:'10:30–11:15', note:true },
+        { id:'c-wed-4', label:'All About Spelling Level 3 (independent)', time:'11:15–11:45', note:false },
+        { id:'c-wed-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'c-wed-6', label:'HWT + Writing (afternoon)', time:'1:00–2:00', note:true },
+        { id:'c-wed-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Gideon: [
+        { id:'g-wed-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'g-wed-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
+        { id:'g-wed-3', label:'ToG Project (hands-on)', time:'10:30–11:15', note:true },
+        { id:'g-wed-4', label:'🔴 AAR — Fluency Session (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-wed-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'g-wed-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
+        { id:'g-wed-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Simon: [
+        { id:'s-wed-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'s-wed-2', label:'Dimensions Math K', time:'9:30–10:15', note:false },
+        { id:'s-wed-3', label:'Project participation / picture books', time:'10:30–11:15', note:false },
+        { id:'s-wed-4', label:'Activity Bin (during AAR)', time:'11:15–11:45', note:false },
+      ]
+    }
+  },
+  Thu: {
+    focus: "Gideon's AAR (Spelling & Dictation) — use letter tiles, not pencil",
+    children: {
+      Clive: [
+        { id:'c-thu-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'c-thu-2', label:'Math Mammoth Grade 3', time:'9:30–10:15', note:true },
+        { id:'c-thu-3', label:'ToG Written Narration (1 paragraph, 5-7 sentences)', time:'10:30–11:15', note:true },
+        { id:'c-thu-4', label:'All About Spelling Level 3 (dictation practice)', time:'11:15–11:45', note:true },
+        { id:'c-thu-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'c-thu-6', label:'HWT + Writing (afternoon)', time:'1:00–2:00', note:true },
+        { id:'c-thu-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+        { id:'c-thu-8', label:'Spanish (optional enrichment)', time:'2:30–3:00', note:false },
+      ],
+      Gideon: [
+        { id:'g-thu-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'g-thu-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
+        { id:'g-thu-3', label:'ToG Dictated Narration (Kyler scribes)', time:'10:30–11:15', note:true },
+        { id:'g-thu-4', label:'🔴 AAR — Spelling & Dictation (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-thu-5', label:'Song School Latin', time:'11:45–12:00', note:false },
+        { id:'g-thu-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
+        { id:'g-thu-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Simon: [
+        { id:'s-thu-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'s-thu-2', label:'Dimensions Math K', time:'9:30–10:15', note:false },
+        { id:'s-thu-3', label:'ToG Picture Books', time:'10:30–11:15', note:false },
+        { id:'s-thu-4', label:'Activity Bin (during AAR)', time:'11:15–11:45', note:false },
+      ]
+    }
+  },
+  Fri: {
+    focus: "Gideon's AAR (Full Week Review) — CELEBRATE his progress! Read passage from start to finish.",
+    children: {
+      Clive: [
+        { id:'c-fri-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'c-fri-2', label:'Math Mammoth Grade 3 (Chapter review)', time:'9:30–10:15', note:true },
+        { id:'c-fri-3', label:'ToG Timeline Quiz + Memory Verse', time:'10:30–11:15', note:true },
+        { id:'c-fri-4', label:'AAS Level 3 — Spelling Test (10 words)', time:'11:15–11:45', note:true },
+        { id:'c-fri-5', label:'Song School Latin Review', time:'11:45–12:00', note:false },
+        { id:'c-fri-6', label:'HWT + Writing (afternoon)', time:'1:00–2:00', note:false },
+        { id:'c-fri-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Gideon: [
+        { id:'g-fri-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'g-fri-2', label:'Math Mammoth Grade 2 (Chapter review)', time:'9:30–10:15', note:true },
+        { id:'g-fri-3', label:'ToG Timeline + Memory Verse illustration', time:'10:30–11:15', note:true },
+        { id:'g-fri-4', label:'🔴 AAR — Full Week Review + Passage Read (25-30 min)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-fri-5', label:'Song School Latin Review', time:'11:45–12:00', note:false },
+        { id:'g-fri-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:false },
+        { id:'g-fri-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
+      ],
+      Simon: [
+        { id:'s-fri-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
+        { id:'s-fri-2', label:'Dimensions Math K Review', time:'9:30–10:15', note:false },
+        { id:'s-fri-3', label:'ToG Picture Books', time:'10:30–11:15', note:false },
+        { id:'s-fri-4', label:'Week Celebration sticker + free choice', time:'11:15–12:00', note:false },
+      ]
+    }
+  }
+};
+
+let currentDay = 'Mon';
+
+function selectDay(day, btn) {
+  currentDay = day;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPlanner();
+}
+
+function renderPlanner() {
+  const data = PLANNER_DATA[currentDay];
+  const saved = JSON.parse(localStorage.getItem('planner-' + currentDay) || '{}');
+  const childColors = { Clive: 'clive', Gideon: 'gideon', Simon: 'simon' };
+  const childEmojis = { Clive: '🔵', Gideon: '🟢', Simon: '🟡' };
+
+  let html = '';
+  for (const [child, tasks] of Object.entries(data.children)) {
+    const color = childColors[child];
+    const emoji = childEmojis[child];
+    html += `<div class="planner-child-section">
+      <div class="planner-child-header">
+        <div class="planner-child-name" style="color:var(--${color})">${emoji} ${child}</div>
+        <div class="child-pill pill-${color}">${child === 'Clive' ? '3rd Grade' : child === 'Gideon' ? '2nd Grade • AAR' : 'Pre-K'}</div>
+      </div>`;
+
+    tasks.forEach(task => {
+      const isChecked = saved[task.id + '-check'] ? 'checked' : '';
+      const noteVal = (saved[task.id + '-note'] || '').replace(/"/g, '&quot;');
+      const checkClass = task.aar ? 'aar-check' : color + '-check';
+      const itemClass = task.aar ? 'task-item aar-task' : 'task-item';
+
+      html += `<div class="${itemClass}">
+        <div class="task-row">
+          <input type="checkbox" class="task-check ${checkClass}" id="${task.id}" ${isChecked} onchange="autoSave()">
+          <label class="task-label" for="${task.id}">
+            <span>${task.label}</span>
+            <span class="time-badge">${task.time}</span>
+          </label>
+        </div>`;
+
+      if (task.note) {
+        html += `<textarea class="task-notes" id="${task.id}-note" placeholder="Notes for this task..." onchange="autoSave()">${noteVal}</textarea>`;
+      }
+
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+  }
+
+  document.getElementById('planner-body').innerHTML = html;
+
+  // restore note values (since innerHTML sets value before element exists)
+  const saved2 = JSON.parse(localStorage.getItem('planner-' + currentDay) || '{}');
+  Object.keys(saved2).forEach(key => {
+    const el = document.getElementById(key);
+    if (el && el.tagName === 'TEXTAREA') el.value = saved2[key];
+  });
+}
+
+function autoSave() {
+  savePlanner(true);
+}
+
+function savePlanner(silent) {
+  const data = {};
+  document.querySelectorAll('#planner-body input[type=checkbox]').forEach(cb => {
+    data[cb.id + '-check'] = cb.checked;
+  });
+  document.querySelectorAll('#planner-body textarea').forEach(ta => {
+    data[ta.id] = ta.value;
+  });
+  localStorage.setItem('planner-' + currentDay, JSON.stringify(data));
+
+  if (!silent) {
+    const status = document.getElementById('save-status');
+    status.style.display = 'flex';
+    setTimeout(() => { status.style.display = 'none'; }, 2000);
+  }
+}
+
+function clearDay() {
+  if (!confirm('Clear all checkboxes and notes for ' + currentDay + '?')) return;
+  localStorage.removeItem('planner-' + currentDay);
+  renderPlanner();
+}
+
+// ── STAR RATING ──────────────────────────────────
+let starValue = 0;
+const starLabels = ['', '😓 Rough week', '😐 Okay week', '😊 Good week', '🌟 Great week', '🏆 Perfect week!'];
+
+function setStars(val) {
+  starValue = val;
+  document.querySelectorAll('.star-btn').forEach(b => {
+    b.classList.toggle('lit', parseInt(b.dataset.val) <= val);
+  });
+  document.getElementById('star-label').textContent = starLabels[val] || '';
+}
+
+// ── ADMIN SUBMIT & RECOMMENDATIONS ──────────────
+function submitAdmin() {
+  const recs = [];
+
+  // AAR
+  const aar = document.querySelector('input[name="aar"]:checked');
+  if (aar && aar.value === 'no') {
+    recs.push({ icon: '🔴', text: '<strong>AAR was missed multiple days.</strong> Next week, move AAR to the very first slot right after Morning Meeting — before math. Protect this block above everything else. Consistency is the medicine.' });
+  } else if (aar && aar.value === 'most') {
+    recs.push({ icon: '🟡', text: '<strong>AAR almost every day — good!</strong> Try to identify which day it slipped and pre-plan a make-up strategy. Even 15 minutes counts.' });
+  } else if (aar && aar.value === 'yes') {
+    recs.push({ icon: '✅', text: '<strong>AAR every single day — this is the work that changes everything for Gideon.</strong> Keep this rhythm locked in.' });
+  }
+
+  // Math
+  const math = document.querySelector('input[name="math"]:checked');
+  if (math && math.value === 'split') {
+    recs.push({ icon: '🔀', text: '<strong>Math needed splitting — that\'s a valid adjustment.</strong> Try 25 min at 9:30 AM, break, then 20 min after ToG. Some kids do better with two shorter blocks.' });
+  } else if (math && math.value === 'long') {
+    recs.push({ icon: '⏰', text: '<strong>Math block felt too long.</strong> Try splitting into two 20-min sessions next week. Put second session after lunch (1:15 PM) when Simon is napping.' });
+  } else if (math && math.value === 'short') {
+    recs.push({ icon: '⚡', text: '<strong>Math block too short — great problem to have!</strong> Add 5-10 minutes or give an extension activity (Khan Academy challenge, logic puzzle).' });
+  }
+
+  // Enrichment
+  const enrich = document.getElementById('enrichment-count').value;
+  if (enrich === '0') {
+    recs.push({ icon: '🎯', text: '<strong>Zero enrichment sessions — you made the right call.</strong> Core subjects first, always. Art and Spanish are optional extras; never sacrifice AAR or math for them.' });
+  } else if (enrich === '4' || enrich === '5') {
+    recs.push({ icon: '🎨', text: `<strong>Excellent week — ${enrich} enrichment sessions!</strong> When the core schedule is running this smoothly, enrichment flows naturally. Document what made this week work.` });
+  }
+
+  // Rating
+  if (starValue === 1 || starValue === 2) {
+    recs.push({ icon: '💙', text: '<strong>Hard weeks happen — they are part of homeschooling.</strong> Remember: if Gideon did AAR and both boys did math, the week was a success regardless of how everything else felt. Rest this weekend. You\'re doing it.' });
+  } else if (starValue === 5) {
+    recs.push({ icon: '🏆', text: '<strong>Perfect week!</strong> Write down exactly what made it work — schedule, attitude, energy level, anything. That\'s your template. Screenshot this checklist and save it.' });
+  } else if (starValue === 4) {
+    recs.push({ icon: '🌟', text: '<strong>Great week!</strong> Identify the one thing that could have made it a 5 — that\'s your single focus for next week.' });
+  }
+
+  // Check struggled subjects
+  const struggled = [...document.querySelectorAll('#struggled input:checked')].map(c => c.value);
+  if (struggled.includes('tog')) {
+    recs.push({ icon: '📖', text: '<strong>ToG felt hard this week.</strong> Consider simplifying: skip narration one day and just do the read-aloud together. The story matters more than the output at this stage.' });
+  }
+  if (struggled.includes('latin')) {
+    recs.push({ icon: '🏛️', text: '<strong>Latin was tough.</strong> Drop Latin to 2x/week for the next 2 weeks. Songs in the car count — put the SSL playlist on during drives.' });
+  }
+  if (struggled.includes('science')) {
+    recs.push({ icon: '🦜', text: '<strong>Science struggled.</strong> Apologia is low-pressure — it\'s okay to stretch one chapter across 2 weeks. The notebooking journal is optional; prioritize the read-aloud and discussion.' });
+  }
+
+  // Default encouragement if no issues
+  if (recs.length === 0) {
+    recs.push({ icon: '✨', text: 'Everything looks solid. Keep the current rhythm and look for one small way to delight the kids next week — a special snack for Friday review, a nature walk for science, or a movie night reward.' });
+  }
+
+  // Render
+  const html = recs.map(r => `<div class="rec-item"><span class="rec-icon">${r.icon}</span><span>${r.text}</span></div>`).join('');
+  document.getElementById('recs-list').innerHTML = html;
+  const box = document.getElementById('recs-box');
+  box.classList.add('visible');
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── INIT ─────────────────────────────────────────
+renderPlanner();
 </script>
 </body>
 </html>
