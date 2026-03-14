@@ -412,7 +412,7 @@ tr:last-child td { border-bottom: none; }
           <p style="margin-top: var(--space-3);">To register as an RIA in Texas, the firm needs a licensed Investment Adviser Representative (IAR) — that is Madison. The IAR is the individual human being who is formally registered and licensed to provide investment advice on the firm's behalf.</p>
 
           <h4>Organizational Structure</h4>
-          <p style="font-size:0.78rem;color:var(--text-faint);margin-bottom:12px">Click any node to expand or collapse its children.</p>
+          <p style="font-size:0.78rem;color:var(--text-faint);margin-bottom:12px">Full organizational hierarchy — all entities shown.</p>
           <div id="org-tree-container" style="width:100%;overflow:hidden;border-radius:10px;background:rgba(10,12,22,0.6);border:1px solid var(--border)"></div>
           <script>
           (function() {
@@ -494,22 +494,7 @@ tr:last-child td { border-bottom: none; }
               const root = d3.hierarchy(treeData);
               root.x0 = 0; root.y0 = 0;
 
-              // Collapse all below DHWM on load
-              function collapse(d) {
-                if (d.children) {
-                  d._children = d.children;
-                  d._children.forEach(collapse);
-                  d.children = null;
-                }
-              }
-              if (root.children) {
-                root.children.forEach(c => {
-                  if (c.children) c.children.forEach(gc => {
-                    if (gc.children) gc.children.forEach(collapse);
-                  });
-                });
-              }
-
+              // No collapse — fully expanded on load, static view
               const tree = d3.tree().nodeSize([nodeW + gap, nodeH + 40]);
 
               function update(source) {
@@ -554,12 +539,7 @@ tr:last-child td { border-bottom: none; }
                 const node = g.selectAll("g.org-node-g").data(nodes, d => d.data.name);
                 const nodeEnter = node.enter().append("g").attr("class","org-node-g")
                   .attr("transform", d => `translate(${source.x0 + offsetX},${source.y0})`)
-                  .style("cursor","pointer")
-                  .on("click", (event, d) => {
-                    if (d.children) { d._children = d.children; d.children = null; }
-                    else { d.children = d._children; d._children = null; }
-                    update(d);
-                  });
+                  .style("cursor","default");
 
                 const col = d => colors[d.data.type] || colors.mgmt;
 
@@ -610,20 +590,8 @@ tr:last-child td { border-bottom: none; }
                   .attr("text-anchor","end")
                   .text(d => d.data.badge);
 
-                // Expand/collapse indicator
-                nodeEnter.filter(d => d.children || d._children).append("text")
-                  .attr("x", nodeW/2).attr("y", nodeH + 13)
-                  .attr("text-anchor","middle").attr("font-size","9px")
-                  .attr("fill","rgba(255,255,255,0.25)")
-                  .text(d => d.children ? "▲ collapse" : "▼ expand");
-
                 node.merge(nodeEnter).transition().duration(300)
                   .attr("transform", d => `translate(${d.x + offsetX},${d.y})`);
-
-                // Update expand indicator
-                g.selectAll("g.org-node-g").select("text:last-child").filter(function(d){
-                  return d.children || d._children;
-                }).text(d => d.children ? "▲ collapse" : "▼ expand");
 
                 node.exit().transition().duration(200)
                   .attr("transform", d => `translate(${source.x + offsetX},${source.y})`)
