@@ -14,19 +14,9 @@
     max-width: 680px;
     margin: 0 auto;
   }
-  h1 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 4px;
-  }
-  .subtitle {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 20px;
-  }
+  h1 { font-size: 1.4rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
 
-  /* FEEDBACK BANNER */
   .feedback-banner {
     background: #fffbea;
     border: 1.5px solid #f5c842;
@@ -39,67 +29,61 @@
   }
   .feedback-banner strong { color: #3d3000; }
 
-  /* SCHEDULE BLOCKS */
-  .schedule { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
-
-  .block {
+  .enrichment-banner {
+    background: #f0f7f0;
+    border: 1.5px solid #6ab87a;
     border-radius: 10px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    padding: 11px 14px;
+    margin-bottom: 14px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #1a4a1a;
   }
-  .block-header {
-    display: flex;
-    align-items: stretch;
+  .enrichment-banner strong { color: #0d3a0d; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin: 20px 0 8px;
   }
+  .section-label.core-label { color: #2a5bd7; }
+  .section-label.enrichment-label { color: #1a8a3a; }
+
+  .schedule { display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
+
+  .block { border-radius: 10px; overflow: hidden; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .block-header { display: flex; align-items: stretch; }
   .block-time {
-    background: #e8e4dc;
-    color: #555;
-    font-size: 0.78rem;
-    font-weight: 600;
+    background: #e8e4dc; color: #555;
+    font-size: 0.78rem; font-weight: 600;
     padding: 10px 10px;
     min-width: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    line-height: 1.3;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; line-height: 1.3; flex-shrink: 0;
   }
-  .block-body {
-    padding: 10px 13px;
-    flex: 1;
-  }
+  .block-body { padding: 10px 13px; flex: 1; }
   .block-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 3px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 0.95rem; font-weight: 700; margin-bottom: 3px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
   .block-badge {
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 20px;
-    letter-spacing: 0.03em;
+    font-size: 0.68rem; font-weight: 600;
+    padding: 2px 7px; border-radius: 20px; letter-spacing: 0.03em;
   }
   .badge-together { background: #e8f0fe; color: #2a5bd7; }
   .badge-split    { background: #fce8ff; color: #9a2ab8; }
   .badge-break    { background: #e8fce8; color: #1a8a1a; }
+  .badge-core     { background: #fff0e0; color: #b05000; font-size: 0.64rem; }
 
-  .block-detail {
-    font-size: 0.82rem;
-    color: #555;
-    line-height: 1.5;
-  }
+  .block-detail { font-size: 0.82rem; color: #555; line-height: 1.5; }
   .block-detail .boy { font-weight: 600; }
   .clive-c  { color: #1a5eb8; }
   .gideon-c { color: #1a8a3a; }
   .simon-c  { color: #c86a00; }
 
-  /* Color-coded left border by block type */
   .block.together .block-time { background: #dde8ff; color: #2a5bd7; }
   .block.split    .block-time { background: #f3e0ff; color: #8a2aaa; }
   .block.break    .block-time { background: #d8f5d8; color: #1a7a1a; }
@@ -108,148 +92,98 @@
   .dyslexia-note {
     background: #fff3e0;
     border-left: 3px solid #e07000;
-    padding: 7px 10px;
-    margin-top: 8px;
+    padding: 7px 10px; margin-top: 8px;
     border-radius: 0 6px 6px 0;
-    font-size: 0.8rem;
-    color: #7a3a00;
-    line-height: 1.5;
+    font-size: 0.8rem; color: #7a3a00; line-height: 1.5;
   }
   .dyslexia-note strong { color: #5a2800; }
 
-  /* SIMON ACTIVITY ROTATION */
-  h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 4px;
-    margin-top: 8px;
-  }
-  .section-note {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 14px;
-    line-height: 1.5;
+  .inline-note {
+    background: #f5f5f5;
+    border-left: 3px solid #bbb;
+    padding: 6px 10px; margin-top: 7px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.78rem; color: #666; line-height: 1.5;
   }
 
-  .activity-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 28px;
-  }
+  h2 { font-size: 1.1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; margin-top: 8px; }
+  .section-note { font-size: 0.8rem; color: #888; margin-bottom: 14px; line-height: 1.5; }
+
+  .activity-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
   .activity-row {
-    background: white;
-    border-radius: 10px;
-    padding: 11px 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
+    background: white; border-radius: 10px;
+    padding: 11px 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex; gap: 12px; align-items: flex-start;
   }
   .activity-slot {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #c86a00;
-    min-width: 80px;
-    padding-top: 2px;
-    line-height: 1.3;
-    flex-shrink: 0;
+    font-size: 0.75rem; font-weight: 700; color: #c86a00;
+    min-width: 80px; padding-top: 2px; line-height: 1.3; flex-shrink: 0;
   }
-  .activity-content {
-    flex: 1;
-  }
-  .activity-name {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #2d2d2d;
-    margin-bottom: 2px;
-  }
-  .activity-detail {
-    font-size: 0.8rem;
-    color: #666;
-    line-height: 1.5;
-  }
-  .activity-setup {
-    font-size: 0.78rem;
-    color: #888;
-    margin-top: 4px;
-    font-style: italic;
-  }
+  .activity-content { flex: 1; }
+  .activity-name { font-size: 0.9rem; font-weight: 700; color: #2d2d2d; margin-bottom: 2px; }
+  .activity-detail { font-size: 0.8rem; color: #666; line-height: 1.5; }
+  .activity-setup { font-size: 0.78rem; color: #888; margin-top: 4px; font-style: italic; }
 
-  /* DAY TABS for Simon rotation */
   .day-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
   .day-tab {
-    background: white;
-    border: 1.5px solid #e0d8cc;
-    border-radius: 20px;
-    padding: 5px 14px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #888;
-    cursor: pointer;
-    transition: all 0.15s;
+    background: white; border: 1.5px solid #e0d8cc;
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 0.82rem; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s;
   }
-  .day-tab.active {
-    background: #c86a00;
-    border-color: #c86a00;
-    color: white;
-  }
+  .day-tab.active { background: #c86a00; border-color: #c86a00; color: white; }
   .day-panel { display: none; }
   .day-panel.active { display: block; }
 
-  /* NOTES SECTION */
   .notes-section {
-    background: white;
-    border-radius: 10px;
-    padding: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    margin-bottom: 24px;
+    background: white; border-radius: 10px;
+    padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-bottom: 20px;
   }
-  .notes-section h3 {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 10px;
-  }
+  .notes-section h3 { font-size: 0.9rem; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
   .note-item {
-    font-size: 0.82rem;
-    color: #555;
-    padding: 5px 0;
-    border-bottom: 1px solid #f0ece4;
-    line-height: 1.5;
+    font-size: 0.82rem; color: #555; padding: 6px 0;
+    border-bottom: 1px solid #f0ece4; line-height: 1.5;
   }
   .note-item:last-child { border-bottom: none; }
   .note-item strong { color: #2d2d2d; }
+  .note-flag { color: #b05000; font-weight: 600; }
 
-  /* FOOTER */
-  .footer {
-    text-align: center;
-    font-size: 0.75rem;
-    color: #bbb;
-    margin-top: 16px;
-    padding-bottom: 24px;
-  }
+  .footer { text-align: center; font-size: 0.75rem; color: #bbb; margin-top: 16px; padding-bottom: 24px; }
 
+  /* ===== PRINT ===== */
   @media print {
-    body { background: white; padding: 0; }
+    body { background: white; padding: 0; max-width: 100%; font-size: 11pt; }
     .feedback-banner { display: none; }
     .block, .activity-row, .notes-section { box-shadow: none; border: 1px solid #ddd; }
+    .day-tabs { display: none; }
+    .day-panel { display: block !important; }
+    .day-panel .activity-slot::before { font-weight: 700; }
+    .print-day-label {
+      display: block !important;
+      font-weight: 700; font-size: 0.85rem; color: #c86a00;
+      margin-bottom: 4px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 8px;
+    }
+    .enrichment-banner { border: 1px solid #6ab87a; }
+    h1::after { content: " — Smith Homeschool"; }
+    .footer { color: #888; }
+    a { text-decoration: none; color: inherit; }
+    .section-label { color: #333 !important; }
+  }
+  @media screen {
+    .print-day-label { display: none; }
   }
 </style>
 </head>
 <body>
 
-<h1>Smith Homeschool — Daily Schedule</h1>
-<p class="subtitle">Draft for Kyler's review • March 2026</p>
+<h1>Smith Homeschool</h1>
+<p class="subtitle">Daily Schedule — Draft for Kyler's Review • March 2026</p>
 
 <div class="feedback-banner">
-  <strong>Hey Kyler 👋</strong> — Caleb asked me to put together a draft schedule based on your curriculum materials. This is a starting point, not a finished product. Please mark up anything that doesn't fit your family's rhythm — timing, order, what the boys are actually doing — and send feedback to Caleb. We'll refine it before building the full lesson plan dashboard.
+  <strong>Hey Kyler 👋</strong> — Caleb asked me to put together a draft daily schedule based on your curriculum materials in OneDrive. This is a starting point, not a finished product. Everything here is adjustable — timing, order, what each boy is doing. Please look it over and send feedback to Caleb (especially the questions at the bottom). Once you tell us what works and what doesn't, we'll build a full interactive lesson planning dashboard with 2 weeks of pre-written lesson plans so you don't have to prep from scratch.
 </div>
 
-<!-- ========== DAILY BLOCK SCHEDULE ========== -->
-<h2>Daily Block Schedule</h2>
-<p class="section-note">Built around Tapestry of Grace as the hub. Subjects that can be taught together are grouped; independent work is staggered so you're never needed in three places at once.</p>
+<!-- ======= CORE ACADEMICS ======= -->
+<div class="section-label core-label">▸ Core Academics (Morning)</div>
 
 <div class="schedule">
 
@@ -257,12 +191,15 @@
     <div class="block-header">
       <div class="block-time">8:00<br>8:30</div>
       <div class="block-body">
-        <div class="block-title">Morning Launch <span class="block-badge badge-together">All Together</span></div>
+        <div class="block-title">Morning Launch <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          US + Texas Pledges of Allegiance • New City Catechism question of the week (recite together) • Song School Latin/Spanish warm-up song (3–4 min) • Preview the day's ToG topic
+          US + Texas Pledges of Allegiance • New City Catechism question of the week (recite together) • Song School Latin warm-up song (3 min) • Preview the day's Tapestry of Grace topic
         </div>
         <div class="block-detail" style="margin-top:6px">
-          <span class="boy simon-c">Simon:</span> Sits at table with coloring page or Alphabet Poster activity during catechism
+          <span class="boy simon-c">Simon:</span> Sits at table with a coloring page or Alphabet Poster activity during catechism
+        </div>
+        <div class="inline-note">
+          <strong>Memoria Press Christian Studies</strong> is a standalone workbook program (not part of ToG). If you want to keep it, add a separate 15–20 min block here — each boy opens his level's workbook (Year 1/2/3) and reads the assigned passage + answers comprehension questions. If Tapestry of Grace already covers enough Bible/church history for your family, you can set Memoria Press aside without losing much. <em>Your call — just don't try to run both ToG Bible and Memoria Press in the same block.</em>
         </div>
       </div>
     </div>
@@ -272,14 +209,14 @@
     <div class="block-header">
       <div class="block-time">8:30<br>9:30</div>
       <div class="block-body">
-        <div class="block-title">Tapestry of Grace Core <span class="block-badge badge-together">All Together</span></div>
+        <div class="block-title">Tapestry of Grace Core <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          History read-aloud • Map work (continent maps + ToG Maps &amp; Instructions) • Discussion at each boy's level
+          History read-aloud (ToG assigned reading) • Map work (continent maps + ToG Maps &amp; Instructions) • Discussion at each boy's level. This is the spine — all other subjects orbit this.
         </div>
         <div class="block-detail" style="margin-top:6px">
           <span class="boy clive-c">Clive:</span> Takes written narration notes (Upper Grammar level)<br>
-          <span class="boy gideon-c">Gideon:</span> Oral narration + simple drawing (Lower Grammar level)<br>
-          <span class="boy simon-c">Simon:</span> Listens, colors the ToG picture page or activity sheet
+          <span class="boy gideon-c">Gideon:</span> Oral narration + simple labeled drawing (Lower Grammar level)<br>
+          <span class="boy simon-c">Simon:</span> Listens, colors the ToG picture page or a related coloring sheet
         </div>
       </div>
     </div>
@@ -287,16 +224,16 @@
 
   <div class="block split">
     <div class="block-header">
-      <div class="block-time">9:30<br>10:00</div>
+      <div class="block-time">9:30<br>10:15</div>
       <div class="block-body">
-        <div class="block-title">Math — Independent <span class="block-badge badge-split">Each Boy</span></div>
+        <div class="block-title">Math — Independent <span class="block-badge badge-split">Each Boy</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          Each boy works at his own level while you circulate
+          45 minutes — each boy works at his own level. Math Mammoth lessons typically take 30–45 min at these grades; don't rush.
         </div>
         <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive:</span> Math Mammoth Grade 3 — works independently, flags questions<br>
+          <span class="boy clive-c">Clive:</span> Math Mammoth Grade 3 — works independently, flags questions for you to answer at the end of the block<br>
           <span class="boy gideon-c">Gideon:</span> Math Mammoth Grade 2 — works independently<br>
-          <span class="boy simon-c">Simon:</span> Dimensions Math Kinder — number bond sheets, counting manipulatives with you (5–10 min)
+          <span class="boy simon-c">Simon:</span> Dimensions Math Kinder — number bond sheets + 10 counting objects with you (5–8 min one-on-one, then Simon free plays with manipulatives)
         </div>
       </div>
     </div>
@@ -304,28 +241,29 @@
 
   <div class="block break">
     <div class="block-header">
-      <div class="block-time">10:00<br>10:15</div>
+      <div class="block-time">10:15<br>10:30</div>
       <div class="block-body">
         <div class="block-title">Break <span class="block-badge badge-break">Free Time</span></div>
-        <div class="block-detail">Snack + outside or free play. Set out Simon's next activity bin before break ends.</div>
+        <div class="block-detail">Snack + outside or free play. Set out Simon's activity bin for the next block before break ends.</div>
       </div>
     </div>
   </div>
 
   <div class="block split">
     <div class="block-header">
-      <div class="block-time">10:15<br>10:45</div>
+      <div class="block-time">10:30<br>11:00</div>
       <div class="block-body">
-        <div class="block-title">OG Literacy + Independent Work <span class="block-badge badge-split">Split</span></div>
+        <div class="block-title">OG Literacy + Independent Work <span class="block-badge badge-split">Split</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          <span class="boy gideon-c">Gideon (with you):</span> All About Reading Level 1 — one-on-one, multisensory (letter tiles + say it + write it). 20–30 min daily. This is the most important block for Gideon.
+          <span class="boy gideon-c">Gideon (one-on-one with you):</span> All About Reading — one lesson, multisensory (letter tiles + say it + trace it + write it). 25–30 min. This is the most important academic block in Gideon's day.
         </div>
         <div class="block-detail" style="margin-top:6px">
           <span class="boy clive-c">Clive (independent):</span> Silent reading from ToG book list or Memoria Press reader<br>
-          <span class="boy simon-c">Simon (independent):</span> Activity bin (see rotation below)
+          <span class="boy simon-c">Simon (independent):</span> Activity bin (see rotation below) — do not interrupt this block
         </div>
         <div class="dyslexia-note">
-          <strong>⚠️ Gideon — Dyslexia:</strong> Standard phonics and reading programs won't work for him. All About Reading uses Orton-Gillingham — multisensory, structured, sequential. It must be one-on-one with no distractions. This 30-minute block is non-negotiable. Do not skip or shorten it.
+          <strong>⚠️ Gideon — Dyslexia:</strong> Standard phonics programs won't work for him. All About Reading uses the Orton-Gillingham method — multisensory, structured, and sequential. It must be one-on-one with no distractions.<br><br>
+          <strong>Which level to start:</strong> If Gideon can already sound out simple 3-letter words (cat, bed, sit), start with <strong>Level 2</strong>. If he's struggling with basic letter sounds or can't reliably blend, start with <strong>Level 1</strong>. When in doubt, start Level 1 — it moves quickly and won't feel like going backward. Ideally, ask his pediatrician for a referral to a school psychologist for a formal evaluation — this also unlocks accommodations and tells you exactly where to begin.
         </div>
       </div>
     </div>
@@ -333,13 +271,13 @@
 
   <div class="block split">
     <div class="block-header">
-      <div class="block-time">10:45<br>11:15</div>
+      <div class="block-time">11:00<br>11:30</div>
       <div class="block-body">
-        <div class="block-title">Writing <span class="block-badge badge-split">Each Boy</span></div>
+        <div class="block-title">Writing <span class="block-badge badge-split">Each Boy</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          <span class="boy clive-c">Clive:</span> Cursive Workbook — one page daily (upper-case + lower-case stroke practice, then words)<br>
-          <span class="boy gideon-c">Gideon:</span> Print handwriting — copywork from Memoria Press or Bible verse<br>
-          <span class="boy simon-c">Simon:</span> Name tracing or Alphabet Poster letter tracing (fine motor prep)
+          <span class="boy clive-c">Clive:</span> Cursive workbook — one page daily. Also: what grammar program are you using? (see questions below — a 3rd grader in classical education typically has a standalone grammar program)<br>
+          <span class="boy gideon-c">Gideon:</span> Print handwriting copywork — copy one Bible verse or sentence from the week's ToG topic (5–7 words, careful formation, not speed). Consider pairing with <em>All About Spelling</em> (OG-based spelling companion to AAR) once his reading picks up.<br>
+          <span class="boy simon-c">Simon:</span> Name tracing or Alphabet Poster letter tracing — 5–10 min fine motor practice
         </div>
       </div>
     </div>
@@ -347,16 +285,16 @@
 
   <div class="block together">
     <div class="block-header">
-      <div class="block-time">11:15<br>11:45</div>
+      <div class="block-time">11:30<br>12:00</div>
       <div class="block-body">
-        <div class="block-title">Science <span class="block-badge badge-together">Together</span></div>
+        <div class="block-title">Science <span class="block-badge badge-together">Together</span> <span class="block-badge badge-core">CORE</span></div>
         <div class="block-detail">
-          Apologia "Exploring Creation" — Clive &amp; Gideon together (same book, different notebooking expectations). Simon joins for any hands-on observations or experiments.
+          Apologia "Exploring Creation" — Clive &amp; Gideon use the same book at different expectation levels. Simon joins for any hands-on observations or simple experiments.
         </div>
         <div class="block-detail" style="margin-top:6px">
-          <span class="boy clive-c">Clive:</span> Full notebooking journal entry<br>
-          <span class="boy gideon-c">Gideon:</span> Draw + label (oral narration OK)<br>
-          <span class="boy simon-c">Simon:</span> Observation only — touch, look, ask questions
+          <span class="boy clive-c">Clive:</span> Full notebooking journal entry after reading<br>
+          <span class="boy gideon-c">Gideon:</span> Draw and label what you observed; oral narration is fine<br>
+          <span class="boy simon-c">Simon:</span> Touch it, look at it, ask questions — no written output expected
         </div>
       </div>
     </div>
@@ -364,32 +302,43 @@
 
   <div class="block together">
     <div class="block-header">
-      <div class="block-time">11:45<br>12:00</div>
+      <div class="block-time">12:00<br>12:15</div>
       <div class="block-body">
-        <div class="block-title">Song School Latin <span class="block-badge badge-together">All Together</span></div>
-        <div class="block-detail">One Song School Latin song + vocabulary cards. Keep it light and musical — this is supposed to be fun. All three boys participate.</div>
+        <div class="block-title">Song School Latin <span class="block-badge badge-together">All Together</span> <span class="block-badge badge-core">CORE</span></div>
+        <div class="block-detail">One Song School Latin song + vocabulary cards. Keep it musical and light — all three boys. This is memory work through song; it sticks better than drills.</div>
       </div>
     </div>
   </div>
 
   <div class="block break">
     <div class="block-header">
-      <div class="block-time">12:00<br>1:00</div>
+      <div class="block-time">12:15<br>1:15</div>
       <div class="block-body">
         <div class="block-title">Lunch + Rest <span class="block-badge badge-break">Free Time</span></div>
-        <div class="block-detail">Lunch, outdoor play, or quiet rest. Simon's rest/nap if still napping. Set out afternoon activity bins during this time if needed.</div>
+        <div class="block-detail">Lunch, outdoor play, or quiet rest. If Simon still naps, this is the window. Core academics are done — the afternoon blocks below are enrichment.</div>
       </div>
     </div>
   </div>
 
+</div><!-- /core schedule -->
+
+<!-- ======= ENRICHMENT ======= -->
+<div class="enrichment-banner">
+  <strong>Everything below is enrichment.</strong> Art and Spanish are valuable, but they are not the core. On hard days — when someone is sick, when you're exhausted, when the morning ran long — skip the afternoon without guilt. The boys will not fall behind. Core academics ended at noon.
+</div>
+
+<div class="section-label enrichment-label">▸ Enrichment (Afternoon — Do When You Can)</div>
+
+<div class="schedule" style="margin-bottom:28px">
+
   <div class="block together">
     <div class="block-header">
-      <div class="block-time">1:00<br>1:30</div>
+      <div class="block-time">1:15<br>1:45</div>
       <div class="block-body">
         <div class="block-title">Art History <span class="block-badge badge-together">All Together</span></div>
-        <div class="block-detail">Chronological art study — one artist or style per week, synced to ToG historical era. Look at prints, discuss, then make a related art project or coloring sheet.</div>
+        <div class="block-detail">Chronological art study — one artist or era per week, synced to the ToG historical period you're studying. Look at prints, discuss, then make a related project or coloring sheet.</div>
         <div class="block-detail" style="margin-top:6px">
-          <span class="boy simon-c">Simon:</span> Free-draw or coloring while listening to art discussion
+          <span class="boy simon-c">Simon:</span> Free draw or coloring while listening — no expectations
         </div>
       </div>
     </div>
@@ -397,17 +346,20 @@
 
   <div class="block together">
     <div class="block-header">
-      <div class="block-time">1:30<br>2:00</div>
+      <div class="block-time">1:45<br>2:15</div>
       <div class="block-body">
         <div class="block-title">Song School Spanish <span class="block-badge badge-together">All Together</span></div>
         <div class="block-detail">One Song School Spanish song + vocabulary cards + bilingual poster review. Same format as Latin — musical, light, all three boys.</div>
+        <div class="inline-note">
+          <strong>Latin AND Spanish daily?</strong> Most families doing both Song School programs alternate days rather than doing both daily (e.g., Latin on Mon/Wed/Fri, Spanish on Tue/Thu). Daily both is doable but adds 30 min and may feel like a lot for Gideon, who is already working hard on English reading. Let us know which you prefer and we'll adjust the schedule.
+        </div>
       </div>
     </div>
   </div>
 
   <div class="block break">
     <div class="block-header">
-      <div class="block-time">2:00</div>
+      <div class="block-time">2:15</div>
       <div class="block-body">
         <div class="block-title">Done <span class="block-badge badge-break">Free</span></div>
         <div class="block-detail">Structured school is finished. Free play, outdoor time, or co-op prep.</div>
@@ -415,21 +367,13 @@
     </div>
   </div>
 
-</div><!-- /schedule -->
+</div><!-- /enrichment schedule -->
 
 
-<!-- ========== MEMORIA PRESS NOTE ========== -->
-<div class="notes-section">
-  <h3>📖 Bible/Christian Studies — Not on the main schedule?</h3>
-  <div class="note-item">Memoria Press Christian Studies is designed to be woven into the ToG Core block, not a separate time slot. Each boy uses his level during the 8:30–9:30 block: <strong class="clive-c">Clive</strong> = Year 3 (NT/Gospels), <strong class="gideon-c">Gideon</strong> = Year 2 (OT/Kings &amp; Prophets), <strong class="simon-c">Simon</strong> = picture/story level. If Kyler prefers it as a standalone block, add 20 min after morning launch.</div>
-</div>
-
-
-<!-- ========== SIMON ACTIVITY ROTATION ========== -->
-<h2>🧡 Simon's Activity Rotation</h2>
+<!-- ======= SIMON ACTIVITY ROTATION ======= -->
+<h2>Simon's Daily Activity Bins</h2>
 <p class="section-note">
-  Simon (age 4) needs structured independent activities during Gideon's OG literacy block (10:15–10:45) and any other windows where Kyler is focused on the older boys. The key: prep the bins the night before, rotate daily so they stay fresh, limit to 3–4 items max per bin.
-  <br><br>Each "bin" = a small tray, basket, or plastic container. Set it out silently while Simon is on break — he discovers it when he returns. This prevents the "what do I do?" loop.
+  During Gideon's OG literacy block (10:30–11:00), Simon needs to play independently without interrupting you. The solution: prep a small activity bin or tray the night before and set it out silently during the break. He discovers it when school resumes. Rotate daily so it stays fresh. Limit to 3–4 items per bin max.
 </p>
 
 <div class="day-tabs">
@@ -443,96 +387,101 @@
 <div class="activity-grid">
 
   <div id="simon-mon" class="day-panel active">
+    <span class="print-day-label">Monday</span>
     <div class="activity-row">
-      <div class="activity-slot">Monday<br>10:15–10:45</div>
+      <div class="activity-slot">Monday<br>10:30–11:00</div>
       <div class="activity-content">
         <div class="activity-name">🔤 Alphabet Puzzle Bin</div>
-        <div class="activity-detail">Foam or wooden letter puzzle, Rustic Animal Alphabet Poster set (laminated if possible), foam/magnet letters for matching to the poster animals.</div>
-        <div class="activity-setup">Night-before prep: Pull out 5–6 letters from the week's focus (e.g., A–E). Place next to the matching poster animals. Add a tracing sheet for his name.</div>
+        <div class="activity-detail">Foam or wooden letter puzzle, Rustic Animal Alphabet Poster (laminated if possible), foam/magnet letters for matching to the poster animals. Focus on 5–6 letters.</div>
+        <div class="activity-setup">Night-before prep: Pull 5–6 letters from this week's focus (e.g., A–E). Place next to matching poster animals. Add a name tracing sheet.</div>
       </div>
     </div>
     <div class="activity-row">
       <div class="activity-slot">Monday<br>Afternoon</div>
       <div class="activity-content">
-        <div class="activity-name">🎨 Free Art / Coloring</div>
-        <div class="activity-detail">ToG coloring sheet from the week's history topic (Creation/Mesopotamia/Egypt/etc.) + crayons. Simon colors while Clive &amp; Gideon do art history.</div>
-        <div class="activity-setup">Night-before prep: Print one ToG coloring page. Set out 8-pack crayons.</div>
+        <div class="activity-name">🎨 ToG Coloring Page</div>
+        <div class="activity-detail">Simon colors the Tapestry of Grace picture page for the week's history topic while Clive and Gideon do art history discussion. Same topic, age-appropriate output.</div>
+        <div class="activity-setup">Night-before prep: Print one ToG coloring page. Set out crayons.</div>
       </div>
     </div>
   </div>
 
   <div id="simon-tue" class="day-panel">
+    <span class="print-day-label">Tuesday</span>
     <div class="activity-row">
-      <div class="activity-slot">Tuesday<br>10:15–10:45</div>
+      <div class="activity-slot">Tuesday<br>10:30–11:00</div>
       <div class="activity-content">
-        <div class="activity-name">🧱 Building Bin</div>
-        <div class="activity-detail">LEGO Duplo, wooden blocks, or magnetic tiles. Give a simple challenge card: "Build a tower taller than your head" or "Make a house with a door."</div>
-        <div class="activity-setup">Night-before prep: Choose one challenge. Write or draw it on an index card. Put blocks in a tray.</div>
+        <div class="activity-name">🧱 Building Challenge Bin</div>
+        <div class="activity-detail">LEGO Duplo, wooden blocks, or magnetic tiles. Give a simple challenge card: "Build a tower taller than your head" or "Make a house with a door and two windows."</div>
+        <div class="activity-setup">Night-before prep: Write or draw one challenge on an index card. Put blocks in a small tray.</div>
       </div>
     </div>
     <div class="activity-row">
       <div class="activity-slot">Tuesday<br>Afternoon</div>
       <div class="activity-content">
-        <div class="activity-name">🎵 Music Time</div>
-        <div class="activity-detail">Play the Kinder music program files. Simon listens, dances, or sings. No structure needed — just exposure.</div>
-        <div class="activity-setup">Night-before prep: Queue up the music on a tablet or speaker.</div>
+        <div class="activity-name">🎵 Music Exploration</div>
+        <div class="activity-detail">Play his kinder music program files on a tablet or speaker. Simon listens, dances, or sings along. No structure needed — just exposure to musical concepts.</div>
+        <div class="activity-setup">Night-before prep: Queue up the music.</div>
       </div>
     </div>
   </div>
 
   <div id="simon-wed" class="day-panel">
+    <span class="print-day-label">Wednesday</span>
     <div class="activity-row">
-      <div class="activity-slot">Wednesday<br>10:15–10:45</div>
+      <div class="activity-slot">Wednesday<br>10:30–11:00</div>
       <div class="activity-content">
-        <div class="activity-name">🎭 Sensory / Playdough Bin</div>
-        <div class="activity-detail">Playdough + letter molds or cookie-cutter letters. Roll snakes, make letter shapes, count out small objects (beans, buttons) onto a sorting mat.</div>
-        <div class="activity-setup">Night-before prep: Set out playdough, 3–4 letter molds, a small counting mat (draw 10 circles on cardstock).</div>
+        <div class="activity-name">🎭 Playdough + Letter Molds</div>
+        <div class="activity-detail">Playdough + letter-shaped cookie cutters or molds. Roll snakes, make letter shapes, count out small objects onto a sorting mat (10 circles drawn on cardstock).</div>
+        <div class="activity-setup">Night-before prep: Set out playdough, 3–4 letter molds, one counting mat (10 circles on cardstock), 10 small objects (beans, pennies).</div>
       </div>
     </div>
     <div class="activity-row">
       <div class="activity-slot">Wednesday<br>Afternoon</div>
       <div class="activity-content">
         <div class="activity-name">🌍 Map Exploration</div>
-        <div class="activity-detail">Give Simon a blank continent map and the bilingual animal/object posters. Let him point to countries, paste stickers, or color. Purely exploratory — no expectations.</div>
-        <div class="activity-setup">Night-before prep: Print one blank continent map. Set out washable markers.</div>
+        <div class="activity-detail">Give Simon a blank continent map and the bilingual animal posters. He points, pastes stickers, or colors. Purely exploratory — no expectations, no right answers.</div>
+        <div class="activity-setup">Night-before prep: Print one blank continent map. Set out washable markers or crayons.</div>
       </div>
     </div>
   </div>
 
   <div id="simon-thu" class="day-panel">
+    <span class="print-day-label">Thursday</span>
     <div class="activity-row">
-      <div class="activity-slot">Thursday<br>10:15–10:45</div>
+      <div class="activity-slot">Thursday<br>10:30–11:00</div>
       <div class="activity-content">
-        <div class="activity-name">🃏 Matching / Memory Games</div>
-        <div class="activity-detail">Animal alphabet matching cards (print + laminate 2 sets of the poster animals), simple memory/concentration, color/shape sorting tiles.</div>
-        <div class="activity-setup">Night-before prep: Shuffle 10 pairs of matching cards, lay face-down in a grid. Simon flips and matches.</div>
+        <div class="activity-name">🃏 Animal Matching / Memory Game</div>
+        <div class="activity-detail">Print and laminate 2 sets of 10 animal alphabet cards (from the Rustic Poster series). Shuffle them face-down in a grid and play memory/concentration solo. Simple concentration is excellent for pre-K executive function.</div>
+        <div class="activity-setup">Night-before prep: Shuffle 10 pairs of matching cards. Lay face-down in a 4×5 grid on the table.</div>
       </div>
     </div>
     <div class="activity-row">
       <div class="activity-slot">Thursday<br>Afternoon</div>
       <div class="activity-content">
-        <div class="activity-name">📖 Read-Aloud Lap Time</div>
-        <div class="activity-detail">15–20 min one-on-one picture book read-aloud with Kyler. This is Simon's personal time. Pick books tied to the ToG topic when possible (e.g., Egypt → Usborne First Encyclopedia of Ancient Egypt).</div>
-        <div class="activity-setup">Night-before prep: Pick one picture book from the library or book basket.</div>
+        <div class="activity-name">📖 One-on-One Read-Aloud</div>
+        <div class="activity-detail">15–20 min picture book read-aloud with you — Simon's personal time. When possible, pick books tied to the ToG topic (e.g., Egypt week → a picture book about pyramids or ancient Egypt).</div>
+        <div class="activity-setup">Night-before prep: Set one picture book by his place at the table.</div>
       </div>
     </div>
   </div>
 
   <div id="simon-fri" class="day-panel">
+    <span class="print-day-label">Friday</span>
     <div class="activity-row">
-      <div class="activity-slot">Friday<br>10:15–10:45</div>
+      <div class="activity-slot">Friday<br>10:30–11:00</div>
       <div class="activity-content">
-        <div class="activity-name">🔢 Math Manipulatives Bin</div>
-        <div class="activity-detail">Dimensions Math Kinder hands-on: counting bears, number bond worksheet, ten-frame cards. Free play with math objects counts — no pressure.</div>
-        <div class="activity-setup">Night-before prep: Pull one number bond sheet from the Dimensions Math Kinder PDF. Set out 20 small objects (beans, pennies, or counting bears) for hands-on counting.</div>
+        <div class="activity-name">🔢 Dimensions Math Hands-On</div>
+        <div class="activity-detail">One number bond worksheet from the Dimensions Math Kinder PDF + 20 small counting objects (beans, pennies, or counting bears). Let him play with the objects freely if he finishes fast — it still counts as math.</div>
+        <div class="activity-setup">Night-before prep: Print one number bond sheet. Set out 20 small objects.</div>
       </div>
     </div>
     <div class="activity-row">
       <div class="activity-slot">Friday<br>Afternoon</div>
       <div class="activity-content">
         <div class="activity-name">🌟 Free Choice Friday</div>
-        <div class="activity-detail">Simon picks any bin from the week. This rewards completion and gives Kyler a low-prep afternoon slot to end the week.</div>
-        <div class="activity-setup">Night-before prep: None — he chooses.</div>
+        <div class="activity-detail">Simon picks any bin from earlier in the week. Low-prep end to the week. He feels ownership; you get a break.</div>
+        <div class="activity-setup">Night-before prep: None.</div>
       </div>
     </div>
   </div>
@@ -540,22 +489,25 @@
 </div><!-- /activity-grid -->
 
 
-<!-- ========== NOTES FOR KYLER ========== -->
+<!-- ======= NOTES FOR KYLER ======= -->
 <div class="notes-section">
-  <h3>📝 Notes for Your Review</h3>
-  <div class="note-item"><strong>Does 8:00 AM work as a start time?</strong> If you run later (9:00, 9:30), the whole schedule shifts — just let us know.</div>
-  <div class="note-item"><strong>Is the 2-hour ToG + math block realistic before a break?</strong> Some families need a movement break at 9:00 AM for younger kids. We can add one.</div>
-  <div class="note-item"><strong>Gideon's OG block</strong> — is 10:15 AM a workable one-on-one window, or is Simon a disruption at that time? If so, we move it to after lunch when Simon naps.</div>
-  <div class="note-item"><strong>Does Simon still nap?</strong> If yes, we can shift his structured activity bins to morning and use his nap for Gideon's OG block (ideal scenario).</div>
-  <div class="note-item"><strong>Which Apologia book are you currently in?</strong> Botany, Zoology 1, Zoology 2, Astronomy, or another? We'll write the science blocks around the specific book.</div>
-  <div class="note-item"><strong>Which ToG Year/Unit are you currently in?</strong> Year 1 = Ancient History (Creation → Rome), Year 2 = Medieval, Year 3 = Renaissance–Early Modern, Year 4 = Modern. Week number if you know it.</div>
-  <div class="note-item"><strong>Co-op days?</strong> If you have co-op 1–2 days/week, we'll mark those as no-school or half-days in the dashboard.</div>
-  <div class="note-item"><strong>Gideon — has he been formally evaluated for dyslexia?</strong> A school psychologist evaluation qualifies him for accommodations and helps you pick the right AAR level to start at.</div>
+  <h3>Questions for You — Help Us Get This Right</h3>
+  <div class="note-item"><strong>What time do you actually start school most mornings?</strong> If it's 9:00 or 9:30, everything shifts — just tell us and we'll update the whole schedule.</div>
+  <div class="note-item"><strong>Does Simon still nap?</strong> If yes, his nap window is actually the ideal slot for Gideon's OG literacy (zero distractions, you're fully present). We'd restructure the morning around that.</div>
+  <div class="note-item"><strong class="note-flag">Which Apologia "Exploring Creation" book are you currently in?</strong> Botany, Zoology 1, Zoology 2, Astronomy, Physical Science, or another? The science block is written generically right now — once we know the book, we'll write specific chapter-by-chapter lesson notes.</div>
+  <div class="note-item"><strong class="note-flag">Which Tapestry of Grace Year and Unit are you in?</strong> Year 1 = Ancient History (Creation → Rome), Year 2 = Medieval, Year 3 = Renaissance–Early Modern, Year 4 = Modern. Week number if you know it — we'll write the lesson plans around exactly where you are.</div>
+  <div class="note-item"><strong>Is the 10:30 OG literacy block workable?</strong> For Gideon's dyslexia work to succeed, it must be genuinely one-on-one with no distractions. If Simon is still a disruption at 10:30 AM, we move Gideon's OG block to after lunch (during Simon's nap/rest). What's realistic?</div>
+  <div class="note-item"><strong>Latin AND Spanish — alternating days or both daily?</strong> Most Song School families alternate: Latin on Mon/Wed/Fri, Spanish on Tue/Thu. Both daily is 30 minutes of languages and may feel like a lot, especially for Gideon. What works for your family?</div>
+  <div class="note-item"><strong class="note-flag">What grammar program is Clive using?</strong> A 3rd grader in a classical program typically has a standalone grammar curriculum (Memoria Press English Grammar, First Language Lessons 3, Rod &amp; Staff, or similar). If you're not doing one yet, we can add a recommendation. If you are, tell us which one so we can include it in the lesson plans.</div>
+  <div class="note-item"><strong>Are you doing explicit spelling instruction?</strong> For Gideon especially, All About Spelling (same OG method as All About Reading) is highly recommended once his reading stabilizes. For Clive, a traditional spelling program or spelling lists from his reading material both work. What are you doing now, if anything?</div>
+  <div class="note-item"><strong>Which cursive program is Clive using?</strong> (Memoria Press New American Cursive, Cursive Logic, Handwriting Without Tears cursive, other?) We'll write the daily cursive assignments to match the specific program's sequence.</div>
+  <div class="note-item"><strong>Do you have regular co-op days?</strong> If you have co-op 1–2 days/week, those become no-school or half-school days in the dashboard and we won't schedule ToG lessons on those days.</div>
+  <div class="note-item"><strong>Has Gideon had a formal dyslexia evaluation?</strong> A school psychologist or educational psychologist evaluation (often free through your local school district even for homeschoolers) will tell you exactly which AAR level to start at and whether he needs additional support. If not, ask his pediatrician for a referral — it's worth doing.</div>
 </div>
 
 <div class="footer">
-  Draft v1 — Built for Kyler Smith by Toby (Caleb's AI) • March 2026<br>
-  Send feedback to Caleb — we'll refine and build the full lesson plan dashboard once the schedule is confirmed
+  Draft v2 — Built for Kyler Smith by Toby (Caleb's AI) • March 2026<br>
+  Send feedback to Caleb — we'll refine and build the full interactive lesson planning dashboard once the schedule is confirmed
 </div>
 
 <script>
