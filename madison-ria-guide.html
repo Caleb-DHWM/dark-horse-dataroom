@@ -119,11 +119,97 @@ a:hover { text-decoration: underline; }
 .section-badge { padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); white-space: nowrap; flex-shrink: 0; }
 
 /* Org map */
-.org-tree { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-6); font-family: 'Courier New', monospace; font-size: var(--text-sm); line-height: 2; overflow-x: auto; }
-.org-tree .highlight { color: var(--gold); font-weight: 700; }
-.org-tree .new { color: var(--green); font-weight: 700; }
-.org-tree .advised { color: var(--primary); }
-.org-tree .dormant { color: var(--text-faint); }
+/* ---- Visual Org Chart ---- */
+.org-chart-wrap { overflow-x: auto; padding: 8px 0 24px; }
+.org-chart { display: flex; flex-direction: column; align-items: center; width: max-content; min-width: 100%; }
+.oc-level { display: flex; justify-content: center; align-items: flex-start; gap: 0; position: relative; }
+.oc-col { display: flex; flex-direction: column; align-items: center; }
+
+/* Node card */
+.oc-node {
+  position: relative;
+  border-radius: 8px;
+  padding: 9px 13px 9px 16px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  min-width: 150px;
+  max-width: 190px;
+  text-align: left;
+  margin: 0 5px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.oc-node::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+}
+.oc-node .oc-name { font-weight: 700; color: #f0f0f0; display: block; margin-bottom: 2px; }
+.oc-node .oc-type { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; display: block; }
+.oc-node .oc-sub  { font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-top: 3px; display: block; line-height: 1.4; }
+.oc-node .oc-badge {
+  display: inline-block; font-size: 0.62rem; font-weight: 700;
+  padding: 1px 6px; border-radius: 10px; margin-top: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+
+/* Color themes by entity type */
+.oc-trust   { background: rgba(55,48,90,0.6); } .oc-trust::before { background: #7c3aed; } .oc-trust .oc-type { color: #a78bfa; }
+.oc-holdings{ background: rgba(40,50,80,0.6); } .oc-holdings::before { background: #3b82f6; } .oc-holdings .oc-type { color: #93c5fd; }
+.oc-family  { background: rgba(20,50,40,0.8); border: 1px solid rgba(52,211,153,0.25); } .oc-family::before { background: #10b981; } .oc-family .oc-type { color: #6ee7b7; }
+.oc-ria     { background: rgba(20,60,40,0.9); border: 1.5px solid rgba(52,211,153,0.45); } .oc-ria::before { background: #34d399; } .oc-ria .oc-type { color: #6ee7b7; }
+.oc-new-badge { background: rgba(52,211,153,0.2); color: #34d399; border: 1px solid rgba(52,211,153,0.4); }
+.oc-mgmt    { background: rgba(10,40,70,0.7); } .oc-mgmt::before { background: #2563eb; } .oc-mgmt .oc-type { color: #93c5fd; }
+.oc-fund    { background: rgba(8,45,65,0.7); } .oc-fund::before { background: #0ea5e9; } .oc-fund .oc-type { color: #7dd3fc; }
+.oc-ops     { background: rgba(60,35,10,0.7); } .oc-ops::before { background: #d97706; } .oc-ops .oc-type { color: #fcd34d; }
+.oc-invest  { background: rgba(50,30,10,0.5); } .oc-invest::before { background: #92400e; } .oc-invest .oc-type { color: #fbbf24; }
+.oc-dormant { background: rgba(30,30,35,0.5); opacity: 0.65; } .oc-dormant::before { background: #4b5563; } .oc-dormant .oc-type { color: #9ca3af; }
+.oc-person  { background: rgba(60,20,60,0.5); } .oc-person::before { background: #9333ea; } .oc-person .oc-type { color: #c084fc; }
+
+/* Connector lines */
+.oc-connector-down {
+  width: 2px; background: rgba(255,255,255,0.15);
+  flex-shrink: 0; align-self: center;
+}
+.oc-connector-group {
+  display: flex; flex-direction: column; align-items: center;
+  width: 100%;
+}
+.oc-connector-h-wrap {
+  display: flex; align-items: flex-start; position: relative;
+  width: 100%;
+  justify-content: center;
+}
+/* Horizontal bar connecting siblings */
+.oc-h-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  margin: 0 auto;
+}
+.oc-branch {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 20px; position: relative;
+  flex: 1;
+}
+/* Vertical drop from h-bar to node */
+.oc-branch::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: rgba(255,255,255,0.15);
+}
+/* Sub-children of a node */
+.oc-children {
+  display: flex; gap: 0; margin-top: 0;
+  width: 100%;
+}
+.oc-spacer { height: 18px; width: 2px; background: rgba(255,255,255,0.15); align-self: center; margin: 0 auto; }
 
 /* Step cards */
 .steps { display: flex; flex-direction: column; gap: var(--space-4); }
@@ -324,33 +410,138 @@ tr:last-child td { border-bottom: none; }
           <p style="margin-top: var(--space-3);">To register as an RIA in Texas, the firm needs a licensed Investment Adviser Representative (IAR) — that is Madison. The IAR is the individual human being who is formally registered and licensed to provide investment advice on the firm's behalf.</p>
 
           <h4>Organizational Structure</h4>
-          <div class="org-tree">
-<span style="color:var(--text-faint)">In God We Trust (Caleb's Trust)</span>
-└── <span style="color:var(--text-faint)">Caraway Holdings LLC</span>
-    └── <span class="highlight">Dark Horse Wealth Management LLC</span> (family office · governing entity)
-        │
-        ├── <span class="new">Dark Horse Advisers LLC  ← NEW · RIA REGISTERED HERE</span>
-        │   ├── Registered with TSSB as Investment Adviser
-        │   ├── <strong>Madison Cornwell</strong> — IAR + Operations Director
-        │   ├── <strong>Dori Karjian, PLLC</strong> — CCO (contracted supervised person)
-        │   └── <span class="advised">Advises all active funds below ↓</span>
-        │
-        ├── <span class="advised">Corinthian Capital Partners LLC</span> (management/GP · 75% Caleb)
-        │   └── <span class="advised">Corinthian Capital Fund LLC</span> (Reg D 506(b) · private debt fund)
-        │
-        ├── <span style="color:var(--text-secondary)">Virtue Management Co</span>
-        │   └── <span style="color:var(--text-secondary)">Virtue Private Credit Fund</span>
-        │       └── <span style="color:var(--text-faint)">Supernature Fund → Supernature Real Estate (100% Adil's)</span>
-        │
-        ├── <span style="color:var(--text-secondary)">Stateside Resources</span> (mining &amp; metals · commodities)
-        │   └── <span style="color:var(--text-faint)">Field Futures Texas (8% ownership)</span>
-        │
-        ├── <span class="dormant">Draft Horse Capital Partners (DORMANT shell)</span>
-        │   └── <span class="dormant">Draft Horse Capital Partners Fund (DORMANT)</span>
-        │
-        └── <span class="dormant">Quarter Horse Wealth Management (DORMANT shell)</span>
-            └── <span class="dormant">Quarter Horse Capital Partners (DORMANT)</span>
-          </div>
+          <div class="org-chart-wrap">
+          <div class="org-chart">
+
+            <!-- TIER 1: Trust -->
+            <div class="oc-node oc-trust" style="text-align:center;min-width:180px">
+              <span class="oc-name">In God We Trust</span>
+              <span class="oc-type">Caleb's Trust · Estate Layer</span>
+            </div>
+            <div class="oc-spacer"></div>
+
+            <!-- TIER 2: Holdings -->
+            <div class="oc-node oc-holdings" style="text-align:center;min-width:180px">
+              <span class="oc-name">Caraway Holdings LLC</span>
+              <span class="oc-type">Holdings Entity</span>
+            </div>
+            <div class="oc-spacer"></div>
+
+            <!-- TIER 3: DHWM (Family Office) -->
+            <div class="oc-node oc-family" style="text-align:center;min-width:220px">
+              <span class="oc-name">Dark Horse Wealth Management LLC</span>
+              <span class="oc-type">Family Office · Governing Entity</span>
+            </div>
+            <div class="oc-spacer" style="height:24px"></div>
+
+            <!-- HORIZONTAL BAR + TIER 4 BRANCHES -->
+            <div style="width:100%;max-width:1000px;position:relative;display:flex;flex-direction:column;align-items:center">
+              <!-- H-BAR -->
+              <div style="width:90%;height:2px;background:rgba(255,255,255,0.15);position:relative;z-index:1"></div>
+              <!-- TIER 4 nodes -->
+              <div style="display:flex;justify-content:center;align-items:flex-start;width:90%;gap:0">
+
+                <!-- Dark Horse Advisers LLC -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                  <div class="oc-node oc-ria" style="min-width:160px">
+                    <span class="oc-name">Dark Horse Advisers LLC</span>
+                    <span class="oc-type">RIA — Being Formed</span>
+                    <span class="oc-badge oc-new-badge">★ NEW · RIA</span>
+                    <span class="oc-sub">Madison Cornwell<br>IAR + Operations Director</span>
+                    <span class="oc-sub">Dori Karjian, PLLC<br>CCO (supervised person)</span>
+                  </div>
+                </div>
+
+                <!-- Corinthian Capital Partners -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                  <div class="oc-node oc-mgmt" style="min-width:160px">
+                    <span class="oc-name">Corinthian Capital Partners LLC</span>
+                    <span class="oc-type">Management / GP</span>
+                    <span class="oc-sub">75% Caleb</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
+                  <div class="oc-node oc-fund" style="min-width:160px">
+                    <span class="oc-name">Corinthian Capital Fund LLC</span>
+                    <span class="oc-type">Fund Vehicle</span>
+                    <span class="oc-sub">Reg D 506(b) · Private Debt</span>
+                  </div>
+                </div>
+
+                <!-- Virtue -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                  <div class="oc-node oc-mgmt" style="min-width:150px">
+                    <span class="oc-name">Virtue Management Co</span>
+                    <span class="oc-type">Management Entity</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
+                  <div class="oc-node oc-fund" style="min-width:150px">
+                    <span class="oc-name">Virtue Private Credit Fund</span>
+                    <span class="oc-type">Fund Vehicle</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
+                  <div class="oc-node oc-invest" style="min-width:150px">
+                    <span class="oc-name">Supernature Fund</span>
+                    <span class="oc-type">Fund Vehicle</span>
+                    <span class="oc-sub">→ Supernature Real Estate<br>(100% Adil's)</span>
+                  </div>
+                </div>
+
+                <!-- Stateside Resources -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                  <div class="oc-node oc-ops" style="min-width:150px">
+                    <span class="oc-name">Stateside Resources</span>
+                    <span class="oc-type">Mining &amp; Metals</span>
+                    <span class="oc-sub">Commodities</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
+                  <div class="oc-node oc-invest" style="min-width:150px">
+                    <span class="oc-name">Field Futures Texas</span>
+                    <span class="oc-type">Investment</span>
+                    <span class="oc-sub">8% ownership</span>
+                  </div>
+                </div>
+
+                <!-- Draft Horse (Dormant) -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.08)"></div>
+                  <div class="oc-node oc-dormant" style="min-width:145px">
+                    <span class="oc-name">Draft Horse Capital Partners</span>
+                    <span class="oc-type">Management Shell</span>
+                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.06)"></div>
+                  <div class="oc-node oc-dormant" style="min-width:145px">
+                    <span class="oc-name">Draft Horse Capital Fund</span>
+                    <span class="oc-type">Fund Vehicle</span>
+                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                  </div>
+                </div>
+
+                <!-- Quarter Horse (Dormant) -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.08)"></div>
+                  <div class="oc-node oc-dormant" style="min-width:145px">
+                    <span class="oc-name">Quarter Horse Wealth Management</span>
+                    <span class="oc-type">Management Shell</span>
+                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                  </div>
+                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.06)"></div>
+                  <div class="oc-node oc-dormant" style="min-width:145px">
+                    <span class="oc-name">Quarter Horse Capital Partners</span>
+                    <span class="oc-type">Fund Vehicle</span>
+                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                  </div>
+                </div>
+
+              </div><!-- /tier 4 row -->
+            </div><!-- /h-bar container -->
+
+          </div><!-- /org-chart -->
+          </div><!-- /org-chart-wrap -->
         </div>
       </div>
 
