@@ -311,7 +311,7 @@ tr:last-child td { border-bottom: none; }
 @media print { .phase-nav, .theme-btn { display: none; } .step-body { display: block !important; } }
 @media (max-width: 600px) { .step-who { display: none; } .section-badge { display: none; } }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+
 </head>
 <body>
 <div class="wrapper">
@@ -413,204 +413,9 @@ tr:last-child td { border-bottom: none; }
 
           <h4>Organizational Structure</h4>
           <p style="font-size:0.78rem;color:var(--text-faint);margin-bottom:12px">Full organizational hierarchy — all entities shown.</p>
-          <div id="org-tree-container" style="width:100%;overflow:hidden;border-radius:10px;background:rgba(10,12,22,0.6);border:1px solid var(--border)"></div>
-          <script>
-          (function() {
-            const treeData = {
-              name: "In God We Trust", type: "trust", sub: "Caleb's Trust · Estate Layer",
-              children: [{
-                name: "Caraway Holdings LLC", type: "holdings", sub: "Holdings Entity",
-                children: [
-                  {
-                    name: "Dark Horse Advisers LLC", type: "ria", sub: "100% Caleb Caraway (personal) · RIA", badge: "★ NEW",
-                    children: [
-                      { name: "Madison Cornwell", type: "person", sub: "IAR + Operations Director" },
-                      { name: "Dori Karjian, PLLC", type: "person", sub: "CCO — Contracted Supervised Person" }
-                    ]
-                  },
-                  {
-                  name: "Dark Horse Wealth Management LLC", type: "family", sub: "Family Office · Governing Entity",
-                  children: [
-                    {
-                      name: "Corinthian Capital Partners LLC", type: "mgmt", sub: "Management / GP · 75% Caleb",
-                      children: [
-                        { name: "Corinthian Capital Fund LLC", type: "fund", sub: "Reg D 506(b) · Private Debt Fund" }
-                      ]
-                    },
-                    {
-                      name: "Virtue Management Co", type: "mgmt", sub: "Management Entity",
-                      children: [{
-                        name: "Virtue Private Credit Fund", type: "fund", sub: "Fund Vehicle",
-                        children: [{
-                          name: "Supernature Fund", type: "fund", sub: "Fund Vehicle",
-                          children: [{ name: "Supernature Real Estate", type: "invest", sub: "100% Adil's" }]
-                        }]
-                      }]
-                    },
-                    {
-                      name: "Stateside Resources", type: "ops", sub: "Mining & Metals · Commodities",
-                      children: [{ name: "Field Futures Texas", type: "invest", sub: "8% Ownership" }]
-                    },
-                    {
-                      name: "Draft Horse Capital Partners", type: "dormant", sub: "Management Shell", badge: "DORMANT",
-                      children: [{ name: "Draft Horse Capital Fund", type: "dormant", sub: "Fund Vehicle", badge: "DORMANT" }]
-                    },
-                    {
-                      name: "Quarter Horse Wealth Management", type: "dormant", sub: "Management Shell", badge: "DORMANT",
-                      children: [{ name: "Quarter Horse Capital Partners", type: "dormant", sub: "Fund Vehicle", badge: "DORMANT" }]
-                    }
-                  ]
-                }]
-              }]
-            };
-            // Note: Dark Horse Advisers LLC is a sibling of DHWM under Caraway Holdings LLC
-            // — owned 100% by Caleb Caraway personally, NOT under DHWM
-            // This protects DHWM's family office exemption from Dodd-Frank contamination
-
-            const colors = {
-              trust:    { bg: "#2d1f5e", accent: "#7c3aed", text: "#a78bfa" },
-              holdings: { bg: "#1a2850", accent: "#3b82f6", text: "#93c5fd" },
-              family:   { bg: "#0d3d2a", accent: "#10b981", text: "#6ee7b7" },
-              ria:      { bg: "#0d3d2a", accent: "#34d399", text: "#6ee7b7" },
-              mgmt:     { bg: "#0a2040", accent: "#2563eb", text: "#93c5fd" },
-              fund:     { bg: "#081e38", accent: "#0ea5e9", text: "#7dd3fc" },
-              ops:      { bg: "#2a1500", accent: "#d97706", text: "#fcd34d" },
-              invest:   { bg: "#1e0f00", accent: "#92400e", text: "#fbbf24" },
-              dormant:  { bg: "#111318", accent: "#4b5563", text: "#6b7280" },
-              person:   { bg: "#1e0a2a", accent: "#9333ea", text: "#c084fc" }
-            };
-
-            function buildTree() {
-              const container = document.getElementById("org-tree-container");
-              const W = container.clientWidth || 700;
-              const nodeW = 200, nodeH = 62, gap = 16;
-
-              const svg = d3.select("#org-tree-container").append("svg")
-                .attr("width", "100%")
-                .style("display","block");
-
-              const g = svg.append("g").attr("transform","translate(20,20)");
-
-              const root = d3.hierarchy(treeData);
-              root.x0 = 0; root.y0 = 0;
-
-              // No collapse — fully expanded on load, static view
-              const tree = d3.tree().nodeSize([nodeW + gap, nodeH + 40]);
-
-              function update(source) {
-                tree(root);
-                const nodes = root.descendants();
-                const links = root.links();
-
-                // Compute bounds
-                let minX = Infinity, maxX = -Infinity, maxY = -Infinity;
-                nodes.forEach(d => {
-                  if (d.x < minX) minX = d.x;
-                  if (d.x > maxX) maxX = d.x;
-                  if (d.y > maxY) maxY = d.y;
-                });
-                const treeW = maxX - minX + nodeW + 60;
-                const treeH = maxY + nodeH + 60;
-                const offsetX = -minX + (nodeW / 2) + 20;
-
-                svg.attr("height", treeH + 40);
-                d3.select("#org-tree-container").select("svg").attr("viewBox", `0 0 ${Math.max(W, treeW + 40)} ${treeH + 40}`);
-
-                // Links
-                const link = g.selectAll("path.org-link").data(links, d => d.target.data.name);
-                const linkEnter = link.enter().append("path").attr("class","org-link")
-                  .attr("fill","none").attr("stroke","rgba(255,255,255,0.12)").attr("stroke-width",1.5)
-                  .attr("d", d => {
-                    const o = {x: source.x0 + offsetX, y: source.y0 + nodeH};
-                    return `M${o.x},${o.y} C${o.x},${o.y+20} ${o.x},${o.y+20} ${o.x},${o.y+20}`;
-                  });
-                link.merge(linkEnter).transition().duration(300)
-                  .attr("d", d => {
-                    const sx = d.source.x + offsetX + nodeW/2;
-                    const sy = d.source.y + nodeH;
-                    const tx = d.target.x + offsetX + nodeW/2;
-                    const ty = d.target.y;
-                    const my = (sy + ty) / 2;
-                    return `M${sx},${sy} C${sx},${my} ${tx},${my} ${tx},${ty}`;
-                  });
-                link.exit().transition().duration(200).remove();
-
-                // Nodes
-                const node = g.selectAll("g.org-node-g").data(nodes, d => d.data.name);
-                const nodeEnter = node.enter().append("g").attr("class","org-node-g")
-                  .attr("transform", d => `translate(${source.x0 + offsetX},${source.y0})`)
-                  .style("cursor","default");
-
-                const col = d => colors[d.data.type] || colors.mgmt;
-
-                // Card background
-                nodeEnter.append("rect")
-                  .attr("width", nodeW).attr("height", nodeH)
-                  .attr("rx", 7).attr("ry", 7)
-                  .attr("fill", d => col(d).bg)
-                  .attr("stroke", d => col(d).accent)
-                  .attr("stroke-width", d => d.data.type === "ria" ? 1.5 : 0.5)
-                  .attr("stroke-opacity", 0.6);
-
-                // Left accent bar
-                nodeEnter.append("rect")
-                  .attr("width", 4).attr("height", nodeH)
-                  .attr("rx", 7).attr("fill", d => col(d).accent);
-
-                // Entity name
-                nodeEnter.append("text")
-                  .attr("x", 12).attr("y", 18)
-                  .attr("font-size", "11px").attr("font-weight", "700")
-                  .attr("fill", "#f0f0f0")
-                  .each(function(d) {
-                    const words = d.data.name.split(" ");
-                    const el = d3.select(this);
-                    let line = "", lineNum = 0;
-                    words.forEach(w => {
-                      const test = line + (line ? " " : "") + w;
-                      if (test.length > 22 && line) {
-                        el.append("tspan").attr("x",12).attr("dy", lineNum === 0 ? 0 : 13).text(line);
-                        line = w; lineNum++;
-                      } else { line = test; }
-                    });
-                    el.append("tspan").attr("x",12).attr("dy", lineNum === 0 ? 0 : 13).text(line);
-                  });
-
-                // Sub text
-                nodeEnter.append("text")
-                  .attr("x", 12).attr("y", 47)
-                  .attr("font-size", "9px").attr("fill", d => col(d).text)
-                  .text(d => d.data.sub ? (d.data.sub.length > 30 ? d.data.sub.slice(0,28)+"…" : d.data.sub) : "");
-
-                // Badge
-                nodeEnter.filter(d => d.data.badge).append("text")
-                  .attr("x", nodeW - 8).attr("y", 13)
-                  .attr("font-size","8px").attr("font-weight","700")
-                  .attr("fill", d => d.data.type === "ria" ? "#34d399" : "#6b7280")
-                  .attr("text-anchor","end")
-                  .text(d => d.data.badge);
-
-                node.merge(nodeEnter).transition().duration(300)
-                  .attr("transform", d => `translate(${d.x + offsetX},${d.y})`);
-
-                node.exit().transition().duration(200)
-                  .attr("transform", d => `translate(${source.x + offsetX},${source.y})`)
-                  .remove();
-
-                nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
-              }
-
-              update(root);
-            }
-
-            if (document.readyState === "loading") {
-              document.addEventListener("DOMContentLoaded", buildTree);
-            } else {
-              requestAnimationFrame(buildTree);
-            }
-          })();
-          </script>
-          <div class="org-chart" style="display:none">
+          <!-- ── STATIC ORG CHART — no JS, fully expanded ── -->
+          <div class="org-chart-wrap">
+          <div class="org-chart">
 
             <!-- TIER 1: Trust -->
             <div class="oc-node oc-trust" style="text-align:center;min-width:180px">
@@ -624,124 +429,133 @@ tr:last-child td { border-bottom: none; }
               <span class="oc-name">Caraway Holdings LLC</span>
               <span class="oc-type">Holdings Entity</span>
             </div>
-            <div class="oc-spacer"></div>
+            <div class="oc-spacer" style="height:20px"></div>
 
-            <!-- TIER 3: DHWM (Family Office) -->
-            <div class="oc-node oc-family" style="text-align:center;min-width:220px">
-              <span class="oc-name">Dark Horse Wealth Management LLC</span>
-              <span class="oc-type">Family Office · Governing Entity</span>
-            </div>
-            <div class="oc-spacer" style="height:24px"></div>
+            <!-- TIER 3: DA LLC (left) + DHWM (right) — siblings under Caraway Holdings -->
+            <div style="width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center">
+              <div style="width:55%;height:2px;background:rgba(255,255,255,0.15)"></div>
+              <div style="display:flex;justify-content:center;align-items:flex-start;width:55%;gap:0">
 
-            <!-- HORIZONTAL BAR + TIER 4 BRANCHES -->
-            <div style="width:100%;max-width:1000px;position:relative;display:flex;flex-direction:column;align-items:center">
-              <!-- H-BAR -->
-              <div style="width:90%;height:2px;background:rgba(255,255,255,0.15);position:relative;z-index:1"></div>
-              <!-- TIER 4 nodes -->
-              <div style="display:flex;justify-content:center;align-items:flex-start;width:90%;gap:0">
-
-                <!-- Dark Horse Advisers LLC -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
-                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
-                  <div class="oc-node oc-ria" style="min-width:160px">
+                <!-- DA LLC branch (left) -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                  <div style="height:20px;width:2px;background:rgba(52,211,153,0.4)"></div>
+                  <div class="oc-node oc-ria" style="min-width:200px;max-width:220px">
                     <span class="oc-name">Dark Horse Advisers LLC</span>
-                    <span class="oc-type">RIA — Being Formed</span>
+                    <span class="oc-type">RIA · Being Formed</span>
                     <span class="oc-badge oc-new-badge">★ NEW · RIA</span>
-                    <span class="oc-sub"><strong style="color:#f0f0f0">100% Caleb Caraway</strong> (personal)<br>Parallel to DHWM — not a subsidiary</span>
+                    <span class="oc-sub" style="margin-top:6px"><strong style="color:#f0f0f0">100% Caleb Caraway (personal)</strong></span>
                     <span class="oc-sub">Madison Cornwell · IAR + Ops Director</span>
                     <span class="oc-sub">Dori Karjian, PLLC · CCO</span>
                   </div>
                 </div>
 
-                <!-- Corinthian Capital Partners -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
+                <!-- DHWM branch (right) with all children below -->
+                <div style="display:flex;flex-direction:column;align-items:center;flex:1">
                   <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
-                  <div class="oc-node oc-mgmt" style="min-width:160px">
-                    <span class="oc-name">Corinthian Capital Partners LLC</span>
-                    <span class="oc-type">Management / GP</span>
-                    <span class="oc-sub">75% Caleb</span>
+                  <div class="oc-node oc-family" style="text-align:center;min-width:220px">
+                    <span class="oc-name">Dark Horse Wealth Management LLC</span>
+                    <span class="oc-type">Family Office · Governing Entity</span>
                   </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
-                  <div class="oc-node oc-fund" style="min-width:160px">
-                    <span class="oc-name">Corinthian Capital Fund LLC</span>
-                    <span class="oc-type">Fund Vehicle</span>
-                    <span class="oc-sub">Reg D 506(b) · Private Debt</span>
-                  </div>
-                </div>
+                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.12)"></div>
 
-                <!-- Virtue -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
-                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
-                  <div class="oc-node oc-mgmt" style="min-width:150px">
-                    <span class="oc-name">Virtue Management Co</span>
-                    <span class="oc-type">Management Entity</span>
-                  </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
-                  <div class="oc-node oc-fund" style="min-width:150px">
-                    <span class="oc-name">Virtue Private Credit Fund</span>
-                    <span class="oc-type">Fund Vehicle</span>
-                  </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
-                  <div class="oc-node oc-invest" style="min-width:150px">
-                    <span class="oc-name">Supernature Fund</span>
-                    <span class="oc-type">Fund Vehicle</span>
-                    <span class="oc-sub">→ Supernature Real Estate<br>(100% Adil's)</span>
-                  </div>
-                </div>
+                  <!-- TIER 4: DHWM children -->
+                  <div style="width:700px;display:flex;flex-direction:column;align-items:center">
+                    <div style="width:88%;height:2px;background:rgba(255,255,255,0.12)"></div>
+                    <div style="display:flex;justify-content:center;align-items:flex-start;width:88%;gap:0">
 
-                <!-- Stateside Resources -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
-                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.15)"></div>
-                  <div class="oc-node oc-ops" style="min-width:150px">
-                    <span class="oc-name">Stateside Resources</span>
-                    <span class="oc-type">Mining &amp; Metals</span>
-                    <span class="oc-sub">Commodities</span>
-                  </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.12)"></div>
-                  <div class="oc-node oc-invest" style="min-width:150px">
-                    <span class="oc-name">Field Futures Texas</span>
-                    <span class="oc-type">Investment</span>
-                    <span class="oc-sub">8% ownership</span>
-                  </div>
-                </div>
+                      <!-- Corinthian -->
+                      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                        <div style="height:18px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                        <div class="oc-node oc-mgmt" style="min-width:130px">
+                          <span class="oc-name">Corinthian Capital Partners LLC</span>
+                          <span class="oc-type">Management / GP</span>
+                          <span class="oc-sub">75% Caleb</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.1)"></div>
+                        <div class="oc-node oc-fund" style="min-width:130px">
+                          <span class="oc-name">Corinthian Capital Fund LLC</span>
+                          <span class="oc-type">Fund Vehicle</span>
+                          <span class="oc-sub">Reg D 506(b)</span>
+                        </div>
+                      </div>
 
-                <!-- Draft Horse (Dormant) -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
-                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.08)"></div>
-                  <div class="oc-node oc-dormant" style="min-width:145px">
-                    <span class="oc-name">Draft Horse Capital Partners</span>
-                    <span class="oc-type">Management Shell</span>
-                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
-                  </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.06)"></div>
-                  <div class="oc-node oc-dormant" style="min-width:145px">
-                    <span class="oc-name">Draft Horse Capital Fund</span>
-                    <span class="oc-type">Fund Vehicle</span>
-                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
-                  </div>
-                </div>
+                      <!-- Virtue -->
+                      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                        <div style="height:18px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                        <div class="oc-node oc-mgmt" style="min-width:125px">
+                          <span class="oc-name">Virtue Management Co</span>
+                          <span class="oc-type">Management Entity</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.1)"></div>
+                        <div class="oc-node oc-fund" style="min-width:125px">
+                          <span class="oc-name">Virtue Private Credit Fund</span>
+                          <span class="oc-type">Fund Vehicle</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.1)"></div>
+                        <div class="oc-node oc-invest" style="min-width:125px">
+                          <span class="oc-name">Supernature Fund</span>
+                          <span class="oc-type">Fund Vehicle</span>
+                          <span class="oc-sub">→ Supernature RE (100% Adil's)</span>
+                        </div>
+                      </div>
 
-                <!-- Quarter Horse (Dormant) -->
-                <div style="display:flex;flex-direction:column;align-items:center;flex:1;padding-top:0">
-                  <div style="height:20px;width:2px;background:rgba(255,255,255,0.08)"></div>
-                  <div class="oc-node oc-dormant" style="min-width:145px">
-                    <span class="oc-name">Quarter Horse Wealth Management</span>
-                    <span class="oc-type">Management Shell</span>
-                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
-                  </div>
-                  <div style="height:16px;width:2px;background:rgba(255,255,255,0.06)"></div>
-                  <div class="oc-node oc-dormant" style="min-width:145px">
-                    <span class="oc-name">Quarter Horse Capital Partners</span>
-                    <span class="oc-type">Fund Vehicle</span>
-                    <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
-                  </div>
-                </div>
+                      <!-- Stateside -->
+                      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                        <div style="height:18px;width:2px;background:rgba(255,255,255,0.15)"></div>
+                        <div class="oc-node oc-ops" style="min-width:120px">
+                          <span class="oc-name">Stateside Resources</span>
+                          <span class="oc-type">Mining &amp; Metals</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.1)"></div>
+                        <div class="oc-node oc-invest" style="min-width:120px">
+                          <span class="oc-name">Field Futures Texas</span>
+                          <span class="oc-type">Investment</span>
+                          <span class="oc-sub">8% ownership</span>
+                        </div>
+                      </div>
 
-              </div><!-- /tier 4 row -->
-            </div><!-- /h-bar container -->
+                      <!-- Draft Horse -->
+                      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                        <div style="height:18px;width:2px;background:rgba(255,255,255,0.06)"></div>
+                        <div class="oc-node oc-dormant" style="min-width:120px">
+                          <span class="oc-name">Draft Horse Capital Partners</span>
+                          <span class="oc-type">Management Shell</span>
+                          <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.05)"></div>
+                        <div class="oc-node oc-dormant" style="min-width:120px">
+                          <span class="oc-name">Draft Horse Capital Fund</span>
+                          <span class="oc-type">Fund Vehicle</span>
+                          <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                        </div>
+                      </div>
+
+                      <!-- Quarter Horse -->
+                      <div style="display:flex;flex-direction:column;align-items:center;flex:1">
+                        <div style="height:18px;width:2px;background:rgba(255,255,255,0.06)"></div>
+                        <div class="oc-node oc-dormant" style="min-width:120px">
+                          <span class="oc-name">Quarter Horse Wealth Mgmt</span>
+                          <span class="oc-type">Management Shell</span>
+                          <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                        </div>
+                        <div style="height:14px;width:2px;background:rgba(255,255,255,0.05)"></div>
+                        <div class="oc-node oc-dormant" style="min-width:120px">
+                          <span class="oc-name">Quarter Horse Capital Partners</span>
+                          <span class="oc-type">Fund Vehicle</span>
+                          <span class="oc-badge" style="background:rgba(75,85,99,0.3);color:#9ca3af;border:1px solid rgba(75,85,99,0.4)">DORMANT</span>
+                        </div>
+                      </div>
+
+                    </div><!-- /tier 4 row -->
+                  </div><!-- /tier 4 container -->
+                </div><!-- /DHWM branch -->
+
+              </div><!-- /tier 3 row -->
+            </div><!-- /tier 3 container -->
 
           </div><!-- /org-chart -->
           </div><!-- /org-chart-wrap -->
+
         </div>
       </div>
 
