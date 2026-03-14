@@ -407,7 +407,8 @@ tr:last-child td { border-bottom: none; }
         </div>
         <div class="step-body">
           <p>Caleb Caraway runs a family of investment entities under the Dark Horse umbrella. He manages private funds that deploy capital on behalf of accredited investors. To do this properly and legally, those funds need to be advised by a registered investment adviser (RIA).</p>
-          <p style="margin-top: var(--space-3);">The entity being registered — <strong>Dark Horse Advisers LLC</strong> — is a new Texas LLC created specifically for this purpose. It is not a fund. It does not hold investor capital. It is the advisory management company that provides investment advisory services to Caleb's funds. It earns management fees from those funds.</p>
+          <p style="margin-top: var(--space-3);">The entity being registered — <strong>Dark Horse Advisers LLC</strong> — is a new Texas LLC owned 100% by <strong>Caleb Caraway personally</strong>. It is not a subsidiary of Dark Horse Wealth Management LLC. It sits parallel to DHWM in the entity hierarchy, both held under Caraway Holdings LLC. This structure intentionally preserves DHWM's family office exemption under Dodd-Frank by keeping the RIA as a separate, independently owned entity.</p>
+          <p style="margin-top: var(--space-3);">Dark Horse Advisers LLC is not a fund. It does not hold investor capital. It is the advisory management company that provides investment advisory services to Caleb's funds. It earns management fees from those funds.</p>
           <p style="margin-top: var(--space-3);">To register as an RIA in Texas, the firm needs a licensed Investment Adviser Representative (IAR) — that is Madison. The IAR is the individual human being who is formally registered and licensed to provide investment advice on the firm's behalf.</p>
 
           <h4>Organizational Structure</h4>
@@ -419,16 +420,17 @@ tr:last-child td { border-bottom: none; }
               name: "In God We Trust", type: "trust", sub: "Caleb's Trust · Estate Layer",
               children: [{
                 name: "Caraway Holdings LLC", type: "holdings", sub: "Holdings Entity",
-                children: [{
+                children: [
+                  {
+                    name: "Dark Horse Advisers LLC", type: "ria", sub: "100% Caleb Caraway (personal) · RIA", badge: "★ NEW",
+                    children: [
+                      { name: "Madison Cornwell", type: "person", sub: "IAR + Operations Director" },
+                      { name: "Dori Karjian, PLLC", type: "person", sub: "CCO — Contracted Supervised Person" }
+                    ]
+                  },
+                  {
                   name: "Dark Horse Wealth Management LLC", type: "family", sub: "Family Office · Governing Entity",
                   children: [
-                    {
-                      name: "Dark Horse Advisers LLC", type: "ria", sub: "RIA — Being Formed", badge: "★ NEW",
-                      children: [
-                        { name: "Madison Cornwell", type: "person", sub: "IAR + Operations Director" },
-                        { name: "Dori Karjian, PLLC", type: "person", sub: "CCO — Contracted Supervised Person" }
-                      ]
-                    },
                     {
                       name: "Corinthian Capital Partners LLC", type: "mgmt", sub: "Management / GP · 75% Caleb",
                       children: [
@@ -461,6 +463,9 @@ tr:last-child td { border-bottom: none; }
                 }]
               }]
             };
+            // Note: Dark Horse Advisers LLC is a sibling of DHWM under Caraway Holdings LLC
+            // — owned 100% by Caleb Caraway personally, NOT under DHWM
+            // This protects DHWM's family office exemption from Dodd-Frank contamination
 
             const colors = {
               trust:    { bg: "#2d1f5e", accent: "#7c3aed", text: "#a78bfa" },
@@ -674,8 +679,9 @@ tr:last-child td { border-bottom: none; }
                     <span class="oc-name">Dark Horse Advisers LLC</span>
                     <span class="oc-type">RIA — Being Formed</span>
                     <span class="oc-badge oc-new-badge">★ NEW · RIA</span>
-                    <span class="oc-sub">Madison Cornwell<br>IAR + Operations Director</span>
-                    <span class="oc-sub">Dori Karjian, PLLC<br>CCO (supervised person)</span>
+                    <span class="oc-sub"><strong style="color:#f0f0f0">100% Caleb Caraway</strong> (personal)<br>Parallel to DHWM — not a subsidiary</span>
+                    <span class="oc-sub">Madison Cornwell · IAR + Ops Director</span>
+                    <span class="oc-sub">Dori Karjian, PLLC · CCO</span>
                   </div>
                 </div>
 
