@@ -286,6 +286,46 @@
       #info-panel { width: 100%; }
       #info-panel-header { padding-top: 48px; }
     }
+
+    /* ── LAYOUT TOOLBAR ── */
+    #layout-toolbar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: rgba(10, 14, 26, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 40px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .layout-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 5px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+    .layout-btn:hover {
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.08);
+    }
+    .layout-btn.active {
+      background: #ffffff;
+      color: #0a0e1a;
+    }
   </style>
 </head>
 <body>
@@ -350,6 +390,16 @@
       <div id="info-meta-type"></div>
     </div>
   </div>
+</div>
+
+<!-- ── LAYOUT TOOLBAR ── -->
+<div id="layout-toolbar">
+  <button class="layout-btn active" data-layout="tree">Tree</button>
+  <button class="layout-btn" data-layout="radial">Radial</button>
+  <button class="layout-btn" data-layout="globe">Globe</button>
+  <button class="layout-btn" data-layout="cylinder">Cylinder</button>
+  <button class="layout-btn" data-layout="cascade">Cascade</button>
+  <button class="layout-btn" data-layout="force">Force</button>
 </div>
 
 <!-- Three.js r146 -->
@@ -671,10 +721,15 @@ NODES.forEach(node => {
 // ═══════════════════════════════════════════════════════
 //  BUILD CONNECTIONS
 // ═══════════════════════════════════════════════════════
+const connectionLines = []; // track all line objects for rebuild
+
 function makeConnection(srcId, tgtId, isStructural) {
-  const src = posMap[srcId];
-  const tgt = posMap[tgtId];
-  if (!src || !tgt) return;
+  const srcMesh = meshById[srcId];
+  const tgtMesh = meshById[tgtId];
+  if (!srcMesh || !tgtMesh) return null;
+
+  const src = srcMesh.position;
+  const tgt = tgtMesh.position;
 
   // From bottom of source card → top of target card
   const pts = [
@@ -691,9 +746,208 @@ function makeConnection(srcId, tgtId, isStructural) {
   const line = new THREE.Line(geo, mat);
   line.renderOrder = 0;
   scene.add(line);
+  return line;
 }
 
-LINKS.forEach(l => makeConnection(l.source, l.target, l.linkType === 'structural'));
+function rebuildLines() {
+  connectionLines.forEach(l => scene.remove(l));
+  connectionLines.length = 0;
+  LINKS.forEach(l => {
+    const line = makeConnection(l.source, l.target, l.linkType === 'structural');
+    if (line) connectionLines.push(line);
+  });
+}
+
+LINKS.forEach(l => {
+  const line = makeConnection(l.source, l.target, l.linkType === 'structural');
+  if (line) connectionLines.push(line);
+});
+
+// ═══════════════════════════════════════════════════════
+//  LAYOUT COMPUTATION FUNCTIONS
+// ═══════════════════════════════════════════════════════
+
+function computeTreeLayout() {
+  const positions = {};
+  NODES.forEach(n => {
+    if (posMap[n.id]) positions[n.id] = posMap[n.id].clone();
+  });
+  return positions;
+}
+
+function computeRadialLayout() {
+  const positions = {};
+  const byDepth = {};
+  hier.each(d => {
+    if (!byDepth[d.depth]) byDepth[d.depth] = [];
+    byDepth[d.depth].push(d.data.id);
+  });
+  Object.keys(byDepth).sort((a,b) => a-b).forEach(depthStr => {
+    const depth = parseInt(depthStr);
+    const ids = byDepth[depth];
+    const n = ids.length;
+    const r = depth * 3;
+    const y = 11 - depth * 3.5;
+    ids.forEach((id, i) => {
+      const angle = n === 1 ? 0 : (i / n) * Math.PI * 2;
+      const x = r * Math.cos(angle);
+      const z = r * Math.sin(angle);
+      positions[id] = new THREE.Vector3(x, y, z);
+    });
+  });
+  return positions;
+}
+
+function computeGlobeLayout() {
+  const positions = {};
+  const R = 10;
+  const allNodes = hier.descendants();
+  const total = allNodes.length;
+  // Root at north pole
+  positions[allNodes[0].data.id] = new THREE.Vector3(0, R, 0);
+  // Remaining nodes: Fibonacci sphere distribution
+  const rest = allNodes.slice(1);
+  rest.forEach((d, i) => {
+    const phi = Math.acos(1 - 2 * (i + 1) / total);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * (i + 1);
+    const x = R * Math.sin(phi) * Math.cos(theta);
+    const y = R * Math.cos(phi);
+    const z = R * Math.sin(phi) * Math.sin(theta);
+    positions[d.data.id] = new THREE.Vector3(x, y, z);
+  });
+  return positions;
+}
+
+function computeCylinderLayout() {
+  const positions = {};
+  const byDepth = {};
+  hier.each(d => {
+    if (!byDepth[d.depth]) byDepth[d.depth] = [];
+    byDepth[d.depth].push(d.data.id);
+  });
+  const maxDepth = Math.max(...Object.keys(byDepth).map(Number));
+  const CYL_R = 4;
+  const TOP_Y = 10;
+  const BOT_Y = -8;
+  const stepY = maxDepth > 0 ? (TOP_Y - BOT_Y) / maxDepth : 4;
+  Object.keys(byDepth).sort((a,b) => a-b).forEach(depthStr => {
+    const depth = parseInt(depthStr);
+    const ids = byDepth[depth];
+    const n = ids.length;
+    const y = TOP_Y - depth * stepY;
+    ids.forEach((id, i) => {
+      const angle = n === 1 ? 0 : (i / n) * Math.PI * 2;
+      const x = depth === 0 ? 0 : CYL_R * Math.cos(angle);
+      const z = depth === 0 ? 0 : CYL_R * Math.sin(angle);
+      positions[id] = new THREE.Vector3(x, y, z);
+    });
+  });
+  return positions;
+}
+
+function computeCascadeLayout() {
+  const positions = {};
+  const byDepth = {};
+  hier.each(d => {
+    if (!byDepth[d.depth]) byDepth[d.depth] = [];
+    byDepth[d.depth].push(d.data.id);
+  });
+  Object.keys(byDepth).sort((a,b) => a-b).forEach(depthStr => {
+    const depth = parseInt(depthStr);
+    const ids = byDepth[depth];
+    const n = ids.length;
+    const baseX = depth * 3 - 6; // offset so depth=2 is roughly centered
+    const baseY = 11 + depth * -2.5;
+    ids.forEach((id, i) => {
+      // Spread siblings in Z axis
+      const z = n > 1 ? (i - (n - 1) / 2) * 2.4 : 0;
+      positions[id] = new THREE.Vector3(baseX, baseY, z);
+    });
+  });
+  return positions;
+}
+
+function computeForceLayout() {
+  // Initialize from tree positions
+  const pos = {};
+  const vel = {};
+  NODES.forEach(n => {
+    pos[n.id] = posMap[n.id] ? posMap[n.id].clone() : new THREE.Vector3();
+    vel[n.id] = new THREE.Vector3();
+  });
+
+  const REPULSION = 1.2;
+  const ATTRACTION = 0.12;
+  const DAMPING = 0.82;
+  const REST_LENGTH = 3.5;
+  const ids = NODES.map(n => n.id);
+
+  for (let frame = 0; frame < 50; frame++) {
+    // Repulsion between all pairs
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const a = pos[ids[i]];
+        const b = pos[ids[j]];
+        const diff = new THREE.Vector3().subVectors(a, b);
+        const dist = Math.max(diff.length(), 0.5);
+        const force = REPULSION / (dist * dist);
+        diff.normalize().multiplyScalar(force);
+        vel[ids[i]].add(diff);
+        vel[ids[j]].sub(diff);
+      }
+    }
+    // Attraction along structural links
+    structLinks.forEach(link => {
+      const a = pos[link.source];
+      const b = pos[link.target];
+      if (!a || !b) return;
+      const diff = new THREE.Vector3().subVectors(b, a);
+      const dist = diff.length();
+      const force = (dist - REST_LENGTH) * ATTRACTION;
+      diff.normalize().multiplyScalar(force);
+      vel[link.source].add(diff);
+      vel[link.target].sub(diff);
+    });
+    // Integrate
+    ids.forEach(id => {
+      vel[id].multiplyScalar(DAMPING);
+      pos[id].add(vel[id]);
+    });
+  }
+  return pos;
+}
+
+// ═══════════════════════════════════════════════════════
+//  LAYOUT SWITCHER STATE
+// ═══════════════════════════════════════════════════════
+let targetPositions = {};
+let animating = false;
+let animFrames = 0;
+const LERP_SPEED = 0.08;
+
+function setLayout(name) {
+  let positions;
+  switch (name) {
+    case 'tree':     positions = computeTreeLayout();     break;
+    case 'radial':   positions = computeRadialLayout();   break;
+    case 'globe':    positions = computeGlobeLayout();    break;
+    case 'cylinder': positions = computeCylinderLayout(); break;
+    case 'cascade':  positions = computeCascadeLayout();  break;
+    case 'force':    positions = computeForceLayout();    break;
+    default:         positions = computeTreeLayout();
+  }
+  targetPositions = positions;
+  animating = true;
+  animFrames = 0;
+  // Update active button highlight
+  document.querySelectorAll('.layout-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.layout === name);
+  });
+}
+
+document.querySelectorAll('.layout-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLayout(btn.dataset.layout));
+});
 
 // ═══════════════════════════════════════════════════════
 //  UI — Info panel & Legend
@@ -877,6 +1131,29 @@ function animate() {
       setTimeout(() => loading.remove(), 600);
     }
     firstFrame = false;
+  }
+
+  // Lerp cards toward target positions when animating
+  if (animating && Object.keys(targetPositions).length > 0) {
+    allCards.forEach(card => {
+      const nodeId = card.userData.node.id;
+      if (targetPositions[nodeId]) {
+        card.position.lerp(targetPositions[nodeId], LERP_SPEED);
+      }
+    });
+    animFrames++;
+    if (animFrames >= 60) {
+      // Snap to exact final positions then rebuild lines
+      allCards.forEach(card => {
+        const nodeId = card.userData.node.id;
+        if (targetPositions[nodeId]) {
+          card.position.copy(targetPositions[nodeId]);
+        }
+      });
+      rebuildLines();
+      animating = false;
+      animFrames = 0;
+    }
   }
 
   controls.update();
