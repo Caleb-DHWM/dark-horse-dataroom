@@ -3,365 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caleb Caraway — Entity Organization Chart</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<title>Dark Horse Wealth Management — Entity Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#06080c;color:#e8e4dc;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.ambient{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 20% 40%,rgba(194,164,74,.04) 0%,transparent 50%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(40,50,80,.15) 0%,transparent 50%)}
+.content{position:relative;z-index:1}
 
-body {
-  background: #060B18;
-  color: #F1F5F9;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
+header{max-width:1100px;margin:0 auto;padding:40px 60px 24px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(194,164,74,.2)}
+.brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:600}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(232,228,220,.25);letter-spacing:1px;text-transform:uppercase}
 
-/* ── Header ── */
-header {
-  padding: 20px 32px 18px;
-  border-bottom: 1px solid #0F1929;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #0A0F1E;
-}
-.header-title { display: flex; flex-direction: column; gap: 3px; }
-.header-title h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #F8FAFC;
-  letter-spacing: -0.3px;
-}
-.header-title p { font-size: 12px; color: #475569; }
-.header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; }
+.hero{max-width:1100px;margin:0 auto;padding:60px 60px 40px;text-align:center}
+.hero-ey{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#c2a44a;margin-bottom:16px}
+.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:42px;font-weight:400;margin-bottom:12px}
+.hero p{font-size:15px;color:rgba(232,228,220,.4);max-width:520px;margin:0 auto;line-height:1.7}
 
-/* ── Chart Wrapper ── */
-#chart-wrapper {
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-  background: #060B18;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-  background-size: 44px 44px;
-}
+.chart{max-width:1100px;margin:40px auto 0;padding:0 60px 80px}
 
-#chart { position: relative; }
+/* Tiers */
+.tier{margin-bottom:48px}
+.tier-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c2a44a;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.tier-label::after{content:'';flex:1;height:1px;background:rgba(194,164,74,.15)}
 
-#chart svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  overflow: visible;
-}
+.tier-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 
-/* ── Node Cards ── */
-.nc {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-radius: 11px;
-  padding: 12px 15px;
-  width: 176px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.09);
-  cursor: default;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  user-select: none;
-}
-.nc:hover {
-  transform: translate(-50%, calc(-50% - 4px));
-  box-shadow: 0 16px 42px rgba(0,0,0,0.65);
-  z-index: 20;
-  border-color: rgba(255,255,255,0.24);
-}
+/* Entity cards */
+.entity{background:rgba(255,255,255,.02);padding:28px 24px;flex:1;min-width:200px;max-width:320px;position:relative;transition:background .3s}
+.entity:hover{background:rgba(255,255,255,.04)}
+.entity.primary{max-width:480px;padding:36px 32px}
+.entity.wide{max-width:100%;flex-basis:100%}
 
-/* Type color schemes */
-.nc-trust      { background: linear-gradient(145deg, #3B0764, #5B21B6); border-color: #7C3AED; }
-.nc-holdings   { background: linear-gradient(145deg, #0D1E3A, #1E3A5F); border-color: #2563EB; }
-.nc-ria        { background: linear-gradient(145deg, #022C22, #065F46); border-color: #10B981; }
-.nc-wealth     { background: linear-gradient(145deg, #082A4A, #075985); border-color: #0EA5E9; }
-.nc-management { background: linear-gradient(145deg, #0D3D39, #134E4A); border-color: #2DD4BF; }
-.nc-fund       { background: linear-gradient(145deg, #451A03, #92400E); border-color: #F59E0B; }
-.nc-operating  { background: linear-gradient(145deg, #1E1040, #3B0764); border-color: #A78BFA; }
-.nc-investment { background: linear-gradient(145deg, #082035, #0C3560); border-color: #38BDF8; }
-.nc-dormant    { background: linear-gradient(145deg, #111827, #1F2937); border-color: #4B5563; opacity: 0.6; }
-.nc-person     { background: linear-gradient(145deg, #0F172A, #1E293B); border-color: #334155; border-style: dashed; }
-.nc-portfolio  { background: linear-gradient(145deg, #0A1A2E, #0F2540); border: 1.5px dashed #38BDF8; opacity: 0.82; }
+.e-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:500;margin-bottom:6px;line-height:1.3}
+.entity.primary .e-name{font-size:26px}
 
-.nc-name {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #F8FAFC;
-  line-height: 1.35;
-  margin-bottom: 4px;
-}
-.nc-tag {
-  font-size: 10px;
-  color: rgba(241,245,249,0.5);
-  line-height: 1.4;
-}
-.nc-note {
-  font-size: 9.5px;
-  color: rgba(241,245,249,0.32);
-  margin-top: 4px;
-  font-style: italic;
-}
-.nc-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  font-size: 8px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  white-space: nowrap;
-}
-.badge-new     { background: #059669; color: #ECFDF5; box-shadow: 0 0 10px rgba(16,185,129,0.45); }
-.badge-dormant { background: #4B5563; color: #D1D5DB; }
+.e-type{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.e-type.family-office{color:#c2a44a}
+.e-type.ria{color:#6a9a6a}
+.e-type.fund{color:#7a9cc2}
+.e-type.mgmt{color:#c27a7a}
+.e-type.portfolio{color:#9a8ac2}
+.e-type.affiliated{color:rgba(232,228,220,.3)}
+.e-type.planned{color:rgba(232,228,220,.2)}
 
-/* ── Footer Legend ── */
-footer {
-  padding: 12px 32px;
-  border-top: 1px solid #0F1929;
-  background: #0A0F1E;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  align-items: center;
-  flex-shrink: 0;
-}
-.legend-lbl {
-  font-size: 10px;
-  font-weight: 700;
-  color: #334155;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-}
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #64748B; }
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  flex-shrink: 0;
+.e-desc{font-size:13px;color:rgba(232,228,220,.4);line-height:1.6;margin-bottom:12px}
+
+.e-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(232,228,220,.3)}
+.e-meta span{margin-right:16px}
+
+.e-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;margin-top:10px}
+.badge-active{color:#6a9a6a;border:1px solid rgba(106,154,106,.3)}
+.badge-planned{color:rgba(232,228,220,.25);border:1px solid rgba(232,228,220,.1)}
+.badge-operational{color:#c2a44a;border:1px solid rgba(194,164,74,.3)}
+
+/* Connector lines */
+.connector{display:flex;justify-content:center;padding:16px 0}
+.vline{width:1px;height:32px;background:rgba(194,164,74,.2)}
+
+/* Ownership note */
+.ownership{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(194,164,74,.5);text-align:center;margin:-8px 0 8px;letter-spacing:1px}
+
+/* Legend */
+.legend{max-width:1100px;margin:0 auto;padding:0 60px 60px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(232,228,220,.35)}
+.legend-dot{width:8px;height:8px;border-radius:2px}
+
+footer{max-width:1100px;margin:0 auto;padding:40px 60px;text-align:center;border-top:1px solid rgba(255,255,255,.03)}
+footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(232,228,220,.2);line-height:2}
+footer a{color:#c2a44a;text-decoration:none}
+
+@media(max-width:768px){
+  header,.hero,.chart,.legend,footer{padding-left:24px;padding-right:24px}
+  .tier-row{flex-direction:column;align-items:center}
+  .entity,.entity.primary{max-width:100%}
 }
 </style>
 </head>
 <body>
+<div class="ambient"></div>
+<div class="content">
 
 <header>
-  <div class="header-title">
-    <h1>Caleb Caraway — Entity Organization</h1>
-    <p>Full hierarchy &middot; All entities shown</p>
-  </div>
-  <div class="header-meta">
-    March 2026<br>
-    Scroll / pan to explore
-  </div>
+  <div class="brand">Dark Horse Wealth Management</div>
+  <div class="meta">Confidential &middot; April 2026</div>
 </header>
 
-<div id="chart-wrapper">
-  <div id="chart"></div>
+<div class="hero">
+  <div class="hero-ey">Organizational Structure</div>
+  <h1>Entity Hierarchy</h1>
+  <p>Complete organizational structure of the Dark Horse Wealth Management platform, fund vehicles, and portfolio companies.</p>
+</div>
+
+<div class="chart">
+
+  <!-- TIER 1: Platform -->
+  <div class="tier">
+    <div class="tier-label">Platform</div>
+    <div class="tier-row">
+      <div class="entity primary">
+        <div class="e-type family-office">Family Office &middot; Governing Entity</div>
+        <div class="e-name">Dark Horse Wealth Management LLC</div>
+        <div class="e-desc">Institutional investment platform and family office. Manages all fund vehicles, oversees portfolio company operations, and coordinates investor relations across the platform. Direct investment vehicle for principal capital.</div>
+        <div class="e-meta"><span>Texas LLC</span><span>100% Principal-Owned</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+      <div class="entity">
+        <div class="e-type ria">Registered Investment Adviser</div>
+        <div class="e-name">Dark Horse Advisers LLC</div>
+        <div class="e-desc">Registered investment adviser providing advisory services and regulatory compliance infrastructure for the platform.</div>
+        <div class="e-meta"><span>Texas LLC</span><span>100% Principal-Owned</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline"></div></div>
+  <div class="ownership">Wholly Owned &middot; 100%</div>
+
+  <!-- TIER 2: Fund Vehicles -->
+  <div class="tier">
+    <div class="tier-label">Fund Vehicles</div>
+    <div class="tier-row">
+      <div class="entity">
+        <div class="e-type fund">Multi-Strategy Debt Fund</div>
+        <div class="e-name">Draft Horse Capital Partners LLC</div>
+        <div class="e-desc">Flagship multi-strategy private debt fund. Fixed-rate returns to investors across five verticals. Custom allocation sleeves for institutional allocators.</div>
+        <div class="e-meta"><span>Reg D 506(c)</span><span>$200K Min</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+      <div class="entity">
+        <div class="e-type fund">Deal-by-Deal Debt Fund</div>
+        <div class="e-name">Quarter Horse Capital Partners LLC</div>
+        <div class="e-desc">Personal deal-by-deal private debt fund. Fixed-rate returns per deal. Quick deployment. 100% principal-owned.</div>
+        <div class="e-meta"><span>Reg D 506(b)</span><span>$50K Min</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+      <div class="entity">
+        <div class="e-type fund">Established Debt Fund</div>
+        <div class="e-name">Corinthian Capital Fund LLC</div>
+        <div class="e-desc">Operational predecessor to Draft Horse. Fixed 2% monthly / 24% annual return through senior secured lending. Proof-of-concept vehicle.</div>
+        <div class="e-meta"><span>Reg D 506(b)</span><span>75% DHWM / 25% Atlas</span></div>
+        <div class="e-badge badge-operational">Operational</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline"></div></div>
+
+  <!-- TIER 2.5: Management Companies -->
+  <div class="tier">
+    <div class="tier-label">Management Entities</div>
+    <div class="tier-row">
+      <div class="entity">
+        <div class="e-type mgmt">Management Company</div>
+        <div class="e-name">Draft Horse Wealth Management LLC</div>
+        <div class="e-desc">Management company for Draft Horse Capital Partners. 75% Caleb Caraway / 25% Adil Kassam (milestone-based vesting). Adil's equity is limited exclusively to this entity.</div>
+        <div class="e-meta"><span>75/25 Split</span><span>Manages Fund I</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+      <div class="entity">
+        <div class="e-type mgmt">Management Company</div>
+        <div class="e-name">Corinthian Capital Partners LLC</div>
+        <div class="e-desc">Management company for Corinthian Capital Fund LLC. Joint management with Atlas Wealth Management.</div>
+        <div class="e-meta"><span>75% DHWM / 25% Atlas</span><span>Manages CorCap</span></div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline"></div></div>
+  <div class="ownership">Capital Deployed Into</div>
+
+  <!-- TIER 3: Portfolio Companies -->
+  <div class="tier">
+    <div class="tier-label">Portfolio Companies</div>
+    <div class="tier-row">
+      <div class="entity">
+        <div class="e-type portfolio">Aviation</div>
+        <div class="e-name">Pegasus Capital Partners LLC</div>
+        <div class="e-desc">Aircraft acquisition, leasing, and asset management across commercial and private aviation.</div>
+        <div class="e-badge badge-planned">Planned</div>
+      </div>
+      <div class="entity">
+        <div class="e-type portfolio">Mining &middot; Metals &middot; Energy</div>
+        <div class="e-name">Stateside Resources LLC</div>
+        <div class="e-desc">Direct investments in natural resource assets. Current: secured positions collateralized by assets including an interest in Field Futures Texas (silver).</div>
+        <div class="e-badge badge-active">Active</div>
+      </div>
+      <div class="entity">
+        <div class="e-type portfolio">Art-Backed Securities</div>
+        <div class="e-name">Art Bond SPV</div>
+        <div class="e-desc">Fixed-income instruments collateralized by authenticated fine art. $100M target issuance.</div>
+        <div class="e-badge badge-planned">Planned</div>
+      </div>
+      <div class="entity">
+        <div class="e-type portfolio">Real Estate</div>
+        <div class="e-name">Dark Horse RE Holdings LLC</div>
+        <div class="e-desc">Strategic positions in select real estate ventures with contractual cash flow characteristics.</div>
+        <div class="e-badge badge-planned">Planned</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="vline"></div></div>
+
+  <!-- TIER 4: Affiliated -->
+  <div class="tier">
+    <div class="tier-label">Affiliated Entities</div>
+    <div class="tier-row">
+      <div class="entity" style="border:1px dashed rgba(232,228,220,.1)">
+        <div class="e-type affiliated">Affiliated &middot; Not Owned by DHWM</div>
+        <div class="e-name">Supernature</div>
+        <div class="e-desc">Real estate venture. Independently owned by Adil Kassam. DHWM plans to acquire equity position, to be held through Dark Horse RE Holdings LLC.</div>
+        <div class="e-badge badge-active">Active &middot; External</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#c2a44a"></div>Family Office</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6a9a6a"></div>RIA</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7a9cc2"></div>Fund Vehicle</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c27a7a"></div>Management Co</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9a8ac2"></div>Portfolio Company</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(232,228,220,.25)"></div>Affiliated</div>
 </div>
 
 <footer>
-  <span class="legend-lbl">Legend</span>
-  <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Operating</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1F2937"></div>Dormant</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1E293B;border:1px dashed #334155"></div>Advisor / Person</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment (VPC)</div>
+  <p>&copy; 2026 Dark Horse Wealth Management LLC &middot; All Rights Reserved &middot; Strictly Confidential</p>
+  <p><a href="mailto:caleb@darkhorse-ventures.com">caleb@darkhorse-ventures.com</a></p>
 </footer>
 
-<script>
-// ── Entity Data ──
-const orgData = {
-  id: 'trust',
-  name: 'In God We Trust',
-  type: 'trust',
-  tag: "Caleb's Trust · Estate Layer",
-  children: [
-    {
-      id: 'caraway',
-      name: 'Caraway Holdings LLC',
-      type: 'holdings',
-      tag: 'Holdings Entity',
-      children: [
-        {
-          id: 'dhwm',
-          name: 'Dark Horse Wealth Management LLC',
-          type: 'wealth',
-          tag: 'Family Office · Governing Entity',
-          children: [
-            {
-              id: 'ccp',
-              name: 'Corinthian Capital Partners LLC',
-              type: 'management',
-              tag: 'Management / GP',
-              note: '75% Caleb',
-              children: [
-                { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Fund Vehicle · Reg D 506(b)' }
-              ]
-            },
-            {
-              id: 'virtue',
-              name: 'Virtue Management Co',
-              type: 'management',
-              tag: 'Management Entity',
-              children: [
-                {
-                  id: 'vpc',
-                  name: 'Virtue Private Credit Fund',
-                  type: 'fund',
-                  tag: 'Fund Vehicle',
-                  children: [
-                    { id: 'vpc-dhwm',      name: 'Dark Horse Wealth Mgmt', type: 'portfolio', tag: 'Art',                          note: '↗ Portfolio Investment' },
-                    { id: 'vpc-stateside', name: 'Stateside Resources',    type: 'portfolio', tag: 'Mining & Metals',               note: '↗ Portfolio Investment' },
-                    { id: 'vpc-draft',     name: 'Draft Horse Cap. Partners', type: 'portfolio', tag: 'E-Commerce Structured Credit', note: '↗ Portfolio Investment' },
-                    { id: 'vpc-quarter',   name: 'Quarter Horse Cap. Partners', type: 'portfolio', tag: 'Aviation',                note: '↗ Portfolio Investment' },
-                    { id: 'vpc-super',     name: 'Supernature Fund',       type: 'portfolio', tag: 'Real Estate',                  note: '↗ Portfolio Investment' }
-                  ]
-                },
-              ]
-            },
-            {
-              id: 'stateside',
-              name: 'Stateside Resources',
-              type: 'operating',
-              tag: 'Mining & Metals',
-              children: [
-                { id: 'field', name: 'Field Futures Texas', type: 'investment', tag: 'Investment · 8% Ownership' }
-              ]
-            },
-            {
-              id: 'draft-wm',
-              name: 'Draft Horse Wealth Management',
-              type: 'dormant',
-              tag: 'Management Shell',
-              badge: 'dormant',
-              children: [
-                { id: 'draft', name: 'Draft Horse Capital Partners', type: 'dormant', tag: 'Fund Vehicle', badge: 'dormant' }
-              ]
-            },
-            {
-              id: 'quarter',
-              name: 'Quarter Horse Wealth Mgmt',
-              type: 'dormant',
-              tag: 'Management Shell',
-              badge: 'dormant',
-              children: [
-                { id: 'qhcp', name: 'Quarter Horse Capital Partners', type: 'dormant', tag: 'Fund Vehicle', badge: 'dormant' }
-              ]
-            }
-          ]
-        },
-        {
-          id: 'dha',
-          name: 'Dark Horse Advisers LLC',
-          type: 'ria',
-          tag: 'RIA · Active Texas LLC',
-          badge: 'new',
-          note: '100% Caleb (personal)',
-        }
-      ]
-    }
-  ]
-};
-
-// ── Layout ──
-const NW = 176;   // node width
-const NH = 84;    // node height (approx)
-const HG = 22;    // horizontal gap
-const VG = 68;    // vertical gap
-
-const root = d3.hierarchy(orgData);
-const treeLayout = d3.tree()
-  .nodeSize([NW + HG, NH + VG])
-  .separation((a, b) => a.parent === b.parent ? 1 : 1.25);
-
-treeLayout(root);
-
-// Bounding box
-let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-root.each(n => {
-  minX = Math.min(minX, n.x);
-  maxX = Math.max(maxX, n.x);
-  minY = Math.min(minY, n.y);
-  maxY = Math.max(maxY, n.y);
-});
-
-const PAD = 120;
-const W   = (maxX - minX) + NW + PAD * 2;
-const H   = (maxY - minY) + NH + PAD * 2;
-const OX  = -minX + PAD + NW / 2;
-const OY  = -minY + PAD + NH / 2;
-
-const chartEl = document.getElementById('chart');
-chartEl.style.width  = W + 'px';
-chartEl.style.height = H + 'px';
-
-// ── SVG Links ──
-const linkColor = {
-  trust: '#7C3AED', holdings: '#3B82F6', ria: '#10B981',
-  wealth: '#0EA5E9', management: '#14B8A6', fund: '#F59E0B',
-  operating: '#A78BFA', investment: '#38BDF8', dormant: '#6B7280', person: '#475569',
-  portfolio: '#38BDF8'
-};
-
-const svg = d3.select('#chart').append('svg')
-  .attr('width', W).attr('height', H);
-
-const linkGen = d3.linkVertical()
-  .x(d => d.x + OX)
-  .y(d => d.y + OY);
-
-svg.selectAll('path.lnk')
-  .data(root.links())
-  .enter()
-  .append('path')
-  .attr('class', 'lnk')
-  .attr('d', linkGen)
-  .attr('stroke', d => linkColor[d.target.data.type] || '#334155')
-  .attr('stroke-opacity', d => d.target.data.type === 'portfolio' ? 0.45 : 0.32)
-  .attr('stroke-width', 1.5)
-  .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : null)
-  .attr('fill', 'none');
-
-// ── Render Node Cards ──
-root.each(n => {
-  const d  = n.data;
-  const el = document.createElement('div');
-  el.className  = `nc nc-${d.type}`;
-  el.style.left = (n.x + OX) + 'px';
-  el.style.top  = (n.y + OY) + 'px';
-
-  let html = '';
-
-  if (d.badge) {
-    const cls  = d.badge === 'new' ? 'badge-new' : 'badge-dormant';
-    const text = d.badge === 'new' ? '★ New' : 'Dormant';
-    html += `<div class="nc-badge ${cls}">${text}</div>`;
-  }
-
-  html += `<div class="nc-name">${d.name}</div>`;
-  html += `<div class="nc-tag">${d.tag}</div>`;
-  if (d.note) html += `<div class="nc-note">${d.note}</div>`;
-
-  el.innerHTML = html;
-  chartEl.appendChild(el);
-});
-</script>
+</div>
 </body>
 </html>
