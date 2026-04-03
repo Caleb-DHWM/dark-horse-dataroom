@@ -184,7 +184,8 @@ footer {
   <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
   <div class="legend-item"><div class="legend-dot" style="background:#1F2937"></div>Dormant</div>
   <div class="legend-item"><div class="legend-dot" style="background:#1E293B;border:1px dashed #334155"></div>Advisor / Person</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment (VPC)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment</div>
+  <div class="legend-item"><div class="legend-dot" style="background:transparent;border:1.5px dashed #c2a44a"></div>Capital Flow (DH & QH → Portfolio Cos)</div>
 </footer>
 
 <script>
@@ -203,91 +204,122 @@ const orgData = {
       tag: 'Holdings Entity',
       note: '95% Trust / 5% Caleb Personal',
       children: [
-    {
-      id: 'dhwm',
-      name: 'Dark Horse Wealth Management LLC',
-      type: 'wealth',
-      tag: 'Family Office · Governing Entity',
-      note: '100% Caraway Holdings',
-      children: [
         {
-          id: 'draft-wm',
-          name: 'Draft Horse Wealth Management LLC',
-          type: 'management',
-          tag: 'Management Company · Fund I GP',
-          note: '75% Caleb / 25% Adil Kassam',
+          id: 'dhwm',
+          name: 'Dark Horse Wealth Management LLC',
+          type: 'wealth',
+          tag: 'Family Office · Governing Entity',
+          note: 'Owns art collection · Direct investments',
           children: [
-            { id: 'draft', name: 'Draft Horse Capital Partners LLC', type: 'fund', tag: 'Multi-Strategy Debt Fund · 506(c)', note: '$200K Min · Fixed Rate · Zero Fees' }
+            {
+              id: 'draft-wm',
+              name: 'Draft Horse Wealth Management LLC',
+              type: 'management',
+              tag: 'Management Company · Fund I GP',
+              note: '75% Caleb / 25% Adil Kassam',
+              children: [
+                {
+                  id: 'draft',
+                  name: 'Draft Horse Capital Partners LLC',
+                  type: 'fund',
+                  tag: 'Multi-Strategy Debt Fund · 506(c)',
+                  note: '$200K Min · Fixed Rate · Zero Fees'
+                }
+              ]
+            },
+            {
+              id: 'qh-wm',
+              name: 'Quarter Horse Wealth Management LLC',
+              type: 'management',
+              tag: 'Management Company · Fund II GP',
+              note: '100% Caleb Caraway',
+              children: [
+                {
+                  id: 'qhcp',
+                  name: 'Quarter Horse Capital Partners LLC',
+                  type: 'fund',
+                  tag: 'Deal-by-Deal Debt Fund · 506(b)',
+                  note: '$50K Min · Fixed Rate · 100% Caleb'
+                }
+              ]
+            },
+            {
+              id: 'ccp',
+              name: 'Corinthian Capital Partners LLC',
+              type: 'management',
+              tag: 'Management Company',
+              note: '75% DHWM / 25% Atlas Wealth Mgmt',
+              children: [
+                {
+                  id: 'ccf',
+                  name: 'Corinthian Capital Fund LLC',
+                  type: 'fund',
+                  tag: 'Debt Fund · 506(b)',
+                  note: '2% Monthly / 24% Annual · Operational'
+                }
+              ]
+            },
+            {
+              id: 'pegasus',
+              name: 'Pegasus Capital Partners LLC',
+              type: 'operating',
+              tag: 'Aviation · Portfolio Company',
+              badge: 'new',
+              note: 'Receives capital from DH & QH'
+            },
+            {
+              id: 'stateside',
+              name: 'Stateside Resources LLC',
+              type: 'operating',
+              tag: 'Mining · Metals · Energy',
+              note: 'Receives capital from DH & QH',
+              children: [
+                {
+                  id: 'field',
+                  name: 'Field Futures Texas',
+                  type: 'investment',
+                  tag: 'Silver Mine · 8% Interest'
+                }
+              ]
+            },
+            {
+              id: 'artbond',
+              name: 'Art Bond SPV',
+              type: 'fund',
+              tag: 'Art-Backed Securities',
+              badge: 'new',
+              note: '$100M Target · Backed by DHWM art'
+            },
+            {
+              id: 'rehold',
+              name: 'Dark Horse RE Holdings LLC',
+              type: 'operating',
+              tag: 'Real Estate · Portfolio Company',
+              badge: 'new',
+              note: 'Receives capital from DH & QH',
+              children: [
+                {
+                  id: 'super',
+                  name: 'Supernature',
+                  type: 'portfolio',
+                  tag: 'Real Estate · Affiliated',
+                  note: 'Owned by Adil Kassam · Equity TBD'
+                }
+              ]
+            }
           ]
         },
         {
-          id: 'qh-wm',
-          name: 'Quarter Horse Wealth Management LLC',
-          type: 'management',
-          tag: 'Management Company · Fund II GP',
-          note: '100% Caleb Caraway',
-          children: [
-            { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b)', note: '$50K Min · Fixed Rate · 100% Caleb' }
-          ]
-        },
-        {
-          id: 'ccp',
-          name: 'Corinthian Capital Partners LLC',
-          type: 'management',
-          tag: 'Management Company',
-          note: '75% DHWM / 25% Atlas Wealth Mgmt',
-          children: [
-            { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Debt Fund · 506(b)', note: '2% Monthly / 24% Annual Fixed · Operational' }
-          ]
-        },
-        {
-          id: 'pegasus',
-          name: 'Pegasus Capital Partners LLC',
-          type: 'operating',
-          tag: 'Aviation · Portfolio Company',
-          badge: 'new',
-          note: 'Aircraft Acquisition & Leasing'
-        },
-        {
-          id: 'stateside',
-          name: 'Stateside Resources LLC',
-          type: 'operating',
-          tag: 'Mining · Metals · Energy',
-          children: [
-            { id: 'field', name: 'Field Futures Texas', type: 'investment', tag: 'Silver Mine · 8% Interest' }
-          ]
-        },
-        {
-          id: 'artbond',
-          name: 'Art Bond SPV',
-          type: 'fund',
-          tag: 'Art-Backed Securities',
-          badge: 'new',
-          note: '$100M Target Issuance'
-        },
-        {
-          id: 'rehold',
-          name: 'Dark Horse RE Holdings LLC',
-          type: 'operating',
-          tag: 'Real Estate · Portfolio Company',
-          badge: 'new',
-          children: [
-            { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate · Affiliated', note: 'Owned by Adil Kassam · Equity TBD' }
-          ]
+          id: 'dha',
+          name: 'Dark Horse Advisers LLC',
+          type: 'ria',
+          tag: 'Registered Investment Adviser',
+          note: '100% Caraway Holdings · Active Texas LLC'
         }
-      ]
-    },
-    {
-      id: 'dha',
-      name: 'Dark Horse Advisers LLC',
-      type: 'ria',
-      tag: 'Registered Investment Adviser',
-      note: '100% Caraway Holdings · Active Texas LLC'
-    }
       ]
     }
   ]
-}
+};
 
 // ── Layout ──
 const NW = 176;   // node width
@@ -371,6 +403,55 @@ root.each(n => {
   el.innerHTML = html;
   chartEl.appendChild(el);
 });
+
+// ── Capital Flow Arrows (DH & QH → Portfolio Companies) ──
+// Draw dashed gold arrows from fund nodes to portfolio company nodes
+const flowPairs = [
+  ['draft', 'pegasus'],
+  ['draft', 'stateside'],
+  ['draft', 'artbond'],
+  ['draft', 'rehold'],
+  ['qhcp', 'pegasus'],
+  ['qhcp', 'stateside'],
+  ['qhcp', 'artbond'],
+  ['qhcp', 'rehold'],
+];
+
+// Build node position map
+const nodeMap = {};
+root.each(n => { nodeMap[n.data.id] = { x: n.x + OX, y: n.y + OY }; });
+
+// Draw capital flow lines
+flowPairs.forEach(([fromId, toId]) => {
+  const from = nodeMap[fromId];
+  const to = nodeMap[toId];
+  if (!from || !to) return;
+  
+  // Draw a curved path
+  const midY = (from.y + to.y) / 2;
+  const path = `M ${from.x} ${from.y + 42} C ${from.x} ${midY}, ${to.x} ${midY}, ${to.x} ${to.y - 42}`;
+  
+  svg.append('path')
+    .attr('d', path)
+    .attr('stroke', '#c2a44a')
+    .attr('stroke-opacity', 0.15)
+    .attr('stroke-width', 1)
+    .attr('stroke-dasharray', '4,4')
+    .attr('fill', 'none');
+});
+
+// Add a "Capital Deployed" label
+svg.append('text')
+  .attr('x', W / 2)
+  .attr('y', (nodeMap['draft'] ? nodeMap['draft'].y + 80 : 400))
+  .attr('text-anchor', 'middle')
+  .attr('fill', '#c2a44a')
+  .attr('font-size', '10px')
+  .attr('font-family', '-apple-system, sans-serif')
+  .attr('letter-spacing', '2px')
+  .attr('opacity', 0.4)
+  .text('CAPITAL DEPLOYED ↓');
+
 </script>
 </body>
 </html>
