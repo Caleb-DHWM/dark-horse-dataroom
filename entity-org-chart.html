@@ -223,7 +223,14 @@ const orgData = {
                   name: 'Draft Horse Capital Partners LLC',
                   type: 'fund',
                   tag: 'Multi-Strategy Debt Fund · 506(c)',
-                  note: '$200K Min · Fixed Rate · Zero Fees'
+                  note: '$200K Min · Fixed Rate · Zero Fees',
+                  children: [
+                    { id: 'dh-pegasus', name: 'Pegasus Capital Partners', type: 'portfolio', tag: 'Aviation', note: '↓ Capital Allocation' },
+                    { id: 'dh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining · Metals · Energy', note: '↓ Capital Allocation' },
+                    { id: 'dh-artbond', name: 'Art Bond SPV', type: 'portfolio', tag: 'Art-Backed Securities', note: '↓ Capital Allocation' },
+                    { id: 'dh-rehold', name: 'Dark Horse RE Holdings', type: 'portfolio', tag: 'Real Estate', note: '↓ Capital Allocation' },
+                    { id: 'dh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: '↓ Capital Allocation' }
+                  ]
                 }
               ]
             },
@@ -239,7 +246,14 @@ const orgData = {
                   name: 'Quarter Horse Capital Partners LLC',
                   type: 'fund',
                   tag: 'Deal-by-Deal Debt Fund · 506(b)',
-                  note: '$50K Min · Fixed Rate · 100% Caleb'
+                  note: '$50K Min · Fixed Rate · 100% Caleb',
+                  children: [
+                    { id: 'qh-pegasus', name: 'Pegasus Capital Partners', type: 'portfolio', tag: 'Aviation', note: '↓ Capital Allocation' },
+                    { id: 'qh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining · Metals · Energy', note: '↓ Capital Allocation' },
+                    { id: 'qh-artbond', name: 'Art Bond SPV', type: 'portfolio', tag: 'Art-Backed Securities', note: '↓ Capital Allocation' },
+                    { id: 'qh-rehold', name: 'Dark Horse RE Holdings', type: 'portfolio', tag: 'Real Estate', note: '↓ Capital Allocation' },
+                    { id: 'qh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: '↓ Capital Allocation' }
+                  ]
                 }
               ]
             },
@@ -265,21 +279,15 @@ const orgData = {
               type: 'operating',
               tag: 'Aviation · Portfolio Company',
               badge: 'new',
-              note: 'Receives capital from DH & QH'
+              note: 'Aircraft Acquisition & Leasing'
             },
             {
               id: 'stateside',
               name: 'Stateside Resources LLC',
               type: 'operating',
               tag: 'Mining · Metals · Energy',
-              note: 'Receives capital from DH & QH',
               children: [
-                {
-                  id: 'field',
-                  name: 'Field Futures Texas',
-                  type: 'investment',
-                  tag: 'Silver Mine · 8% Interest'
-                }
+                { id: 'field', name: 'Field Futures Texas', type: 'investment', tag: 'Silver Mine · 8% Interest' }
               ]
             },
             {
@@ -296,16 +304,16 @@ const orgData = {
               type: 'operating',
               tag: 'Real Estate · Portfolio Company',
               badge: 'new',
-              note: 'Receives capital from DH & QH',
               children: [
-                {
-                  id: 'super',
-                  name: 'Supernature',
-                  type: 'portfolio',
-                  tag: 'Real Estate · Affiliated',
-                  note: 'Owned by Adil Kassam · Equity TBD'
-                }
+                { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate · Affiliated', note: 'Owned by Adil Kassam · Equity TBD' }
               ]
+            },
+            {
+              id: 'artcollection',
+              name: 'Art Collection',
+              type: 'investment',
+              tag: 'Fine Art Portfolio',
+              note: 'Owned directly by DHWM'
             }
           ]
         },
@@ -403,54 +411,6 @@ root.each(n => {
   el.innerHTML = html;
   chartEl.appendChild(el);
 });
-
-// ── Capital Flow Arrows (DH & QH → Portfolio Companies) ──
-// Draw dashed gold arrows from fund nodes to portfolio company nodes
-const flowPairs = [
-  ['draft', 'pegasus'],
-  ['draft', 'stateside'],
-  ['draft', 'artbond'],
-  ['draft', 'rehold'],
-  ['qhcp', 'pegasus'],
-  ['qhcp', 'stateside'],
-  ['qhcp', 'artbond'],
-  ['qhcp', 'rehold'],
-];
-
-// Build node position map
-const nodeMap = {};
-root.each(n => { nodeMap[n.data.id] = { x: n.x + OX, y: n.y + OY }; });
-
-// Draw capital flow lines
-flowPairs.forEach(([fromId, toId]) => {
-  const from = nodeMap[fromId];
-  const to = nodeMap[toId];
-  if (!from || !to) return;
-  
-  // Draw a curved path
-  const midY = (from.y + to.y) / 2;
-  const path = `M ${from.x} ${from.y + 42} C ${from.x} ${midY}, ${to.x} ${midY}, ${to.x} ${to.y - 42}`;
-  
-  svg.append('path')
-    .attr('d', path)
-    .attr('stroke', '#c2a44a')
-    .attr('stroke-opacity', 0.15)
-    .attr('stroke-width', 1)
-    .attr('stroke-dasharray', '4,4')
-    .attr('fill', 'none');
-});
-
-// Add a "Capital Deployed" label
-svg.append('text')
-  .attr('x', W / 2)
-  .attr('y', (nodeMap['draft'] ? nodeMap['draft'].y + 80 : 400))
-  .attr('text-anchor', 'middle')
-  .attr('fill', '#c2a44a')
-  .attr('font-size', '10px')
-  .attr('font-family', '-apple-system, sans-serif')
-  .attr('letter-spacing', '2px')
-  .attr('opacity', 0.4)
-  .text('CAPITAL DEPLOYED ↓');
 
 </script>
 </body>
