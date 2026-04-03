@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Horse Wealth Management — Entity Structure</title>
+<title>Caleb Caraway — Entity Organization</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -157,7 +157,7 @@ footer {
 
 <header>
   <div class="header-title">
-    <h1>Dark Horse Wealth Management — Entity Structure</h1>
+    <h1>Caleb Caraway — Entity Organization</h1>
     <p>Full hierarchy &middot; All entities shown</p>
   </div>
   <div class="header-meta">
@@ -172,6 +172,8 @@ footer {
 
 <footer>
   <span class="legend-lbl">Legend</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
   
   
   <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
@@ -188,17 +190,25 @@ footer {
 <script>
 // ── Entity Data ──
 const orgData = {
-  id: 'platform',
-  name: 'Dark Horse Platform',
-  type: 'person',
-  tag: 'Caleb Caraway · Managing Principal',
+  id: 'trust',
+  name: 'In God We Trust',
+  type: 'trust',
+  tag: "Caleb's Trust · Estate Layer",
+  note: '95% of Caraway Holdings',
   children: [
+    {
+      id: 'caraway',
+      name: 'Caraway Holdings LLC',
+      type: 'holdings',
+      tag: 'Holdings Entity',
+      note: '95% Trust / 5% Caleb Personal',
+      children: [
     {
       id: 'dhwm',
       name: 'Dark Horse Wealth Management LLC',
       type: 'wealth',
       tag: 'Family Office · Governing Entity',
-      note: '100% Principal-Owned',
+      note: '100% Caraway Holdings',
       children: [
         {
           id: 'draft-wm',
@@ -269,7 +279,9 @@ const orgData = {
       name: 'Dark Horse Advisers LLC',
       type: 'ria',
       tag: 'Registered Investment Adviser',
-      note: '100% Principal-Owned · Active Texas LLC'
+      note: '100% Caraway Holdings · Active Texas LLC'
+    }
+      ]
     }
   ]
 }
