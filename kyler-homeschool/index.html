@@ -37,7 +37,7 @@
     min-height: 100vh;
   }
 
-  /* ── BANNER ── */
+  /*  BANNER  */
   .banner {
     background: rgba(245,158,11,0.12);
     border-bottom: 1px solid rgba(245,158,11,0.3);
@@ -50,7 +50,7 @@
     z-index: 100;
   }
 
-  /* ── HEADER ── */
+  /*  HEADER  */
   .site-header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -73,7 +73,7 @@
     margin-bottom: 14px;
   }
 
-  /* ── TABS ── */
+  /*  TABS  */
   .tab-nav {
     display: flex;
     gap: 4px;
@@ -97,11 +97,11 @@
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { color: #fff; border-bottom-color: var(--clive); }
 
-  /* ── CONTENT ── */
+  /*  CONTENT  */
   .tab-content { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
   .tab-content.active { display: block; }
 
-  /* ── CARDS ── */
+  /*  CARDS  */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -119,7 +119,7 @@
     margin-bottom: 12px;
   }
 
-  /* ── CHILD PILLS ── */
+  /*  CHILD PILLS  */
   .child-pill {
     display: inline-block;
     border-radius: 20px;
@@ -132,7 +132,7 @@
   .pill-gideon { background: var(--gideon-dim); color: var(--gideon); }
   .pill-simon  { background: var(--simon-dim);  color: var(--simon); }
 
-  /* ── WEEK OVERVIEW ── */
+  /*  WEEK OVERVIEW  */
   .week-grid {
     overflow-x: auto;
   }
@@ -191,7 +191,7 @@
   }
   .print-btn:hover { opacity: 0.85; }
 
-  /* ── DAILY PLANNER ── */
+  /*  DAILY PLANNER  */
   .day-selector {
     display: flex;
     gap: 8px;
@@ -347,7 +347,7 @@
     margin-left: auto;
   }
 
-  /* ── LESSON PLANS ── */
+  /*  LESSON PLANS  */
   .week-tabs {
     display: flex;
     gap: 8px;
@@ -434,7 +434,7 @@
     font-size: 13px;
   }
 
-  /* ── ADMIN CHECK-IN ── */
+  /*  ADMIN CHECK-IN  */
   .admin-form label {
     display: block;
     font-size: 14px;
@@ -552,7 +552,7 @@
   .rec-item:last-child { border-bottom: none; }
   .rec-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
 
-  /* ── RESOURCES ── */
+  /*  RESOURCES  */
   .resource-section { margin-bottom: 24px; }
   .resource-section h3 {
     font-size: 15px;
@@ -612,7 +612,7 @@
   .tag-aar    { color: var(--aar);    background: var(--aar-dim); }
   .tag-all    { color: #94a3b8; background: rgba(148,163,184,0.1); }
 
-  /* ── SECTION HEADERS ── */
+  /*  SECTION HEADERS  */
   .section-label {
     font-size: 11px;
     font-weight: 700;
@@ -622,7 +622,7 @@
     margin-bottom: 14px;
   }
 
-  /* ── RESPONSIVE ── */
+  /*  RESPONSIVE  */
   @media (max-width: 640px) {
     .site-header { top: 0; }
     .tab-content { padding: 16px; }
@@ -630,7 +630,7 @@
     .week-table { min-width: 600px; }
   }
 
-  /* ── PRINT STYLES ── */
+  /*  PRINT STYLES  */
   @media print {
     .banner, .site-header, .print-btn { display: none !important; }
     body { background: #fff; color: #000; }
@@ -653,35 +653,35 @@
 
 <!-- BANNER -->
 <div class="banner">
-  ⚠️ Defaults in use — confirming ToG Year 1 unit, Apologia Flying Creatures, and 9:00 AM start time with Kyler
+   Defaults in use — confirming ToG Year 1 unit, Apologia Flying Creatures, and 9:00 AM start time with Kyler
 </div>
 
 <!-- HEADER -->
 <div class="site-header">
-  <h1>📚 Kyler's Homeschool Dashboard</h1>
+  <h1> Kyler's Homeschool Dashboard</h1>
   <p>Clive (3rd) · Gideon (2nd, AAR daily) · Simon (Pre-K) &nbsp;|&nbsp; Tapestry of Grace Year 1 Ancient</p>
   <nav class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('overview', this)">📅 Week Overview</button>
-    <button class="tab-btn" onclick="showTab('planner', this)">✅ Daily Planner</button>
-    <button class="tab-btn" onclick="showTab('lessons', this)">📖 2-Week Plans</button>
-    <button class="tab-btn" onclick="showTab('admin', this)">📊 Weekly Check-In</button>
-    <button class="tab-btn" onclick="showTab('resources', this)">🔗 Resources</button>
+    <button class="tab-btn active" onclick="showTab('overview', this)"> Week Overview</button>
+    <button class="tab-btn" onclick="showTab('planner', this)"> Daily Planner</button>
+    <button class="tab-btn" onclick="showTab('lessons', this)"> 2-Week Plans</button>
+    <button class="tab-btn" onclick="showTab('admin', this)"> Weekly Check-In</button>
+    <button class="tab-btn" onclick="showTab('resources', this)"> Resources</button>
   </nav>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      TAB 1: WEEK OVERVIEW
-════════════════════════════════════════════════ -->
+ -->
 <div id="tab-overview" class="tab-content active">
-  <button class="print-btn" onclick="window.print()">🖨️ Print Week Overview</button>
+  <button class="print-btn" onclick="window.print()"> Print Week Overview</button>
 
   <!-- LEGEND -->
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
-    <div class="subj-block sb-all" style="margin:0;">🏫 All Three</div>
-    <div class="subj-block sb-clive" style="margin:0;">🔵 Clive</div>
+    <div class="subj-block sb-all" style="margin:0;"> All Three</div>
+    <div class="subj-block sb-clive" style="margin:0;"> Clive</div>
     <div class="subj-block sb-gideon" style="margin:0;">🟢 Gideon</div>
     <div class="subj-block sb-simon" style="margin:0;">🟡 Simon</div>
-    <div class="subj-block sb-aar" style="margin:0;">🔴 AAR (Top Priority)</div>
+    <div class="subj-block sb-aar" style="margin:0;"> AAR (Top Priority)</div>
   </div>
 
   <div class="week-grid">
@@ -700,76 +700,76 @@
         <tr>
           <td class="day-col">9:00–9:30</td>
           <td colspan="5">
-            <div class="subj-block sb-all">🙏 Morning Meeting — Bible &amp; Prayer, Pledges, ToG Map/Timeline Intro (all 3)</div>
+            <div class="subj-block sb-all"> Morning Meeting — Bible &amp; Prayer, Pledges, ToG Map/Timeline Intro (all 3)</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">9:30–10:15</td>
           <td colspan="5">
-            <div class="subj-block sb-clive">➗ Math Mammoth Grade 3 (Clive)</div>
-            <div class="subj-block sb-gideon">➗ Math Mammoth Grade 2 (Gideon)</div>
-            <div class="subj-block sb-simon">➗ Dimensions Math K (Simon)</div>
+            <div class="subj-block sb-clive"> Math Mammoth Grade 3 (Clive)</div>
+            <div class="subj-block sb-gideon"> Math Mammoth Grade 2 (Gideon)</div>
+            <div class="subj-block sb-simon"> Dimensions Math K (Simon)</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">10:15–10:30</td>
           <td colspan="5">
-            <div class="subj-block sb-all">☕ Break</div>
+            <div class="subj-block sb-all"> Break</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">10:30–11:15</td>
           <td>
-            <div class="subj-block sb-all">🗺️ ToG: Map intro, Timeline card</div>
-            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+            <div class="subj-block sb-all"> ToG: Map intro, Timeline card</div>
+            <div class="subj-block sb-simon"> Simon: picture books + map</div>
           </td>
           <td>
-            <div class="subj-block sb-all">📖 ToG: Read-aloud (Story of the World)</div>
-            <div class="subj-block sb-clive">✍️ Clive: oral narration</div>
-            <div class="subj-block sb-gideon">🗣️ Gideon: verbal narration</div>
-            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+            <div class="subj-block sb-all"> ToG: Read-aloud (Story of the World)</div>
+            <div class="subj-block sb-clive"> Clive: oral narration</div>
+            <div class="subj-block sb-gideon"> Gideon: verbal narration</div>
+            <div class="subj-block sb-simon"> Simon: picture books + map</div>
           </td>
           <td>
-            <div class="subj-block sb-all">🎨 ToG: Hands-on project day</div>
-            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+            <div class="subj-block sb-all"> ToG: Hands-on project day</div>
+            <div class="subj-block sb-simon"> Simon: picture books + map</div>
           </td>
           <td>
-            <div class="subj-block sb-clive">✍️ Clive: written narration</div>
-            <div class="subj-block sb-gideon">🗣️ Gideon: dictated narration</div>
-            <div class="subj-block sb-simon">📚 Simon: activity books + map</div>
+            <div class="subj-block sb-clive"> Clive: written narration</div>
+            <div class="subj-block sb-gideon"> Gideon: dictated narration</div>
+            <div class="subj-block sb-simon"> Simon: activity books + map</div>
           </td>
           <td>
-            <div class="subj-block sb-all">🔄 ToG: Review + memory work</div>
-            <div class="subj-block sb-simon">📚 Simon: picture books + map</div>
+            <div class="subj-block sb-all"> ToG: Review + memory work</div>
+            <div class="subj-block sb-simon"> Simon: picture books + map</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">11:15–11:45</td>
           <td colspan="5">
-            <div class="subj-block sb-aar">🔴 AAR One-on-One: Kyler + Gideon (20-30 min, OG-based — TOP PRIORITY)</div>
-            <div class="subj-block sb-clive">📝 Clive: All About Spelling Level 3 (independent)</div>
+            <div class="subj-block sb-aar"> AAR One-on-One: Kyler + Gideon (20-30 min, OG-based — TOP PRIORITY)</div>
+            <div class="subj-block sb-clive"> Clive: All About Spelling Level 3 (independent)</div>
             <div class="subj-block sb-simon">🧸 Simon: activity bin (independent)</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">11:45–12:00</td>
           <td colspan="5">
-            <div class="subj-block sb-clive">🏛️ Song School Latin (Clive)</div>
-            <div class="subj-block sb-gideon">🏛️ Song School Latin (Gideon)</div>
+            <div class="subj-block sb-clive"> Song School Latin (Clive)</div>
+            <div class="subj-block sb-gideon"> Song School Latin (Gideon)</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">12:00–1:00</td>
           <td colspan="5">
-            <div class="subj-block sb-all">🍎 Lunch + Free Play</div>
+            <div class="subj-block sb-all"> Lunch + Free Play</div>
           </td>
         </tr>
         <tr>
           <td class="day-col">1:00–2:00</td>
           <td colspan="5">
-            <div class="subj-block sb-simon">😴 Simon: Nap</div>
-            <div class="subj-block sb-clive">✏️ Clive: Handwriting Without Tears + Writing</div>
-            <div class="subj-block sb-gideon">✏️ Gideon: Handwriting Without Tears + Reading Practice</div>
+            <div class="subj-block sb-simon"> Simon: Nap</div>
+            <div class="subj-block sb-clive"> Clive: Handwriting Without Tears + Writing</div>
+            <div class="subj-block sb-gideon"> Gideon: Handwriting Without Tears + Reading Practice</div>
           </td>
         </tr>
         <tr>
@@ -783,11 +783,11 @@
           <td class="day-col">2:30–3:00</td>
           <td>—</td>
           <td>
-            <div class="subj-block sb-all">🎨 Art (optional enrichment)</div>
+            <div class="subj-block sb-all"> Art (optional enrichment)</div>
           </td>
           <td>—</td>
           <td>
-            <div class="subj-block sb-all">🇪🇸 Spanish (optional enrichment)</div>
+            <div class="subj-block sb-all"> Spanish (optional enrichment)</div>
           </td>
           <td>—</td>
         </tr>
@@ -823,9 +823,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      TAB 2: DAILY PLANNER
-════════════════════════════════════════════════ -->
+ -->
 <div id="tab-planner" class="tab-content">
   <div class="day-selector">
     <button class="day-btn active" onclick="selectDay('Mon', this)">Monday</button>
@@ -836,7 +836,7 @@
   </div>
 
   <div class="focus-banner">
-    <span class="icon">🔴</span>
+    <span class="icon"></span>
     <div>
       <strong>Today's Top Priority: Gideon's AAR</strong><br>
       <span style="font-size:13px;color:var(--text-muted);">20-30 minutes, one-on-one OG-based reading. This happens every single day, no exceptions.</span>
@@ -846,15 +846,15 @@
   <div id="planner-body"></div>
 
   <div class="planner-actions">
-    <button class="btn-primary" onclick="savePlanner()">💾 Save Progress</button>
-    <button class="btn-secondary" onclick="clearDay()">🗑️ Clear Day</button>
-    <span class="save-status" id="save-status" style="display:none;">✓ Saved</span>
+    <button class="btn-primary" onclick="savePlanner()"> Save Progress</button>
+    <button class="btn-secondary" onclick="clearDay()"> Clear Day</button>
+    <span class="save-status" id="save-status" style="display:none;"> Saved</span>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      TAB 3: 2-WEEK LESSON PLANS
-════════════════════════════════════════════════ -->
+ -->
 <div id="tab-lessons" class="tab-content">
   <div class="week-tabs">
     <button class="week-tab-btn active" onclick="showLessonWeek(1, this)">Week 1 — Creation &amp; Ancient Near East</button>
@@ -909,7 +909,7 @@
             Place "Creation" card. Listen to Ch.1 intro (Kyler reads aloud). Oral narration: "What did God make?"
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Lesson 1 Review (20-30 min one-on-one)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Lesson 1 Review (20-30 min one-on-one)</div>
             Review phonogram cards: short vowels a, e, i, o, u. Blend 3-letter CVC words (cat, bed, sit, hot, bug). Read 5 decodable words from flashcard deck. Practice segmenting 1 word orally.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -980,7 +980,7 @@
             Draw a picture of "people who lived long ago." Dictate 1–2 sentences to Kyler to write beneath.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Blending Drill (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Blending Drill (20-30 min)</div>
             Blending: use letter tiles to build and read 6 CVC words. Tap-and-say each phoneme (c-a-t → cat). Practice decoding 2 decodable sentences from AAR reader. Praise fluency attempts enthusiastically.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1047,7 +1047,7 @@
             Listens to Ch.1 read-aloud. Colors bird anatomy picture in notebooking journal. Names 3 birds aloud.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Fluency Session (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Fluency Session (20-30 min)</div>
             Repeated reading: read the same decodable passage 3 times. Time the third read. Celebrate improvements. Introduce 2 new sight words from AAR list. Use word cards: read, flip, say.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1110,7 +1110,7 @@
             Kyler asks: "Tell me about the people of Mesopotamia." Scribes Gideon's oral answer (3–5 sentences). Gideon illustrates his narration with 1 drawing. No writing pressure — oral expression is the goal.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Spelling &amp; Dictation (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Spelling &amp; Dictation (20-30 min)</div>
             Spell 5 CVC words using letter tiles (not pencil — reduce frustration). Kyler reads word; Gideon builds with tiles. Dictate 1 simple sentence: "The cat sat." Gideon writes, Kyler supports. Phonogram review: 10 cards, keep brisk pace.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1173,7 +1173,7 @@
             Ch.1 mixed review p.16. 8 problems. Manipulatives available. Verbal check-in.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Phonogram Review + Passage (25-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Phonogram Review + Passage (25-30 min)</div>
             Review all phonogram cards from Week 1. Sort into "confident" and "still learning" piles. Read decodable passage #1 from beginning to end independently. Celebrate completion — this is BIG. Record time for fluency tracking. Gideon gets to choose a small reward sticker.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1249,7 +1249,7 @@
             Place Noah's Ark card. Gideon narrates: "Noah built the ark because God said there would be a flood."
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Week 2 New Lesson (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Week 2 New Lesson (20-30 min)</div>
             Introduce next phonogram lesson: consonant digraphs (sh, ch, th). Use hand motions for each. Build 4 words with digraphs using letter tiles (ship, chin, that, when). Read 3 words independently.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1316,7 +1316,7 @@
             Draw a pyramid scene. Dictate 1 sentence: "Egyptians built pyramids for the Pharaoh." Kyler writes it beneath.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Digraph Blending (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Digraph Blending (20-30 min)</div>
             Review sh, ch, th, wh cards. Blend digraph + vowel + consonant: shop, chip, then, when. Play "build-a-word" — Kyler says sound, Gideon selects tiles. Decode 2 new decodable sentences. Celebrate every attempt.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1383,7 +1383,7 @@
             Paints alongside Clive. Gideon narrates: "The Nile floods every year and makes the land good for farming."
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Fluency with Digraphs (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Fluency with Digraphs (20-30 min)</div>
             Repeated reading of new decodable passage featuring sh/ch/th words. Read 3 times — Kyler models first, then Gideon follows, then Gideon reads alone. Track time. Chart improvement on reading log.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1446,7 +1446,7 @@
             Gideon draws a 4-panel comic strip about Egypt Week: Panel 1=Nile River, 2=Pyramid, 3=Pharaoh, 4=Noah's Ark. Kyler writes 1 caption per panel from Gideon's dictation. Celebrates the artwork!
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Dictation Practice (20-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Dictation Practice (20-30 min)</div>
             Review digraph phonogram cards (sh, ch, th, wh, ph). Dictate 3 simple sentences using digraph words: "The ship is big." "Chip can run fast." "Is that thing red?" Gideon builds each sentence with tiles before writing. Reduce writing load — tiles first, pen second.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1509,7 +1509,7 @@
             Ch.2 review p.26. 8 mixed problems. Manipulatives available.
           </div>
           <div class="lesson-aar">
-            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;">🔴 AAR — Full Week Review (25-30 min)</div>
+            <div style="font-weight:700;color:var(--aar);margin-bottom:4px;"> AAR — Full Week Review (25-30 min)</div>
             Review ALL phonograms from Weeks 1–2 (short vowels + digraphs). Sort cards into confident/learning. Timed read of both decodable passages back-to-back. Compare today's time to Week 1 Friday — celebrate EVERY second of improvement. Gideon chooses his sticker reward. Read his favorite passage one more time for fun.
           </div>
           <div class="lesson-item sb-gideon subj-block">
@@ -1543,12 +1543,12 @@
 
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      TAB 4: WEEKLY ADMIN CHECK-IN
-════════════════════════════════════════════════ -->
+ -->
 <div id="tab-admin" class="tab-content">
   <div class="card">
-    <div class="card-title">📊 Friday Weekly Reflection — Kyler's Check-In</div>
+    <div class="card-title"> Friday Weekly Reflection — Kyler's Check-In</div>
     <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;">Take 5 minutes at the end of each week to reflect. Your answers generate personalized recommendations for next week.</p>
 
     <div class="admin-form">
@@ -1557,11 +1557,11 @@
       <div class="form-group">
         <label>1. How did this week go overall?</label>
         <div class="star-rating" id="star-rating">
-          <button class="star-btn" data-val="1" onclick="setStars(1)">★</button>
-          <button class="star-btn" data-val="2" onclick="setStars(2)">★</button>
-          <button class="star-btn" data-val="3" onclick="setStars(3)">★</button>
-          <button class="star-btn" data-val="4" onclick="setStars(4)">★</button>
-          <button class="star-btn" data-val="5" onclick="setStars(5)">★</button>
+          <button class="star-btn" data-val="1" onclick="setStars(1)"></button>
+          <button class="star-btn" data-val="2" onclick="setStars(2)"></button>
+          <button class="star-btn" data-val="3" onclick="setStars(3)"></button>
+          <button class="star-btn" data-val="4" onclick="setStars(4)"></button>
+          <button class="star-btn" data-val="5" onclick="setStars(5)"></button>
         </div>
         <div style="font-size:12px;color:var(--text-dim);" id="star-label">Click a star to rate</div>
       </div>
@@ -1602,9 +1602,9 @@
       <div class="form-group">
         <label>4. Did Gideon complete his AAR session every day?</label>
         <div class="radio-group" id="aar-completion">
-          <label class="radio-option"><input type="radio" name="aar" value="yes"> ✅ Yes, every day</label>
+          <label class="radio-option"><input type="radio" name="aar" value="yes">  Yes, every day</label>
           <label class="radio-option"><input type="radio" name="aar" value="most"> 🟡 Most days (3–4)</label>
-          <label class="radio-option"><input type="radio" name="aar" value="no"> ❌ No (1–2 days or missed)</label>
+          <label class="radio-option"><input type="radio" name="aar" value="no">  No (1–2 days or missed)</label>
         </div>
       </div>
 
@@ -1612,10 +1612,10 @@
       <div class="form-group">
         <label>5. How did the 45-minute math block work?</label>
         <div class="radio-group" id="math-block">
-          <label class="radio-option"><input type="radio" name="math" value="yes"> ✅ Worked great</label>
-          <label class="radio-option"><input type="radio" name="math" value="split"> 🔀 Needed to split it</label>
+          <label class="radio-option"><input type="radio" name="math" value="yes">  Worked great</label>
+          <label class="radio-option"><input type="radio" name="math" value="split">  Needed to split it</label>
           <label class="radio-option"><input type="radio" name="math" value="long"> ⏰ Too long</label>
-          <label class="radio-option"><input type="radio" name="math" value="short"> ⚡ Too short</label>
+          <label class="radio-option"><input type="radio" name="math" value="short">  Too short</label>
         </div>
       </div>
 
@@ -1647,48 +1647,48 @@
 
   <!-- RECOMMENDATIONS BOX -->
   <div class="recommendations-box" id="recs-box">
-    <h3>📋 Recommendations for Next Week</h3>
+    <h3> Recommendations for Next Week</h3>
     <div id="recs-list"></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      TAB 5: RESOURCES
-════════════════════════════════════════════════ -->
+ -->
 <div id="tab-resources" class="tab-content">
 
   <!-- AAR / DYSLEXIA -->
   <div class="resource-section">
-    <h3>🔴 Gideon's AAR &amp; Dyslexia Support</h3>
+    <h3> Gideon's AAR &amp; Dyslexia Support</h3>
     <div class="resource-grid">
       <a href="https://www.allaboutlearningpress.com/free-resources/" target="_blank" class="resource-card">
         <div class="resource-tag tag-aar">AAR Official</div>
-        <div class="rc-title">🔗 All About Learning Press — Free Resources</div>
+        <div class="rc-title"> All About Learning Press — Free Resources</div>
         <div class="rc-desc">Phonogram cards, activity pages, and teaching tips from the AAR publisher. Bookmark this.</div>
       </a>
       <a href="https://www.readingrockets.org/topics/dyslexia" target="_blank" class="resource-card">
         <div class="resource-tag tag-aar">Dyslexia</div>
-        <div class="rc-title">🔗 Reading Rockets — Dyslexia Hub</div>
+        <div class="rc-title"> Reading Rockets — Dyslexia Hub</div>
         <div class="rc-desc">Research-backed OG strategies, parent guides, and classroom tools for dyslexic readers.</div>
       </a>
       <a href="https://www.dyslexiagames.com/free-worksheets/" target="_blank" class="resource-card">
         <div class="resource-tag tag-aar">Dyslexia</div>
-        <div class="rc-title">🔗 Dyslexia Games — Free Worksheets</div>
+        <div class="rc-title"> Dyslexia Games — Free Worksheets</div>
         <div class="rc-desc">Visual-spatial phonics worksheets designed for dyslexic kids. Great supplement to AAR.</div>
       </a>
       <a href="https://www.understood.org/en/school-learning/learning-at-home/homework-study-tools/the-orton-gillingham-approach" target="_blank" class="resource-card">
         <div class="resource-tag tag-aar">OG Method</div>
-        <div class="rc-title">🔗 Understood.org — OG Approach Guide</div>
+        <div class="rc-title"> Understood.org — OG Approach Guide</div>
         <div class="rc-desc">Parent-friendly explanation of the Orton-Gillingham method that AAR is based on.</div>
       </a>
       <a href="https://www.thecuriousreader.in/blogs/news/free-decodable-books" target="_blank" class="resource-card">
         <div class="resource-tag tag-aar">Free Books</div>
-        <div class="rc-title">🔗 Free Decodable Books List</div>
+        <div class="rc-title"> Free Decodable Books List</div>
         <div class="rc-desc">Curated list of free online decodable readers aligned with systematic phonics progression.</div>
       </a>
       <a href="https://www.starfall.com/" target="_blank" class="resource-card">
         <div class="resource-tag tag-gideon">Gideon</div>
-        <div class="rc-title">🔗 Starfall.com — Interactive Phonics</div>
+        <div class="rc-title"> Starfall.com — Interactive Phonics</div>
         <div class="rc-desc">Free interactive phonics games. Great for 5-min warm-up before AAR or screen reward time.</div>
       </a>
     </div>
@@ -1696,36 +1696,36 @@
 
   <!-- TAPESTRY OF GRACE -->
   <div class="resource-section">
-    <h3>🗺️ Tapestry of Grace &amp; Ancient History</h3>
+    <h3> Tapestry of Grace &amp; Ancient History</h3>
     <div class="resource-grid">
       <a href="https://www.tapestryofgrace.com/extras" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">ToG</div>
-        <div class="rc-title">🔗 ToG Free Extras &amp; Downloads</div>
+        <div class="rc-title"> ToG Free Extras &amp; Downloads</div>
         <div class="rc-desc">Official ToG supplemental materials, maps, and planning helps. Free member resources.</div>
       </a>
       <a href="https://www.ancienthistoryencyclopedia.com/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Ancient History</div>
-        <div class="rc-title">🔗 World History Encyclopedia — Ancient</div>
+        <div class="rc-title"> World History Encyclopedia — Ancient</div>
         <div class="rc-desc">Free, illustrated encyclopedia of ancient civilizations. Great for Clive's independent reading.</div>
       </a>
       <a href="https://www.ducksters.com/history/ancient_mesopotamia.php" target="_blank" class="resource-card">
         <div class="resource-tag tag-clive">Clive</div>
-        <div class="rc-title">🔗 Ducksters — Ancient Mesopotamia</div>
+        <div class="rc-title"> Ducksters — Ancient Mesopotamia</div>
         <div class="rc-desc">Kid-friendly Mesopotamia articles. Reading level appropriate for Grade 3.</div>
       </a>
       <a href="https://www.ducksters.com/history/ancient_egypt.php" target="_blank" class="resource-card">
         <div class="resource-tag tag-clive">Clive + Gideon</div>
-        <div class="rc-title">🔗 Ducksters — Ancient Egypt</div>
+        <div class="rc-title"> Ducksters — Ancient Egypt</div>
         <div class="rc-desc">Egypt facts, pharaoh profiles, and pyramid info at kid reading level. Week 2 supplement.</div>
       </a>
       <a href="https://www.bible.com/bible/111/GEN.1.NIV" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Bible</div>
-        <div class="rc-title">🔗 YouVersion Bible — Genesis 1</div>
+        <div class="rc-title"> YouVersion Bible — Genesis 1</div>
         <div class="rc-desc">Free online Bible for scripture reading during morning meeting and memory work.</div>
       </a>
       <a href="https://printablemaps.net/blank-world-map/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Maps</div>
-        <div class="rc-title">🔗 Printable Blank World Maps</div>
+        <div class="rc-title"> Printable Blank World Maps</div>
         <div class="rc-desc">Free blank outline maps for ToG geography work. Print as many as you need.</div>
       </a>
     </div>
@@ -1733,26 +1733,26 @@
 
   <!-- MATH -->
   <div class="resource-section">
-    <h3>➗ Math Resources</h3>
+    <h3> Math Resources</h3>
     <div class="resource-grid">
       <a href="https://www.mathmammoth.com/freebies/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Math Mammoth</div>
-        <div class="rc-title">🔗 Math Mammoth — Free Worksheets</div>
+        <div class="rc-title"> Math Mammoth — Free Worksheets</div>
         <div class="rc-desc">Official MM supplemental worksheets by grade and topic. Useful for extra practice days.</div>
       </a>
       <a href="https://www.khanacademy.org/math/cc-third-grade-math" target="_blank" class="resource-card">
         <div class="resource-tag tag-clive">Clive — Gr3</div>
-        <div class="rc-title">🔗 Khan Academy — 3rd Grade Math</div>
+        <div class="rc-title"> Khan Academy — 3rd Grade Math</div>
         <div class="rc-desc">Free video lessons and practice. Excellent for concepts Clive needs extra help with.</div>
       </a>
       <a href="https://www.khanacademy.org/math/cc-2nd-grade-math" target="_blank" class="resource-card">
         <div class="resource-tag tag-gideon">Gideon — Gr2</div>
-        <div class="rc-title">🔗 Khan Academy — 2nd Grade Math</div>
+        <div class="rc-title"> Khan Academy — 2nd Grade Math</div>
         <div class="rc-desc">Free video lessons for Grade 2 math. Good visual support for Gideon's learning style.</div>
       </a>
       <a href="https://www.mathplayground.com/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Fun Math</div>
-        <div class="rc-title">🔗 Math Playground</div>
+        <div class="rc-title"> Math Playground</div>
         <div class="rc-desc">Free math games by grade level. Friday reward activity or rainy-day brain break.</div>
       </a>
     </div>
@@ -1764,17 +1764,17 @@
     <div class="resource-grid">
       <a href="https://www.apologia.com/free-stuff/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Apologia</div>
-        <div class="rc-title">🔗 Apologia — Free Downloads</div>
+        <div class="rc-title"> Apologia — Free Downloads</div>
         <div class="rc-desc">Official free resources including notebooking pages and supplemental materials.</div>
       </a>
       <a href="https://www.allaboutbirds.org/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Birds</div>
-        <div class="rc-title">🔗 All About Birds (Cornell Lab)</div>
+        <div class="rc-title"> All About Birds (Cornell Lab)</div>
         <div class="rc-desc">Free bird ID, photos, sounds, and videos. Perfect companion to Flying Creatures. Kids love the bird calls!</div>
       </a>
       <a href="https://www.youtube.com/playlist?list=PLjWbEAsBXKzM6E3RgVFnDCfOe3EBatL3W" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Video</div>
-        <div class="rc-title">🔗 Wild Kratts — Bird Episodes</div>
+        <div class="rc-title"> Wild Kratts — Bird Episodes</div>
         <div class="rc-desc">YouTube-friendly bird science episodes. Great science enrichment reward for all three kids.</div>
       </a>
     </div>
@@ -1782,16 +1782,16 @@
 
   <!-- LATIN -->
   <div class="resource-section">
-    <h3>🏛️ Song School Latin</h3>
+    <h3> Song School Latin</h3>
     <div class="resource-grid">
       <a href="https://classicalacademicpress.com/pages/song-school-latin-resources" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Latin</div>
-        <div class="rc-title">🔗 Classical Academic Press — SSL Resources</div>
+        <div class="rc-title"> Classical Academic Press — SSL Resources</div>
         <div class="rc-desc">Official Song School Latin free resources, songs, and supplemental materials.</div>
       </a>
       <a href="https://www.youtube.com/results?search_query=song+school+latin+songs" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Latin Songs</div>
-        <div class="rc-title">🔗 Song School Latin — YouTube Songs</div>
+        <div class="rc-title"> Song School Latin — YouTube Songs</div>
         <div class="rc-desc">The SSL songs on YouTube. Play during car rides and lunch to reinforce vocabulary without effort.</div>
       </a>
     </div>
@@ -1803,17 +1803,17 @@
     <div class="resource-grid">
       <a href="https://www.singplaylearn.com/dimensions-math-kindergarten-free/" target="_blank" class="resource-card">
         <div class="resource-tag tag-simon">Simon</div>
-        <div class="rc-title">🔗 Dimensions Math K — Supplemental</div>
+        <div class="rc-title"> Dimensions Math K — Supplemental</div>
         <div class="rc-desc">Free companion activities for Dimensions Math Kindergarten by unit.</div>
       </a>
       <a href="https://www.pbskids.org/" target="_blank" class="resource-card">
         <div class="resource-tag tag-simon">Simon</div>
-        <div class="rc-title">🔗 PBS Kids</div>
+        <div class="rc-title"> PBS Kids</div>
         <div class="rc-desc">Free educational games for Pre-K. Approved screen time during Simon's activity bin period.</div>
       </a>
       <a href="https://www.starfall.com/h/prek/" target="_blank" class="resource-card">
         <div class="resource-tag tag-simon">Simon</div>
-        <div class="rc-title">🔗 Starfall Pre-K</div>
+        <div class="rc-title"> Starfall Pre-K</div>
         <div class="rc-desc">Free Pre-K literacy and number games. Engaging and appropriately leveled for Simon.</div>
       </a>
     </div>
@@ -1821,26 +1821,26 @@
 
   <!-- PLANNING + HOMESCHOOL -->
   <div class="resource-section">
-    <h3>📋 Planning &amp; Homeschool Management</h3>
+    <h3> Planning &amp; Homeschool Management</h3>
     <div class="resource-grid">
       <a href="https://www.simplehomeschool.net/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Planning</div>
-        <div class="rc-title">🔗 Simple Homeschool</div>
+        <div class="rc-title"> Simple Homeschool</div>
         <div class="rc-desc">Practical articles on scheduling, burnout prevention, and multi-age homeschooling. Great for Kyler.</div>
       </a>
       <a href="https://www.welltrainedmind.com/forums/" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Community</div>
-        <div class="rc-title">🔗 Well-Trained Mind Forums</div>
+        <div class="rc-title"> Well-Trained Mind Forums</div>
         <div class="rc-desc">Active homeschool community with ToG-specific discussion boards. Real mom answers to real questions.</div>
       </a>
       <a href="https://www.iHomeschool.net" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Planning</div>
-        <div class="rc-title">🔗 iHomeschool Network</div>
+        <div class="rc-title"> iHomeschool Network</div>
         <div class="rc-desc">Free planning printables, blog posts, and seasonal homeschool resources from veteran homeschoolers.</div>
       </a>
       <a href="https://www.hslda.org/legal" target="_blank" class="resource-card">
         <div class="resource-tag tag-all">Legal</div>
-        <div class="rc-title">🔗 HSLDA — Texas Homeschool Law</div>
+        <div class="rc-title"> HSLDA — Texas Homeschool Law</div>
         <div class="rc-desc">Know your rights. Texas has no reporting requirements, but good to have HSLDA bookmarked.</div>
       </a>
     </div>
@@ -1849,11 +1849,11 @@
 </div><!-- end resources tab -->
 
 
-<!-- ══════════════════════════════════════════════
+<!-- 
      JAVASCRIPT
-════════════════════════════════════════════════ -->
+ -->
 <script>
-// ── TAB NAVIGATION ──────────────────────────────
+//  TAB NAVIGATION 
 function showTab(id, el) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1861,7 +1861,7 @@ function showTab(id, el) {
   if (el) el.classList.add('active');
 }
 
-// ── LESSON WEEK TOGGLE ──────────────────────────
+//  LESSON WEEK TOGGLE 
 function showLessonWeek(n, btn) {
   document.querySelectorAll('.lesson-week').forEach(w => w.classList.remove('active'));
   document.querySelectorAll('.week-tab-btn').forEach(b => b.classList.remove('active'));
@@ -1869,7 +1869,7 @@ function showLessonWeek(n, btn) {
   btn.classList.add('active');
 }
 
-// ── DAILY PLANNER DATA ──────────────────────────
+//  DAILY PLANNER DATA 
 const PLANNER_DATA = {
   Mon: {
     focus: "Gideon's AAR (Monday Lesson Review) — do this first after Math",
@@ -1887,7 +1887,7 @@ const PLANNER_DATA = {
         { id:'g-mon-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
         { id:'g-mon-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
         { id:'g-mon-3', label:'ToG: Map + Timeline (narrate 2 things)', time:'10:30–11:15', note:true },
-        { id:'g-mon-4', label:'🔴 AAR — Lesson 1 Review (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-mon-4', label:' AAR — Lesson 1 Review (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
         { id:'g-mon-5', label:'Song School Latin', time:'11:45–12:00', note:false },
         { id:'g-mon-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
         { id:'g-mon-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
@@ -1917,7 +1917,7 @@ const PLANNER_DATA = {
         { id:'g-tue-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
         { id:'g-tue-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
         { id:'g-tue-3', label:'ToG Read-Aloud: listen + verbal narration', time:'10:30–11:15', note:true },
-        { id:'g-tue-4', label:'🔴 AAR — Blending Drill (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-tue-4', label:' AAR — Blending Drill (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
         { id:'g-tue-5', label:'Song School Latin', time:'11:45–12:00', note:false },
         { id:'g-tue-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
         { id:'g-tue-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
@@ -1946,7 +1946,7 @@ const PLANNER_DATA = {
         { id:'g-wed-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
         { id:'g-wed-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
         { id:'g-wed-3', label:'ToG Project (hands-on)', time:'10:30–11:15', note:true },
-        { id:'g-wed-4', label:'🔴 AAR — Fluency Session (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-wed-4', label:' AAR — Fluency Session (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
         { id:'g-wed-5', label:'Song School Latin', time:'11:45–12:00', note:false },
         { id:'g-wed-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
         { id:'g-wed-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
@@ -1976,7 +1976,7 @@ const PLANNER_DATA = {
         { id:'g-thu-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
         { id:'g-thu-2', label:'Math Mammoth Grade 2', time:'9:30–10:15', note:true },
         { id:'g-thu-3', label:'ToG Dictated Narration (Kyler scribes)', time:'10:30–11:15', note:true },
-        { id:'g-thu-4', label:'🔴 AAR — Spelling & Dictation (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-thu-4', label:' AAR — Spelling & Dictation (20-30 min ONE-ON-ONE)', time:'11:15–11:45', note:true, aar:true },
         { id:'g-thu-5', label:'Song School Latin', time:'11:45–12:00', note:false },
         { id:'g-thu-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:true },
         { id:'g-thu-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
@@ -2005,7 +2005,7 @@ const PLANNER_DATA = {
         { id:'g-fri-1', label:'Morning Meeting', time:'9:00–9:30', note:false },
         { id:'g-fri-2', label:'Math Mammoth Grade 2 (Chapter review)', time:'9:30–10:15', note:true },
         { id:'g-fri-3', label:'ToG Timeline + Memory Verse illustration', time:'10:30–11:15', note:true },
-        { id:'g-fri-4', label:'🔴 AAR — Full Week Review + Passage Read (25-30 min)', time:'11:15–11:45', note:true, aar:true },
+        { id:'g-fri-4', label:' AAR — Full Week Review + Passage Read (25-30 min)', time:'11:15–11:45', note:true, aar:true },
         { id:'g-fri-5', label:'Song School Latin Review', time:'11:45–12:00', note:false },
         { id:'g-fri-6', label:'HWT + Reading Practice (afternoon)', time:'1:00–2:00', note:false },
         { id:'g-fri-7', label:'Apologia: Flying Creatures', time:'2:00–2:30', note:false },
@@ -2033,7 +2033,7 @@ function renderPlanner() {
   const data = PLANNER_DATA[currentDay];
   const saved = JSON.parse(localStorage.getItem('planner-' + currentDay) || '{}');
   const childColors = { Clive: 'clive', Gideon: 'gideon', Simon: 'simon' };
-  const childEmojis = { Clive: '🔵', Gideon: '🟢', Simon: '🟡' };
+  const childEmojis = { Clive: '', Gideon: '🟢', Simon: '🟡' };
 
   let html = '';
   for (const [child, tasks] of Object.entries(data.children)) {
@@ -2107,9 +2107,9 @@ function clearDay() {
   renderPlanner();
 }
 
-// ── STAR RATING ──────────────────────────────────
+//  STAR RATING 
 let starValue = 0;
-const starLabels = ['', '😓 Rough week', '😐 Okay week', '😊 Good week', '🌟 Great week', '🏆 Perfect week!'];
+const starLabels = ['', ' Rough week', ' Okay week', ' Good week', ' Great week', ' Perfect week!'];
 
 function setStars(val) {
   starValue = val;
@@ -2119,54 +2119,54 @@ function setStars(val) {
   document.getElementById('star-label').textContent = starLabels[val] || '';
 }
 
-// ── ADMIN SUBMIT & RECOMMENDATIONS ──────────────
+//  ADMIN SUBMIT & RECOMMENDATIONS 
 function submitAdmin() {
   const recs = [];
 
   // AAR
   const aar = document.querySelector('input[name="aar"]:checked');
   if (aar && aar.value === 'no') {
-    recs.push({ icon: '🔴', text: '<strong>AAR was missed multiple days.</strong> Next week, move AAR to the very first slot right after Morning Meeting — before math. Protect this block above everything else. Consistency is the medicine.' });
+    recs.push({ icon: '', text: '<strong>AAR was missed multiple days.</strong> Next week, move AAR to the very first slot right after Morning Meeting — before math. Protect this block above everything else. Consistency is the medicine.' });
   } else if (aar && aar.value === 'most') {
     recs.push({ icon: '🟡', text: '<strong>AAR almost every day — good!</strong> Try to identify which day it slipped and pre-plan a make-up strategy. Even 15 minutes counts.' });
   } else if (aar && aar.value === 'yes') {
-    recs.push({ icon: '✅', text: '<strong>AAR every single day — this is the work that changes everything for Gideon.</strong> Keep this rhythm locked in.' });
+    recs.push({ icon: '', text: '<strong>AAR every single day — this is the work that changes everything for Gideon.</strong> Keep this rhythm locked in.' });
   }
 
   // Math
   const math = document.querySelector('input[name="math"]:checked');
   if (math && math.value === 'split') {
-    recs.push({ icon: '🔀', text: '<strong>Math needed splitting — that\'s a valid adjustment.</strong> Try 25 min at 9:30 AM, break, then 20 min after ToG. Some kids do better with two shorter blocks.' });
+    recs.push({ icon: '', text: '<strong>Math needed splitting — that\'s a valid adjustment.</strong> Try 25 min at 9:30 AM, break, then 20 min after ToG. Some kids do better with two shorter blocks.' });
   } else if (math && math.value === 'long') {
     recs.push({ icon: '⏰', text: '<strong>Math block felt too long.</strong> Try splitting into two 20-min sessions next week. Put second session after lunch (1:15 PM) when Simon is napping.' });
   } else if (math && math.value === 'short') {
-    recs.push({ icon: '⚡', text: '<strong>Math block too short — great problem to have!</strong> Add 5-10 minutes or give an extension activity (Khan Academy challenge, logic puzzle).' });
+    recs.push({ icon: '', text: '<strong>Math block too short — great problem to have!</strong> Add 5-10 minutes or give an extension activity (Khan Academy challenge, logic puzzle).' });
   }
 
   // Enrichment
   const enrich = document.getElementById('enrichment-count').value;
   if (enrich === '0') {
-    recs.push({ icon: '🎯', text: '<strong>Zero enrichment sessions — you made the right call.</strong> Core subjects first, always. Art and Spanish are optional extras; never sacrifice AAR or math for them.' });
+    recs.push({ icon: '', text: '<strong>Zero enrichment sessions — you made the right call.</strong> Core subjects first, always. Art and Spanish are optional extras; never sacrifice AAR or math for them.' });
   } else if (enrich === '4' || enrich === '5') {
-    recs.push({ icon: '🎨', text: `<strong>Excellent week — ${enrich} enrichment sessions!</strong> When the core schedule is running this smoothly, enrichment flows naturally. Document what made this week work.` });
+    recs.push({ icon: '', text: `<strong>Excellent week — ${enrich} enrichment sessions!</strong> When the core schedule is running this smoothly, enrichment flows naturally. Document what made this week work.` });
   }
 
   // Rating
   if (starValue === 1 || starValue === 2) {
-    recs.push({ icon: '💙', text: '<strong>Hard weeks happen — they are part of homeschooling.</strong> Remember: if Gideon did AAR and both boys did math, the week was a success regardless of how everything else felt. Rest this weekend. You\'re doing it.' });
+    recs.push({ icon: '', text: '<strong>Hard weeks happen — they are part of homeschooling.</strong> Remember: if Gideon did AAR and both boys did math, the week was a success regardless of how everything else felt. Rest this weekend. You\'re doing it.' });
   } else if (starValue === 5) {
-    recs.push({ icon: '🏆', text: '<strong>Perfect week!</strong> Write down exactly what made it work — schedule, attitude, energy level, anything. That\'s your template. Screenshot this checklist and save it.' });
+    recs.push({ icon: '', text: '<strong>Perfect week!</strong> Write down exactly what made it work — schedule, attitude, energy level, anything. That\'s your template. Screenshot this checklist and save it.' });
   } else if (starValue === 4) {
-    recs.push({ icon: '🌟', text: '<strong>Great week!</strong> Identify the one thing that could have made it a 5 — that\'s your single focus for next week.' });
+    recs.push({ icon: '', text: '<strong>Great week!</strong> Identify the one thing that could have made it a 5 — that\'s your single focus for next week.' });
   }
 
   // Check struggled subjects
   const struggled = [...document.querySelectorAll('#struggled input:checked')].map(c => c.value);
   if (struggled.includes('tog')) {
-    recs.push({ icon: '📖', text: '<strong>ToG felt hard this week.</strong> Consider simplifying: skip narration one day and just do the read-aloud together. The story matters more than the output at this stage.' });
+    recs.push({ icon: '', text: '<strong>ToG felt hard this week.</strong> Consider simplifying: skip narration one day and just do the read-aloud together. The story matters more than the output at this stage.' });
   }
   if (struggled.includes('latin')) {
-    recs.push({ icon: '🏛️', text: '<strong>Latin was tough.</strong> Drop Latin to 2x/week for the next 2 weeks. Songs in the car count — put the SSL playlist on during drives.' });
+    recs.push({ icon: '', text: '<strong>Latin was tough.</strong> Drop Latin to 2x/week for the next 2 weeks. Songs in the car count — put the SSL playlist on during drives.' });
   }
   if (struggled.includes('science')) {
     recs.push({ icon: '🦜', text: '<strong>Science struggled.</strong> Apologia is low-pressure — it\'s okay to stretch one chapter across 2 weeks. The notebooking journal is optional; prioritize the read-aloud and discussion.' });
@@ -2174,7 +2174,7 @@ function submitAdmin() {
 
   // Default encouragement if no issues
   if (recs.length === 0) {
-    recs.push({ icon: '✨', text: 'Everything looks solid. Keep the current rhythm and look for one small way to delight the kids next week — a special snack for Friday review, a nature walk for science, or a movie night reward.' });
+    recs.push({ icon: '', text: 'Everything looks solid. Keep the current rhythm and look for one small way to delight the kids next week — a special snack for Friday review, a nature walk for science, or a movie night reward.' });
   }
 
   // Render
@@ -2185,7 +2185,7 @@ function submitAdmin() {
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── INIT ─────────────────────────────────────────
+//  INIT 
 renderPlanner();
 </script>
 </body>

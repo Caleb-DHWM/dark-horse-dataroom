@@ -630,7 +630,7 @@
     position: relative;
   }
   .org-connector::after {
-    content: '▼'; position: absolute; bottom: -5px; left: 50%;
+    content: ''; position: absolute; bottom: -5px; left: 50%;
     transform: translateX(-50%); color: var(--gold-dim); font-size: 8px;
   }
 
@@ -787,7 +787,7 @@
     <span class="sidebar-num">10</span> Pipeline
   </div>
   <div class="sidebar-item" data-section="recovery" onclick="showSection('recovery',this)">
-    <span class="sidebar-num">★</span>
+    <span class="sidebar-num"></span>
     <div><div class="sidebar-title">Capital Recovery Protocol</div><div class="sidebar-sub">Default enforcement timeline</div></div>
   </div>
   <div class="sidebar-item" data-section="risk" onclick="showSection('risk',this)">
@@ -1066,7 +1066,7 @@
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
         <div class="macro-card">
-          <div class="macro-card-icon">🏦</div>
+          <div class="macro-card-icon"></div>
           <div class="macro-card-title">Banks Are Out of Middle-Market Lending</div>
           <div class="macro-card-body">
             <p>Post-Basel III/IV, banks face significantly elevated risk-weighted capital requirements on middle-market and sponsor-backed loans. The math is simple and irreversible: a bank holding a $50M middle-market loan must hold more capital against it than ever before, compressing ROE to levels that make the activity economically sub-optimal. Banks are not "retreating" temporarily due to risk aversion — they are repricing the activity out of their business model permanently.</p>
@@ -1074,7 +1074,7 @@
           </div>
         </div>
         <div class="macro-card">
-          <div class="macro-card-icon">📈</div>
+          <div class="macro-card-icon"></div>
           <div class="macro-card-title">Private Credit Is the Fastest-Growing Asset Class on Earth</div>
           <div class="macro-card-body">
             <p>Private credit AUM grew from under $500B in 2012 to over $1.7 trillion in 2024. Current projections from Preqin, BlackRock, and Apollo estimate the asset class will exceed $3.5 trillion by 2028 — driven not by speculation, but by the same structural bank withdrawal that created the initial void. Sovereign wealth funds, pension funds, insurance companies, and endowments are all allocating into private credit in scale for the first time in their institutional history.</p>
@@ -1082,7 +1082,7 @@
           </div>
         </div>
         <div class="macro-card">
-          <div class="macro-card-icon">✈️</div>
+          <div class="macro-card-icon"></div>
           <div class="macro-card-title">Hard Asset Collateral Values Are Rising</div>
           <div class="macro-card-body">
             <p>The aviation assets underpinning Draft Horse's Layer 4 collateral operate in a global market characterized by strong and rising demand. Business aviation activity has recovered fully from COVID-era disruptions. Gulfstream G4-class aircraft — the current operating fleet — represent proven, globally liquid business aviation assets with an established secondary market. Gulfstream G550 aircraft — the planned fleet expansion by Quarter Horse Capital Partners for the same charter operator — operate in an even deeper secondary market (pre-owned G550 values have remained resilient; production ended in 2012). As the G550 fleet is acquired by Quarter Horse, the aviation collateral available across the platform grows substantially.</p>
@@ -1760,10 +1760,10 @@
           <div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:4px;padding:18px 20px;">
             <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);margin-bottom:8px;font-weight:700;">What Investors Receive</div>
             <ul style="list-style:none;padding:0;">
-              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ 17% per annum target yield — tier rate fixed at subscription (at $50M+ tier)</li>
-              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ Quarterly cash distributions (4.25%/quarter)</li>
-              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">✓ 100% principal return at 36-month maturity</li>
-              <li style="font-size:13px;color:var(--text);padding:6px 0;">✓ UCC-1 six-layer collateral protection (incl.06);border:1px solid var(--border);border-radius:4px;padding:18px 20px;">
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);"> 17% per annum target yield — tier rate fixed at subscription (at $50M+ tier)</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);"> Quarterly cash distributions (4.25%/quarter)</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);"> 100% principal return at 36-month maturity</li>
+              <li style="font-size:13px;color:var(--text);padding:6px 0;"> UCC-1 six-layer collateral protection (incl.06);border:1px solid var(--border);border-radius:4px;padding:18px 20px;">
             <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">What the Fund Retains</div>
             <ul style="list-style:none;padding:0;">
               <li style="font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border-dim);">↑ Spread above 17% from PE debt service rate</li>
@@ -1974,58 +1974,58 @@
             </tr>
             <tr>
               <td><strong>Collateral Protection</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> None — Private</td>
-              <td><span class="cross">✗</span> Daily Public MTM</td>
-              <td><span class="cross">✗</span> Daily Public MTM</td>
-              <td><span class="cross">✗</span> Public Equity Volatility</td>
-              <td><span class="check">✓</span> None — But No Yield Either</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> None — Private</td>
+              <td><span class="cross"></span> Daily Public MTM</td>
+              <td><span class="cross"></span> Daily Public MTM</td>
+              <td><span class="cross"></span> Public Equity Volatility</td>
+              <td><span class="check"></span> None — But No Yield Either</td>
             </tr>
             <tr>
               <td><strong>Income Frequency</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Quarterly Cash</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> Quarterly Cash</td>
               <td><span class="partial">~</span> Semi-Annual</td>
               <td><span class="partial">~</span> Semi-Annual</td>
-              <td><span class="check">✓</span> Quarterly</td>
-              <td><span class="cross">✗</span> Rarely — Back-End Heavy</td>
+              <td><span class="check"></span> Quarterly</td>
+              <td><span class="cross"></span> Rarely — Back-End Heavy</td>
             </tr>
             <tr class="td-highlight">
               <td><strong>Principal Protection</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Contractual 100% Principal Obligation at Maturity (subject to Fund performance)</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> Contractual 100% Principal Obligation at Maturity (subject to Fund performance)</td>
               <td><span class="partial">~</span> Par at Maturity (MTM Risk)</td>
               <td><span class="partial">~</span> Par at Maturity (Default Risk)</td>
-              <td><span class="cross">✗</span> Market Price — Not Fixed</td>
-              <td><span class="cross">✗</span> No — Equity Risk</td>
+              <td><span class="cross"></span> Market Price — Not Fixed</td>
+              <td><span class="cross"></span> No — Equity Risk</td>
             </tr>
             <tr>
               <td><strong>Liquidity</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="cross">✗</span> 36-Month Lock (No Early Redemption)</td>
-              <td><span class="check">✓</span> Daily Liquidity</td>
-              <td><span class="check">✓</span> Daily Liquidity</td>
-              <td><span class="check">✓</span> Daily Liquidity</td>
-              <td><span class="cross">✗</span> 5–10 Year Lock (Typical)</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="cross"></span> 36-Month Lock (No Early Redemption)</td>
+              <td><span class="check"></span> Daily Liquidity</td>
+              <td><span class="check"></span> Daily Liquidity</td>
+              <td><span class="check"></span> Daily Liquidity</td>
+              <td><span class="cross"></span> 5–10 Year Lock (Typical)</td>
             </tr>
             <tr class="td-highlight">
               <td><strong>Operator principal commitment</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Yes — Personal Capital Deployed</td>
-              <td><span class="cross">✗</span> No</td>
-              <td><span class="cross">✗</span> No</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> Yes — Personal Capital Deployed</td>
+              <td><span class="cross"></span> No</td>
+              <td><span class="cross"></span> No</td>
               <td><span class="partial">~</span> Minimal / Nominal</td>
               <td><span class="partial">~</span> GP Commitment (Often Nominal)</td>
             </tr>
             <tr>
               <td><strong>Hard Asset Collateral</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Aviation Fleet + Real Estate + Inventory</td>
-              <td><span class="cross">✗</span> None</td>
-              <td><span class="cross">✗</span> None</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> Aviation Fleet + Real Estate + Inventory</td>
+              <td><span class="cross"></span> None</td>
+              <td><span class="cross"></span> None</td>
               <td><span class="partial">~</span> Varies</td>
-              <td><span class="cross">✗</span> None — Pure Equity</td>
+              <td><span class="cross"></span> None — Pure Equity</td>
             </tr>
             <tr class="td-highlight">
               <td><strong>Correlated to Public Markets</strong></td>
-              <td style="background:rgba(201,168,76,0.07);"><span class="check">✓</span> Non-Correlated</td>
-              <td><span class="cross">✗</span> Rate Correlated</td>
-              <td><span class="cross">✗</span> Credit Spread Correlated</td>
-              <td><span class="cross">✗</span> Equity Correlated</td>
+              <td style="background:rgba(201,168,76,0.07);"><span class="check"></span> Non-Correlated</td>
+              <td><span class="cross"></span> Rate Correlated</td>
+              <td><span class="cross"></span> Credit Spread Correlated</td>
+              <td><span class="cross"></span> Equity Correlated</td>
               <td><span class="partial">~</span> Lagged Correlation</td>
             </tr>
             <tr>
@@ -2573,7 +2573,7 @@
                 <td>Days 60–180</td>
               </tr>
               <tr class="td-highlight">
-                <td class="td-gold">Layer 4 ★</td>
+                <td class="td-gold">Layer 4 </td>
                 <td>Aviation assets — 2 unencumbered G4-class aircraft (direct, current) + G550 fleet subordinated interest (if acquired by Quarter Horse prior to enforcement)</td>
                 <td><strong>49 U.S.C. § 44107</strong> FAA Registry notation; Cape Town Convention; UCC-1 perfected lien on current fleet; subordinated interest in G550 assets coordinated with Quarter Horse</td>
                 <td>Current: $8M–$16M (G4 unencumbered fleet, direct). Future/subordinated: up to $714M platform floor if full G550 fleet acquired; Draft Horse access subordinated to Quarter Horse first-priority claim</td>
@@ -3110,17 +3110,17 @@
                   <tr>
                     <td>Fund organized as a U.S. partnership (pass-through)</td>
                     <td>Fund is a Texas LLC taxed as partnership</td>
-                    <td><span class="tag tag-green">✓ Satisfied</span></td>
+                    <td><span class="tag tag-green"> Satisfied</span></td>
                   </tr>
                   <tr class="td-highlight">
                     <td>Income of qualifying investment type (interest, dividends, gains)</td>
                     <td>Private credit interest income is qualifying investment income under Reg. §1.892-3T</td>
-                    <td><span class="tag tag-green">✓ Likely Satisfied</span></td>
+                    <td><span class="tag tag-green"> Likely Satisfied</span></td>
                   </tr>
                   <tr>
                     <td>SWF is not engaged in commercial activity</td>
                     <td>Passive investment by SWF — Fund conducts lending; SWF is passive LP investor</td>
-                    <td><span class="tag tag-green">✓ Likely Satisfied (confirm)</span></td>
+                    <td><span class="tag tag-green"> Likely Satisfied (confirm)</span></td>
                   </tr>
                   <tr class="td-highlight">
                     <td>SWF qualifies as controlled entity or integral part</td>
@@ -3382,28 +3382,28 @@
         <div class="contact-title">Principal &amp; CIO — Draft Horse Capital Partners LLC<br>Managing Partner &amp; CEO — Dark Horse Wealth Management</div>
 
         <div class="contact-row">
-          <div class="contact-icon">◈</div>
+          <div class="contact-icon"></div>
           <div>
             <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Fund</div>
             <div>Draft Horse Capital Partners LLC — Texas LLC</div>
           </div>
         </div>
         <div class="contact-row">
-          <div class="contact-icon">◈</div>
+          <div class="contact-icon"></div>
           <div>
             <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Platform</div>
             <div>Dark Horse Wealth Management</div>
           </div>
         </div>
         <div class="contact-row">
-          <div class="contact-icon">◈</div>
+          <div class="contact-icon"></div>
           <div>
             <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Securities Counsel</div>
             <div>SCALE LLP — Dori Karjian</div>
           </div>
         </div>
         <div class="contact-row">
-          <div class="contact-icon">◈</div>
+          <div class="contact-icon"></div>
           <div>
             <div style="font-size:10.5px;color:var(--text-muted);font-family:'Arial',sans-serif;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Fund Administration</div>
             <div>NAV Fund Services (third-party administrator)</div>

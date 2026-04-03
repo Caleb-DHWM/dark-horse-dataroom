@@ -18,7 +18,7 @@ body {
   height: 100vh;
 }
 
-/* ── Header ── */
+/*  Header  */
 header {
   padding: 20px 32px 18px;
   border-bottom: 1px solid #0F1929;
@@ -38,7 +38,7 @@ header {
 .header-title p { font-size: 12px; color: #475569; }
 .header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; }
 
-/* ── Chart Wrapper ── */
+/*  Chart Wrapper  */
 #chart-wrapper {
   flex: 1;
   min-height: 0;
@@ -60,7 +60,7 @@ header {
   overflow: visible;
 }
 
-/* ── Node Cards ── */
+/*  Node Cards  */
 .nc {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -126,7 +126,7 @@ header {
 .badge-new     { background: #059669; color: #ECFDF5; box-shadow: 0 0 10px rgba(16,185,129,0.45); }
 .badge-dormant { background: #4B5563; color: #D1D5DB; }
 
-/* ── Footer Legend ── */
+/*  Footer Legend  */
 footer {
   padding: 12px 32px;
   border-top: 1px solid #0F1929;
@@ -189,7 +189,7 @@ footer {
 </footer>
 
 <script>
-// ── Entity Data ──
+//  Entity Data 
 const orgData = {
   id: 'trust',
   name: 'In God We Trust',
@@ -321,7 +321,7 @@ const orgData = {
   ]
 };
 
-// ── Layout ──
+//  Layout 
 const NW = 176;   // node width
 const NH = 84;    // node height (approx)
 const HG = 22;    // horizontal gap
@@ -353,7 +353,7 @@ const chartEl = document.getElementById('chart');
 chartEl.style.width  = W + 'px';
 chartEl.style.height = H + 'px';
 
-// ── SVG Links ──
+//  SVG Links 
 const linkColor = {
   trust: '#7C3AED', holdings: '#3B82F6', ria: '#10B981',
   wealth: '#0EA5E9', management: '#14B8A6', fund: '#F59E0B',
@@ -380,7 +380,7 @@ svg.selectAll('path.lnk')
   .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : null)
   .attr('fill', 'none');
 
-// ── Render Node Cards ──
+//  Render Node Cards 
 root.each(n => {
   const d  = n.data;
   const el = document.createElement('div');
@@ -392,7 +392,7 @@ root.each(n => {
 
   if (d.badge) {
     const cls  = d.badge === 'new' ? 'badge-new' : 'badge-dormant';
-    const text = d.badge === 'new' ? '★ New' : 'Dormant';
+    const text = d.badge === 'new' ? ' New' : 'Dormant';
     html += `<div class="nc-badge ${cls}">${text}</div>`;
   }
 

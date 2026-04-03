@@ -22,7 +22,7 @@
 
     canvas { display: block; }
 
-    /* ── TITLE ── */
+    /*  TITLE  */
     #title-bar {
       position: fixed;
       top: 0;
@@ -52,7 +52,7 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── INFO PANEL (right) ── */
+    /*  INFO PANEL (right)  */
     #info-panel {
       position: fixed;
       top: 0;
@@ -151,7 +151,7 @@
       color: rgba(255,255,255,0.6);
     }
 
-    /* ── LEGEND PANEL (left) ── */
+    /*  LEGEND PANEL (left)  */
     #legend-panel {
       position: fixed;
       top: 52px;
@@ -231,7 +231,7 @@
     }
     #legend-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
 
-    /* ── MENU BTN ── */
+    /*  MENU BTN  */
     #menu-btn {
       position: fixed;
       top: 11px;
@@ -253,7 +253,7 @@
     }
     #menu-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-    /* ── LOADING ── */
+    /*  LOADING  */
     #loading {
       position: fixed;
       inset: 0;
@@ -287,7 +287,7 @@
       #info-panel-header { padding-top: 48px; }
     }
 
-    /* ── LAYOUT TOOLBAR ── */
+    /*  LAYOUT TOOLBAR  */
     #layout-toolbar {
       position: fixed;
       bottom: 20px;
@@ -344,9 +344,9 @@
   </div>
 </div>
 
-<button id="menu-btn" title="Legend / Entity Types">☰</button>
+<button id="menu-btn" title="Legend / Entity Types"></button>
 
-<!-- ── LEGEND ── -->
+<!--  LEGEND  -->
 <div id="legend-panel">
   <button id="legend-close" title="Close">×</button>
   <div id="legend-title">Entity Types</div>
@@ -373,7 +373,7 @@
   </div>
 </div>
 
-<!-- ── INFO PANEL ── -->
+<!--  INFO PANEL  -->
 <div id="info-panel">
   <div id="info-panel-header">
     <button id="info-panel-close" title="Close">×</button>
@@ -392,7 +392,7 @@
   </div>
 </div>
 
-<!-- ── LAYOUT TOOLBAR ── -->
+<!--  LAYOUT TOOLBAR  -->
 <div id="layout-toolbar">
   <button class="layout-btn active" data-layout="tree">Tree</button>
   <button class="layout-btn" data-layout="radial">Radial</button>
@@ -408,9 +408,9 @@
 <script src="https://cdn.jsdelivr.net/npm/d3-hierarchy@3/dist/d3-hierarchy.min.js"></script>
 
 <script>
-// ═══════════════════════════════════════════════════════
+// 
 //  DATA  (inlined — avoids CORS on file://)
-// ═══════════════════════════════════════════════════════
+// 
 const NODES = [
   { id: 7,   label: "In God We Trust\n(Caleb's Trust)",                                     type: "trust",        desc: "Governing trust entity at the top of the Caraway family structure." },
   { id: 1,   label: "Caraway Holdings LLC",                                                   type: "holdings",     desc: "Holding company that sits beneath the trust and above operating entities." },
@@ -452,9 +452,9 @@ const LINKS = [
   { source: 14, target: 8,   linkType: "cross", label: "invests in" }
 ];
 
-// ═══════════════════════════════════════════════════════
+// 
 //  TYPE CONFIG
-// ═══════════════════════════════════════════════════════
+// 
 const TYPE_CFG = {
   "trust":        { color: "#8b5cf6", accent: "#a78bfa", label: "Trust" },
   "holdings":     { color: "#2563eb", accent: "#3b82f6", label: "Holdings LLC" },
@@ -470,9 +470,9 @@ function typeCfg(t) {
   return TYPE_CFG[t] || TYPE_CFG["investment"];
 }
 
-// ═══════════════════════════════════════════════════════
+// 
 //  BUILD HIERARCHY
-// ═══════════════════════════════════════════════════════
+// 
 const nodeMap = {};
 NODES.forEach(n => { nodeMap[n.id] = { ...n, children: [] }; });
 
@@ -488,9 +488,9 @@ structLinks.forEach(l => {
 const root = NODES.find(n => !hasParent[n.id]);
 const treeRoot = nodeMap[root.id];
 
-// ═══════════════════════════════════════════════════════
+// 
 //  THREE.JS SCENE
-// ═══════════════════════════════════════════════════════
+// 
 const container = document.getElementById('canvas-container');
 
 const scene = new THREE.Scene();
@@ -529,9 +529,9 @@ controls.maxDistance = 45;
 controls.target.set(0, 1, 0);
 controls.update();
 
-// ═══════════════════════════════════════════════════════
+// 
 //  D3 LAYOUT
-// ═══════════════════════════════════════════════════════
+// 
 // Build d3 hierarchy from our treeRoot
 const hier = d3.hierarchy(treeRoot, d => d.children && d.children.length ? d.children : null);
 
@@ -554,9 +554,9 @@ hier.each(d => {
   posMap[d.data.id] = new THREE.Vector3(x, y, z);
 });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  CANVAS TEXTURE FACTORY
-// ═══════════════════════════════════════════════════════
+// 
 const TEX_W = 512;
 const TEX_H = 230;
 const CARD_W = 2.9;    // Three.js units
@@ -596,7 +596,7 @@ function buildTexture(node, highlighted) {
   const cfg = typeCfg(node.type);
   const { r, g, b } = hexToRgb(cfg.color);
 
-  // ── Background ──
+  //  Background 
   roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
   const grad = ctx.createLinearGradient(0, 0, 0, TEX_H);
   grad.addColorStop(0, `rgba(${r},${g},${b},0.94)`);
@@ -604,13 +604,13 @@ function buildTexture(node, highlighted) {
   ctx.fillStyle = grad;
   ctx.fill();
 
-  // ── Border ──
+  //  Border 
   roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
   ctx.strokeStyle = highlighted ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.14)';
   ctx.lineWidth = highlighted ? 5 : 2;
   ctx.stroke();
 
-  // ── Left accent bar ──
+  //  Left accent bar 
   ctx.save();
   ctx.beginPath();
   roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
@@ -620,7 +620,7 @@ function buildTexture(node, highlighted) {
   ctx.fillRect(2, 2, 18, TEX_H - 4);
   ctx.restore();
 
-  // ── Dormant diagonal hatch ──
+  //  Dormant diagonal hatch 
   if (node.type === 'dormant') {
     ctx.save();
     roundRect(ctx, 2, 2, TEX_W - 4, TEX_H - 4, 22);
@@ -637,7 +637,7 @@ function buildTexture(node, highlighted) {
     ctx.restore();
   }
 
-  // ── Text: split label on \n ──
+  //  Text: split label on \n 
   const lines = node.label.split('\n');
   const leftPad = 28;
   const rightPad = 16;
@@ -668,7 +668,7 @@ function buildTexture(node, highlighted) {
     curY += fontSize + (isFirst ? 6 : 3);
   });
 
-  // ── Type badge (bottom left) ──
+  //  Type badge (bottom left) 
   const badgeText = cfg.label;
   const badgeFontSize = 16;
   ctx.font = `600 ${badgeFontSize}px -apple-system, sans-serif`;
@@ -688,9 +688,9 @@ function buildTexture(node, highlighted) {
   return new THREE.CanvasTexture(canvas);
 }
 
-// ═══════════════════════════════════════════════════════
+// 
 //  BUILD CARDS
-// ═══════════════════════════════════════════════════════
+// 
 const cardGroup = new THREE.Group();
 scene.add(cardGroup);
 
@@ -718,9 +718,9 @@ NODES.forEach(node => {
   meshById[node.id] = mesh;
 });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  BUILD CONNECTIONS
-// ═══════════════════════════════════════════════════════
+// 
 const connectionLines = []; // track all line objects for rebuild
 
 function makeConnection(srcId, tgtId, isStructural) {
@@ -763,9 +763,9 @@ LINKS.forEach(l => {
   if (line) connectionLines.push(line);
 });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  LAYOUT COMPUTATION FUNCTIONS
-// ═══════════════════════════════════════════════════════
+// 
 
 function computeTreeLayout() {
   const positions = {};
@@ -917,9 +917,9 @@ function computeForceLayout() {
   return pos;
 }
 
-// ═══════════════════════════════════════════════════════
+// 
 //  LAYOUT SWITCHER STATE
-// ═══════════════════════════════════════════════════════
+// 
 let targetPositions = {};
 let animating = false;
 let animFrames = 0;
@@ -949,9 +949,9 @@ document.querySelectorAll('.layout-btn').forEach(btn => {
   btn.addEventListener('click', () => setLayout(btn.dataset.layout));
 });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  UI — Info panel & Legend
-// ═══════════════════════════════════════════════════════
+// 
 const infoPanel    = document.getElementById('info-panel');
 const infoPanelClose = document.getElementById('info-panel-close');
 const infoTypeBadge = document.getElementById('info-type-badge');
@@ -1018,9 +1018,9 @@ infoPanelClose.addEventListener('click', hideInfo);
 menuBtn.addEventListener('click', () => legendPanel.classList.toggle('open'));
 legendClose.addEventListener('click', () => legendPanel.classList.remove('open'));
 
-// ═══════════════════════════════════════════════════════
+// 
 //  RAYCASTING
-// ═══════════════════════════════════════════════════════
+// 
 const raycaster = new THREE.Raycaster();
 raycaster.params.Line = { threshold: 0.05 };
 const mouse2d = new THREE.Vector2();
@@ -1100,18 +1100,18 @@ renderer.domElement.addEventListener('touchend', e => {
   if (hit) selectMesh(hit);
 }, { passive: true });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  RESIZE
-// ═══════════════════════════════════════════════════════
+// 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ═══════════════════════════════════════════════════════
+// 
 //  RENDER LOOP
-// ═══════════════════════════════════════════════════════
+// 
 let firstFrame = true;
 
 function animate() {

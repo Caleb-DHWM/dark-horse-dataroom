@@ -28,14 +28,14 @@
     background: var(--navy); color: var(--text);
     font-size: 12px; line-height: 1.6;
   }
-  /* ── OUTER SHELL ── */
+  /*  OUTER SHELL  */
   .page {
     max-width: 860px; margin: 24px auto;
     border: 1px solid var(--border);
     border-radius: 5px; overflow: hidden;
     background: var(--navy-mid);
   }
-  /* ── HEADER BAND ── */
+  /*  HEADER BAND  */
   .header-band {
     background: rgba(8,12,24,0.98);
     border-bottom: 2px solid var(--gold);
@@ -52,7 +52,7 @@
   .fund-name { font-family: 'Arial', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver-light); }
   .fund-name span { color: var(--gold); }
   .doc-type { font-family: 'Arial', sans-serif; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); border: 1px solid var(--gold-dim); padding: 4px 10px; border-radius: 2px; }
-  /* ── TAGLINE STRIP ── */
+  /*  TAGLINE STRIP  */
   .tagline-strip {
     background: linear-gradient(135deg, rgba(26,40,64,0.6), rgba(8,12,24,0.4));
     padding: 20px 32px 18px;
@@ -62,7 +62,7 @@
   .tagline { font-size: 22px; color: var(--white); letter-spacing: 0.03em; margin-bottom: 5px; }
   .tagline em { color: var(--gold-light); font-style: italic; }
   .sub-tagline { font-family: 'Arial', sans-serif; font-size: 11px; color: var(--silver); }
-  /* ── STAT GRID ── */
+  /*  STAT GRID  */
   .stat-grid {
     display: grid; grid-template-columns: repeat(6, 1fr);
     gap: 0; border-bottom: 1px solid rgba(201,168,76,0.12);
@@ -75,12 +75,12 @@
   .stat-box:last-child { border-right: none; }
   .stat-value { font-size: 18px; color: var(--gold); font-family: 'Georgia', serif; line-height: 1.1; margin-bottom: 5px; }
   .stat-label { font-family: 'Arial', sans-serif; font-size: 7.5px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--text-muted); }
-  /* ── BODY 2-COL ── */
+  /*  BODY 2-COL  */
   .body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .col { padding: 22px 28px; }
   .col-left { border-right: 1px solid rgba(255,255,255,0.05); }
   .col-section { font-family: 'Arial', sans-serif; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(201,168,76,0.14); font-weight: 700; }
-  /* ── COLLATERAL LAYERS COMPACT ── */
+  /*  COLLATERAL LAYERS COMPACT  */
   .layer-compact {
     display: flex; gap: 10px; align-items: flex-start;
     padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -98,7 +98,7 @@
   .dot-6 { background: var(--gold); }
   .layer-compact .lc-title { font-weight: 700; color: var(--silver-light); display: block; margin-bottom: 1px; }
   .layer-compact .lc-body { color: var(--text-muted); font-size: 10px; }
-  /* ── YIELD TABLE COMPACT ── */
+  /*  YIELD TABLE COMPACT  */
   .yield-compact { width: 100%; border-collapse: collapse; font-family: 'Arial', sans-serif; font-size: 11px; margin-bottom: 8px; }
   .yield-compact thead tr { background: var(--navy-light); border-bottom: 1px solid var(--gold-dim); }
   .yield-compact thead th { padding: 7px 10px; text-align: left; color: var(--gold); font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
@@ -106,13 +106,13 @@
   .yield-compact tbody td { padding: 6px 10px; color: var(--text); vertical-align: middle; }
   .yield-compact .yc-tier-top td { background: rgba(201,168,76,0.08); color: var(--gold); font-weight: 700; }
   .yield-compact .yc-gold { color: var(--gold) !important; font-weight: 700; }
-  /* ── PROVIDER ROW ── */
+  /*  PROVIDER ROW  */
   .provider-row { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid rgba(201,168,76,0.12); }
   .provider-item { flex: 1; min-width: 160px; padding: 12px 20px; border-right: 1px solid rgba(255,255,255,0.05); }
   .provider-item:last-child { border-right: none; }
   .provider-role { font-family: 'Arial', sans-serif; font-size: 7.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 3px; }
   .provider-name { font-family: 'Arial', sans-serif; font-size: 11.5px; color: var(--white); font-weight: 600; }
-  /* ── DISCLAIMER / FOOTER ── */
+  /*  DISCLAIMER / FOOTER  */
   .footer-strip {
     background: rgba(8,12,24,0.95); border-top: 1px solid rgba(201,168,76,0.12);
     padding: 12px 28px;
@@ -120,9 +120,9 @@
   }
   .footer-strip strong { color: var(--gold); font-size: 8.5px; }
 
-  /* ══════════════════════════════════
+  /* 
      PRINT CSS — true single-page
-  ══════════════════════════════════ */
+   */
   @media print {
     @page { size: letter; margin: 0.5in 0.5in; }
     body { background: white; color: #111; font-size: 10px; margin: 0; }
