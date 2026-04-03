@@ -3,990 +3,505 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Horse Wealth Management — Investor Data Room</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Dark Horse Wealth Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #06080c;
-  --surface: #0c0f14;
-  --surface-hover: #10141a;
-  --border: rgba(194, 164, 74, 0.08);
-  --border-hover: rgba(194, 164, 74, 0.18);
-  --gold: #c2a44a;
-  --gold-dim: rgba(194, 164, 74, 0.6);
-  --gold-glow: rgba(194, 164, 74, 0.08);
-  --text: #e8e4dc;
-  --text-secondary: #8a8578;
-  --text-dim: #5a564e;
-  --white: #f5f2eb;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Inter', -apple-system, sans-serif;
-  --mono: 'IBM Plex Mono', 'SF Mono', monospace;
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:#06080c;
+  color:#e8e4dc;
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-weight: 300;
-  line-height: 1.7;
-  font-size: 15px;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-::selection { background: rgba(194, 164, 74, 0.2); color: var(--white); }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(194, 164, 74, 0.15); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(194, 164, 74, 0.3); }
-
-/* Ambient background */
-.ambient {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+/* ── AMBIENT BACKGROUND ── */
+.ambient{
+  position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(194, 164, 74, 0.03) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(194, 164, 74, 0.02) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(12, 15, 20, 0.5) 0%, transparent 100%);
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(194,164,74,.04) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(40,50,80,.15) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(194,164,74,.03) 0%, transparent 40%);
+}
+.content{position:relative;z-index:1}
+
+/* ── NAVIGATION ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 60px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,8,12,.85);backdrop-filter:blur(24px) saturate(1.2);
+  border-bottom:1px solid rgba(194,164,74,.1);
+  transition:all .4s ease;
+}
+nav.scrolled{background:rgba(6,8,12,.95);box-shadow:0 1px 40px rgba(0,0,0,.4)}
+.nav-brand{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:17px;font-weight:600;letter-spacing:.5px;
+}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{
+  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(232,228,220,.4);text-decoration:none;
+  transition:color .3s ease;font-weight:500;
+}
+.nav-links a:hover,.nav-links a.active{color:#c2a44a}
+.nav-meta{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  color:rgba(232,228,220,.25);letter-spacing:1px;text-transform:uppercase;
 }
 
-/* Navigation */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 0 48px; height: 64px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(6, 8, 12, 0.85);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: all 0.4s ease;
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  padding:120px 60px 80px;position:relative;
 }
-nav.scrolled { background: rgba(6, 8, 12, 0.95); }
-.nav-brand {
-  font-family: var(--serif); font-weight: 500; font-size: 14px;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
+.hero::after{
+  content:'';position:absolute;bottom:0;left:10%;right:10%;
+  height:1px;background:linear-gradient(90deg,transparent,rgba(194,164,74,.3),transparent);
 }
-.nav-links { display: flex; gap: 32px; }
-.nav-links a {
-  font-family: var(--mono); font-size: 11px; font-weight: 400;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-secondary); text-decoration: none;
-  padding: 4px 0; position: relative; transition: color 0.3s ease;
+.hero-eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:6px;text-transform:uppercase;color:#c2a44a;
+  margin-bottom:32px;opacity:0;animation:fadeUp .8s ease .2s forwards;
 }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -2px; left: 0;
-  width: 0; height: 1px; background: var(--gold);
-  transition: width 0.3s ease;
+.hero h1{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(48px,7vw,88px);font-weight:300;
+  line-height:1.05;letter-spacing:-1px;
+  margin-bottom:24px;opacity:0;animation:fadeUp .8s ease .4s forwards;
 }
-.nav-links a:hover, .nav-links a.active { color: var(--gold); }
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-/* Content wrapper */
-.content { position: relative; z-index: 1; }
-
-/* Hero */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
-  padding: 120px 48px 80px;
-  opacity: 0; transform: translateY(30px);
-  animation: heroIn 1.2s ease forwards 0.3s;
+.hero h1 em{font-style:italic;font-weight:400;color:#c2a44a}
+.hero-sub{
+  font-size:17px;font-weight:300;color:rgba(232,228,220,.5);
+  max-width:480px;line-height:1.7;margin-bottom:48px;
+  opacity:0;animation:fadeUp .8s ease .6s forwards;
 }
-@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
-
-.hero-eyebrow {
-  font-family: var(--mono); font-size: 11px; font-weight: 400;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 32px;
+.hero-pills{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+  opacity:0;animation:fadeUp .8s ease .8s forwards;
 }
-.hero-title {
-  font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 6vw, 80px);
-  line-height: 1.1; color: var(--white); margin-bottom: 20px;
-  max-width: 800px;
+.pill{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:10px 20px;border:1px solid rgba(194,164,74,.2);
+  border-radius:100px;color:rgba(232,228,220,.45);
+  transition:all .3s ease;
 }
-.hero-title em { font-style: italic; color: var(--gold); font-weight: 400; }
-.hero-subtitle {
-  font-family: var(--sans); font-weight: 300; font-size: 16px;
-  color: var(--text-secondary); margin-bottom: 40px;
-  letter-spacing: 0.02em;
+.pill:hover{border-color:rgba(194,164,74,.5);color:#c2a44a}
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  opacity:0;animation:fadeUp .8s ease 1.2s forwards;
 }
-.hero-pills {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-  margin-bottom: 48px;
+.scroll-hint span{
+  display:block;width:1px;height:40px;margin:0 auto 8px;
+  background:linear-gradient(to bottom,rgba(194,164,74,.5),transparent);
+  animation:scrollPulse 2s ease infinite;
 }
-.pill {
-  font-family: var(--mono); font-size: 10px; font-weight: 400;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 6px 16px; border: 1px solid var(--border);
-  border-radius: 100px; color: var(--text-secondary);
-  background: rgba(194, 164, 74, 0.03);
-}
-.hero-meta {
-  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
-  letter-spacing: 0.05em;
+.scroll-hint p{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;color:rgba(232,228,220,.2);
 }
 
-/* Confidentiality Banner */
-.confidentiality {
-  max-width: 900px; margin: 0 auto; padding: 0 48px 80px; text-align: center;
+/* ── SECTION SHELL ── */
+.s{padding:120px 60px;max-width:1200px;margin:0 auto}
+.s-label{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;color:#c2a44a;
+  margin-bottom:16px;
 }
-.confidentiality-text {
-  font-family: var(--sans); font-size: 12px; font-weight: 300;
-  line-height: 1.9; color: var(--text-dim);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 32px 0;
+.s-title{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(32px,4vw,48px);font-weight:400;
+  margin-bottom:16px;line-height:1.15;
 }
-.confidentiality-text strong { color: var(--text-secondary); font-weight: 500; }
-
-/* Sections */
-.section {
-  max-width: 960px; margin: 0 auto; padding: 100px 48px;
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.section.revealed { opacity: 1; transform: translateY(0); }
-
-.section-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 16px;
-}
-.section-title {
-  font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.15; color: var(--white); margin-bottom: 12px;
-}
-.section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
-.section-subtitle {
-  font-family: var(--mono); font-size: 12px; color: var(--text-secondary);
-  letter-spacing: 0.05em; margin-bottom: 32px;
-}
-.section-body {
-  font-size: 15px; line-height: 1.85; color: var(--text-secondary);
-  max-width: 720px; margin-bottom: 48px;
+.s-desc{
+  font-size:15px;font-weight:300;color:rgba(232,228,220,.45);
+  max-width:560px;line-height:1.8;margin-bottom:56px;
 }
 
-/* Verticals line */
-.verticals-line {
-  font-family: var(--serif); font-size: 18px; font-weight: 400;
-  color: var(--text-dim); letter-spacing: 0.02em;
-  padding-top: 32px; margin-top: 32px; border-top: 1px solid var(--border);
+/* ── FUND SHOWCASE ── */
+.fund-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px}
+.fund{
+  background:rgba(255,255,255,.02);padding:56px 48px;
+  position:relative;overflow:hidden;cursor:default;
+  transition:background .5s ease;
 }
-.verticals-line span { color: var(--text-secondary); }
-
-/* Stats grid */
-.stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-  margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--border);
+.fund:hover{background:rgba(255,255,255,.04)}
+.fund::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(194,164,74,.15),transparent);
 }
-.stat-value {
-  font-family: var(--serif); font-size: 28px; font-weight: 300;
-  color: var(--white); margin-bottom: 6px;
+.fund-label{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;color:#c2a44a;
+  margin-bottom:20px;display:flex;align-items:center;gap:12px;
 }
-.stat-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 400;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+.fund-label::after{
+  content:'';flex:1;height:1px;background:rgba(194,164,74,.15);
 }
-
-/* Document rows */
-.doc-list { display: flex; flex-direction: column; gap: 2px; }
-.doc-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 24px; border-radius: 4px; cursor: pointer;
-  border: 1px solid transparent; transition: all 0.3s ease;
-  background: transparent;
+.fund h3{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:32px;font-weight:500;margin-bottom:12px;line-height:1.2;
 }
-.doc-row:hover {
-  background: var(--surface); border-color: var(--border-hover);
+.fund-desc{
+  font-size:14px;color:rgba(232,228,220,.45);line-height:1.8;
+  margin-bottom:28px;max-width:420px;
 }
-.doc-row:hover .doc-title { color: var(--gold); }
-.doc-row:hover .doc-arrow { opacity: 1; transform: translateX(0); }
-.doc-info { flex: 1; min-width: 0; }
-.doc-title {
-  font-family: var(--serif); font-size: 18px; font-weight: 400;
-  color: var(--text); transition: color 0.3s ease; margin-bottom: 4px;
+.fund-meta{
+  display:flex;gap:24px;padding:20px 0;
+  border-top:1px solid rgba(255,255,255,.05);
+  border-bottom:1px solid rgba(255,255,255,.05);
+  margin-bottom:32px;
 }
-.doc-desc {
-  font-size: 13px; color: var(--text-dim); line-height: 1.6;
-  max-width: 600px;
+.fund-meta-item{text-align:left}
+.fund-meta-val{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;font-weight:500;margin-bottom:2px;
 }
-.doc-arrow {
-  font-family: var(--mono); font-size: 12px; color: var(--gold);
-  opacity: 0; transform: translateX(-8px);
-  transition: all 0.3s ease; white-space: nowrap; margin-left: 24px;
-  flex-shrink: 0;
+.fund-meta-key{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3);
 }
 
-/* Portfolio cards */
-.portfolio-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+/* ── DOCUMENT ROWS ── */
+.doc-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 0;border-bottom:1px solid rgba(255,255,255,.03);
+  cursor:pointer;transition:all .25s ease;
 }
-.portfolio-card {
-  padding: 32px; border: 1px solid var(--border); border-radius: 6px;
-  background: var(--surface); transition: all 0.3s ease;
-}
-.portfolio-card:hover { border-color: var(--border-hover); background: var(--surface-hover); }
-.portfolio-card-name {
-  font-family: var(--serif); font-size: 20px; font-weight: 400;
-  color: var(--white); margin-bottom: 4px;
-}
-.portfolio-card-vertical {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 16px;
-}
-.portfolio-card-desc {
-  font-size: 13px; line-height: 1.7; color: var(--text-dim); margin-bottom: 16px;
-}
-.portfolio-card-status {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.status-active { color: var(--gold); }
-.status-planned { color: var(--text-dim); }
-
-/* Team section */
-.team-bio { margin-bottom: 24px; }
-.team-name { color: var(--white); font-weight: 400; }
-.team-cap-intro { padding-top: 24px; border-top: 1px solid var(--border); }
-.team-cap-intro-body { margin-bottom: 0; }
-.team-cap-intro-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--gold); display: block; margin-bottom: 12px;
+.doc-row:last-child{border-bottom:none}
+.doc-row:hover{padding-left:8px}
+.doc-row:hover .doc-title{color:#c2a44a}
+.doc-row:hover .doc-arrow{opacity:1;transform:translateX(0)}
+.doc-title{font-size:14px;font-weight:500;transition:color .25s ease}
+.doc-sub{font-size:12px;color:rgba(232,228,220,.25);margin-top:2px;font-family:'IBM Plex Mono',monospace;font-size:11px}
+.doc-arrow{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:#c2a44a;
+  opacity:0;transform:translateX(-8px);transition:all .25s ease;
+  letter-spacing:2px;
 }
 
-/* Legal notices */
-.legal-notice {
-  padding: 32px 0; border-top: 1px solid var(--border);
+/* ── PORTFOLIO ── */
+.portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.p-card{
+  background:rgba(255,255,255,.02);padding:40px 32px;
+  position:relative;transition:background .4s ease;
 }
-.legal-notice-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--text-dim); margin-bottom: 12px;
+.p-card:hover{background:rgba(255,255,255,.04)}
+.p-card-name{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:21px;font-weight:500;margin-bottom:10px;line-height:1.3;
 }
-.legal-notice-text {
-  font-size: 12px; line-height: 1.9; color: var(--text-dim);
+.p-card-desc{
+  font-size:13px;color:rgba(232,228,220,.4);line-height:1.7;margin-bottom:16px;
 }
+.p-card-status{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+}
+.active{color:#6a9a6a}
+.planned{color:rgba(232,228,220,.2)}
 
-/* Footer */
-footer {
-  text-align: center; padding: 80px 48px 48px;
-  border-top: 1px solid var(--border);
-  max-width: 960px; margin: 0 auto;
+/* ── REFERENCE + LEGAL ── */
+.ref-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px 0;border-bottom:1px solid rgba(255,255,255,.04);
+  cursor:pointer;transition:all .25s ease;
 }
-.footer-copy {
-  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
-  letter-spacing: 0.05em; margin-bottom: 8px;
-}
-.footer-email {
-  font-family: var(--mono); font-size: 11px;
-  color: var(--gold-dim); text-decoration: none;
-}
-.footer-email:hover { color: var(--gold); }
+.ref-row:hover{padding-left:8px}
+.ref-row:hover .ref-title{color:#c2a44a}
+.ref-row:hover .doc-arrow{opacity:1;transform:translateX(0)}
+.ref-title{font-size:16px;font-weight:500;transition:color .25s ease}
+.ref-sub{font-size:13px;color:rgba(232,228,220,.3);margin-top:3px}
 
-/* Modal */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(6, 8, 12, 0.92);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.35s ease;
+/* ── CONFIDENTIAL ── */
+.conf-banner{
+  margin:0 60px;padding:40px 48px;
+  border:1px solid rgba(140,60,60,.2);
+  background:rgba(140,60,60,.04);
 }
-.modal-overlay.active { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--surface); border: 1px solid var(--border-hover);
-  border-radius: 8px; padding: 48px; max-width: 580px; width: 90%;
-  transform: translateY(20px) scale(0.97);
-  transition: transform 0.35s ease;
-  position: relative;
+.conf-label{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(180,80,80,.7);margin-bottom:12px;
 }
-.modal-overlay.active .modal { transform: translateY(0) scale(1); }
-.modal-close {
-  position: absolute; top: 20px; right: 24px;
-  background: none; border: none; color: var(--text-dim);
-  font-size: 20px; cursor: pointer; transition: color 0.2s;
-  font-family: var(--sans); font-weight: 300; line-height: 1;
-}
-.modal-close:hover { color: var(--gold); }
-.modal-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 16px;
-}
-.modal-title {
-  font-family: var(--serif); font-size: 28px; font-weight: 400;
-  color: var(--white); margin-bottom: 8px;
-}
-.modal-fund {
-  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
-  letter-spacing: 0.05em; margin-bottom: 24px;
-}
-.modal-desc {
-  font-size: 14px; line-height: 1.8; color: var(--text-secondary);
-  margin-bottom: 32px;
-}
-.modal-actions { display: flex; gap: 12px; }
-.modal-btn {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 12px 28px; border-radius: 4px; cursor: pointer;
-  text-decoration: none; transition: all 0.3s ease; border: none;
-}
-.modal-btn-primary {
-  background: var(--gold); color: var(--bg);
-}
-.modal-btn-primary:hover { background: #d4b85c; }
-.modal-btn-secondary {
-  background: transparent; border: 1px solid var(--border-hover);
-  color: var(--text-secondary);
-}
-.modal-btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+.conf-text{font-size:13px;color:rgba(232,228,220,.35);line-height:2}
 
-/* Responsive */
-@media (max-width: 768px) {
-  nav { padding: 0 24px; }
-  .nav-links { display: none; }
-  .hero { padding: 100px 24px 60px; }
-  .section { padding: 60px 24px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .doc-row { padding: 16px; }
-  .doc-desc { display: none; }
-  .modal { padding: 32px 24px; }
-  .modal-actions { flex-direction: column; }
-  .confidentiality { padding: 0 24px 60px; }
+/* ── FOOTER ── */
+footer{
+  padding:60px;text-align:center;
+  border-top:1px solid rgba(255,255,255,.03);
 }
-@media (max-width: 480px) {
-  .hero-pills { gap: 6px; }
-  .pill { font-size: 9px; padding: 5px 12px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+footer p{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:rgba(232,228,220,.2);letter-spacing:.5px;line-height:2;
 }
+footer a{color:#c2a44a;text-decoration:none}
 
-/* Nav mobile toggle */
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.nav-toggle span { display: block; width: 18px; height: 1px; background: var(--text-secondary); margin: 4px 0; transition: all 0.3s; }
-@media (max-width: 768px) {
-  .nav-toggle { display: block; }
-  .nav-links.open {
-    display: flex; flex-direction: column; position: absolute;
-    top: 64px; left: 0; right: 0; background: rgba(6, 8, 12, 0.97);
-    padding: 24px 48px; gap: 16px; border-bottom: 1px solid var(--border);
-  }
+/* ── MODAL ── */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(6,8,12,.8);backdrop-filter:blur(20px);
+  justify-content:center;align-items:center;
+}
+.overlay.on{display:flex}
+.modal{
+  background:#0c0e14;border:1px solid rgba(194,164,74,.1);
+  max-width:640px;width:92%;max-height:85vh;overflow-y:auto;
+  padding:52px;position:relative;
+}
+.modal-x{
+  position:absolute;top:24px;right:24px;background:none;border:none;
+  color:rgba(232,228,220,.3);font-size:18px;cursor:pointer;
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  transition:color .2s;
+}
+.modal-x:hover{color:#c2a44a}
+.modal h2{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:28px;font-weight:500;margin-bottom:8px;
+}
+.modal-sub{font-size:13px;color:rgba(232,228,220,.35);margin-bottom:32px}
+.modal-block{margin-bottom:24px}
+.modal-block-label{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:2.5px;text-transform:uppercase;color:#c2a44a;margin-bottom:10px;
+}
+.modal-block p{font-size:14px;color:rgba(232,228,220,.55);line-height:1.9}
+.modal-btns{display:flex;gap:12px;margin-top:32px}
+.mbtn{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:14px 28px;cursor:pointer;transition:all .3s;border:none;
+}
+.mbtn-gold{background:#c2a44a;color:#06080c}
+.mbtn-gold:hover{background:#d4b85a}
+.mbtn-ghost{background:transparent;border:1px solid rgba(194,164,74,.25);color:#c2a44a}
+.mbtn-ghost:hover{background:rgba(194,164,74,.08)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav,.s,.conf-banner,footer{padding-left:28px;padding-right:28px}
+  .hero{padding:120px 28px 80px}
+  .fund-row,.portfolio-grid{grid-template-columns:1fr}
+  .fund,.p-card{padding:36px 28px}
+  .hero h1{letter-spacing:0}
 }
 </style>
 </head>
 <body>
-
 <div class="ambient"></div>
-
-<!-- Navigation -->
-<nav id="navbar">
-  <div class="nav-brand">Dark Horse</div>
-  <div class="nav-links" id="navLinks">
-    <a href="#platform" data-section="platform">Platform</a>
-    <a href="#draft-horse" data-section="draft-horse">Fund I</a>
-    <a href="#quarter-horse" data-section="quarter-horse">Fund II</a>
-    <a href="#team" data-section="team">Team</a>
-    <a href="#portfolio" data-section="portfolio">Portfolio</a>
-    <a href="#reference" data-section="reference">Reference</a>
-    <a href="#legal" data-section="legal">Legal</a>
-  </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- Content -->
 <div class="content">
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-eyebrow">Investor Data Room</div>
-    <h1 class="hero-title">Private Credit<br><em>Fund Family</em></h1>
-    <p class="hero-subtitle">Institutional Offering Materials</p>
-    <div class="hero-pills">
-      <span class="pill">Two Funds</span>
-      <span class="pill">Five Verticals</span>
-      <span class="pill">Zero Management &amp; Performance Fees</span>
-      <span class="pill">Texas Governing Law</span>
-      <span class="pill">Regulation D</span>
-    </div>
-    <div class="hero-meta">Dark Horse Wealth Management LLC &middot; Confidential &middot; April 2026</div>
-  </section>
-
-  <!-- Confidentiality Notice -->
-  <div class="confidentiality">
-    <div class="confidentiality-text">
-      <strong>Strictly Confidential.</strong> This data room contains offering materials for the Dark Horse fund family — two distinct private credit vehicles managed under the Dark Horse Wealth Management platform. All materials are strictly confidential and intended solely for Qualified Recipients, as defined in the applicable confidentiality and non-disclosure agreement. By accessing any document herein, you acknowledge that you are a Qualified Recipient, agree to maintain strict confidentiality, and agree not to reproduce, distribute, or disclose any portion without prior written consent.
-    </div>
+<nav id="nav">
+  <div class="nav-brand">Dark Horse Wealth Management</div>
+  <div class="nav-links">
+    <a href="#funds" class="active">Funds</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#reference">Reference</a>
+    <a href="#corinthian">Corinthian</a>
+    <a href="#legal">Legal</a>
   </div>
+  <div class="nav-meta">Confidential &middot; April 2026</div>
+</nav>
 
-  <!-- Platform Introduction -->
-  <section class="section" id="platform">
-    <div class="section-label">The Platform</div>
-    <h2 class="section-title">Principal-Aligned Investment Platform</h2>
-    <div class="section-body">
-      Dark Horse Wealth Management LLC is the institutional investment platform of a single-family office. Built on the principle that exceptional returns come from conviction-driven investing in tangible assets — not from fee extraction — the platform manages a diversified portfolio across five distinct verticals with a zero-fee structure designed to maximize principal alignment. The platform operates two complementary fund vehicles, each drawing from the same proprietary deal pipeline. No management fees. No performance fees. Full principal alignment through GP ownership of underlying assets and significant capital commitment to fund collateral.
-    </div>
-    <div class="verticals-line">
-      <span>Private Credit</span> &middot; <span>Aviation</span> &middot; <span>Mining &amp; Metals</span> &middot; <span>Art-Backed Securities</span> &middot; <span>Real Estate</span> &middot; <span>Custom Allocations</span>
-    </div>
-  </section>
+<section class="hero">
+  <div class="hero-eyebrow">Investor Data Room</div>
+  <h1>Private Credit<br><em>Fund Family</em></h1>
+  <div class="hero-sub">Institutional offering materials for qualified investors. Two funds, six verticals, zero fees.</div>
+  <div class="hero-pills">
+    <div class="pill">Multi-Strategy</div>
+    <div class="pill">Deal-by-Deal</div>
+    <div class="pill">Zero Fees</div>
+    <div class="pill">Regulation D</div>
+    <div class="pill">Texas Law</div>
+  </div>
+  <div class="scroll-hint"><span></span><p>Scroll</p></div>
+</section>
 
-  <!-- Fund I: Draft Horse -->
-  <section class="section" id="draft-horse">
-    <div class="section-label">Fund I</div>
-    <h2 class="section-title">Draft Horse Capital Partners LLC</h2>
-    <div class="section-subtitle">Texas LLC &middot; Reg D 506(c) &middot; Section 3(c)(1)</div>
-    <div class="section-body">
-      Diversified private credit across aviation, mining, art-backed bonds, real estate, and custom institutional allocations. Designed for sovereign wealth funds, family offices, institutional banks, and accredited investors seeking uncorrelated alternative exposure through a single vehicle with zero fee drag.
-    </div>
+<section class="s reveal" id="funds">
+  <div class="s-label">Fund Vehicles</div>
+  <div class="s-title">Two funds. One platform.</div>
+  <div class="s-desc">Each fund draws from the same proprietary deal pipeline across six tangible-asset verticals. No management fees. No performance fees. Full GP alignment through principal commitmentment.</div>
+</section>
 
-    <div class="stats-grid">
-      <div>
-        <div class="stat-value">$200K</div>
-        <div class="stat-label">Minimum Investment</div>
-      </div>
-      <div>
-        <div class="stat-value">Multi-Strategy</div>
-        <div class="stat-label">Approach</div>
-      </div>
-      <div>
-        <div class="stat-value">506(c)</div>
-        <div class="stat-label">Regulatory Exemption</div>
-      </div>
-      <div>
-        <div class="stat-value">Zero</div>
-        <div class="stat-label">Mgmt &amp; Perf Fees</div>
-      </div>
+<div class="fund-row reveal">
+  <div class="fund">
+    <div class="fund-label">Multi-Strategy Fund</div>
+    <h3>Draft Horse Capital Partners LLC</h3>
+    <div class="fund-desc">Diversified private credit across aviation, mining, art-backed bonds, real estate, e-commerce lending, and custom institutional allocations.</div>
+    <div class="fund-meta">
+      <div class="fund-meta-item"><div class="fund-meta-val">$200K</div><div class="fund-meta-key">Minimum</div></div>
+      <div class="fund-meta-item"><div class="fund-meta-val">Multi-Strategy</div><div class="fund-meta-key">Approach</div></div>
+      <div class="fund-meta-item"><div class="fund-meta-val">506(c)</div><div class="fund-meta-key">Exemption</div></div>
     </div>
-
-    <div class="doc-list">
-      <div class="doc-row" onclick="openModal('dh-dataroom')">
-        <div class="doc-info">
-          <div class="doc-title">Institutional Data Room</div>
-          <div class="doc-desc">Complete institutional disclosure package covering fund structure, investment mandate, collateral framework, terms, and full diligence documentation.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('dh-pitch')">
-        <div class="doc-info">
-          <div class="doc-title">Pitch Deck</div>
-          <div class="doc-desc">12-slide institutional investor presentation covering mandate, verticals, yield structure, and fund team.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('dh-termsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Term Sheet</div>
-          <div class="doc-desc">Formal indicative term sheet detailing all material investment terms, distribution mechanics, fund governance, and service providers.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('dh-tearsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Tear Sheet</div>
-          <div class="doc-desc">Single-page print-ready summary of key fund terms and strategy highlights for initial outreach and leave-behind distribution.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('dh-teaser')">
-        <div class="doc-info">
-          <div class="doc-title">Investor Teaser</div>
-          <div class="doc-desc">Concise outreach piece highlighting strategy, return profile, and minimum commitment for initial investor contact.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
+    <div class="doc-row" onclick="pop('dh-dr')"><div><div class="doc-title">Institutional Data Room</div><div class="doc-sub">Full diligence package</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('dh-pd')"><div><div class="doc-title">Pitch Deck</div><div class="doc-sub">Executive overview</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('dh-ts')"><div><div class="doc-title">Term Sheet</div><div class="doc-sub">Key terms and structure</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('dh-tear')"><div><div class="doc-title">Tear Sheet</div><div class="doc-sub">One-page summary</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('dh-tease')"><div><div class="doc-title">Investor Teaser</div><div class="doc-sub">Introduction to the fund</div></div><div class="doc-arrow">View &rarr;</div></div>
+  </div>
+  <div class="fund">
+    <div class="fund-label">Deal-by-Deal Fund</div>
+    <h3>Quarter Horse Capital Partners LLC</h3>
+    <div class="fund-desc">Single-deal fixed-rate lending access. Evaluate and commit to individual opportunities across the Dark Horse platform on a deal-by-deal basis.</div>
+    <div class="fund-meta">
+      <div class="fund-meta-item"><div class="fund-meta-val">$50K</div><div class="fund-meta-key">Minimum</div></div>
+      <div class="fund-meta-item"><div class="fund-meta-val">Deal-by-Deal</div><div class="fund-meta-key">Approach</div></div>
+      <div class="fund-meta-item"><div class="fund-meta-val">506(b)</div><div class="fund-meta-key">Exemption</div></div>
     </div>
-  </section>
+    <div class="doc-row" onclick="pop('qh-dr')"><div><div class="doc-title">Institutional Data Room</div><div class="doc-sub">Full diligence package</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('qh-pd')"><div><div class="doc-title">Pitch Deck</div><div class="doc-sub">Executive overview</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('qh-ts')"><div><div class="doc-title">Term Sheet</div><div class="doc-sub">Key terms and structure</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('qh-tear')"><div><div class="doc-title">Tear Sheet</div><div class="doc-sub">One-page summary</div></div><div class="doc-arrow">View &rarr;</div></div>
+    <div class="doc-row" onclick="pop('qh-tease')"><div><div class="doc-title">Investor Teaser</div><div class="doc-sub">Introduction to the fund</div></div><div class="doc-arrow">View &rarr;</div></div>
+  </div>
+</div>
 
-  <!-- Fund II: Quarter Horse -->
-  <section class="section" id="quarter-horse">
-    <div class="section-label">Fund II</div>
-    <h2 class="section-title">Quarter Horse Capital Partners LLC</h2>
-    <div class="section-subtitle">Texas LLC &middot; Reg D 506(b) &middot; Section 3(c)(1)</div>
-    <div class="section-body">
-      Deal-by-deal private debt fund offering investors fixed-rate returns across individual lending opportunities on the Dark Horse platform. Each note carries its own terms, duration, and contractual interest rate. 100% GP-controlled — investors participate as noteholders receiving fixed contractual interest. Zero fees and expedited capital deployment. Designed for select investors with pre-existing relationships seeking concentrated exposure to individual opportunities.
+<section class="s reveal" id="portfolio">
+  <div class="s-label">Portfolio Companies</div>
+  <div class="s-title">Dedicated operating entities.</div>
+  <div class="s-desc">Each vertical is accessed through a purpose-built entity with domain-specific focus. Funds deploy capital into these companies as portfolio investments.</div>
+</section>
+
+<div class="portfolio-grid reveal">
+  <div class="p-card">
+    <div class="p-card-name">Pegasus Capital Partners</div>
+    <div class="p-card-desc">Aircraft acquisition, leasing, and asset management across commercial and private aviation markets.</div>
+    <div class="p-card-status planned">Planned</div>
+  </div>
+  <div class="p-card">
+    <div class="p-card-name">Stateside Resources</div>
+    <div class="p-card-desc">Direct investments in mining, metals, and energy. Current holding: 8% ownership in Field Futures Texas silver mine.</div>
+    <div class="p-card-status active">Active</div>
+  </div>
+  <div class="p-card">
+    <div class="p-card-name">Art Bond SPV</div>
+    <div class="p-card-desc">Fixed-income instruments collateralized by authenticated fine art collections. $100M target issuance.</div>
+    <div class="p-card-status planned">Planned</div>
+  </div>
+  <div class="p-card">
+    <div class="p-card-name">Dark Horse RE Holdings</div>
+    <div class="p-card-desc">Strategic equity in select real estate ventures with cash flow and long-term appreciation potential.</div>
+    <div class="p-card-status planned">Planned</div>
+  </div>
+</div>
+
+
+<section class="s reveal" id="corinthian">
+  <div class="s-label">Established Fund</div>
+  <div class="s-title">Corinthian Capital Fund LLC</div>
+  <div class="s-desc" style="max-width:640px">Operational proof-of-concept vehicle validating the Dark Horse private debt thesis at institutional scale. <a href="corinthian.html" style="color:#c2a44a;text-decoration:none">Access dedicated data room &rarr;</a></div>
+  <div style="background:rgba(255,255,255,.02);padding:48px 40px;margin-top:8px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c2a44a;margin-bottom:16px">Predecessor to Draft Horse</div>
+    <div style="font-size:15px;color:rgba(232,228,220,.55);line-height:1.9;margin-bottom:28px">Corinthian Capital Fund LLC demonstrates the Dark Horse private debt thesis at institutional scale. Managed by Corinthian Capital Partners LLC, the fund offers investors a fixed contractual return of 2% per month (24% per annum) through senior secured lending. Jointly managed by Dark Horse Wealth Management LLC (75%) and Atlas Wealth Management (25%). Audited 2025 financial statements available upon request.</div>
+    <div style="display:flex;gap:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:28px">
+      <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">2%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Monthly Fixed</div></div>
+      <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">24%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Annual Return</div></div>
+      <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">506(b)</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Exemption</div></div>
+      <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500;color:#6a9a6a">Operational</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Status</div></div>
     </div>
+    <a href="corinthian.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c2a44a;text-decoration:none;padding:14px 28px;border:1px solid rgba(194,164,74,.25);transition:all .3s ease">Access Corinthian Capital Data Room &rarr;</a>
+  </div>
+</section>
 
-    <div class="stats-grid">
-      <div>
-        <div class="stat-value">$50K</div>
-        <div class="stat-label">Minimum Investment</div>
-      </div>
-      <div>
-        <div class="stat-value">Deal-by-Deal</div>
-        <div class="stat-label">Approach</div>
-      </div>
-      <div>
-        <div class="stat-value">506(b)</div>
-        <div class="stat-label">Regulatory Exemption</div>
-      </div>
-      <div>
-        <div class="stat-value">Zero</div>
-        <div class="stat-label">Mgmt &amp; Perf Fees</div>
-      </div>
-    </div>
+<section class="s reveal" id="reference">
+  <div class="s-label">Reference Materials</div>
+  <div class="s-title">Platform documentation.</div>
+  <div class="ref-row" onclick="pop('ffo')"><div><div class="ref-title">Fund Family Overview</div><div class="ref-sub">Side-by-side comparison of Draft Horse and Quarter Horse</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('plat')"><div><div class="ref-title">Platform Overview</div><div class="ref-sub">Dark Horse Wealth Management story, team, and investment process</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('faq')"><div><div class="ref-title">Investor FAQ</div><div class="ref-sub">50 institutional questions answered</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('org')"><div><div class="ref-title">Organizational Structure</div><div class="ref-sub">Entity hierarchy, governance, and key relationships</div></div><div class="doc-arrow">View &rarr;</div></div>
+</section>
 
-    <div class="doc-list">
-      <div class="doc-row" onclick="openModal('qh-dataroom')">
-        <div class="doc-info">
-          <div class="doc-title">Institutional Data Room</div>
-          <div class="doc-desc">Complete institutional disclosure package covering fund structure, note structure, deal sourcing, and full diligence documentation.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-pitch')">
-        <div class="doc-info">
-          <div class="doc-title">Pitch Deck</div>
-          <div class="doc-desc">Institutional investor presentation covering deal-by-deal lending approach, note structure, and platform capabilities.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-termsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Term Sheet</div>
-          <div class="doc-desc">Indicative term sheet detailing deal-by-deal investment terms, note mechanics, governance, and service providers.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-tearsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Tear Sheet</div>
-          <div class="doc-desc">Single-page summary of the deal-by-deal lending fund for initial outreach and leave-behind distribution.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-teaser')">
-        <div class="doc-info">
-          <div class="doc-title">Investor Teaser</div>
-          <div class="doc-desc">Concise outreach piece highlighting lending approach, fixed-rate return profile, and minimum commitment.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-    </div>
-  </section>
+<section class="s reveal" id="legal">
+  <div class="s-label">Legal &amp; Compliance</div>
+  <div class="s-title">Regulatory disclosures.</div>
+  <div class="ref-row" onclick="pop('506c')"><div><div class="ref-title">Reg D 506(c) Disclosure</div><div class="ref-sub">Draft Horse Capital Partners</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('506b')"><div><div class="ref-title">Reg D 506(b) Disclosure</div><div class="ref-sub">Quarter Horse Capital Partners</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('risk')"><div><div class="ref-title">General Risk Disclosures</div><div class="ref-sub">Material risks applicable to all fund vehicles</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="pop('nda')"><div><div class="ref-title">Confidentiality Agreement</div><div class="ref-sub">Terms governing access to this data room</div></div><div class="doc-arrow">View &rarr;</div></div>
+</section>
 
-  <!-- Team -->
-  
-  <section class="section" id="corinthian">
-    <div class="section-label">Established Fund</div>
-    <h2 class="section-title">Corinthian Capital Fund LLC</h2>
-    <p class="section-body" style="max-width:640px">Proof-of-concept vehicle with an operational track record, validating the Dark Horse private debt thesis at institutional scale.</p>
-    <div style="background:rgba(255,255,255,.02);padding:48px 40px;margin-top:32px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Operational Predecessor to Draft Horse</div>
-      <p style="font-size:15px;color:var(--text-dim);line-height:1.9;margin-bottom:28px">Corinthian Capital Fund LLC demonstrates the Dark Horse private debt thesis at institutional scale. Managed by Corinthian Capital Partners LLC under the Dark Horse Wealth Management platform, the fund offers investors a fixed contractual return of 2% per month (24% per annum) through senior secured lending. Jointly managed by Dark Horse Wealth Management LLC (75%) and Atlas Wealth Management (25%). Audited 2025 financial statements and performance data are available upon request.</p>
-      <div style="display:flex;gap:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:28px">
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">2%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Monthly Fixed</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">24%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Annual Return</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">506(b)</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Exemption</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500;color:#6a9a6a">Operational</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Status</div></div>
-      </div>
-      <a href="corinthian.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px 28px;border:1px solid rgba(194,164,74,.25);transition:all .3s ease">Access Corinthian Capital Data Room</a>
-    </div>
-  </section>
+<div class="conf-banner reveal">
+  <div class="conf-label">Strictly Confidential</div>
+  <div class="conf-text">This data room and all materials contained herein are provided exclusively to qualified recipients under applicable securities exemptions. Reproduction, distribution, or disclosure of any contents without the prior written consent of Dark Horse Wealth Management LLC is strictly prohibited. This is not an offer to sell or a solicitation of an offer to buy any securities.</div>
+</div>
 
-  <section class="section" id="team">
-    <div class="section-label">Leadership</div>
-    <h2 class="section-title">Team</h2>
-    <div class="section-body team-bio">
-      <strong class="team-name">Caleb Caraway</strong> &mdash; Managing Principal. Multi-asset investment professional with experience spanning private credit, aviation finance, natural resources, and alternative asset management. Oversees all investment decisions, portfolio company operations, and investor relations across the Dark Horse fund family.
-    </div>
-    <div class="team-cap-intro">
-      <div class="section-body team-cap-intro-body">
-        <span class="team-cap-intro-label">Capital Introduction</span>
-        Sovereign wealth funds, family offices (via Family Office Insights), institutional banking, and broker-dealer networks.
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio Companies -->
-  <section class="section" id="portfolio">
-    <div class="section-label">Operating Entities</div>
-    <h2 class="section-title">Dedicated <em>verticals.</em></h2>
-    <div class="section-body">
-      Each investment vertical is accessed through a purpose-built operating entity with domain-specific expertise. Both funds deploy capital into these companies as portfolio investments, maintaining liability isolation and operational focus across the platform.
-    </div>
-
-    <div class="portfolio-grid">
-      <div class="portfolio-card">
-        <div class="portfolio-card-name">Pegasus Capital Partners LLC</div>
-        <div class="portfolio-card-vertical">Aviation</div>
-        <div class="portfolio-card-desc">Aircraft acquisition, leasing, and asset management across commercial and private aviation markets.</div>
-        <div class="portfolio-card-status status-planned">Planned</div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-card-name">Stateside Resources LLC</div>
-        <div class="portfolio-card-vertical">Mining, Metals &amp; Energy</div>
-        <div class="portfolio-card-desc">Direct investments in natural resource assets. Current activities include secured positions collateralized by natural resource assets including an interest in Field Futures Texas, a silver mining operation.</div>
-        <div class="portfolio-card-status status-active">Active</div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-card-name">Art Bond SPV</div>
-        <div class="portfolio-card-vertical">Art-Backed Securities</div>
-        <div class="portfolio-card-desc">Fixed-income instruments collateralized by authenticated fine art collections. $100M target issuance.</div>
-        <div class="portfolio-card-status status-planned">Planned</div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-card-name">Dark Horse RE Holdings LLC</div>
-        <div class="portfolio-card-vertical">Real Estate</div>
-        <div class="portfolio-card-desc">Strategic debt positions in select real estate ventures with contractual cash flow characteristics.</div>
-        <div class="portfolio-card-status status-planned">Planned</div>
-      </div>
-    </div>
-  </section>
-
-    <!-- Cross-Fund Materials -->
-  <section class="section" id="reference">
-    <div class="section-label">Reference Materials</div>
-    <h2 class="section-title">Platform documentation.</h2>
-    <div class="section-body">
-      Platform-level documentation applicable across both fund vehicles.
-    </div>
-
-    <div class="doc-list">
-      <div class="doc-row" onclick="openModal('ref-overview')">
-        <div class="doc-info">
-          <div class="doc-title">Fund Family Overview</div>
-          <div class="doc-desc">Side-by-side institutional comparison of both funds — strategy, minimum, structure, and eligibility.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('ref-platform')">
-        <div class="doc-info">
-          <div class="doc-title">Platform Overview</div>
-          <div class="doc-desc">The Dark Horse Wealth Management story, team, investment process, and organizational structure.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('ref-faq')">
-        <div class="doc-info">
-          <div class="doc-title">Investor FAQ</div>
-          <div class="doc-desc">Comprehensive 50-question FAQ covering fund structure, legal framework, distribution mechanics, regulatory compliance, tax treatment, and platform governance.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('ref-org')">
-        <div class="doc-info">
-          <div class="doc-title">Organizational Structure</div>
-          <div class="doc-desc">Entity hierarchy, governance, and key relationships including Dark Horse Advisers LLC (RIA).</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Legal & Compliance -->
-  <section class="section" id="legal">
-    <div class="section-label">Legal &amp; Compliance</div>
-    <h2 class="section-title">Regulatory disclosures.</h2>
-
-    <div class="doc-list" style="margin-bottom:64px;">
-      <div class="doc-row" onclick="openModal('legal-506c')">
-        <div class="doc-info">
-          <div class="doc-title">Reg D 506(c) Disclosure</div>
-          <div class="doc-desc">Draft Horse Capital Partners</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('legal-506b')">
-        <div class="doc-info">
-          <div class="doc-title">Reg D 506(b) Disclosure</div>
-          <div class="doc-desc">Quarter Horse Capital Partners</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('legal-risk')">
-        <div class="doc-info">
-          <div class="doc-title">General Risk Disclosures</div>
-          <div class="doc-desc">Material risks applicable to all fund vehicles.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('legal-conf')">
-        <div class="doc-info">
-          <div class="doc-title">Confidentiality Agreement</div>
-          <div class="doc-desc">Terms governing access to this data room.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-    </div>
-
-    <!-- Legal Notices -->
-    <div class="legal-notice">
-      <div class="legal-notice-label">Draft Horse Capital Partners LLC</div>
-      <div class="legal-notice-text">
-        Draft Horse Capital Partners LLC is a Texas limited liability company managed by Draft Horse Wealth Management LLC (a wholly-owned subsidiary of Dark Horse Wealth Management LLC). Securities are offered pursuant to Regulation D, Rule 506(c) under the Securities Act of 1933. The fund relies on the exemption from registration under Section 3(c)(1) of the Investment Company Act of 1940 and is limited to no more than 100 beneficial owners. This offering is available exclusively to verified accredited investors. All materials are indicative only and subject to the definitive Private Placement Memorandum. Stated targets are not guaranteed returns. Principal is subject to loss.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">Quarter Horse Capital Partners LLC</div>
-      <div class="legal-notice-text">
-        Quarter Horse Capital Partners LLC is a Texas limited liability company managed by Dark Horse Wealth Management LLC. Securities are offered pursuant to Regulation D, Rule 506(b). The fund relies on Section 3(c)(1) exemption and is limited to no more than 100 beneficial owners. Pre-existing substantive relationship required. Up to 35 sophisticated non-accredited investors may participate. No general solicitation. Stated contractual rates are targets and are not guaranteed returns. All investments involve risk including possible loss of principal.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">General Disclosure</div>
-      <div class="legal-notice-text">
-        Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Past performance is not indicative of future results. Prospective investors should review all offering documents and consult their own advisors before investing. Securities offered herein have not been and will not be registered under the Securities Act of 1933 or any state securities laws.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">AML/KYC</div>
-      <div class="legal-notice-text">
-        All investors are subject to anti-money laundering and know-your-customer verification procedures as required by applicable law.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">Forward-Looking Statements</div>
-      <div class="legal-notice-text">
-        This data room contains forward-looking statements within the meaning of the Private Securities Litigation Reform Act of 1995. These statements are based on current expectations, estimates, forecasts, and projections about the industries in which we operate and the beliefs and assumptions of our management. Words such as "expects," "anticipates," "targets," "goals," "projects," "intends," "plans," "believes," "seeks," "estimates," variations of such words, and similar expressions are intended to identify such forward-looking statements. These forward-looking statements are only predictions and are subject to risks, uncertainties, and assumptions that are difficult to predict. Therefore, actual results may differ materially and adversely from those expressed in any forward-looking statements. Factors that might cause or contribute to such differences include, but are not limited to, those discussed in the risk disclosures provided herein. We undertake no obligation to revise or update publicly any forward-looking statements for any reason.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">Service Providers</div>
-      <div class="legal-notice-text">
-        <strong style="color:var(--text-secondary);">Legal Counsel:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Fund Administrator:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Auditor:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Custodian:</strong> TBD
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-copy">&copy; 2026 Dark Horse Wealth Management LLC &middot; All Rights Reserved &middot; Strictly Confidential</div>
-    <a href="mailto:caleb@darkhorse-ventures.com" class="footer-email">caleb@darkhorse-ventures.com</a>
-  </footer>
+<footer>
+  <p>&copy; 2026 Dark Horse Wealth Management LLC &middot; All Rights Reserved</p>
+  <p>Strictly Confidential &middot; Not for Public Distribution</p>
+  <p style="margin-top:16px"><a href="mailto:caleb@darkhorse-ventures.com">caleb@darkhorse-ventures.com</a></p>
+</footer>
 
 </div>
 
-<!-- Modal Overlay -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div class="modal-label" id="modalLabel"></div>
-    <div class="modal-title" id="modalTitle"></div>
-    <div class="modal-fund" id="modalFund"></div>
-    <div class="modal-desc" id="modalDesc"></div>
-    <div class="modal-access-note" style="font-size:12px;color:var(--text-dim);margin-bottom:24px;line-height:1.7;border-top:1px solid var(--border);padding-top:20px;">Documents are available upon completion of applicable investor qualification and execution of subscription documents.</div>
-    <div class="modal-actions">
-      <a class="modal-btn modal-btn-primary" id="modalRequestBtn" href="#">Request Access</a>
-      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
-    </div>
+<div class="overlay" id="ov" onclick="if(event.target===this)shut()">
+  <div class="modal">
+    <button class="modal-x" onclick="shut()">&times;</button>
+    <div id="mb"></div>
   </div>
 </div>
 
 <script>
-// Modal data
-const docs = {
-  // Draft Horse documents
-  'dh-dataroom': {
-    label: 'Fund I Document',
-    title: 'Institutional Data Room',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: 'Complete institutional disclosure package covering fund structure, investment mandate, collateral framework, terms, and full diligence documentation. This package is designed for institutional allocators and includes all materials necessary to complete a preliminary investment review.'
-  },
-  'dh-pitch': {
-    label: 'Fund I Document',
-    title: 'Pitch Deck',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: '12-slide institutional investor presentation covering the fund mandate, investment verticals, yield structure, risk framework, and fund team. Formatted for boardroom presentation and leave-behind distribution.'
-  },
-  'dh-termsheet': {
-    label: 'Fund I Document',
-    title: 'Term Sheet',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: 'Formal indicative term sheet detailing all material investment terms including minimum commitment, distribution mechanics, fund governance, key person provisions, and service providers. Subject to definitive PPM.'
-  },
-  'dh-tearsheet': {
-    label: 'Fund I Document',
-    title: 'Tear Sheet',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: 'Single-page print-ready summary of key fund terms and strategy highlights. Designed for initial outreach, conference distribution, and leave-behind materials in investor meetings.'
-  },
-  'dh-teaser': {
-    label: 'Fund I Document',
-    title: 'Investor Teaser',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: 'Concise outreach piece highlighting strategy overview, target return profile, minimum commitment, and fund differentiation for initial investor contact and qualification conversations.'
-  },
-  // Quarter Horse documents
-  'qh-dataroom': {
-    label: 'Fund II Document',
-    title: 'Institutional Data Room',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Complete institutional disclosure package covering fund structure, note structure, deal sourcing methodology, and full diligence documentation. Tailored for investors evaluating individual lending opportunities.'
-  },
-  'qh-pitch': {
-    label: 'Fund II Document',
-    title: 'Pitch Deck',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Institutional investor presentation covering the deal-by-deal lending approach, platform capabilities, historical deal flow, and team expertise. Formatted for direct investor conversations.'
-  },
-  'qh-termsheet': {
-    label: 'Fund II Document',
-    title: 'Term Sheet',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Indicative term sheet detailing deal-by-deal investment terms, note mechanics, governance structure, and service providers. Individual deal terms are specified per investment opportunity.'
-  },
-  'qh-tearsheet': {
-    label: 'Fund II Document',
-    title: 'Tear Sheet',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Single-page summary of the deal-by-deal lending fund designed for initial outreach and leave-behind distribution to prospective investors.'
-  },
-  'qh-teaser': {
-    label: 'Fund II Document',
-    title: 'Investor Teaser',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Concise outreach piece highlighting the deal-by-deal lending approach, minimum commitment, fixed-rate return characteristics, and qualification requirements for initial investor contact.'
-  },
-  // Reference documents
-  'ref-overview': {
-    label: 'Reference Material',
-    title: 'Fund Family Overview',
-    fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Side-by-side institutional comparison of both fund vehicles — Draft Horse (multi-strategy) and Quarter Horse (deal-by-deal lending) — covering strategy, minimums, structure, regulatory framework, and investor eligibility.'
-  },
-  'ref-platform': {
-    label: 'Reference Material',
-    title: 'Platform Overview',
-    fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Comprehensive overview of the Dark Horse Wealth Management platform including background, team biographies, investment process, organizational structure, and the zero-fee philosophy that underpins all fund operations.'
-  },
-  'ref-faq': {
-    label: 'Reference Material',
-    title: 'Investor FAQ',
-    fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Comprehensive 50-question FAQ covering fund structure, legal framework, distribution mechanics, regulatory compliance, tax treatment, platform governance, and frequently asked questions from institutional allocators.'
-  },
-  'ref-org': {
-    label: 'Reference Material',
-    title: 'Organizational Structure',
-    fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Detailed entity hierarchy showing the relationship between Dark Horse Wealth Management LLC, both fund vehicles, operating entities, and Dark Horse Advisers LLC (registered investment adviser). Includes governance framework and key personnel.'
-  },
-  // Legal documents
-  'legal-506c': {
-    label: 'Legal Document',
-    title: 'Reg D 506(c) Disclosure',
-    fund: 'Draft Horse Capital Partners LLC',
-    desc: 'Full regulatory disclosure for Draft Horse Capital Partners LLC under Rule 506(c) of Regulation D. Covers accredited investor verification requirements, general solicitation provisions, and SEC filing obligations.'
-  },
-  'legal-506b': {
-    label: 'Legal Document',
-    title: 'Reg D 506(b) Disclosure',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Full regulatory disclosure for Quarter Horse Capital Partners LLC under Rule 506(b) of Regulation D. Covers pre-existing relationship requirements, prohibition on general solicitation, and provisions for sophisticated non-accredited investors.'
-  },
-  'legal-risk': {
-    label: 'Legal Document',
-    title: 'General Risk Disclosures',
-    fund: 'All Fund Vehicles',
-    desc: 'Comprehensive risk disclosure document covering material risks applicable to all Dark Horse fund vehicles including market risk, credit risk, liquidity risk, concentration risk, and risks specific to each investment vertical.'
-  },
-  'legal-conf': {
-    label: 'Legal Document',
-    title: 'Confidentiality Agreement',
-    fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Terms and conditions governing access to this data room. Defines Qualified Recipients, confidentiality obligations, permitted use, and consequences of unauthorized disclosure.'
-  }
+const D={
+'dh-dr':{t:'Draft Horse Capital Partners',s:'Institutional Data Room',b:[{l:'Scope',p:'Comprehensive institutional disclosure package covering fund structure, multi-strategy investment thesis across six verticals, governance framework, risk factors, and regulatory compliance under Reg D 506(c). Designed for institutional due diligence processes.'},{l:'Contents',p:'Executive summary, investment thesis, portfolio company details (Pegasus Capital Partners, Stateside Resources, Art Bond SPV, Dark Horse RE Holdings), fund terms, management team bios, capital introduction channels, legal disclosures, and subscription documentation.'}]},
+'dh-pd':{t:'Draft Horse Capital Partners',s:'Pitch Deck — 12 Slides',b:[{l:'Overview',p:'Institutional investor presentation covering the Dark Horse investment thesis, platform structure, six investment verticals with strategy details, current portfolio holdings, zero-fee economics, risk management framework, team, and capital channels.'}]},
+'dh-ts':{t:'Draft Horse Capital Partners',s:'Term Sheet',b:[{l:'Key Terms',p:'Multi-strategy fund structured under Reg D 506(c). $200,000 minimum investment. Zero management fees. Zero performance fees. GP principal commitments significant personal capital alongside limited partners. Custom allocation sleeves available for sovereign wealth funds and large institutional allocators. 36-month fund term with possible extensions.'}]},
+'dh-tear':{t:'Draft Horse Capital Partners',s:'Tear Sheet — One Page',b:[{l:'Overview',p:'Print-ready single-page executive summary. Strategy overview, six investment verticals, fund terms at a glance, key differentiators, and contact information. Designed as a leave-behind for investor meetings.'}]},
+'dh-tease':{t:'Draft Horse Capital Partners',s:'Investor Teaser',b:[{l:'Overview',p:'Two-page introduction for prospective investors. Covers the investment thesis, multi-strategy approach across six tangible-asset verticals, zero-fee structure, GP alignment through principal commitmentment, and the Dark Horse Wealth Management platform.'}]},
+'qh-dr':{t:'Quarter Horse Capital Partners',s:'Institutional Data Room',b:[{l:'Scope',p:'Full institutional disclosure package for the deal-by-deal fund. Covers fund structure, investment strategy (private credit, art acquisition financing, opportunistic PE, principal commitmentments alongside Draft Horse), governance, risk factors, and compliance under Reg D 506(b).'},{l:'Key Difference',p:'Quarter Horse operates on a deal-by-deal basis where each investment has its own terms, duration, and return profile. 100% GP-owned. $50,000 minimum. Pre-existing relationship required.'}]},
+'qh-pd':{t:'Quarter Horse Capital Partners',s:'Pitch Deck',b:[{l:'Overview',p:'Presentation covering the deal-by-deal investment model, zero-fee structure, 100% GP ownership, investment strategies, relationship to the broader Dark Horse platform, and current deal pipeline.'}]},
+'qh-ts':{t:'Quarter Horse Capital Partners',s:'Term Sheet',b:[{l:'Key Terms',p:'Deal-by-deal private debt and equity fund under Reg D 506(b). $50,000 minimum. Zero fees. 100% GP-owned. Each deal has independent terms, returns, and duration. Quick deployment capability. Pre-existing substantive relationship required. Up to 35 sophisticated non-accredited investors permitted.'}]},
+'qh-tear':{t:'Quarter Horse Capital Partners',s:'Tear Sheet — One Page',b:[{l:'Overview',p:'Print-ready single-page summary. Deal-by-deal structure, $50K minimum, zero fees, 100% GP-owned, investment strategies, and contact information.'}]},
+'qh-tease':{t:'Quarter Horse Capital Partners',s:'Investor Teaser',b:[{l:'Overview',p:'Two-page introduction for prospective principal commitmentors. Covers the deal-by-deal model, zero-fee structure, GP ownership, investment flexibility, and relationship to the Dark Horse platform.'}]},
+'ffo':{t:'Fund Family Overview',s:'Side-by-side comparison',b:[{l:'Two Funds, One Platform',p:'Draft Horse Capital Partners is the flagship multi-strategy vehicle offering diversified exposure across all six verticals with custom allocation sleeves. Quarter Horse Capital Partners is a concentrated deal-by-deal vehicle for rapid deployment into specific opportunities. Both share the same deal pipeline and zero-fee structure.'}]},
+'plat':{t:'Platform Overview',s:'Dark Horse Wealth Management',b:[{l:'The Platform',p:'Dark Horse Wealth Management LLC is the institutional investment platform of the Caraway family office. The platform manages diversified investments across six verticals with a zero-fee structure. Fund vehicles, portfolio companies, and a registered investment adviser (Dark Horse Advisers LLC) operate under the DHWM umbrella.'},{l:'Team',p:'Caleb Caraway serves as Managing Principal, overseeing all investment decisions and portfolio operations. Capital is sourced through four dedicated channels: sovereign wealth funds, family offices (via Family Office Insights), institutional banking, and broker-dealer networks.'}]},
+'faq':{t:'Investor FAQ',s:'50 institutional questions',b:[{l:'Categories',p:'Fund overview, investment strategy, fees and economics, regulatory and compliance, risk factors, operations and governance, tax and structure, and getting started. Comprehensive coverage of both Draft Horse and Quarter Horse across all categories.'}]},
+'org':{t:'Organizational Structure',s:'Entity hierarchy and governance',b:[{l:'Structure',p:'Dark Horse Wealth Management LLC is the governing family office entity. Dark Horse Advisers LLC serves as the registered investment adviser. Under DHWM: Draft Horse Capital Partners (multi-strategy fund), Quarter Horse Capital Partners (deal-by-deal fund), Corinthian Capital Partners (existing fund), and four portfolio companies — Pegasus Capital Partners, Stateside Resources, Art Bond SPV, and Dark Horse RE Holdings.'}]},
+'506c':{t:'Reg D 506(c) Disclosure',s:'Draft Horse Capital Partners LLC',b:[{l:'Regulatory Disclosure',p:'Draft Horse Capital Partners LLC offers securities under Rule 506(c) of Regulation D under the Securities Act of 1933. General solicitation is permitted. All investors must be verified accredited investors. The Fund relies on the Section 3(c)(1) exemption from registration under the Investment Company Act of 1940. This is not an offer to sell securities.'}]},
+'506b':{t:'Reg D 506(b) Disclosure',s:'Quarter Horse Capital Partners LLC',b:[{l:'Regulatory Disclosure',p:'Quarter Horse Capital Partners LLC offers securities under Rule 506(b) of Regulation D. No general solicitation or advertising is permitted. All investors must have a pre-existing substantive relationship with the issuer. Up to 35 sophisticated non-accredited investors may participate. This is not an offer to sell securities.'}]},
+'risk':{t:'General Risk Disclosures',s:'All fund vehicles',b:[{l:'Risk Factors',p:'Investing in private funds involves substantial risk including possible loss of the entire investment. These securities are illiquid with limited redemption rights. Past performance is not indicative of future results. The funds invest in tangible assets including aircraft, mineral rights, art, and real estate, each subject to market-specific risks including valuation uncertainty, regulatory change, and commodity price volatility.'}]},
+'nda':{t:'Confidentiality Agreement',s:'Data room access terms',b:[{l:'Terms',p:'By accessing this data room, the recipient acknowledges all materials are strictly confidential and proprietary to Dark Horse Wealth Management LLC. The recipient agrees not to reproduce, distribute, or disclose any contents without prior written consent. All materials remain the property of Dark Horse Wealth Management LLC.'}]}
 };
 
-function openModal(id) {
-  const doc = docs[id];
-  if (!doc) return;
-  document.getElementById('modalLabel').textContent = doc.label;
-  document.getElementById('modalTitle').textContent = doc.title;
-  document.getElementById('modalFund').textContent = doc.fund;
-  document.getElementById('modalDesc').textContent = doc.desc;
-  const subject = encodeURIComponent('Document Access Request \u2014 ' + doc.fund);
-  const body = encodeURIComponent('I am requesting access to: ' + doc.title + ' (' + doc.fund + ')\n\nPlease provide details on the subscription and verification process.');
-  document.getElementById('modalRequestBtn').href = 'mailto:caleb@darkhorse-ventures.com?subject=' + subject + '&body=' + body;
-  document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
+function pop(id){
+  const d=D[id];if(!d)return;
+  let h=`<h2>${d.t}</h2><div class="modal-sub">${d.s}</div>`;
+  d.b.forEach(x=>{h+=`<div class="modal-block"><div class="modal-block-label">${x.l}</div><p>${x.p}</p></div>`});
+  h+='<div class="modal-btns"><button class="mbtn mbtn-gold" onclick="alert(\'Document will be available when PDF files are linked.\')">Preview</button><button class="mbtn mbtn-ghost" onclick="alert(\'Download will be available when PDF files are linked.\')">Download PDF</button></div>';
+  document.getElementById('mb').innerHTML=h;
+  document.getElementById('ov').classList.add('on');
+  document.body.style.overflow='hidden';
 }
+function shut(){document.getElementById('ov').classList.remove('on');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
 
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modalOverlay')) return;
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+// Nav scroll effect
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)});
+
+// Nav active state
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)cur=s.id});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
+});
 
 // Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.section').forEach(s => observer.observe(s));
-
-// Nav scroll state + active tracking
-const navbar = document.getElementById('navbar');
-const navLinks = document.querySelectorAll('.nav-links a[data-section]');
-const sections = document.querySelectorAll('.section[id]');
-
-function updateNav() {
-  const scrollY = window.scrollY;
-  navbar.classList.toggle('scrolled', scrollY > 60);
-
-  let current = '';
-  sections.forEach(section => {
-    const top = section.offsetTop - 120;
-    if (scrollY >= top) current = section.getAttribute('id');
-  });
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('data-section') === current);
-  });
-}
-window.addEventListener('scroll', updateNav, { passive: true });
-updateNav();
-
-// Mobile nav toggle
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-// Close mobile nav on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
-  });
-});
-
-// Hash-link immediate scroll on page load
-(function() {
-  if (window.location.hash) {
-    const target = document.querySelector(window.location.hash);
-    if (target) {
-      // Disable smooth scroll temporarily
-      document.documentElement.style.scrollBehavior = 'auto';
-      target.classList.add('revealed');
-      requestAnimationFrame(() => {
-        target.scrollIntoView();
-        window.scrollBy(0, -80);
-        // Re-enable smooth scroll after jump
-        setTimeout(() => {
-          document.documentElement.style.scrollBehavior = 'smooth';
-        }, 100);
-      });
-    }
-  }
-})();
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 </script>
 </body>
 </html>
