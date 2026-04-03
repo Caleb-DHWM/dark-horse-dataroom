@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarter Horse Capital Partners LLC — Investor Data Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #06080c;
+  --surface: #0c0f14;
+  --surface-hover: #10141a;
+  --border: rgba(194, 164, 74, 0.08);
+  --border-hover: rgba(194, 164, 74, 0.18);
+  --gold: #c2a44a;
+  --gold-dim: rgba(194, 164, 74, 0.6);
+  --gold-glow: rgba(194, 164, 74, 0.08);
+  --text: #e8e4dc;
+  --text-secondary: #8a8578;
+  --text-dim: #5a564e;
+  --white: #f5f2eb;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'SF Mono', monospace;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(194, 164, 74, 0.2); color: var(--white); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(194, 164, 74, 0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(194, 164, 74, 0.3); }
+
+/* Ambient background */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(194, 164, 74, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(194, 164, 74, 0.02) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(12, 15, 20, 0.5) 0%, transparent 100%);
+}
+
+/* Navigation */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 48px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(6, 8, 12, 0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+nav.scrolled { background: rgba(6, 8, 12, 0.95); }
+.nav-brand {
+  font-family: var(--serif); font-weight: 500; font-size: 14px;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-secondary); text-decoration: none;
+  padding: 4px 0; position: relative; transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+/* Content wrapper */
+.content { position: relative; z-index: 1; }
+
+/* Hero */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 48px 80px;
+  opacity: 0; transform: translateY(30px);
+  animation: heroIn 1.2s ease forwards 0.3s;
+}
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px;
+}
+.hero-title {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.1; color: var(--white); margin-bottom: 20px;
+  max-width: 800px;
+}
+.hero-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+.hero-subtitle {
+  font-family: var(--sans); font-weight: 300; font-size: 16px;
+  color: var(--text-secondary); margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+.hero-subtitle-sm {
+  font-family: var(--sans); font-weight: 300; font-size: 14px;
+  color: var(--text-dim); margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-bottom: 48px;
+}
+.pill {
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 16px; border: 1px solid var(--border);
+  border-radius: 100px; color: var(--text-secondary);
+  background: rgba(194, 164, 74, 0.03);
+}
+.hero-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* Confidentiality Banner */
+.confidentiality {
+  max-width: 900px; margin: 0 auto; padding: 0 48px 80px; text-align: center;
+}
+.confidentiality-text {
+  font-family: var(--sans); font-size: 12px; font-weight: 300;
+  line-height: 1.9; color: var(--text-dim);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 32px 0;
+}
+.confidentiality-text strong { color: var(--text-secondary); font-weight: 500; }
+
+/* Sections */
+.section {
+  max-width: 960px; margin: 0 auto; padding: 100px 48px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section.revealed { opacity: 1; transform: translateY(0); }
+
+.section-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.15; color: var(--white); margin-bottom: 12px;
+}
+.section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+.section-subtitle {
+  font-family: var(--mono); font-size: 12px; color: var(--text-secondary);
+  letter-spacing: 0.05em; margin-bottom: 32px;
+}
+.section-body {
+  font-size: 15px; line-height: 1.85; color: var(--text-secondary);
+  max-width: 720px; margin-bottom: 48px;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px;
+  margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--border);
+}
+.stat-value {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--white); margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* Document rows */
+.doc-list { display: flex; flex-direction: column; gap: 2px; }
+.doc-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; border-radius: 4px; cursor: pointer;
+  border: 1px solid transparent; transition: all 0.3s ease;
+  background: transparent;
+}
+.doc-row:hover {
+  background: var(--surface); border-color: var(--border-hover);
+}
+.doc-row:hover .doc-title { color: var(--gold); }
+.doc-row:hover .doc-arrow { opacity: 1; transform: translateX(0); }
+.doc-info { flex: 1; min-width: 0; }
+.doc-title {
+  font-family: var(--serif); font-size: 18px; font-weight: 400;
+  color: var(--text); transition: color 0.3s ease; margin-bottom: 4px;
+}
+.doc-desc {
+  font-size: 13px; color: var(--text-dim); line-height: 1.6;
+  max-width: 600px;
+}
+.doc-arrow {
+  font-family: var(--mono); font-size: 12px; color: var(--gold);
+  opacity: 0; transform: translateX(-8px);
+  transition: all 0.3s ease; white-space: nowrap; margin-left: 24px;
+  flex-shrink: 0;
+}
+
+/* Portfolio cards */
+.portfolio-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+}
+.portfolio-card {
+  padding: 32px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--surface); transition: all 0.3s ease;
+}
+.portfolio-card:hover { border-color: var(--border-hover); background: var(--surface-hover); }
+.portfolio-card-name {
+  font-family: var(--serif); font-size: 20px; font-weight: 400;
+  color: var(--white); margin-bottom: 4px;
+}
+.portfolio-card-vertical {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.portfolio-card-desc {
+  font-size: 13px; line-height: 1.7; color: var(--text-dim); margin-bottom: 16px;
+}
+.portfolio-card-status {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.status-active { color: var(--gold); }
+.status-planned { color: var(--text-dim); }
+
+/* Legal notices */
+.legal-notice {
+  padding: 32px 0; border-top: 1px solid var(--border);
+}
+.legal-notice-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 12px;
+}
+.legal-notice-text {
+  font-size: 12px; line-height: 1.9; color: var(--text-dim);
+}
+
+/* Footer */
+footer {
+  text-align: center; padding: 80px 48px 48px;
+  border-top: 1px solid var(--border);
+  max-width: 960px; margin: 0 auto;
+}
+.footer-copy {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.footer-email {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--gold-dim); text-decoration: none;
+}
+.footer-email:hover { color: var(--gold); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(6, 8, 12, 0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border-hover);
+  border-radius: 8px; padding: 48px; max-width: 580px; width: 90%;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.35s ease;
+  position: relative;
+}
+.modal-overlay.active .modal { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 20px; right: 24px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 20px; cursor: pointer; transition: color 0.2s;
+  font-family: var(--sans); font-weight: 300; line-height: 1;
+}
+.modal-close:hover { color: var(--gold); }
+.modal-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 28px; font-weight: 400;
+  color: var(--white); margin-bottom: 8px;
+}
+.modal-fund {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em; margin-bottom: 24px;
+}
+.modal-desc {
+  font-size: 14px; line-height: 1.8; color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.modal-actions { display: flex; gap: 12px; }
+.modal-btn {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 28px; border-radius: 4px; cursor: pointer;
+  text-decoration: none; transition: all 0.3s ease; border: none;
+}
+.modal-btn-primary {
+  background: var(--gold); color: var(--bg);
+}
+.modal-btn-primary:hover { background: #d4b85c; }
+.modal-btn-secondary {
+  background: transparent; border: 1px solid var(--border-hover);
+  color: var(--text-secondary);
+}
+.modal-btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .section { padding: 60px 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .doc-row { padding: 16px; }
+  .doc-desc { display: none; }
+  .modal { padding: 32px 24px; }
+  .modal-actions { flex-direction: column; }
+  .confidentiality { padding: 0 24px 60px; }
+}
+@media (max-width: 480px) {
+  .hero-pills { gap: 6px; }
+  .pill { font-size: 9px; padding: 5px 12px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+/* Nav mobile toggle */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 18px; height: 1px; background: var(--text-secondary); margin: 4px 0; transition: all 0.3s; }
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 0; right: 0; background: rgba(6, 8, 12, 0.97);
+    padding: 24px 48px; gap: 16px; border-bottom: 1px solid var(--border);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-brand">Quarter Horse</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#overview" data-section="overview">Overview</a>
+    <a href="#documents" data-section="documents">Documents</a>
+    <a href="#portfolio" data-section="portfolio">Portfolio</a>
+    <a href="#reference" data-section="reference">Reference</a>
+    <a href="#legal" data-section="legal">Legal</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-eyebrow">Investor Data Room</div>
+    <h1 class="hero-title">Quarter Horse<br><em>Capital Partners LLC</em></h1>
+    <p class="hero-subtitle">Private Debt Fund</p>
+    <p class="hero-subtitle-sm">Deal-by-Deal Offering Materials</p>
+    <div class="hero-pills">
+      <span class="pill">$50K Minimum</span>
+      <span class="pill">Deal-by-Deal</span>
+      <span class="pill">506(b)</span>
+      <span class="pill">Zero Fees</span>
+      <span class="pill">Fixed Rate</span>
+    </div>
+    <div class="hero-meta">Quarter Horse Capital Partners LLC &middot; Confidential &middot; April 2026</div>
+  </section>
+
+  <!-- Confidentiality Notice -->
+  <div class="confidentiality">
+    <div class="confidentiality-text">
+      <strong>Strictly Confidential.</strong> This data room contains offering materials for Quarter Horse Capital Partners LLC, a deal-by-deal private debt fund. All materials are strictly confidential and intended solely for Qualified Recipients with whom a pre-existing substantive relationship has been established. By accessing any document herein, you acknowledge that you are a Qualified Recipient, agree to maintain strict confidentiality, and agree not to reproduce, distribute, or disclose any portion without prior written consent. This data room does not constitute general solicitation.
+    </div>
+  </div>
+
+  <!-- Fund Overview -->
+  <section class="section" id="overview">
+    <div class="section-label">Fund Overview</div>
+    <h2 class="section-title">Fixed returns, <em>deal by deal.</em></h2>
+    <div class="section-subtitle">Texas LLC &middot; Reg D 506(b) &middot; Section 3(c)(1)</div>
+    <div class="section-body">
+      Quarter Horse Capital Partners LLC is a deal-by-deal private debt fund offering investors fixed-rate returns across individual lending opportunities. Each deal has its own terms, duration, and rate. The fund is 100% GP-owned with a zero-fee structure. This is a private lending fund &mdash; investors receive a fixed interest rate only. Capital is deployed into tangible-asset lending opportunities sourced through a proprietary pipeline spanning aviation, mining and metals, art-backed securities, real estate, and custom institutional allocations. Pre-existing substantive relationship required for all investors.
+    </div>
+
+    <div class="stats-grid">
+      <div>
+        <div class="stat-value">$50K</div>
+        <div class="stat-label">Minimum Investment</div>
+      </div>
+      <div>
+        <div class="stat-value">Deal-by-Deal</div>
+        <div class="stat-label">Approach</div>
+      </div>
+      <div>
+        <div class="stat-value">506(b)</div>
+        <div class="stat-label">Regulatory Exemption</div>
+      </div>
+      <div>
+        <div class="stat-value">Zero</div>
+        <div class="stat-label">Mgmt &amp; Perf Fees</div>
+      </div>
+      <div>
+        <div class="stat-value">Fixed Rate</div>
+        <div class="stat-label">Return Structure</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fund Documents -->
+  <section class="section" id="documents">
+    <div class="section-label">Offering Materials</div>
+    <h2 class="section-title">Fund <em>documentation.</em></h2>
+    <div class="section-body">
+      Complete offering materials for Quarter Horse Capital Partners LLC. Each document is available for review by Qualified Recipients with a pre-existing substantive relationship.
+    </div>
+
+    <div class="doc-list">
+      <div class="doc-row" onclick="openModal('qh-dataroom')">
+        <div class="doc-info">
+          <div class="doc-title">Institutional Data Room</div>
+          <div class="doc-desc">Complete institutional disclosure package covering fund structure, deal-by-deal mechanics, lending criteria, and full diligence documentation.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('qh-pitch')">
+        <div class="doc-info">
+          <div class="doc-title">Pitch Deck</div>
+          <div class="doc-desc">Investor presentation covering deal-by-deal approach, fixed-rate structure, lending verticals, and platform capabilities.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('qh-termsheet')">
+        <div class="doc-info">
+          <div class="doc-title">Term Sheet</div>
+          <div class="doc-desc">Indicative term sheet detailing deal-by-deal investment terms, fixed-rate mechanics, governance structure, and service providers.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('qh-tearsheet')">
+        <div class="doc-info">
+          <div class="doc-title">Tear Sheet</div>
+          <div class="doc-desc">Single-page summary of the private debt fund for initial outreach and leave-behind distribution to prospective investors.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('qh-teaser')">
+        <div class="doc-info">
+          <div class="doc-title">Investor Teaser</div>
+          <div class="doc-desc">Concise outreach piece highlighting fixed-rate approach, minimum commitment, return characteristics, and qualification requirements.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Companies -->
+  <section class="section" id="portfolio">
+    <div class="section-label">Operating Entities</div>
+    <h2 class="section-title">Dedicated <em>verticals.</em></h2>
+    <div class="section-body">
+      Each investment vertical is accessed through a purpose-built operating entity with domain-specific expertise. Quarter Horse deploys capital into these companies as portfolio lending opportunities, maintaining liability isolation and operational focus across the platform.
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-card-name">Pegasus Capital Partners LLC</div>
+        <div class="portfolio-card-vertical">Aviation</div>
+        <div class="portfolio-card-desc">Aircraft acquisition, leasing, and asset management across commercial and private aviation markets.</div>
+        <div class="portfolio-card-status status-planned">Planned</div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-card-name">Stateside Resources LLC</div>
+        <div class="portfolio-card-vertical">Mining, Metals &amp; Energy</div>
+        <div class="portfolio-card-desc">Direct investments in natural resource assets. Current holdings include an 8% ownership stake in Field Futures Texas, a silver mining operation.</div>
+        <div class="portfolio-card-status status-active">Active</div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-card-name">Art Bond SPV</div>
+        <div class="portfolio-card-vertical">Art-Backed Securities</div>
+        <div class="portfolio-card-desc">Fixed-income instruments collateralized by authenticated fine art collections. $100M target issuance.</div>
+        <div class="portfolio-card-status status-planned">Planned</div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-card-name">QH RE Holdings LLC</div>
+        <div class="portfolio-card-vertical">Real Estate</div>
+        <div class="portfolio-card-desc">Strategic lending positions in select real estate ventures with collateralized cash flow and long-term appreciation potential.</div>
+        <div class="portfolio-card-status status-planned">Planned</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reference Materials -->
+  <section class="section" id="reference">
+    <div class="section-label">Reference Materials</div>
+    <h2 class="section-title">Platform documentation.</h2>
+    <div class="section-body">
+      Platform-level materials covering fund operations, organizational structure, and general investor orientation.
+    </div>
+
+    <div class="doc-list">
+      <div class="doc-row" onclick="openModal('ref-overview')">
+        <div class="doc-info">
+          <div class="doc-title">Fund Overview</div>
+          <div class="doc-desc">Institutional overview of Quarter Horse Capital Partners LLC &mdash; strategy, minimum, structure, and eligibility.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('ref-platform')">
+        <div class="doc-info">
+          <div class="doc-title">Platform Overview</div>
+          <div class="doc-desc">The Quarter Horse story, investment process, and organizational structure.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('ref-faq')">
+        <div class="doc-info">
+          <div class="doc-title">Investor FAQ</div>
+          <div class="doc-desc">Comprehensive FAQ covering fund structure, legal framework, distribution mechanics, regulatory compliance, tax treatment, and governance.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('ref-org')">
+        <div class="doc-info">
+          <div class="doc-title">Organizational Structure</div>
+          <div class="doc-desc">Entity hierarchy, governance, and key relationships.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal & Compliance -->
+  <section class="section" id="legal">
+    <div class="section-label">Legal &amp; Compliance</div>
+    <h2 class="section-title">Regulatory disclosures.</h2>
+
+    <div class="doc-list" style="margin-bottom:64px;">
+      <div class="doc-row" onclick="openModal('legal-506b')">
+        <div class="doc-info">
+          <div class="doc-title">Reg D 506(b) Disclosure</div>
+          <div class="doc-desc">Quarter Horse Capital Partners LLC</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('legal-risk')">
+        <div class="doc-info">
+          <div class="doc-title">General Risk Disclosures</div>
+          <div class="doc-desc">Material risks applicable to all fund investments.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('legal-conf')">
+        <div class="doc-info">
+          <div class="doc-title">Confidentiality Agreement</div>
+          <div class="doc-desc">Terms governing access to this data room.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+
+    <!-- Legal Notices -->
+    <div class="legal-notice">
+      <div class="legal-notice-label">Quarter Horse Capital Partners LLC &mdash; 506(b) Disclosure</div>
+      <div class="legal-notice-text">
+        Quarter Horse Capital Partners LLC is a Texas limited liability company. Securities are offered pursuant to Regulation D, Rule 506(b) under the Securities Act of 1933. The fund relies on the exemption from registration under Section 3(c)(1) of the Investment Company Act of 1940 and is limited to no more than 100 beneficial owners. A pre-existing substantive relationship with the fund or its management is required for all investors. Up to 35 sophisticated non-accredited investors may participate. No general solicitation or general advertising is permitted. All materials are indicative only and subject to the definitive Private Placement Memorandum. Stated targets are not guaranteed returns. Principal is subject to loss.
+      </div>
+    </div>
+
+    <div class="legal-notice">
+      <div class="legal-notice-label">Risk Disclosures</div>
+      <div class="legal-notice-text">
+        All investments involve risk, including the possible loss of principal. Private debt investments are illiquid and may not be suitable for all investors. There is no public market for the securities offered. Each deal carries its own terms, duration, and return profile. Past deal performance is not indicative of future results. Investors should be prepared to bear the economic risk of their investment for the full term of each deal. The fixed-rate return on each deal is subject to the creditworthiness of the underlying borrower and the value of any collateral. There is no guarantee that any deal will perform as projected. Concentration risk, credit risk, liquidity risk, and market risk are inherent in all fund investments.
+      </div>
+    </div>
+
+    <div class="legal-notice">
+      <div class="legal-notice-label">Confidentiality</div>
+      <div class="legal-notice-text">
+        This data room and all materials contained herein are strictly confidential and proprietary to Quarter Horse Capital Partners LLC. Access is restricted to Qualified Recipients with whom a pre-existing substantive relationship has been established. Unauthorized reproduction, distribution, or disclosure is prohibited. Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Prospective investors should review all offering documents and consult their own advisors before investing.
+      </div>
+    </div>
+
+    <div class="legal-notice">
+      <div class="legal-notice-label">General Disclosure</div>
+      <div class="legal-notice-text">
+        Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Past performance is not indicative of future results. Prospective investors should review all offering documents and consult their own advisors before investing. This data room does not constitute general solicitation or general advertising within the meaning of Rule 502(c) of Regulation D.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-copy">&copy; 2026 Quarter Horse Capital Partners LLC &middot; All Rights Reserved &middot; Strictly Confidential</div>
+    <a href="mailto:caleb@darkhorse-ventures.com" class="footer-email">caleb@darkhorse-ventures.com</a>
+  </footer>
+
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-label" id="modalLabel"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-fund" id="modalFund"></div>
+    <div class="modal-desc" id="modalDesc"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-primary" onclick="closeModal()">Request Access</button>
+      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Modal data
+const docs = {
+  'qh-dataroom': {
+    label: 'Fund Document',
+    title: 'Institutional Data Room',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Complete institutional disclosure package covering fund structure, deal-by-deal lending mechanics, underwriting criteria, collateral framework, and full diligence documentation. This package is designed for qualified investors and includes all materials necessary to complete a preliminary investment review.'
+  },
+  'qh-pitch': {
+    label: 'Fund Document',
+    title: 'Pitch Deck',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Investor presentation covering the deal-by-deal private debt approach, fixed-rate structure, lending verticals, platform capabilities, and fund governance. Formatted for direct investor conversations and leave-behind distribution.'
+  },
+  'qh-termsheet': {
+    label: 'Fund Document',
+    title: 'Term Sheet',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Indicative term sheet detailing deal-by-deal investment terms, fixed-rate mechanics, governance structure, and service providers. Individual deal terms are specified per investment opportunity and subject to the definitive documentation for each deal.'
+  },
+  'qh-tearsheet': {
+    label: 'Fund Document',
+    title: 'Tear Sheet',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Single-page print-ready summary of key fund terms and strategy highlights. Designed for initial outreach, conference distribution, and leave-behind materials in investor meetings with pre-existing contacts.'
+  },
+  'qh-teaser': {
+    label: 'Fund Document',
+    title: 'Investor Teaser',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Concise outreach piece highlighting the fixed-rate private debt approach, minimum commitment, return characteristics, and qualification requirements for initial investor contact with existing relationships.'
+  },
+  'ref-overview': {
+    label: 'Reference Material',
+    title: 'Fund Overview',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Institutional overview of Quarter Horse Capital Partners LLC covering strategy, minimum investment, fund structure, regulatory framework, investor eligibility, and the deal-by-deal fixed-rate lending model.'
+  },
+  'ref-platform': {
+    label: 'Reference Material',
+    title: 'Platform Overview',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Comprehensive overview of the Quarter Horse platform including investment process, organizational structure, lending verticals, and the zero-fee philosophy that underpins all fund operations.'
+  },
+  'ref-faq': {
+    label: 'Reference Material',
+    title: 'Investor FAQ',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Comprehensive FAQ covering fund structure, legal framework, distribution mechanics, regulatory compliance, tax treatment, platform governance, and frequently asked questions from prospective investors.'
+  },
+  'ref-org': {
+    label: 'Reference Material',
+    title: 'Organizational Structure',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Detailed entity hierarchy showing the relationship between Quarter Horse Capital Partners LLC, its operating entities, and key governance personnel. Includes fund structure and key relationships.'
+  },
+  'legal-506b': {
+    label: 'Legal Document',
+    title: 'Reg D 506(b) Disclosure',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Full regulatory disclosure for Quarter Horse Capital Partners LLC under Rule 506(b) of Regulation D. Covers pre-existing relationship requirements, prohibition on general solicitation, provisions for sophisticated non-accredited investors, and SEC filing obligations.'
+  },
+  'legal-risk': {
+    label: 'Legal Document',
+    title: 'General Risk Disclosures',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Comprehensive risk disclosure document covering material risks applicable to all Quarter Horse fund investments including credit risk, liquidity risk, concentration risk, collateral risk, and risks specific to each lending vertical.'
+  },
+  'legal-conf': {
+    label: 'Legal Document',
+    title: 'Confidentiality Agreement',
+    fund: 'Quarter Horse Capital Partners LLC',
+    desc: 'Terms and conditions governing access to this data room. Defines Qualified Recipients, pre-existing relationship requirements, confidentiality obligations, permitted use, and consequences of unauthorized disclosure.'
+  }
+};
+
+function openModal(id) {
+  const doc = docs[id];
+  if (!doc) return;
+  document.getElementById('modalLabel').textContent = doc.label;
+  document.getElementById('modalTitle').textContent = doc.title;
+  document.getElementById('modalFund').textContent = doc.fund;
+  document.getElementById('modalDesc').textContent = doc.desc;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+// Nav scroll state + active tracking
+const navbar = document.getElementById('navbar');
+const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+const sections = document.querySelectorAll('.section[id]');
+
+function updateNav() {
+  const scrollY = window.scrollY;
+  navbar.classList.toggle('scrolled', scrollY > 60);
+
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 120;
+    if (scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('data-section') === current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>

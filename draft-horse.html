@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Horse Wealth Management — Investor Data Room</title>
+<title>Draft Horse Capital Partners LLC — Investor Data Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -112,7 +112,12 @@ nav.scrolled { background: rgba(6, 8, 12, 0.95); }
 .hero-title em { font-style: italic; color: var(--gold); font-weight: 400; }
 .hero-subtitle {
   font-family: var(--sans); font-weight: 300; font-size: 16px;
-  color: var(--text-secondary); margin-bottom: 40px;
+  color: var(--text-secondary); margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+.hero-subtitle-secondary {
+  font-family: var(--sans); font-weight: 300; font-size: 14px;
+  color: var(--text-dim); margin-bottom: 40px;
   letter-spacing: 0.02em;
 }
 .hero-pills {
@@ -170,17 +175,9 @@ nav.scrolled { background: rgba(6, 8, 12, 0.95); }
   max-width: 720px; margin-bottom: 48px;
 }
 
-/* Verticals line */
-.verticals-line {
-  font-family: var(--serif); font-size: 18px; font-weight: 400;
-  color: var(--text-dim); letter-spacing: 0.02em;
-  padding-top: 32px; margin-top: 32px; border-top: 1px solid var(--border);
-}
-.verticals-line span { color: var(--text-secondary); }
-
 /* Stats grid */
 .stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px;
   margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--border);
 }
 .stat-value {
@@ -248,17 +245,6 @@ nav.scrolled { background: rgba(6, 8, 12, 0.95); }
 }
 .status-active { color: var(--gold); }
 .status-planned { color: var(--text-dim); }
-
-/* Team section */
-.team-bio { margin-bottom: 24px; }
-.team-name { color: var(--white); font-weight: 400; }
-.team-cap-intro { padding-top: 24px; border-top: 1px solid var(--border); }
-.team-cap-intro-body { margin-bottom: 0; }
-.team-cap-intro-label {
-  font-family: var(--mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--gold); display: block; margin-bottom: 12px;
-}
 
 /* Legal notices */
 .legal-notice {
@@ -387,12 +373,10 @@ footer {
 
 <!-- Navigation -->
 <nav id="navbar">
-  <div class="nav-brand">Dark Horse</div>
+  <div class="nav-brand">Draft Horse Capital Partners</div>
   <div class="nav-links" id="navLinks">
-    <a href="#platform" data-section="platform">Platform</a>
-    <a href="#draft-horse" data-section="draft-horse">Fund I</a>
-    <a href="#quarter-horse" data-section="quarter-horse">Fund II</a>
-    <a href="#team" data-section="team">Team</a>
+    <a href="#overview" data-section="overview">Overview</a>
+    <a href="#documents" data-section="documents">Documents</a>
     <a href="#portfolio" data-section="portfolio">Portfolio</a>
     <a href="#reference" data-section="reference">Reference</a>
     <a href="#legal" data-section="legal">Legal</a>
@@ -408,44 +392,33 @@ footer {
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-eyebrow">Investor Data Room</div>
-    <h1 class="hero-title">Private Credit<br><em>Fund Family</em></h1>
-    <p class="hero-subtitle">Institutional Offering Materials</p>
+    <h1 class="hero-title">Draft Horse<br><em>Capital Partners</em> LLC</h1>
+    <p class="hero-subtitle">Multi-Strategy Private Debt Fund</p>
+    <p class="hero-subtitle-secondary">Institutional Offering Materials</p>
     <div class="hero-pills">
-      <span class="pill">Two Funds</span>
-      <span class="pill">Five Verticals</span>
-      <span class="pill">Zero Management &amp; Performance Fees</span>
-      <span class="pill">Texas Governing Law</span>
-      <span class="pill">Regulation D</span>
+      <span class="pill">$200K Minimum</span>
+      <span class="pill">Multi-Strategy</span>
+      <span class="pill">506(c)</span>
+      <span class="pill">Zero Fees</span>
+      <span class="pill">Fixed Rate</span>
     </div>
-    <div class="hero-meta">Dark Horse Wealth Management LLC &middot; Confidential &middot; April 2026</div>
+    <div class="hero-meta">Draft Horse Capital Partners LLC &middot; Confidential &middot; April 2026</div>
   </section>
 
   <!-- Confidentiality Notice -->
   <div class="confidentiality">
     <div class="confidentiality-text">
-      <strong>Strictly Confidential.</strong> This data room contains offering materials for the Dark Horse fund family — two distinct private credit vehicles managed under the Dark Horse Wealth Management platform. All materials are strictly confidential and intended solely for Qualified Recipients, as defined in the applicable confidentiality and non-disclosure agreement. By accessing any document herein, you acknowledge that you are a Qualified Recipient, agree to maintain strict confidentiality, and agree not to reproduce, distribute, or disclose any portion without prior written consent.
+      <strong>Strictly Confidential.</strong> This data room contains offering materials for Draft Horse Capital Partners LLC, a multi-strategy private debt fund managed under the Dark Horse Wealth Management platform. All materials are strictly confidential and intended solely for Qualified Recipients. By accessing any document herein, you acknowledge that you are a Qualified Recipient, agree to maintain strict confidentiality, and agree not to reproduce, distribute, or disclose any portion without prior written consent.
     </div>
   </div>
 
-  <!-- Platform Introduction -->
-  <section class="section" id="platform">
-    <div class="section-label">The Platform</div>
-    <h2 class="section-title">Principal-Aligned Investment Platform</h2>
-    <div class="section-body">
-      Dark Horse Wealth Management LLC is the institutional investment platform of a single-family office. Built on the principle that exceptional returns come from conviction-driven investing in tangible assets — not from fee extraction — the platform manages a diversified portfolio across five distinct verticals with a zero-fee structure designed to maximize principal alignment. The platform operates two complementary fund vehicles, each drawing from the same proprietary deal pipeline. No management fees. No performance fees. Full principal alignment through GP ownership of underlying assets and significant capital commitment to fund collateral.
-    </div>
-    <div class="verticals-line">
-      <span>Private Credit</span> &middot; <span>Aviation</span> &middot; <span>Mining &amp; Metals</span> &middot; <span>Art-Backed Securities</span> &middot; <span>Real Estate</span> &middot; <span>Custom Allocations</span>
-    </div>
-  </section>
-
-  <!-- Fund I: Draft Horse -->
-  <section class="section" id="draft-horse">
-    <div class="section-label">Fund I</div>
+  <!-- Fund Overview -->
+  <section class="section" id="overview">
+    <div class="section-label">Fund Overview</div>
     <h2 class="section-title">Draft Horse Capital Partners LLC</h2>
     <div class="section-subtitle">Texas LLC &middot; Reg D 506(c) &middot; Section 3(c)(1)</div>
     <div class="section-body">
-      Diversified private credit across aviation, mining, art-backed bonds, real estate, and custom institutional allocations. Designed for sovereign wealth funds, family offices, institutional banks, and accredited investors seeking uncorrelated alternative exposure through a single vehicle with zero fee drag.
+      Multi-strategy institutional debt fund offering diversified private credit exposure across six tangible-asset verticals — aviation, mining and metals, art-backed bonds, real estate, e-commerce lending, and custom institutional allocations. Investors receive a fixed rate of return on deployed capital. Designed for sovereign wealth funds, family offices, institutional banks, and accredited investors seeking uncorrelated alternative exposure through a single vehicle with zero fee drag. No management fees. No performance fees. Full principal alignment through GP ownership of underlying assets and significant capital commitment to fund collateral.
     </div>
 
     <div class="stats-grid">
@@ -465,6 +438,19 @@ footer {
         <div class="stat-value">Zero</div>
         <div class="stat-label">Mgmt &amp; Perf Fees</div>
       </div>
+      <div>
+        <div class="stat-value">Fixed Rate</div>
+        <div class="stat-label">Return Structure</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fund Documents -->
+  <section class="section" id="documents">
+    <div class="section-label">Offering Documents</div>
+    <h2 class="section-title">Fund <em>materials.</em></h2>
+    <div class="section-body">
+      Complete institutional documentation package for Draft Horse Capital Partners LLC. Each document is available for review by verified accredited investors and qualified institutional allocators.
     </div>
 
     <div class="doc-list">
@@ -506,112 +492,12 @@ footer {
     </div>
   </section>
 
-  <!-- Fund II: Quarter Horse -->
-  <section class="section" id="quarter-horse">
-    <div class="section-label">Fund II</div>
-    <h2 class="section-title">Quarter Horse Capital Partners LLC</h2>
-    <div class="section-subtitle">Texas LLC &middot; Reg D 506(b) &middot; Section 3(c)(1)</div>
-    <div class="section-body">
-      Deal-by-deal private debt fund offering investors fixed-rate returns across individual lending opportunities on the Dark Horse platform. Each note carries its own terms, duration, and contractual interest rate. 100% GP-controlled — investors participate as noteholders receiving fixed contractual interest. Zero fees and expedited capital deployment. Designed for select investors with pre-existing relationships seeking concentrated exposure to individual opportunities.
-    </div>
-
-    <div class="stats-grid">
-      <div>
-        <div class="stat-value">$50K</div>
-        <div class="stat-label">Minimum Investment</div>
-      </div>
-      <div>
-        <div class="stat-value">Deal-by-Deal</div>
-        <div class="stat-label">Approach</div>
-      </div>
-      <div>
-        <div class="stat-value">506(b)</div>
-        <div class="stat-label">Regulatory Exemption</div>
-      </div>
-      <div>
-        <div class="stat-value">Zero</div>
-        <div class="stat-label">Mgmt &amp; Perf Fees</div>
-      </div>
-    </div>
-
-    <div class="doc-list">
-      <div class="doc-row" onclick="openModal('qh-dataroom')">
-        <div class="doc-info">
-          <div class="doc-title">Institutional Data Room</div>
-          <div class="doc-desc">Complete institutional disclosure package covering fund structure, note structure, deal sourcing, and full diligence documentation.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-pitch')">
-        <div class="doc-info">
-          <div class="doc-title">Pitch Deck</div>
-          <div class="doc-desc">Institutional investor presentation covering deal-by-deal lending approach, note structure, and platform capabilities.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-termsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Term Sheet</div>
-          <div class="doc-desc">Indicative term sheet detailing deal-by-deal investment terms, note mechanics, governance, and service providers.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-tearsheet')">
-        <div class="doc-info">
-          <div class="doc-title">Tear Sheet</div>
-          <div class="doc-desc">Single-page summary of the deal-by-deal lending fund for initial outreach and leave-behind distribution.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('qh-teaser')">
-        <div class="doc-info">
-          <div class="doc-title">Investor Teaser</div>
-          <div class="doc-desc">Concise outreach piece highlighting lending approach, fixed-rate return profile, and minimum commitment.</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  
-  <section class="section" id="corinthian">
-    <div class="section-label">Established Fund</div>
-    <h2 class="section-title">Corinthian Capital Fund LLC</h2>
-    <p class="section-body" style="max-width:640px">Proof-of-concept vehicle with an operational track record, validating the Dark Horse private debt thesis at institutional scale.</p>
-    <div style="background:rgba(255,255,255,.02);padding:48px 40px;margin-top:32px">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Operational Predecessor to Draft Horse</div>
-      <p style="font-size:15px;color:var(--text-dim);line-height:1.9;margin-bottom:28px">Corinthian Capital Fund LLC demonstrates the Dark Horse private debt thesis at institutional scale. Managed by Corinthian Capital Partners LLC under the Dark Horse Wealth Management platform, the fund offers investors a fixed contractual return of 2% per month (24% per annum) through senior secured lending. Jointly managed by Dark Horse Wealth Management LLC (75%) and Atlas Wealth Management (25%). Audited 2025 financial statements and performance data are available upon request.</p>
-      <div style="display:flex;gap:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:28px">
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">2%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Monthly Fixed</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">24%</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Annual Return</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500">506(b)</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Exemption</div></div>
-        <div><div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500;color:#6a9a6a">Operational</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(232,228,220,.3)">Status</div></div>
-      </div>
-      <a href="corinthian.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px 28px;border:1px solid rgba(194,164,74,.25);transition:all .3s ease">Access Corinthian Capital Data Room</a>
-    </div>
-  </section>
-
-  <section class="section" id="team">
-    <div class="section-label">Leadership</div>
-    <h2 class="section-title">Team</h2>
-    <div class="section-body team-bio">
-      <strong class="team-name">Caleb Caraway</strong> &mdash; Managing Principal. Multi-asset investment professional with experience spanning private credit, aviation finance, natural resources, and alternative asset management. Oversees all investment decisions, portfolio company operations, and investor relations across the Dark Horse fund family.
-    </div>
-    <div class="team-cap-intro">
-      <div class="section-body team-cap-intro-body">
-        <span class="team-cap-intro-label">Capital Introduction</span>
-        Sovereign wealth funds, family offices (via Family Office Insights), institutional banking, and broker-dealer networks.
-      </div>
-    </div>
-  </section>
-
   <!-- Portfolio Companies -->
   <section class="section" id="portfolio">
     <div class="section-label">Operating Entities</div>
     <h2 class="section-title">Dedicated <em>verticals.</em></h2>
     <div class="section-body">
-      Each investment vertical is accessed through a purpose-built operating entity with domain-specific expertise. Both funds deploy capital into these companies as portfolio investments, maintaining liability isolation and operational focus across the platform.
+      Each investment vertical is accessed through a purpose-built operating entity with domain-specific expertise. Draft Horse Capital Partners deploys capital into these companies as portfolio investments, maintaining liability isolation and operational focus across the platform.
     </div>
 
     <div class="portfolio-grid">
@@ -624,7 +510,7 @@ footer {
       <div class="portfolio-card">
         <div class="portfolio-card-name">Stateside Resources LLC</div>
         <div class="portfolio-card-vertical">Mining, Metals &amp; Energy</div>
-        <div class="portfolio-card-desc">Direct investments in natural resource assets. Current activities include secured positions collateralized by natural resource assets including an interest in Field Futures Texas, a silver mining operation.</div>
+        <div class="portfolio-card-desc">Direct investments in natural resource assets. Current holdings include an 8% ownership stake in Field Futures Texas, a silver mining operation.</div>
         <div class="portfolio-card-status status-active">Active</div>
       </div>
       <div class="portfolio-card">
@@ -636,25 +522,25 @@ footer {
       <div class="portfolio-card">
         <div class="portfolio-card-name">Dark Horse RE Holdings LLC</div>
         <div class="portfolio-card-vertical">Real Estate</div>
-        <div class="portfolio-card-desc">Strategic debt positions in select real estate ventures with contractual cash flow characteristics.</div>
+        <div class="portfolio-card-desc">Strategic equity positions in select real estate ventures with cash flow and long-term appreciation potential.</div>
         <div class="portfolio-card-status status-planned">Planned</div>
       </div>
     </div>
   </section>
 
-    <!-- Cross-Fund Materials -->
+  <!-- Reference Materials -->
   <section class="section" id="reference">
     <div class="section-label">Reference Materials</div>
     <h2 class="section-title">Platform documentation.</h2>
     <div class="section-body">
-      Platform-level documentation applicable across both fund vehicles.
+      Platform-level materials covering the Dark Horse Wealth Management infrastructure and organizational framework supporting Draft Horse Capital Partners.
     </div>
 
     <div class="doc-list">
       <div class="doc-row" onclick="openModal('ref-overview')">
         <div class="doc-info">
           <div class="doc-title">Fund Family Overview</div>
-          <div class="doc-desc">Side-by-side institutional comparison of both funds — strategy, minimum, structure, and eligibility.</div>
+          <div class="doc-desc">Institutional overview of the Dark Horse Wealth Management fund platform — strategy, structure, and regulatory framework.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
@@ -691,14 +577,7 @@ footer {
       <div class="doc-row" onclick="openModal('legal-506c')">
         <div class="doc-info">
           <div class="doc-title">Reg D 506(c) Disclosure</div>
-          <div class="doc-desc">Draft Horse Capital Partners</div>
-        </div>
-        <div class="doc-arrow">View &rarr;</div>
-      </div>
-      <div class="doc-row" onclick="openModal('legal-506b')">
-        <div class="doc-info">
-          <div class="doc-title">Reg D 506(b) Disclosure</div>
-          <div class="doc-desc">Quarter Horse Capital Partners</div>
+          <div class="doc-desc">Draft Horse Capital Partners LLC</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
@@ -722,49 +601,35 @@ footer {
     <div class="legal-notice">
       <div class="legal-notice-label">Draft Horse Capital Partners LLC</div>
       <div class="legal-notice-text">
-        Draft Horse Capital Partners LLC is a Texas limited liability company managed by Draft Horse Wealth Management LLC (a wholly-owned subsidiary of Dark Horse Wealth Management LLC). Securities are offered pursuant to Regulation D, Rule 506(c) under the Securities Act of 1933. The fund relies on the exemption from registration under Section 3(c)(1) of the Investment Company Act of 1940 and is limited to no more than 100 beneficial owners. This offering is available exclusively to verified accredited investors. All materials are indicative only and subject to the definitive Private Placement Memorandum. Stated targets are not guaranteed returns. Principal is subject to loss.
+        Draft Horse Capital Partners LLC is a Texas limited liability company managed by Draft Horse Wealth Management LLC, operating under Dark Horse Wealth Management LLC. Securities are offered pursuant to Regulation D, Rule 506(c) under the Securities Act of 1933. The fund relies on the exemption from registration under Section 3(c)(1) of the Investment Company Act of 1940 and is limited to no more than 100 beneficial owners. This offering is available exclusively to verified accredited investors. All materials are indicative only and subject to the definitive Private Placement Memorandum. Stated targets are not guaranteed returns. Principal is subject to loss.
       </div>
     </div>
 
     <div class="legal-notice">
-      <div class="legal-notice-label">Quarter Horse Capital Partners LLC</div>
+      <div class="legal-notice-label">Risk Disclosures</div>
       <div class="legal-notice-text">
-        Quarter Horse Capital Partners LLC is a Texas limited liability company managed by Dark Horse Wealth Management LLC. Securities are offered pursuant to Regulation D, Rule 506(b). The fund relies on Section 3(c)(1) exemption and is limited to no more than 100 beneficial owners. Pre-existing substantive relationship required. Up to 35 sophisticated non-accredited investors may participate. No general solicitation. Stated contractual rates are targets and are not guaranteed returns. All investments involve risk including possible loss of principal.
+        All investments involve risk including the possible loss of principal. Private credit investments are illiquid and subject to market, credit, concentration, and regulatory risk. There is no guarantee that the fund will achieve its investment objectives. Past performance is not indicative of future results. Investors should review all offering documents and consult their own legal, tax, and financial advisors before investing.
       </div>
     </div>
 
     <div class="legal-notice">
       <div class="legal-notice-label">General Disclosure</div>
       <div class="legal-notice-text">
-        Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Past performance is not indicative of future results. Prospective investors should review all offering documents and consult their own advisors before investing. Securities offered herein have not been and will not be registered under the Securities Act of 1933 or any state securities laws.
+        Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Past performance is not indicative of future results. Prospective investors should review all offering documents and consult their own advisors before investing.
       </div>
     </div>
 
     <div class="legal-notice">
-      <div class="legal-notice-label">AML/KYC</div>
+      <div class="legal-notice-label">Confidentiality</div>
       <div class="legal-notice-text">
-        All investors are subject to anti-money laundering and know-your-customer verification procedures as required by applicable law.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">Forward-Looking Statements</div>
-      <div class="legal-notice-text">
-        This data room contains forward-looking statements within the meaning of the Private Securities Litigation Reform Act of 1995. These statements are based on current expectations, estimates, forecasts, and projections about the industries in which we operate and the beliefs and assumptions of our management. Words such as "expects," "anticipates," "targets," "goals," "projects," "intends," "plans," "believes," "seeks," "estimates," variations of such words, and similar expressions are intended to identify such forward-looking statements. These forward-looking statements are only predictions and are subject to risks, uncertainties, and assumptions that are difficult to predict. Therefore, actual results may differ materially and adversely from those expressed in any forward-looking statements. Factors that might cause or contribute to such differences include, but are not limited to, those discussed in the risk disclosures provided herein. We undertake no obligation to revise or update publicly any forward-looking statements for any reason.
-      </div>
-    </div>
-
-    <div class="legal-notice">
-      <div class="legal-notice-label">Service Providers</div>
-      <div class="legal-notice-text">
-        <strong style="color:var(--text-secondary);">Legal Counsel:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Fund Administrator:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Auditor:</strong> TBD &nbsp;&middot;&nbsp; <strong style="color:var(--text-secondary);">Custodian:</strong> TBD
+        This data room and all materials contained herein are strictly confidential and proprietary to Draft Horse Capital Partners LLC and Dark Horse Wealth Management LLC. Unauthorized reproduction, distribution, or disclosure of any portion of these materials is strictly prohibited and may result in legal action. By accessing this data room, you agree to maintain the confidentiality of all information contained herein.
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-copy">&copy; 2026 Dark Horse Wealth Management LLC &middot; All Rights Reserved &middot; Strictly Confidential</div>
+    <div class="footer-copy">&copy; 2026 Draft Horse Capital Partners LLC &middot; All Rights Reserved &middot; Strictly Confidential</div>
     <a href="mailto:caleb@darkhorse-ventures.com" class="footer-email">caleb@darkhorse-ventures.com</a>
   </footer>
 
@@ -778,9 +643,8 @@ footer {
     <div class="modal-title" id="modalTitle"></div>
     <div class="modal-fund" id="modalFund"></div>
     <div class="modal-desc" id="modalDesc"></div>
-    <div class="modal-access-note" style="font-size:12px;color:var(--text-dim);margin-bottom:24px;line-height:1.7;border-top:1px solid var(--border);padding-top:20px;">Documents are available upon completion of applicable investor qualification and execution of subscription documents.</div>
     <div class="modal-actions">
-      <a class="modal-btn modal-btn-primary" id="modalRequestBtn" href="#">Request Access</a>
+      <button class="modal-btn modal-btn-primary" onclick="closeModal()">Request Access</button>
       <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -789,80 +653,47 @@ footer {
 <script>
 // Modal data
 const docs = {
-  // Draft Horse documents
   'dh-dataroom': {
-    label: 'Fund I Document',
+    label: 'Fund Document',
     title: 'Institutional Data Room',
     fund: 'Draft Horse Capital Partners LLC',
     desc: 'Complete institutional disclosure package covering fund structure, investment mandate, collateral framework, terms, and full diligence documentation. This package is designed for institutional allocators and includes all materials necessary to complete a preliminary investment review.'
   },
   'dh-pitch': {
-    label: 'Fund I Document',
+    label: 'Fund Document',
     title: 'Pitch Deck',
     fund: 'Draft Horse Capital Partners LLC',
     desc: '12-slide institutional investor presentation covering the fund mandate, investment verticals, yield structure, risk framework, and fund team. Formatted for boardroom presentation and leave-behind distribution.'
   },
   'dh-termsheet': {
-    label: 'Fund I Document',
+    label: 'Fund Document',
     title: 'Term Sheet',
     fund: 'Draft Horse Capital Partners LLC',
     desc: 'Formal indicative term sheet detailing all material investment terms including minimum commitment, distribution mechanics, fund governance, key person provisions, and service providers. Subject to definitive PPM.'
   },
   'dh-tearsheet': {
-    label: 'Fund I Document',
+    label: 'Fund Document',
     title: 'Tear Sheet',
     fund: 'Draft Horse Capital Partners LLC',
     desc: 'Single-page print-ready summary of key fund terms and strategy highlights. Designed for initial outreach, conference distribution, and leave-behind materials in investor meetings.'
   },
   'dh-teaser': {
-    label: 'Fund I Document',
+    label: 'Fund Document',
     title: 'Investor Teaser',
     fund: 'Draft Horse Capital Partners LLC',
     desc: 'Concise outreach piece highlighting strategy overview, target return profile, minimum commitment, and fund differentiation for initial investor contact and qualification conversations.'
   },
-  // Quarter Horse documents
-  'qh-dataroom': {
-    label: 'Fund II Document',
-    title: 'Institutional Data Room',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Complete institutional disclosure package covering fund structure, note structure, deal sourcing methodology, and full diligence documentation. Tailored for investors evaluating individual lending opportunities.'
-  },
-  'qh-pitch': {
-    label: 'Fund II Document',
-    title: 'Pitch Deck',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Institutional investor presentation covering the deal-by-deal lending approach, platform capabilities, historical deal flow, and team expertise. Formatted for direct investor conversations.'
-  },
-  'qh-termsheet': {
-    label: 'Fund II Document',
-    title: 'Term Sheet',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Indicative term sheet detailing deal-by-deal investment terms, note mechanics, governance structure, and service providers. Individual deal terms are specified per investment opportunity.'
-  },
-  'qh-tearsheet': {
-    label: 'Fund II Document',
-    title: 'Tear Sheet',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Single-page summary of the deal-by-deal lending fund designed for initial outreach and leave-behind distribution to prospective investors.'
-  },
-  'qh-teaser': {
-    label: 'Fund II Document',
-    title: 'Investor Teaser',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Concise outreach piece highlighting the deal-by-deal lending approach, minimum commitment, fixed-rate return characteristics, and qualification requirements for initial investor contact.'
-  },
-  // Reference documents
   'ref-overview': {
     label: 'Reference Material',
     title: 'Fund Family Overview',
     fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Side-by-side institutional comparison of both fund vehicles — Draft Horse (multi-strategy) and Quarter Horse (deal-by-deal lending) — covering strategy, minimums, structure, regulatory framework, and investor eligibility.'
+    desc: 'Institutional overview of the Dark Horse Wealth Management fund platform covering strategy, structure, regulatory framework, and investor eligibility across the platform.'
   },
   'ref-platform': {
     label: 'Reference Material',
     title: 'Platform Overview',
     fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Comprehensive overview of the Dark Horse Wealth Management platform including background, team biographies, investment process, organizational structure, and the zero-fee philosophy that underpins all fund operations.'
+    desc: 'Comprehensive overview of the Dark Horse Wealth Management platform including origin story, team biographies, investment process, organizational structure, and the zero-fee philosophy that underpins all fund operations.'
   },
   'ref-faq': {
     label: 'Reference Material',
@@ -874,31 +705,24 @@ const docs = {
     label: 'Reference Material',
     title: 'Organizational Structure',
     fund: 'Dark Horse Wealth Management LLC',
-    desc: 'Detailed entity hierarchy showing the relationship between Dark Horse Wealth Management LLC, both fund vehicles, operating entities, and Dark Horse Advisers LLC (registered investment adviser). Includes governance framework and key personnel.'
+    desc: 'Detailed entity hierarchy showing the relationship between Dark Horse Wealth Management LLC, fund vehicles, operating entities, and Dark Horse Advisers LLC (registered investment adviser). Includes governance framework and key personnel.'
   },
-  // Legal documents
   'legal-506c': {
     label: 'Legal Document',
     title: 'Reg D 506(c) Disclosure',
     fund: 'Draft Horse Capital Partners LLC',
     desc: 'Full regulatory disclosure for Draft Horse Capital Partners LLC under Rule 506(c) of Regulation D. Covers accredited investor verification requirements, general solicitation provisions, and SEC filing obligations.'
   },
-  'legal-506b': {
-    label: 'Legal Document',
-    title: 'Reg D 506(b) Disclosure',
-    fund: 'Quarter Horse Capital Partners LLC',
-    desc: 'Full regulatory disclosure for Quarter Horse Capital Partners LLC under Rule 506(b) of Regulation D. Covers pre-existing relationship requirements, prohibition on general solicitation, and provisions for sophisticated non-accredited investors.'
-  },
   'legal-risk': {
     label: 'Legal Document',
     title: 'General Risk Disclosures',
-    fund: 'All Fund Vehicles',
-    desc: 'Comprehensive risk disclosure document covering material risks applicable to all Dark Horse fund vehicles including market risk, credit risk, liquidity risk, concentration risk, and risks specific to each investment vertical.'
+    fund: 'Draft Horse Capital Partners LLC',
+    desc: 'Comprehensive risk disclosure document covering material risks applicable to Draft Horse Capital Partners LLC including market risk, credit risk, liquidity risk, concentration risk, and risks specific to each investment vertical.'
   },
   'legal-conf': {
     label: 'Legal Document',
     title: 'Confidentiality Agreement',
-    fund: 'Dark Horse Wealth Management LLC',
+    fund: 'Draft Horse Capital Partners LLC',
     desc: 'Terms and conditions governing access to this data room. Defines Qualified Recipients, confidentiality obligations, permitted use, and consequences of unauthorized disclosure.'
   }
 };
@@ -910,9 +734,6 @@ function openModal(id) {
   document.getElementById('modalTitle').textContent = doc.title;
   document.getElementById('modalFund').textContent = doc.fund;
   document.getElementById('modalDesc').textContent = doc.desc;
-  const subject = encodeURIComponent('Document Access Request \u2014 ' + doc.fund);
-  const body = encodeURIComponent('I am requesting access to: ' + doc.title + ' (' + doc.fund + ')\n\nPlease provide details on the subscription and verification process.');
-  document.getElementById('modalRequestBtn').href = 'mailto:caleb@darkhorse-ventures.com?subject=' + subject + '&body=' + body;
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -967,26 +788,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     document.getElementById('navLinks').classList.remove('open');
   });
 });
-
-// Hash-link immediate scroll on page load
-(function() {
-  if (window.location.hash) {
-    const target = document.querySelector(window.location.hash);
-    if (target) {
-      // Disable smooth scroll temporarily
-      document.documentElement.style.scrollBehavior = 'auto';
-      target.classList.add('revealed');
-      requestAnimationFrame(() => {
-        target.scrollIntoView();
-        window.scrollBy(0, -80);
-        // Re-enable smooth scroll after jump
-        setTimeout(() => {
-          document.documentElement.style.scrollBehavior = 'smooth';
-        }, 100);
-      });
-    }
-  }
-})();
 </script>
 </body>
 </html>

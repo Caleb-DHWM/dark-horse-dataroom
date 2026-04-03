@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corinthian Capital Fund LLC — Investor Data Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #06080c;
+  --surface: #0c0f14;
+  --surface-hover: #10141a;
+  --border: rgba(194, 164, 74, 0.08);
+  --border-hover: rgba(194, 164, 74, 0.18);
+  --gold: #c2a44a;
+  --gold-dim: rgba(194, 164, 74, 0.6);
+  --gold-glow: rgba(194, 164, 74, 0.08);
+  --text: #e8e4dc;
+  --text-secondary: #8a8578;
+  --text-dim: #5a564e;
+  --white: #f5f2eb;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'SF Mono', monospace;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(194, 164, 74, 0.2); color: var(--white); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(194, 164, 74, 0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(194, 164, 74, 0.3); }
+
+/* Ambient background */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(194, 164, 74, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(194, 164, 74, 0.02) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(12, 15, 20, 0.5) 0%, transparent 100%);
+}
+
+/* Navigation */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 48px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(6, 8, 12, 0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+nav.scrolled { background: rgba(6, 8, 12, 0.95); }
+.nav-brand {
+  font-family: var(--serif); font-weight: 500; font-size: 14px;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim);
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-secondary); text-decoration: none;
+  padding: 4px 0; position: relative; transition: color 0.3s ease;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+/* Content wrapper */
+.content { position: relative; z-index: 1; }
+
+/* Hero */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 48px 80px;
+  opacity: 0; transform: translateY(30px);
+  animation: heroIn 1.2s ease forwards 0.3s;
+}
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 32px;
+}
+.hero-title {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.1; color: var(--white); margin-bottom: 20px;
+  max-width: 800px;
+}
+.hero-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+.hero-subtitle {
+  font-family: var(--sans); font-weight: 300; font-size: 16px;
+  color: var(--text-secondary); margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-bottom: 48px;
+}
+.pill {
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 16px; border: 1px solid var(--border);
+  border-radius: 100px; color: var(--text-secondary);
+  background: rgba(194, 164, 74, 0.03);
+}
+.hero-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* Confidentiality Banner */
+.confidentiality {
+  max-width: 900px; margin: 0 auto; padding: 0 48px 80px; text-align: center;
+}
+.confidentiality-text {
+  font-family: var(--sans); font-size: 12px; font-weight: 300;
+  line-height: 1.9; color: var(--text-dim);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 32px 0;
+}
+.confidentiality-text strong { color: var(--text-secondary); font-weight: 500; }
+
+/* Sections */
+.section {
+  max-width: 960px; margin: 0 auto; padding: 100px 48px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section.revealed { opacity: 1; transform: translateY(0); }
+
+.section-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.15; color: var(--white); margin-bottom: 12px;
+}
+.section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+.section-subtitle {
+  font-family: var(--mono); font-size: 12px; color: var(--text-secondary);
+  letter-spacing: 0.05em; margin-bottom: 32px;
+}
+.section-body {
+  font-size: 15px; line-height: 1.85; color: var(--text-secondary);
+  max-width: 720px; margin-bottom: 48px;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px;
+  margin-bottom: 56px; padding-bottom: 48px; border-bottom: 1px solid var(--border);
+}
+.stat-value {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--white); margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* Document rows */
+.doc-list { display: flex; flex-direction: column; gap: 2px; }
+.doc-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; border-radius: 4px; cursor: pointer;
+  border: 1px solid transparent; transition: all 0.3s ease;
+  background: transparent;
+}
+.doc-row:hover {
+  background: var(--surface); border-color: var(--border-hover);
+}
+.doc-row:hover .doc-title { color: var(--gold); }
+.doc-row:hover .doc-arrow { opacity: 1; transform: translateX(0); }
+.doc-info { flex: 1; min-width: 0; }
+.doc-title {
+  font-family: var(--serif); font-size: 18px; font-weight: 400;
+  color: var(--text); transition: color 0.3s ease; margin-bottom: 4px;
+}
+.doc-desc {
+  font-size: 13px; color: var(--text-dim); line-height: 1.6;
+  max-width: 600px;
+}
+.doc-arrow {
+  font-family: var(--mono); font-size: 12px; color: var(--gold);
+  opacity: 0; transform: translateX(-8px);
+  transition: all 0.3s ease; white-space: nowrap; margin-left: 24px;
+  flex-shrink: 0;
+}
+
+/* Legal notices */
+.legal-notice {
+  padding: 32px 0; border-top: 1px solid var(--border);
+}
+.legal-notice-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 12px;
+}
+.legal-notice-text {
+  font-size: 12px; line-height: 1.9; color: var(--text-dim);
+}
+
+/* Footer */
+footer {
+  text-align: center; padding: 80px 48px 48px;
+  border-top: 1px solid var(--border);
+  max-width: 960px; margin: 0 auto;
+}
+.footer-copy {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.footer-email {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--gold-dim); text-decoration: none;
+}
+.footer-email:hover { color: var(--gold); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(6, 8, 12, 0.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border-hover);
+  border-radius: 8px; padding: 48px; max-width: 580px; width: 90%;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.35s ease;
+  position: relative;
+}
+.modal-overlay.active .modal { transform: translateY(0) scale(1); }
+.modal-close {
+  position: absolute; top: 20px; right: 24px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 20px; cursor: pointer; transition: color 0.2s;
+  font-family: var(--sans); font-weight: 300; line-height: 1;
+}
+.modal-close:hover { color: var(--gold); }
+.modal-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 28px; font-weight: 400;
+  color: var(--white); margin-bottom: 8px;
+}
+.modal-fund {
+  font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.05em; margin-bottom: 24px;
+}
+.modal-desc {
+  font-size: 14px; line-height: 1.8; color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+.modal-actions { display: flex; gap: 12px; }
+.modal-btn {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 12px 28px; border-radius: 4px; cursor: pointer;
+  text-decoration: none; transition: all 0.3s ease; border: none;
+}
+.modal-btn-primary {
+  background: var(--gold); color: var(--bg);
+}
+.modal-btn-primary:hover { background: #d4b85c; }
+.modal-btn-secondary {
+  background: transparent; border: 1px solid var(--border-hover);
+  color: var(--text-secondary);
+}
+.modal-btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 60px; }
+  .section { padding: 60px 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .doc-row { padding: 16px; }
+  .doc-desc { display: none; }
+  .modal { padding: 32px 24px; }
+  .modal-actions { flex-direction: column; }
+  .confidentiality { padding: 0 24px 60px; }
+}
+@media (max-width: 480px) {
+  .hero-pills { gap: 6px; }
+  .pill { font-size: 9px; padding: 5px 12px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+/* Nav mobile toggle */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 18px; height: 1px; background: var(--text-secondary); margin: 4px 0; transition: all 0.3s; }
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 0; right: 0; background: rgba(6, 8, 12, 0.97);
+    padding: 24px 48px; gap: 16px; border-bottom: 1px solid var(--border);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-brand">Corinthian Capital</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#overview" data-section="overview">Overview</a>
+    <a href="#documents" data-section="documents">Documents</a>
+    <a href="#reference" data-section="reference">Reference</a>
+    <a href="#legal" data-section="legal">Legal</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-eyebrow">Investor Data Room</div>
+    <h1 class="hero-title">Corinthian Capital<br><em>Partners LLC</em></h1>
+    <p class="hero-subtitle">Private Debt Fund<br><span style="font-size:14px;color:rgba(232,228,220,.4);font-family:IBM Plex Mono,monospace;letter-spacing:1px">Managed under Dark Horse Wealth Management LLC</span></p>
+    <div class="hero-pills">
+      <span class="pill">Institutional Offering Materials</span>
+      <span class="pill">Fixed 24% Annual Return</span>
+      <span class="pill">Zero Fees</span>
+      <span class="pill">Regulation D 506(b)</span>
+      <span class="pill">Texas Governing Law</span>
+    </div>
+    <div class="hero-meta">Corinthian Capital Partners LLC &middot; Confidential &middot; April 2026</div>
+  </section>
+
+  <!-- Confidentiality Notice -->
+  <div class="confidentiality">
+    <div class="confidentiality-text">
+      <strong>Strictly Confidential.</strong> This data room contains offering materials for Corinthian Capital Partners LLC, a private debt fund jointly managed by Dark Horse Wealth Management LLC and Atlas Wealth Management. All materials are strictly confidential and intended solely for Qualified Recipients with a pre-existing substantive relationship with the issuer. By accessing any document herein, you acknowledge that you are a Qualified Recipient, agree to maintain strict confidentiality, and agree not to reproduce, distribute, or disclose any portion without prior written consent.
+    </div>
+  </div>
+
+  <!-- Fund Overview -->
+  <section class="section" id="overview">
+    <div class="section-label">The Fund</div>
+    <h2 class="section-title">Corinthian Capital Fund LLC</h2>
+    <div class="section-subtitle">Texas LLC &middot; Reg D 506(b) &middot; Section 3(c)(1)</div>
+    <div class="section-body">
+      Corinthian Capital Partners is an established private debt fund offering investors a fixed contractual return of 2% per month (24% per annum) through senior secured lending to a single institutional borrower. The fund charges no management fees and no performance fees. Structured under Reg D 506(b), participation requires a pre-existing substantive relationship with the issuer. Jointly managed by Dark Horse Wealth Management LLC and Atlas Wealth Management.
+    </div>
+
+    <div class="stats-grid">
+      <div>
+        <div class="stat-value">2%</div>
+        <div class="stat-label">Monthly Fixed Rate</div>
+      </div>
+      <div>
+        <div class="stat-value">24%</div>
+        <div class="stat-label">Annual Fixed Return</div>
+      </div>
+      <div>
+        <div class="stat-value">506(b)</div>
+        <div class="stat-label">Exemption</div>
+      </div>
+      <div>
+        <div class="stat-value">Zero</div>
+        <div class="stat-label">Management &amp; Performance Fees</div>
+      </div>
+      <div>
+        <div class="stat-value">Monthly</div>
+        <div class="stat-label">Distribution Frequency</div>
+      </div>
+    </div>
+
+    <!-- Leadership -->
+    <div style="padding-top:32px;border-top:1px solid var(--border);margin-bottom:24px;">
+      <div class="section-body" style="margin-bottom:0;">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;">Leadership</span>
+        <strong style="color:var(--white);font-weight:400;">Caleb Caraway</strong> &mdash; Managing Principal. Oversees all investment decisions, borrower relations, and investor communications.
+      </div>
+    </div>
+    <div style="padding-top:24px;border-top:1px solid var(--border);">
+      <div class="section-body" style="margin-bottom:0;">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;">Ownership Structure</span>
+        75% Dark Horse Wealth Management LLC &middot; 25% Atlas Wealth Management
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents -->
+  <section class="section" id="documents">
+    <div class="section-label">Fund Documents</div>
+    <h2 class="section-title">Offering <em>materials.</em></h2>
+    <div class="section-body">
+      Complete documentation package for Corinthian Capital Partners LLC. All documents are available upon execution of the applicable subscription agreement and completion of investor verification.
+    </div>
+
+    <div class="doc-list">
+      <div class="doc-row" onclick="openModal('cc-dataroom')">
+        <div class="doc-info">
+          <div class="doc-title">Institutional Data Room</div>
+          <div class="doc-desc">Complete due diligence package covering fund structure, lending terms, collateral framework, and full diligence documentation.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('cc-ppm')">
+        <div class="doc-info">
+          <div class="doc-title">Private Placement Memorandum</div>
+          <div class="doc-desc">Definitive offering document detailing all material terms, risk factors, and legal disclosures.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('cc-subscription')">
+        <div class="doc-info">
+          <div class="doc-title">Subscription Agreement</div>
+          <div class="doc-desc">Investor qualification and commitment documentation including suitability representations and capital commitment terms.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('cc-termsheet')">
+        <div class="doc-info">
+          <div class="doc-title">Term Sheet</div>
+          <div class="doc-desc">Key terms and fund structure including distribution mechanics, maturity provisions, and governance framework.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('cc-tearsheet')">
+        <div class="doc-info">
+          <div class="doc-title">Tear Sheet</div>
+          <div class="doc-desc">Single-page executive summary of key fund terms, return profile, and strategy highlights.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('cc-teaser')">
+        <div class="doc-info">
+          <div class="doc-title">Investor Teaser</div>
+          <div class="doc-desc">Introduction to the fund covering strategy overview, return structure, and qualification requirements.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reference Materials -->
+  <section class="section" id="reference">
+    <div class="section-label">Reference Materials</div>
+    <h2 class="section-title">Platform <em>documentation.</em></h2>
+    <div class="section-body">
+      Supporting documentation providing additional context on the management platform and common investor inquiries.
+    </div>
+
+    <div class="doc-list">
+      <div class="doc-row" onclick="openModal('ref-platform')">
+        <div class="doc-info">
+          <div class="doc-title">Platform Overview</div>
+          <div class="doc-desc">Dark Horse Wealth Management background, team, investment process, and organizational structure.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('ref-faq')">
+        <div class="doc-info">
+          <div class="doc-title">Investor FAQ</div>
+          <div class="doc-desc">Common questions answered covering fund structure, distribution mechanics, regulatory framework, and tax treatment.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal & Compliance -->
+  <section class="section" id="legal">
+    <div class="section-label">Legal &amp; Compliance</div>
+    <h2 class="section-title">Regulatory <em>disclosures.</em></h2>
+
+    <div class="doc-list" style="margin-bottom:64px;">
+      <div class="doc-row" onclick="openModal('legal-506b')">
+        <div class="doc-info">
+          <div class="doc-title">Reg D 506(b) Disclosure</div>
+          <div class="doc-desc">Corinthian Capital Partners LLC</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('legal-risk')">
+        <div class="doc-info">
+          <div class="doc-title">General Risk Disclosures</div>
+          <div class="doc-desc">Material risks applicable to the fund.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+      <div class="doc-row" onclick="openModal('legal-conf')">
+        <div class="doc-info">
+          <div class="doc-title">Confidentiality Agreement</div>
+          <div class="doc-desc">Terms governing access to this data room.</div>
+        </div>
+        <div class="doc-arrow">View &rarr;</div>
+      </div>
+    </div>
+
+    <!-- Legal Notices -->
+    <div class="legal-notice">
+      <div class="legal-notice-label">Corinthian Capital Partners LLC</div>
+      <div class="legal-notice-text">
+        Corinthian Capital Partners LLC is a Texas limited liability company jointly managed by Dark Horse Wealth Management LLC and Atlas Wealth Management. Securities are offered pursuant to Regulation D, Rule 506(b) under the Securities Act of 1933. No general solicitation or advertising is permitted. All investors must have a pre-existing substantive relationship with the issuer. The fund relies on Section 3(c)(1) exemption and is limited to no more than 100 beneficial owners. The stated 2% monthly / 24% annual return is a contractual target rate and is not guaranteed. All investments involve risk including possible loss of principal. Securities have not been and will not be registered under the Securities Act of 1933.
+      </div>
+    </div>
+
+    <div class="legal-notice">
+      <div class="legal-notice-label">General Risk Disclosure</div>
+      <div class="legal-notice-text">
+        Nothing in this data room constitutes investment advice, legal advice, tax advice, or an offer to sell or solicitation of an offer to buy any security. Past performance is not indicative of future results. Prospective investors should review all offering documents and consult their own advisors before investing. Securities offered herein have not been and will not be registered under the Securities Act of 1933 or any state securities laws. The fund employs a concentrated lending strategy to a single institutional borrower, which entails heightened credit risk and concentration risk. Investors should carefully consider whether the risk profile of this investment is suitable for their circumstances.
+      </div>
+    </div>
+
+    <div class="legal-notice">
+      <div class="legal-notice-label">Forward-Looking Statements</div>
+      <div class="legal-notice-text">
+        This data room contains forward-looking statements within the meaning of the Private Securities Litigation Reform Act of 1995. These statements are based on current expectations, estimates, forecasts, and projections about the industries in which we operate and the beliefs and assumptions of our management. Words such as "expects," "anticipates," "targets," "goals," "projects," "intends," "plans," "believes," "seeks," "estimates," variations of such words, and similar expressions are intended to identify such forward-looking statements. These forward-looking statements are only predictions and are subject to risks, uncertainties, and assumptions that are difficult to predict. Therefore, actual results may differ materially and adversely from those expressed in any forward-looking statements. We undertake no obligation to revise or update publicly any forward-looking statements for any reason.
+      </div>
+    </div>
+  </section>
+
+  <!-- Confidentiality Banner -->
+  <div class="confidentiality" style="padding-top:40px;">
+    <div class="confidentiality-text">
+      <strong>Notice:</strong> This data room and all materials contained herein are strictly confidential. Distribution to any person who does not have a pre-existing substantive relationship with the issuer is prohibited. Unauthorized reproduction or disclosure may result in legal action.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-copy">&copy; 2026 Corinthian Capital Partners LLC &middot; All Rights Reserved &middot; Strictly Confidential</div>
+    <a href="mailto:caleb@corinthian-capital.com" class="footer-email">caleb@corinthian-capital.com</a>
+  </footer>
+
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-label" id="modalLabel"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-fund" id="modalFund"></div>
+    <div class="modal-desc" id="modalDesc"></div>
+    <div class="modal-access-note" style="font-size:12px;color:var(--text-dim);margin-bottom:24px;line-height:1.7;border-top:1px solid var(--border);padding-top:20px;">Documents are available upon execution of the applicable subscription agreement and completion of investor verification. A pre-existing substantive relationship with the issuer is required.</div>
+    <div class="modal-actions">
+      <a class="modal-btn modal-btn-primary" id="modalRequestBtn" href="#">Request Access</a>
+      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Modal data
+const docs = {
+  'cc-dataroom': {
+    label: 'Fund Document',
+    title: 'Institutional Data Room',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Complete due diligence package covering fund structure, lending terms, borrower profile, collateral framework, and full diligence documentation. This package is designed for institutional allocators and qualified investors and includes all materials necessary to complete a preliminary investment review.'
+  },
+  'cc-ppm': {
+    label: 'Fund Document',
+    title: 'Private Placement Memorandum',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Definitive offering document detailing all material terms, risk factors, legal disclosures, borrower information, collateral structure, and distribution mechanics. This is the governing document for all investment commitments to the fund.'
+  },
+  'cc-subscription': {
+    label: 'Fund Document',
+    title: 'Subscription Agreement',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Investor qualification and commitment documentation including suitability representations, accredited investor certification, capital commitment terms, and acknowledgment of pre-existing relationship with the issuer.'
+  },
+  'cc-termsheet': {
+    label: 'Fund Document',
+    title: 'Term Sheet',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Key terms and fund structure including the 2% monthly fixed distribution rate, maturity provisions, collateral framework, governance structure, and service providers. Subject to definitive Private Placement Memorandum.'
+  },
+  'cc-tearsheet': {
+    label: 'Fund Document',
+    title: 'Tear Sheet',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Single-page executive summary of key fund terms, return profile, and strategy highlights. Designed for initial review and leave-behind distribution in qualified investor meetings.'
+  },
+  'cc-teaser': {
+    label: 'Fund Document',
+    title: 'Investor Teaser',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Introduction to the fund covering strategy overview, fixed-rate return structure, zero-fee model, and qualification requirements for prospective investors with a pre-existing relationship with the issuer.'
+  },
+  'ref-platform': {
+    label: 'Reference Material',
+    title: 'Platform Overview',
+    fund: 'Dark Horse Wealth Management LLC',
+    desc: 'Comprehensive overview of the Dark Horse Wealth Management platform including background, team, investment process, organizational structure, and the zero-fee philosophy that underpins all fund operations.'
+  },
+  'ref-faq': {
+    label: 'Reference Material',
+    title: 'Investor FAQ',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Common questions answered covering fund structure, distribution mechanics, regulatory framework, tax treatment, investor eligibility, and the pre-existing relationship requirement under Reg D 506(b).'
+  },
+  'legal-506b': {
+    label: 'Legal Document',
+    title: 'Reg D 506(b) Disclosure',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Full regulatory disclosure for Corinthian Capital Partners LLC under Rule 506(b) of Regulation D. Covers pre-existing relationship requirements, prohibition on general solicitation, Section 3(c)(1) exemption, and provisions for up to 35 sophisticated non-accredited investors.'
+  },
+  'legal-risk': {
+    label: 'Legal Document',
+    title: 'General Risk Disclosures',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Comprehensive risk disclosure document covering material risks applicable to the fund including credit risk, concentration risk, liquidity risk, borrower default risk, and risks specific to the senior secured lending strategy employed by the fund.'
+  },
+  'legal-conf': {
+    label: 'Legal Document',
+    title: 'Confidentiality Agreement',
+    fund: 'Corinthian Capital Partners LLC',
+    desc: 'Terms and conditions governing access to this data room. Defines Qualified Recipients, confidentiality obligations, permitted use, and consequences of unauthorized disclosure.'
+  }
+};
+
+function openModal(id) {
+  const doc = docs[id];
+  if (!doc) return;
+  document.getElementById('modalLabel').textContent = doc.label;
+  document.getElementById('modalTitle').textContent = doc.title;
+  document.getElementById('modalFund').textContent = doc.fund;
+  document.getElementById('modalDesc').textContent = doc.desc;
+  const subject = encodeURIComponent('Document Access Request \u2014 Corinthian Capital Partners LLC');
+  const body = encodeURIComponent('I am requesting access to: ' + doc.title + ' (Corinthian Capital Partners LLC)\n\nPlease provide details on the subscription and verification process.');
+  document.getElementById('modalRequestBtn').href = 'mailto:caleb@corinthian-capital.com?subject=' + subject + '&body=' + body;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+// Nav scroll state + active tracking
+const navbar = document.getElementById('navbar');
+const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+const sections = document.querySelectorAll('.section[id]');
+
+function updateNav() {
+  const scrollY = window.scrollY;
+  navbar.classList.toggle('scrolled', scrollY > 60);
+
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 120;
+    if (scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('data-section') === current);
+  });
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// Hash-link immediate scroll on page load
+(function() {
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      document.documentElement.style.scrollBehavior = 'auto';
+      target.classList.add('revealed');
+      requestAnimationFrame(() => {
+        target.scrollIntoView();
+        window.scrollBy(0, -80);
+        setTimeout(() => {
+          document.documentElement.style.scrollBehavior = 'smooth';
+        }, 100);
+      });
+    }
+  }
+})();
+</script>
+</body>
+</html>
