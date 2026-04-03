@@ -454,35 +454,35 @@ footer {
     </div>
 
     <div class="doc-list">
-      <div class="doc-row" onclick="openModal('dh-dataroom')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-data-room.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Institutional Data Room</div>
           <div class="doc-desc">Complete institutional disclosure package covering fund structure, investment mandate, collateral framework, terms, and full diligence documentation.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('dh-pitch')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-pitch-deck.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Pitch Deck</div>
           <div class="doc-desc">12-slide institutional investor presentation covering mandate, verticals, yield structure, and fund team.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('dh-termsheet')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-term-sheet.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Term Sheet</div>
           <div class="doc-desc">Formal indicative term sheet detailing all material investment terms, distribution mechanics, fund governance, and service providers.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('dh-tearsheet')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-tear-sheet.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Tear Sheet</div>
           <div class="doc-desc">Single-page print-ready summary of key fund terms and strategy highlights for initial outreach and leave-behind distribution.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('dh-teaser')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-teaser.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Investor Teaser</div>
           <div class="doc-desc">Concise outreach piece highlighting strategy, return profile, and minimum commitment for initial investor contact.</div>
@@ -537,28 +537,28 @@ footer {
     </div>
 
     <div class="doc-list">
-      <div class="doc-row" onclick="openModal('ref-overview')">
+      <div class="doc-row" onclick="window.open('dark-horse-fund-family-overview.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Fund Family Overview</div>
           <div class="doc-desc">Institutional overview of the Dark Horse Wealth Management fund platform — strategy, structure, and regulatory framework.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('ref-platform')">
+      <div class="doc-row" onclick="window.open('dark-horse-fund-family-overview.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Platform Overview</div>
           <div class="doc-desc">The Dark Horse Wealth Management story, team, investment process, and organizational structure.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('ref-faq')">
+      <div class="doc-row" onclick="window.open('dark-horse-investor-faq.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Investor FAQ</div>
           <div class="doc-desc">Comprehensive 50-question FAQ covering fund structure, legal framework, distribution mechanics, regulatory compliance, tax treatment, and platform governance.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('ref-org')">
+      <div class="doc-row" onclick="window.open('entity-org-chart.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Organizational Structure</div>
           <div class="doc-desc">Entity hierarchy, governance, and key relationships including Dark Horse Advisers LLC (RIA).</div>
@@ -574,21 +574,21 @@ footer {
     <h2 class="section-title">Regulatory disclosures.</h2>
 
     <div class="doc-list" style="margin-bottom:64px;">
-      <div class="doc-row" onclick="openModal('legal-506c')">
+      <div class="doc-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-term-sheet.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">Reg D 506(c) Disclosure</div>
           <div class="doc-desc">Draft Horse Capital Partners LLC</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('legal-risk')">
+      <div class="doc-row" onclick="window.open('dark-horse-investor-faq.html','_blank')">
         <div class="doc-info">
           <div class="doc-title">General Risk Disclosures</div>
           <div class="doc-desc">Material risks applicable to all fund vehicles.</div>
         </div>
         <div class="doc-arrow">View &rarr;</div>
       </div>
-      <div class="doc-row" onclick="openModal('legal-conf')">
+      <div class="doc-row" onclick="window.open('mailto:caleb@darkhorse-ventures.com?subject=Confidentiality%20Agreement%20Request','_self')">
         <div class="doc-info">
           <div class="doc-title">Confidentiality Agreement</div>
           <div class="doc-desc">Terms governing access to this data room.</div>
@@ -636,19 +636,7 @@ footer {
 </div>
 
 <!-- Modal Overlay -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div class="modal-label" id="modalLabel"></div>
-    <div class="modal-title" id="modalTitle"></div>
-    <div class="modal-fund" id="modalFund"></div>
-    <div class="modal-desc" id="modalDesc"></div>
-    <div class="modal-actions">
-      <a class="modal-btn modal-btn-primary" onclick="closeModal()" style="text-decoration:none;display:inline-block">Close</a>
-      <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
-    </div>
-  </div>
-</div>
+
 
 <script>
 // Modal data
@@ -727,22 +715,9 @@ const docs = {
   }
 };
 
-function openModal(id) {
-  const doc = docs[id];
-  if (!doc) return;
-  document.getElementById('modalLabel').textContent = doc.label;
-  document.getElementById('modalTitle').textContent = doc.title;
-  document.getElementById('modalFund').textContent = doc.fund;
-  document.getElementById('modalDesc').textContent = doc.desc;
-  document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modalOverlay')) return;
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
+
+
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
 // Scroll reveal
