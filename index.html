@@ -429,7 +429,7 @@ footer a{color:#c2a44a;text-decoration:none}
   <div class="ref-row" onclick="window.open('Draft Horse Capital Partners/draft-horse-term-sheet.html', '_blank')"><div><div class="ref-title">Reg D 506(c) Disclosure</div><div class="ref-sub">Draft Horse Capital Partners</div></div><div class="doc-arrow">View &rarr;</div></div>
   <div class="ref-row" onclick="window.open('Quarter Horse Capital Partners/quarter-horse-term-sheet.html', '_blank')"><div><div class="ref-title">Reg D 506(b) Disclosure</div><div class="ref-sub">Quarter Horse Capital Partners</div></div><div class="doc-arrow">View &rarr;</div></div>
   <div class="ref-row" onclick="window.open('dark-horse-investor-faq.html', '_blank')"><div><div class="ref-title">General Risk Disclosures</div><div class="ref-sub">Material risks applicable to all fund vehicles</div></div><div class="doc-arrow">View &rarr;</div></div>
-  <div class="ref-row" onclick="window.open('mailto:caleb@darkhorse-ventures.com?subject=Confidentiality Agreement Request')"><div><div class="ref-title">Confidentiality Agreement</div><div class="ref-sub">Terms governing access to this data room</div></div><div class="doc-arrow">View &rarr;</div></div>
+  <div class="ref-row" onclick="window.open('dark-horse-investor-faq.html', '_blank')"><div><div class="ref-title">Confidentiality Agreement</div><div class="ref-sub">Terms governing access to this data room</div></div><div class="doc-arrow">View &rarr;</div></div>
 </section>
 
 <div class="conf-banner reveal">
@@ -478,7 +478,7 @@ function pop(id){
   const d=D[id];if(!d)return;
   let h=`<h2>${d.t}</h2><div class="modal-sub">${d.s}</div>`;
   d.b.forEach(x=>{h+=`<div class="modal-block"><div class="modal-block-label">${x.l}</div><p>${x.p}</p></div>`});
-  h+='<div class="modal-btns"><button class="mbtn mbtn-gold" onclick="alert(\'Document will be available when PDF files are linked.\')">Preview</button><button class="mbtn mbtn-ghost" onclick="alert(\'Download will be available when PDF files are linked.\')">Download PDF</button></div>';
+  h+='<div class="modal-btns"><button class="mbtn mbtn-gold" onclick="closeModal()">Close</button></div>';
   document.getElementById('mb').innerHTML=h;
   document.getElementById('ov').classList.add('on');
   document.body.style.overflow='hidden';
