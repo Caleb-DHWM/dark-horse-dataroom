@@ -1,1647 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Draft Horse Capital Partners — Institutional Pitch Deck</title>
-<style>
-  /* ================================================================
-     ROOT & RESET
-  ================================================================ */
-  :root {
-    --navy:        #080c18;
-    --navy-mid:    #0d1220;
-    --navy-light:  #141c30;
-    --navy-card:   #111828;
-    --navy-card2:  #17202e;
-    --gold:        #c9a84c;
-    --gold-light:  #e8c87a;
-    --gold-dim:    #7a5f28;
-    --gold-xdim:   #3a2e12;
-    --white:       #f0f4f8;
-    --white-dim:   #8fa3b8;
-    --green:       #2ecc71;
-    --green-dim:   #1a7a45;
-    --blue:        #4a90c4;
-    --red:         #e05555;
-    --silver:      #cdd8e6;
-    --border:      rgba(201,168,76,0.18);
-    --border-dim:  rgba(255,255,255,0.06);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Horse Capital Partners - Pitch Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
 
-  html, body {
-    width: 100vw; height: 100vh;
-    overflow: hidden;
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'Georgia', 'Times New Roman', serif;
-  }
+        body {
+            background: #06080c;
+            color: #e8e4dc;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
 
-  /* ================================================================
-     CHROME: PROGRESS / COUNTER / NAV
-  ================================================================ */
-  #progress-wrap {
-    position: fixed; top: 0; left: 0; right: 0; height: 3px;
-    background: rgba(255,255,255,0.07); z-index: 200;
-  }
-  #progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold-light));
-    transition: width 0.4s ease;
-  }
+        /* Ambient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(194,164,74,.04) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(40,50,80,.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 0%, rgba(194,164,74,.03) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  #slide-counter {
-    position: fixed; top: 14px; right: 22px; z-index: 200;
-    font-family: 'Arial', sans-serif; font-size: 10px;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold-dim);
-  }
+        /* Main sections */
+        section {
+            position: relative;
+            z-index: 1;
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            border-bottom: 1px solid rgba(255,255,255,.02);
+        }
 
-  .nav-btn {
-    position: fixed; bottom: 26px; z-index: 200;
-    background: rgba(201,168,76,0.08);
-    border: 1px solid rgba(201,168,76,0.28);
-    color: var(--gold); font-family: 'Arial', sans-serif;
-    font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-    padding: 10px 26px; cursor: pointer; border-radius: 2px;
-    transition: all 0.2s;
-  }
-  .nav-btn:hover { background: rgba(201,168,76,0.2); border-color: var(--gold); }
-  .nav-btn:disabled { opacity: 0.15; cursor: default; pointer-events: none; }
-  #btn-prev { left: 32px; }
-  #btn-next { right: 32px; }
+        /* Animation classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
 
-  /* Slide dot nav */
-  #dot-nav {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    z-index: 200; display: flex; gap: 6px; align-items: center;
-  }
-  .dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(201,168,76,0.25); cursor: pointer;
-    transition: all 0.2s;
-  }
-  .dot.active { background: var(--gold); width: 18px; border-radius: 3px; }
-  .dot:hover { background: var(--gold-dim); }
+        .reveal.vis {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
 
-  /* ================================================================
-     SLIDE ENGINE
-  ================================================================ */
-  #deck { width: 100vw; height: 100vh; position: relative; }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-  .slide {
-    position: absolute; inset: 0;
-    display: none; flex-direction: column;
-    justify-content: center; align-items: center;
-    padding: 58px 80px 76px;
-    opacity: 0; transition: opacity 0.32s ease;
-  }
-  .slide.active { display: flex; opacity: 1; }
+        /* Section label */
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #c2a44a;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
 
-  .slide-inner {
-    width: 100%; max-width: 1120px;
-  }
+        /* Section title */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 400;
+            color: #e8e4dc;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 1000px;
+        }
 
-  /* ================================================================
-     TYPOGRAPHY SYSTEM
-  ================================================================ */
-  .eyebrow {
-    font-family: 'Arial', sans-serif; font-size: 10px;
-    letter-spacing: 4px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 14px;
-  }
-  .slide-title {
-    font-size: clamp(26px, 3.2vw, 44px);
-    color: var(--white); line-height: 1.12;
-    font-weight: normal; margin-bottom: 10px;
-  }
-  .slide-sub {
-    font-family: 'Arial', sans-serif;
-    font-size: clamp(12px, 1.2vw, 15px);
-    color: var(--white-dim); font-weight: 300;
-    margin-bottom: 32px; line-height: 1.5;
-  }
-  .gold-rule { width: 52px; height: 2px; background: var(--gold); margin-bottom: 30px; }
+        /* Body text */
+        .body-text {
+            font-size: 15px;
+            font-weight: 300;
+            color: rgba(232,228,220,.45);
+            line-height: 1.8;
+            max-width: 800px;
+            text-align: center;
+        }
 
-  /* ================================================================
-     COVER SLIDE (#1)
-  ================================================================ */
-  #slide-1 {
-    background:
-      radial-gradient(ellipse 80% 60% at 25% 35%, rgba(20,28,48,0.9) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 75% 65%, rgba(201,168,76,0.04) 0%, transparent 70%),
-      var(--navy);
-    text-align: center;
-  }
-  .cover-emblem {
-    width: 72px; height: 72px; margin: 0 auto 28px;
-    border: 1.5px solid var(--gold); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(201,168,76,0.05);
-  }
-  .cover-emblem svg { width: 34px; height: 34px; }
-  .cover-kicker {
-    font-family: 'Arial', sans-serif; font-size: 10px;
-    letter-spacing: 5px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 18px;
-  }
-  .cover-name {
-    font-size: clamp(34px, 5vw, 62px);
-    color: var(--white); letter-spacing: 1.5px;
-    line-height: 1.1; margin-bottom: 14px;
-  }
-  .cover-strategy {
-    font-family: 'Arial', sans-serif; font-size: clamp(11px, 1.3vw, 15px);
-    color: var(--gold); letter-spacing: 3px;
-    text-transform: uppercase; margin-bottom: 22px;
-  }
-  .cover-divider {
-    width: 140px; height: 1px; margin: 0 auto 22px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .cover-tagline {
-    font-size: clamp(14px, 1.7vw, 21px);
-    color: var(--white-dim); font-style: italic;
-    letter-spacing: 0.5px; margin-bottom: 42px; line-height: 1.5;
-  }
-  .cover-tagline em { color: var(--gold-light); font-style: normal; font-weight: normal; }
-  .cover-pills {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    justify-content: center; margin-bottom: 28px;
-  }
-  .pill {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold-dim); padding: 5px 14px; border-radius: 2px;
-    background: rgba(201,168,76,0.05);
-  }
-  .cover-legal {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    color: rgba(143,163,184,0.45); line-height: 1.8;
-  }
-  .cover-legal strong { color: rgba(201,168,76,0.4); font-weight: normal; }
+        /* Pills */
+        .pill {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(194,164,74,.2);
+            border-radius: 100px;
+            padding: 8px 16px;
+            margin: 8px;
+            background: rgba(255,255,255,.01);
+        }
 
-  /* ================================================================
-     STAT CARD GRID
-  ================================================================ */
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .pill-gold {
+            color: #c2a44a;
+            border-color: rgba(194,164,74,.3);
+        }
 
-  .stat-card {
-    background: var(--navy-card);
-    border: 1px solid var(--border-dim);
-    border-top: 2px solid rgba(201,168,76,0.22);
-    border-radius: 3px; padding: 20px 18px;
-  }
-  .stat-card .val {
-    font-size: clamp(20px, 2.8vw, 36px);
-    color: var(--gold); line-height: 1; margin-bottom: 8px;
-  }
-  .stat-card .val.green { color: var(--green); }
-  .stat-card .label {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--white-dim);
-  }
-  .stat-card .sub {
-    font-family: 'Arial', sans-serif; font-size: 11px;
-    color: rgba(143,163,184,0.6); margin-top: 6px; line-height: 1.4;
-  }
+        .pill-text {
+            color: rgba(232,228,220,.6);
+            border-color: rgba(255,255,255,.1);
+        }
 
-  /* ================================================================
-     HERO CALLOUT BOX
-  ================================================================ */
-  .hero-box {
-    background: linear-gradient(135deg, rgba(201,168,76,0.10), rgba(201,168,76,0.03));
-    border: 1px solid rgba(201,168,76,0.35);
-    border-radius: 4px; padding: 20px 26px;
-    display: flex; align-items: center; gap: 24px;
-  }
-  .hero-box .big {
-    font-size: clamp(28px, 3.5vw, 46px);
-    color: var(--gold); white-space: nowrap; line-height: 1;
-  }
-  .hero-box .big.green { color: var(--green); }
-  .hero-box .desc {
-    font-family: 'Arial', sans-serif; font-size: clamp(12px, 1.2vw, 14px);
-    color: var(--white-dim); line-height: 1.6;
-  }
-  .hero-box .desc strong { color: var(--white); }
+        /* Card styles */
+        .card {
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 12px;
+            transition: background 0.3s ease;
+        }
 
-  /* ================================================================
-     BULLET LIST
-  ================================================================ */
-  .blist {
-    list-style: none; display: flex;
-    flex-direction: column; gap: 12px;
-  }
-  .blist li {
-    font-family: 'Arial', sans-serif;
-    font-size: clamp(12px, 1.2vw, 14.5px);
-    color: var(--white-dim); line-height: 1.5;
-    display: flex; align-items: flex-start; gap: 12px;
-  }
-  .blist li::before {
-    content: ''; display: block; min-width: 5px; height: 5px;
-    background: var(--gold); border-radius: 50%; margin-top: 7px;
-  }
-  .blist li strong { color: var(--white); }
-  .blist.tight { gap: 8px; }
-  .blist.tight li { font-size: clamp(11px, 1.1vw, 13px); }
+        .card:hover {
+            background: rgba(255,255,255,.04);
+            border-color: rgba(194,164,74,.15);
+        }
 
-  /* ================================================================
-     LAYER STACK (Collateral)
-  ================================================================ */
-  .layer-stack { display: flex; flex-direction: column; gap: 8px; }
-  .layer-row {
-    display: flex; align-items: stretch; gap: 0;
-    background: var(--navy-card); border-radius: 3px; overflow: hidden;
-    border: 1px solid var(--border-dim);
-    transition: border-color 0.2s;
-  }
-  .layer-row:hover { border-color: rgba(201,168,76,0.3); }
-  .layer-accent {
-    width: 4px; flex-shrink: 0;
-  }
-  .layer-accent.l1 { background: var(--green); }
-  .layer-accent.l2 { background: var(--blue); }
-  .layer-accent.l3 { background: #9b59b6; }
-  .layer-accent.l4 { background: var(--gold); }
-  .layer-accent.l5 { background: var(--red); }
-  .layer-accent.l6 { background: linear-gradient(180deg, var(--gold), #e8c87a); }
-  .layer-body {
-    flex: 1; padding: 12px 16px;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .layer-num {
-    font-family: 'Arial', sans-serif; font-size: 9px;
-    letter-spacing: 2px; color: var(--gold-dim);
-    min-width: 20px;
-  }
-  .layer-title {
-    font-family: 'Arial', sans-serif; font-size: clamp(11px, 1.1vw, 13px);
-    color: var(--white); font-weight: 700; min-width: 180px;
-  }
-  .layer-desc {
-    font-family: 'Arial', sans-serif;
-    font-size: clamp(10.5px, 1vw, 12.5px);
-    color: var(--white-dim); flex: 1; line-height: 1.4;
-  }
-  .layer-badge {
-    font-family: 'Arial', sans-serif; font-size: 9px;
-    letter-spacing: 1px; text-transform: uppercase;
-    border-radius: 2px; padding: 3px 8px; white-space: nowrap;
-  }
-  .lb-green { background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
-  .lb-blue  { background: rgba(74,144,196,0.12); color: var(--blue);  border: 1px solid rgba(74,144,196,0.3); }
-  .lb-purple{ background: rgba(155,89,182,0.12); color: #c27ff5;      border: 1px solid rgba(155,89,182,0.3); }
-  .lb-gold  { background: rgba(201,168,76,0.12); color: var(--gold);  border: 1px solid rgba(201,168,76,0.3); }
-  .lb-red   { background: rgba(224,85,85,0.12);  color: var(--red);   border: 1px solid rgba(224,85,85,0.3); }
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
 
-  /* ================================================================
-     BAR CHART (Returns)
-  ================================================================ */
-  .bar-chart-wrap { width: 100%; }
-  .bars-area {
-    display: flex; align-items: flex-end; gap: 10px;
-    height: 180px; margin-bottom: 8px;
-  }
-  .bar-grp {
-    display: flex; flex-direction: column;
-    align-items: center; flex: 1; height: 100%;
-    justify-content: flex-end;
-  }
-  .bar-col {
-    width: 100%; border-radius: 2px 2px 0 0;
-    background: linear-gradient(180deg, var(--gold-light), var(--gold-dim));
-    position: relative; min-height: 3px;
-    transition: height 1.1s cubic-bezier(0.22,1,0.36,1);
-  }
-  .bar-col.highlight {
-    background: linear-gradient(180deg, #f5e090, var(--gold));
-    box-shadow: 0 -4px 20px rgba(201,168,76,0.25);
-  }
-  .bar-col:hover { filter: brightness(1.15); }
-  .bar-pct {
-    position: absolute; top: -20px; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Arial', sans-serif; font-size: 12px;
-    font-weight: 700; color: var(--gold-light); white-space: nowrap;
-  }
-  .bar-col.highlight .bar-pct { color: var(--gold-light); font-size: 14px; }
-  .bar-axis { height: 1px; background: rgba(255,255,255,0.08); }
-  .bar-label {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    color: var(--white-dim); margin-top: 6px; text-align: center;
-    line-height: 1.3;
-  }
-  .bar-label.highlight { color: var(--gold); }
-  .bar-callout {
-    background: linear-gradient(90deg, rgba(201,168,76,0.1), transparent);
-    border-left: 3px solid var(--gold);
-    padding: 10px 16px; margin-top: 14px;
-    font-family: 'Arial', sans-serif; font-size: 13px;
-    color: var(--white); border-radius: 0 3px 3px 0;
-  }
-  .bar-callout .accent { color: var(--gold); font-weight: 700; }
-  .bar-note {
-    font-family: 'Arial', sans-serif; font-size: 10.5px;
-    color: rgba(143,163,184,0.55); margin-top: 8px; font-style: italic;
-  }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
 
-  /* ================================================================
-     COMPARISON TABLE
-  ================================================================ */
-  .comp-table { width: 100%; border-collapse: collapse; }
-  .comp-table th {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 10px 14px; text-align: left;
-    border-bottom: 1px solid rgba(201,168,76,0.25);
-    color: var(--white-dim);
-  }
-  .comp-table th.dh { color: var(--gold); background: rgba(201,168,76,0.05); }
-  .comp-table td {
-    font-family: 'Arial', sans-serif; font-size: clamp(11px, 1.1vw, 13px);
-    padding: 10px 14px; border-bottom: 1px solid var(--border-dim);
-    color: var(--white-dim); vertical-align: middle;
-  }
-  .comp-table tr:last-child td { border-bottom: none; }
-  .comp-table td.row-label { color: var(--silver); font-weight: 600; }
-  .comp-table td.dh { color: var(--gold); font-weight: 700; background: rgba(201,168,76,0.04); }
-  .comp-table td.bad { color: var(--red); }
-  .comp-table td.good { color: var(--green); }
+        /* Allocation chart bar */
+        .allocation-bar {
+            width: 100%;
+            height: 50px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 8px;
+            display: flex;
+            margin: 20px 0;
+            overflow: hidden;
+        }
 
-  /* ================================================================
-     ENFORCEMENT CASCADE
-  ================================================================ */
-  .cascade {
-    display: flex; align-items: center; gap: 8px;
-    flex-wrap: wrap; margin-top: 10px;
-  }
-  .cas-step {
-    font-family: 'Arial', sans-serif; font-size: 10.5px;
-    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.22);
-    color: var(--gold-light); padding: 5px 10px; border-radius: 2px;
-  }
-  .cas-arrow { color: var(--gold-dim); font-size: 11px; }
+        .allocation-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            color: #e8e4dc;
+            transition: opacity 0.3s ease;
+        }
 
-  /* ================================================================
-     DEAL STRUCTURE ROWS
-  ================================================================ */
-  .deal-rows { display: flex; flex-direction: column; gap: 6px; }
-  .deal-row {
-    display: flex; align-items: stretch; gap: 0;
-    background: var(--navy-card); border-radius: 3px; overflow: hidden;
-    border: 1px solid var(--border-dim);
-  }
-  .deal-label {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--gold-dim); padding: 12px 14px;
-    min-width: 140px; border-right: 1px solid var(--border-dim);
-    display: flex; align-items: center; background: rgba(201,168,76,0.02);
-  }
-  .deal-val {
-    font-family: 'Arial', sans-serif; font-size: clamp(11.5px, 1.15vw, 13.5px);
-    color: var(--white-dim); padding: 12px 16px;
-    flex: 1; display: flex; align-items: center; line-height: 1.45;
-  }
-  .deal-val strong { color: var(--white); }
+        .allocation-segment:hover {
+            opacity: 0.8;
+        }
 
-  /* ================================================================
-     FLEET MATH / COVERAGE VISUAL
-  ================================================================ */
-  .coverage-visual {
-    background: var(--navy-card); border: 1px solid var(--border);
-    border-radius: 4px; padding: 22px 24px;
-    display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
-    gap: 0; align-items: center;
-  }
-  .cov-col { text-align: center; padding: 0 18px; }
-  .cov-col .big-num {
-    font-size: clamp(28px, 3.5vw, 46px);
-    color: var(--gold); line-height: 1; margin-bottom: 6px;
-  }
-  .cov-col .big-num.green { color: var(--green); }
-  .cov-col .cov-label {
-    font-family: 'Arial', sans-serif; font-size: 10px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--white-dim);
-  }
-  .cov-col .cov-sub {
-    font-family: 'Arial', sans-serif; font-size: 11px;
-    color: rgba(143,163,184,0.55); margin-top: 5px;
-  }
-  .cov-divider { width: 1px; height: 60px; background: var(--border-dim); }
+        .segment-aviation { background: rgba(194,164,74,.3); }
+        .segment-mining { background: rgba(194,164,74,.25); }
+        .segment-ecom { background: rgba(194,164,74,.2); }
+        .segment-realestate { background: rgba(194,164,74,.15); }
+        .segment-art { background: rgba(194,164,74,.1); }
 
-  /* ================================================================
-     PROCESS STEPS
-  ================================================================ */
-  .steps { display: flex; flex-direction: column; gap: 8px; }
-  .step-row {
-    display: flex; align-items: center; gap: 16px;
-    background: var(--navy-card); border: 1px solid var(--border-dim);
-    border-radius: 3px; padding: 12px 18px;
-    transition: border-color 0.2s;
-  }
-  .step-row:hover { border-color: rgba(201,168,76,0.25); }
-  .step-num {
-    width: 30px; height: 30px; min-width: 30px;
-    border: 1px solid rgba(201,168,76,0.4); border-radius: 50%;
-    background: rgba(201,168,76,0.08);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Arial', sans-serif; font-size: 12px;
-    font-weight: 700; color: var(--gold);
-  }
-  .step-text {
-    font-family: 'Arial', sans-serif; font-size: clamp(12px, 1.2vw, 14px);
-    color: var(--white); flex: 1;
-  }
-  .step-text span { color: var(--white-dim); font-weight: 300; }
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-  /* ================================================================
-     SWF TARGETING CARDS
-  ================================================================ */
-  .swf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .swf-card {
-    background: var(--navy-card);
-    border: 1px solid var(--border-dim);
-    border-top: 3px solid var(--gold);
-    border-radius: 3px; padding: 18px 16px;
-  }
-  .swf-card .swf-name {
-    font-size: clamp(16px, 1.8vw, 22px);
-    color: var(--gold-light); margin-bottom: 4px;
-  }
-  .swf-card .swf-country {
-    font-family: 'Arial', sans-serif; font-size: 9px;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold-dim); margin-bottom: 12px;
-  }
-  .swf-card ul { list-style: none; }
-  .swf-card ul li {
-    font-family: 'Arial', sans-serif; font-size: 11px;
-    color: var(--white-dim); padding: 4px 0;
-    border-bottom: 1px solid var(--border-dim);
-    line-height: 1.4; display: flex; gap: 7px;
-  }
-  .swf-card ul li:last-child { border-bottom: none; }
-  .swf-card ul li::before { content: '→'; color: var(--gold-dim); flex-shrink: 0; }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(194,164,74,.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(194,164,74,.2);
+        }
 
-  /* ================================================================
-     IRC §892 SLIDE
-  ================================================================ */
-  .tax-framework {
-    background: var(--navy-card);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 4px; padding: 22px 26px;
-  }
-  .tax-header {
-    font-family: 'Arial', sans-serif; font-size: 10px;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 16px;
-    padding-bottom: 12px; border-bottom: 1px solid var(--border-dim);
-  }
-  .tax-row {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 10px 0; border-bottom: 1px solid var(--border-dim);
-    gap: 24px;
-  }
-  .tax-row:last-child { border-bottom: none; }
-  .tax-q {
-    font-family: 'Arial', sans-serif; font-size: 12px;
-    color: var(--silver); flex: 1; line-height: 1.5;
-  }
-  .tax-a {
-    font-family: 'Arial', sans-serif; font-size: 12px;
-    color: var(--white-dim); flex: 2; line-height: 1.5;
-  }
-  .tax-a strong { color: var(--gold); }
+        .dot.active {
+            background: #c2a44a;
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 12px rgba(194,164,74,.4);
+        }
 
-  /* ================================================================
-     LIEN PROTECTION SLIDE
-  ================================================================ */
-  .lien-chain {
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .lien-item {
-    background: var(--navy-card); border-radius: 3px;
-    border: 1px solid var(--border-dim);
-    border-left: 4px solid var(--gold);
-    padding: 16px 20px; display: flex; align-items: flex-start; gap: 18px;
-  }
-  .lien-item.secondary { border-left-color: var(--blue); }
-  .lien-icon {
-    font-family: 'Arial', sans-serif; font-size: 9px;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); min-width: 120px; padding-top: 2px;
-  }
-  .lien-item.secondary .lien-icon { color: var(--blue); }
-  .lien-content { flex: 1; }
-  .lien-title {
-    font-size: clamp(13px, 1.3vw, 16px);
-    color: var(--white); margin-bottom: 6px;
-  }
-  .lien-body {
-    font-family: 'Arial', sans-serif; font-size: clamp(11px, 1.1vw, 13px);
-    color: var(--white-dim); line-height: 1.55;
-  }
+        /* Cover slide specific */
+        .cover-slide {
+            text-align: center;
+        }
 
-  /* ================================================================
-     CONTACT / CTA
-  ================================================================ */
-  .cta-block {
-    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
-    border: 1px solid rgba(201,168,76,0.3); border-radius: 4px;
-    padding: 22px 26px; margin-top: 16px;
-    font-family: 'Arial', sans-serif; font-size: 13px;
-    color: var(--white-dim); line-height: 1.9;
-  }
-  .cta-block strong { color: var(--gold); }
+        .cover-tagline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c2a44a;
+            margin: 20px 0;
+        }
 
-  .disclaimer-sm {
-    margin-top: 14px; padding: 12px 16px;
-    background: rgba(0,0,0,0.35); border-radius: 3px;
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    color: rgba(143,163,184,0.4); line-height: 1.65;
-  }
+        .cover-subtitle {
+            font-size: 18px;
+            color: rgba(232,228,220,.6);
+            margin: 30px 0;
+        }
 
-  /* ================================================================
-     MARKET OPPORTUNITY SLIDE
-  ================================================================ */
-  .mkt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .mkt-card {
-    background: var(--navy-card); border: 1px solid var(--border-dim);
-    border-radius: 3px; padding: 18px 20px;
-  }
-  .mkt-card .mkt-num {
-    font-size: clamp(26px, 3vw, 40px);
-    color: var(--gold); line-height: 1; margin-bottom: 8px;
-  }
-  .mkt-card .mkt-label {
-    font-family: 'Arial', sans-serif; font-size: 9.5px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--gold-dim); margin-bottom: 8px;
-  }
-  .mkt-card .mkt-desc {
-    font-family: 'Arial', sans-serif; font-size: 12px;
-    color: var(--white-dim); line-height: 1.55;
-  }
+        .confidential-badge {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(194,164,74,.5);
+            z-index: 50;
+        }
 
-  /* ================================================================
-     DIFFERENTIATOR SLIDE ("DEAL IS DONE")
-  ================================================================ */
-  #slide-5 {
-    background:
-      radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%),
-      var(--navy);
-  }
-  .done-banner {
-    background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
-    border: 2px solid rgba(201,168,76,0.45);
-    border-radius: 4px; padding: 22px 28px; margin-bottom: 24px;
-    text-align: center;
-  }
-  .done-banner .headline {
-    font-size: clamp(22px, 2.8vw, 36px);
-    color: var(--gold-light); font-style: italic;
-    margin-bottom: 8px; letter-spacing: 0.5px;
-  }
-  .done-banner .sub-line {
-    font-family: 'Arial', sans-serif; font-size: clamp(12px, 1.2vw, 15px);
-    color: var(--white-dim);
-  }
+        /* Print friendly */
+        @media print {
+            body {
+                scroll-snap-type: none;
+            }
+            section {
+                page-break-after: always;
+                break-after: page;
+                height: auto;
+                scroll-snap-align: none;
+                padding: 80px 60px;
+                border: none;
+            }
+            .nav-dots, .confidential-badge {
+                display: none;
+            }
+        }
 
-  /* ================================================================
-     PROVIDER GRID
-  ================================================================ */
-  .provider-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .provider-card {
-    background: var(--navy-card);
-    border: 1px solid var(--border-dim);
-    border-top: 2px solid var(--gold-dim);
-    border-radius: 3px; padding: 16px 14px;
-  }
-  .provider-name {
-    font-family: 'Arial', sans-serif; font-size: 12.5px;
-    font-weight: 700; color: var(--gold-light); margin-bottom: 4px;
-  }
-  .provider-role {
-    font-family: 'Arial', sans-serif; font-size: 9px;
-    letter-spacing: 1px; text-transform: uppercase;
-    color: var(--gold-dim); margin-bottom: 8px;
-  }
-  .provider-desc {
-    font-family: 'Arial', sans-serif; font-size: 11px;
-    color: var(--white-dim); line-height: 1.5;
-  }
-
-  /* ================================================================
-     RESPONSIVE GUARD
-  ================================================================ */
-  @media (max-width: 960px) {
-    .slide { padding: 48px 44px 72px; }
-    .grid-4, .swf-grid, .provider-grid { grid-template-columns: repeat(2, 1fr); }
-    .mkt-cards, .grid-3 { grid-template-columns: 1fr; }
-  }
-</style>
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 20px;
+            }
+            .nav-dots {
+                display: none;
+            }
+            .confidential-badge {
+                font-size: 9px;
+                right: 20px;
+                top: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="confidential-badge">CONFIDENTIAL</div>
+    <div class="nav-dots" id="navDots"></div>
 
-<!-- CHROME -->
-<div id="progress-wrap"><div id="progress-fill" style="width:5.88%"></div></div>
-<div id="slide-counter">Slide <span id="cur">1</span> / 17</div>
-<button class="nav-btn" id="btn-prev" onclick="go(-1)" disabled>← Prev</button>
-<button class="nav-btn" id="btn-next" onclick="go(1)">Next →</button>
-<div id="dot-nav"></div>
-
-<div id="deck">
-
-<!-- ====================================================
-     SLIDE 1 — COVER
-==================================================== -->
-<div class="slide active" id="slide-1">
-  <div style="text-align:center; max-width:820px;">
-    <div class="cover-emblem">
-      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 29 L13 7 L21 20 L27 11 L31 29 Z" stroke="#c9a84c" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
-        <circle cx="18" cy="18" r="2.2" fill="#c9a84c"/>
-      </svg>
-    </div>
-    <div class="cover-kicker">Private Credit &nbsp;·&nbsp; Institutional Series I</div>
-    <div class="cover-name">Draft Horse<br>Capital Partners</div>
-    <div class="cover-strategy">Direct PE Credit &nbsp;·&nbsp; Hard Asset Collateral &nbsp;·&nbsp; Fixed Term</div>
-    <div class="cover-divider"></div>
-    <div class="cover-tagline">
-      <em>"The borrower is identified. The deal is done."</em><br>
-      No pipeline risk. No ramp period. No fee drag.Target returns are not guaranteed. Past performance is not indicative of future results.
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 2 — FUND AT A GLANCE
-==================================================== -->
-<div class="slide" id="slide-2">
-  <div class="slide-inner">
-    <div class="eyebrow">Fund Overview</div>
-    <div class="slide-title">The Case in Six Numbers</div>
-    <div class="slide-sub">private. Identified counterparty. Collateral-secured. Day-one deployment.</div>
-        <div class="label">Fixed Term · Quarterly Income</div>
-        <div class="sub">No early redemption · 100% principal at maturity · Rate locked at subscription</div>
-      </div>
-    </div>
-
-    <div class="hero-box">
-      <div class="big">Day 1</div>
-      <div class="desc">
-        <strong>No ramp period. No origination risk. No speculative pipeline.</strong><br>
-        The borrower is an identified, institutional PE-backed operator — diligenced, documented, and committed. Identity held confidential; disclosed to institutional investors under NDA prior to subscription.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 3 — MARKET OPPORTUNITY
-==================================================== -->
-<div class="slide" id="slide-3">
-  <div class="slide-inner">
-    <div class="eyebrow">The Opportunity</div>
-    <div class="slide-title">$1.7 Trillion and Accelerating</div>
-    <div class="slide-sub">Bank withdrawal from middle-market lending has created the largest sustained yield premium in private credit history</div>
-    <div class="gold-rule"></div>
-
-    <div class="mkt-cards" style="margin-bottom:20px;">
-      <div class="mkt-card">
-        <div class="mkt-num">$1.7T+</div>
-        <div class="mkt-label">Private Credit Market (2024)</div>
-        <div class="mkt-desc">Fastest-growing alternative asset class globally. Preqin projects $3.5T by 2028. Institutional allocators scaling exposure — SWFs, pensions, insurance. Demand-side structural, not cyclical.</div>
-      </div>
-      <div class="mkt-card">
-        <div class="mkt-num">Basel III</div>
-        <div class="mkt-label">Bank Structural Retreat</div>
-        <div class="mkt-desc">Post-Basel III/IV, risk-weighted capital requirements have permanently repriced middle-market bank lending as sub-optimal ROE activity. Banks are not temporarily retreating — they are structurally exiting.</div>
-      </div>
-      <div class="mkt-card">
-        <div class="mkt-num">$3.9T</div>
-        <div class="mkt-label">PE Dry Powder Seeking Credit</div>
-        <div class="mkt-desc">Global PE dry powder at all-time highs. Every dollar eventually needs credit solutions. PE sponsors pay premium rates for certainty, speed, and relationship-sourced capital — not syndicated auction processes.</div>
-      </div>
-      <div class="mkt-card">
-        <div class="mkt-num">Bilateral</div>
-        <div class="mkt-label">Direct Lending Advantage</div>
-        <div class="mkt-desc">Full covenant visibility. No syndicate agent. No information lag. Real-time borrower monitoring. Maximum early-warning precision. Enforcement speed unavailable in any broadly syndicated structure.</div>
-      </div>
-    </div>
-
-    <div class="hero-box">
-      <div class="big">Now</div>
-      <div class="desc">
-        <strong>Rate environment + PE dry powder + bank retreat = optimal entry point for secured direct lending.</strong><br>
-        Draft Horse enters with a committed $1B deployment against an identified, relationship-sourced PE borrower — not a strategy in search of a deal. The opportunity exists now. The structure is built. The counterparty is identified.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 4 — STRATEGY
-==================================================== -->
-<div class="slide" id="slide-4">
-  <div class="slide-inner">
-    <div class="eyebrow">Investment Strategy</div>
-    <div class="slide-title">Private Direct Lending to PE-Backed Operators</div>
-    <div class="slide-sub">private credit to established PE-sponsored businesses — hard asset backing, bilateral structure, institutional collateral architecture</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-2" style="margin-bottom:22px;">
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-dim);">Why PE-Backed Borrowers</div>
-        <ul class="blist">
-          <li><strong>Institutional operators:</strong> PE sponsors carry reputational equity in every deal — default has career consequences, not merely financial ones</li>
-          <li><strong>Structured balance sheets:</strong> PE-owned companies operate with professional financial management, audited reporting, and defined covenant frameworks</li>
-          <li><strong>Premium for certainty:</strong> PE sponsors pay above-market rates for relationship-sourced capital that closes without syndicate delays or auction uncertainty</li>
-          <li><strong>Dual alignment — Caraway:</strong> Same PE sponsor holds equity in both the borrowing entity AND the G4/G550 charter company — default is doubly painful for the counterparty</li>
-          <li><strong>Direct origination:</strong> No broker, no intermediary, no auction premium — bilateral relationship predates Fund formation</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="hero-box">
-      <div class="big">1</div>
-      <div class="desc">
-        <strong>One borrower. Six collateral layers. Zero speculation.</strong><br>
-        The concentration is deliberate — not a limitation. Direct bilateral private lending to known, diligenced counterparty provides monitoring depth and enforcement speed structurally unavailable in diversified portfolios.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 5 — KEY DIFFERENTIATOR: DEAL IS DONE
-==================================================== -->
-<div class="slide" id="slide-5">
-  <div class="slide-inner">
-    <div class="eyebrow">Primary Differentiator</div>
-    <div class="slide-title">No Pipeline Risk. No Blind Pool. No Speculation.</div>
-    <div class="gold-rule"></div>
-
-    <div class="done-banner">
-      <div class="headline">"The borrower is identified. The deal is done."</div>
-      <div class="sub-line">Capital raised against a documented facility — not a strategy in search of a counterparty</div>
-    </div>
-
-    <div class="grid-2">
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border-dim);">What Draft Horse Is</div>
-        <ul class="blist">
-          <li><strong>Borrower identified:</strong> Institutional PE-backed operator (identity confidential — disclosed under NDA) — documented balance sheet, established asset portfolio, and charter aviation co-ownership</li>
-          <li><strong>Structure complete:</strong> 36-month credit facility terms negotiated · covenant package defined · collateral architecture documented</li>
-          <li><strong>UCC-1 filing ready:</strong> Security interests ready to file and perfect on fund close — investors step into a perfected first-priority position</li>
-          <li><strong>Deployment immediate:</strong> Zero ramp period · Zero cash drag · First distribution payable 90 days from close</li>
-        </ul>
-      </div>
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border-dim);">What Most Private Credit Funds Are</div>
-        <ul class="blist">
-          <li><strong>Blind pool:</strong> Capital raised first · Borrowers identified after close · 12–24 month origination period with capital sitting idle earning 4–5% money market rates</li>
-          <li><strong>Pipeline speculation:</strong> Fundraising materials describe strategies and deal flow projections — not documented facilities with identified counterparties</li>
-          <li><strong>Competitive auction:</strong> Deals sourced through intermediaries and brokers, subject to auction dynamics and spread compression</li>
-          <li><strong>Fee drag during ramp:</strong> Management fees collect on committed capital while investors wait for deployment — compressing net returns before earning begins</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 6 — DEAL STRUCTURE
-==================================================== -->
-<div class="slide" id="slide-6">
-  <div class="slide-inner">
-    <div class="eyebrow">Deal Structure</div>
-    <div class="slide-title">36-Month private Credit Facility</div>
-    <div class="slide-sub">Fixed rate · Quarterly interest · Principal at maturity · Defined enforcement cascade — structured and negotiated before capital raise</div>
-    <div class="gold-rule"></div>
-
-    <div class="deal-rows" style="margin-bottom:18px;">
-      <div class="deal-row">
-        <div class="deal-label">Borrower</div>
-        <div class="deal-val"><strong>Confidential PE-backed Operator</strong> — Institutional operator with multi-vertical portfolio. Identity confirmed post-NDA with qualified investors only.</div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Instrument</div>
-        <div class="deal-val"><strong>36-month term credit facility</strong> — Fixed rate. Quarterly interest payments. 100% principal return at maturity. No early redemption.</div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Facility Size</div>
-        <div class="deal-val"><strong>$100,000,000 initial</strong> — Single facility, single bilateral counterparty.</div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Security Package</div>
-        <div class="deal-val"><strong>UCC-1 financing statements</strong> filed against all assets as condition precedent to first disbursement.FAA Civil Aviation Registry notation on current aviation collateral per 49 U.S.C. § 44107.</div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Covenants</div>
-        <div class="deal-val">Min 1.25× DSCR quarterly &nbsp;·&nbsp; Quarterly financial reporting &nbsp;·&nbsp; MAC notification &nbsp;·&nbsp; Annual aircraft appraisal refresh &nbsp;·&nbsp; No additional senior debt without Fund consent</div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Enforcement Cascade</div>
-        <div class="deal-val">
-          <div class="cascade">
-            <span class="cas-step">Cash Flow Sweep</span><span class="cas-arrow">→</span>
-            <span class="cas-step">Asset Liquidation</span><span class="cas-arrow">→</span>
-            <span class="cas-step">Equity Takeover</span><span class="cas-arrow">→</span>
-            <span class="cas-step">G550 Remarketing</span><span class="cas-arrow">→</span>
-            <span class="cas-step">Sponsor Guaranty Call</span>
-          </div>
-        </div>
-      </div>
-      <div class="deal-row">
-        <div class="deal-label">Fund Structure</div>
-        <div class="deal-val">Reg D 506(c) &nbsp;·&nbsp; §3(c)(1) &nbsp;·&nbsp; Texas LLC &nbsp;·&nbsp; Zero fees &nbsp;·&nbsp; No leverage at fund level &nbsp;·&nbsp; NAV Fund Services · Axos Bank · SCALE LLP · Spicer Jeffries LLP</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 7 — SIX-LAYER COLLATERAL OVERVIEW
-==================================================== -->
-<div class="slide" id="slide-7">
-  <div class="slide-inner">
-    <div class="eyebrow">Capital Protection</div>
-    <div class="slide-title">Six Independent Layers of Collateral</div>
-    <div class="slide-sub">Five independent hard asset layers — each independently enforceable.The Fund needs exactly one to hold — it has six.</div>
-    <div class="gold-rule"></div>
-
-    <div class="layer-stack" style="margin-bottom:18px;">
-      <div class="layer-row">
-        <div class="layer-accent l1"></div>
-        <div class="layer-body">
-          <div class="layer-num">01</div>
-          <div class="layer-title">Operating Cash Flows</div>
-          <div class="layer-desc">UCC-1 cash sweep · PE portfolio company receivables · Primary repayment source · Real-time covenant monitoring · Fastest enforcement path under UCC §9-607</div>
-          <span class="layer-badge lb-green">CASH · LIQUID</span>
-        </div>
-      </div>
-      <div class="layer-row">
-        <div class="layer-accent l2"></div>
-        <div class="layer-body">
-          <div class="layer-num">02</div>
-          <div class="layer-title">Physical Real Estate &amp; Inventory</div>
-          <div class="layer-desc">UCC-1 perfected lien · Brick-and-mortar commercial real estate + operational inventory · Independently appraised · Texas market appreciation tailwind</div>
-          <span class="layer-badge lb-blue">TANGIBLE · REAL</span>
-        </div>
-      </div>
-      <div class="layer-row">
-        <div class="layer-accent l3"></div>
-        <div class="layer-body">
-          <div class="layer-num">03</div>
-          <div class="layer-title">100% Portfolio Company Equity Pledge</div>
-          <div class="layer-desc">Fund steps into operational control on breach — no court required. Full enterprise value recoverable via managed wind-down or sale. Most powerful enforcement option.</div>
-          <span class="layer-badge lb-purple">CONTROL · PLEDGED</span>
-        </div>
-      </div>
-      <div class="layer-row">
-        <div class="layer-accent l4"></div>
-        <div class="layer-body">
-          <div class="layer-num">04</div>
-          <div class="layer-title">Aviation Assets — Current G4-Class Fleet + Future G550 Enhancement</div>
-          <div class="layer-desc">Current: 4 G4-class aircraft (2 unencumbered) · $8M–$16M current aviation collateral · FAA Civil Aviation Registry + UCC-1 perfected lien · Future platform enhancement: Quarter Horse Capital Partners acquires G550 fleet for same operator · 24 G550s ($336M floor) → 51 jets ($714M floor) at full deployment · Draft Horse interest in G550s is subordinated to Quarter Horse first-priority claim</div>
-          <span class="layer-badge lb-gold">AVIATION · HARD ASSET</span>
-        </div>
-      </div>
-      <div class="layer-row">
-        <div class="layer-accent l5"></div>
-        <div class="layer-body">
-          <div class="layer-num">05</div>
-          <div class="layer-title">PE Sponsor Personal Guaranty — Dual Equity Exposure</div>
-          <div class="layer-desc">Caraway holds equity in BOTH the borrowing entity AND the charter company. Default triggers impairment on two independent sides. Full-recourse continuing guaranty. Perfectly aligned incentives.</div>
-          <span class="layer-badge lb-red">ALIGNED · GUARANTY</span>
-        </div>
-      </div>
-      <div class="layer-row" style="background:linear-gradient(135deg,rgba(201,168,76,0.09) 0%,rgba(8,12,24,0) 70%);border-color:rgba(201,168,76,0.Layers 1–5: hard asset collateral.</strong><br>
-        For investors to lose principal, every single layer must fail simultaneously. The Fund needs exactly one to hold. Aviation collateral layer growing: current G4-class fleet ($8M–$16M) expanding as Quarter Horse Capital Partners acquires G550 aircraft for the same operator. <em style="font-size:11px;color:var(--text-muted);">Layer 6 disclosure: Policy not yet executed.Investors should not rely on policy as currently in force. See Slide 7B.A+ rated. 335 years of institutional underwriting history.</div>
-    <div class="gold-rule"></div>
-
-    <div style="background:linear-gradient(135deg,rgba(201,168,76,0.09) 0%,rgba(8,12,24,0) 70%);border:2px solid rgba(201,168,76,0.3);border-radius:6px;padding:22px 26px;margin-bottom:20px;">
-      <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">The Structure</div>
-      <p style="font-family:'Arial',sans-serif;font-size:13px;color:var(--silver);line-height:1.The policy is anticipated to be in place at or prior to initial close — wholly additive to the existing five-layer hard asset collateral architecture.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
-      <div style="background:rgba(8,12,24,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:18px 20px;">
-        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:18px 20px;">
-        <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Why It Matters</div>
-        <ul style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text);line-height:2;list-style:none;padding:0;margin:0;">
-          <li> Institutional backstop independent of asset values</li>
-          <li> Pays even if all five collateral layers underperform</li>
-          <li> A+ rated insurer — 335+ year institutional pedigree</li>
-          <li> Sourced via direct, established syndicate relationship</li>
-          <li> Virtually no other fund at this scale offers this protection</li>
-          <li> Additive, not substitute, for hard asset collateral</li>
-        </ul>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;text-align:center;">
-      <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:16px 12px;">
-        <div style="font-size:22px;color:var(--gold);font-family:'Georgia',serif;">A+</div>
-        <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;"></div>
-      </div>
-      <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:16px 12px;">
-        <div style="font-size:22px;color:var(--gold);font-family:'Georgia',serif;">100%</div>
-        <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;">Principal Coverage</div>
-      </div>
-      <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:16px 12px;">
-        <div style="font-size:22px;color:var(--gold);font-family:'Georgia',serif;">6th</div>
-        <div style="font-family:'Arial',sans-serif;font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;">Independent Recovery Layer</div>
-      </div>
-    </div>
-
-    <div style="background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.2);border-radius:4px;padding:14px 18px;">
-      <div style="font-family:'Arial',sans-serif;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:7px;font-weight:700;">Important Disclosure</div>
-      <p style="font-family:'Arial',sans-serif;font-size:11.5px;color:var(--text-muted);line-height:1.Prospective investors should not rely on the policy as currently in force. The Fund anticipates completing the insurance structure at or prior to initial close and will provide executed policy terms to investors as part of the final due diligence package."</p>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 8 — G550 FLEET DEEP DIVE
-==================================================== -->
-<div class="slide" id="slide-8">
-  <div class="slide-inner">
-    <div class="eyebrow">Layer 4 — Hard Asset Deep Dive</div>
-    <div class="slide-title">Aviation Collateral: Current G4-Class Fleet &amp; Growing G550 Platform Enhancement</div>
-    <div class="slide-sub">Internationally traded hard assets with deep secondary market buyers across the U.S., Middle East, Europe, and Asia-Pacific</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-4" style="margin-bottom:18px;">
-      <div class="stat-card">
-        <div class="val">$14M</div>
-        <div class="label">Market Value Per Aircraft</div>
-        <div class="sub">Globally liquid · ICAO-certified · Actively traded secondary market</div>
-      </div>
-      <div class="stat-card">
-        <div class="val">24</div>
-        <div class="label">Current Fleet</div>
-        <div class="sub">$8M–$16M current aviation collateral (2 unencumbered G4-class jets)</div>
-      </div>
-      <div class="stat-card">
-        <div class="val">51</div>
-        <div class="label">Full Build-Out</div>
-        <div class="sub">$714M platform-level floor (51 G550s) at full Quarter Horse deployment · Subordinated to QH first priority</div>
-      </div>
-      <div class="stat-card">
-        <div class="val">40%</div>
-        <div class="label">DH Equity Per Jet</div>
-        <div class="sub">Fund holds economic ownership stake — income above and beyond credit spread</div>
-      </div>
-    </div>
-
-    <div class="coverage-visual" style="margin-bottom:16px;">
-      <div class="cov-col">
-        <div class="big-num">24 Jets</div>
-        <div class="cov-label">Current Fleet</div>
-        <div class="cov-sub">24 × $14M</div>
-      </div>
-      <div class="cov-divider"></div>
-      <div class="cov-col">
-        <div class="big-num">$8–16M</div>
-        <div class="cov-label">Current Fleet Value</div>
-        <div class="cov-sub">Current aviation collateral (2 unencumbered G4-class jets)</div>
-      </div>
-      <div class="cov-divider"></div>
-      <div class="cov-col">
-        <div class="big-num green">3.36–7.1×</div>
-        <div class="cov-label">Coverage at Build-Out</div>
-        <div class="cov-sub">Platform-level G550 coverage (future, subordinated to Quarter Horse first-priority)</div>
-      </div>
-    </div>
-
-    <div class="grid-2">
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Why Aviation = Compelling Collateral Enhancement</div>
-        <ul class="blist tight">
-          <li><strong>Globally mobile:</strong> Aircraft can be repositioned to the most advantageous sale market — unlike real estate or equity, collateral is not geographically constrained</li>
-          <li><strong>Deep buyer pools:</strong> Middle East, Asia-Pacific, and European institutional buyers maintain active acquisition pipelines for large-cabin U.S.-registered jets</li>
-          <li><strong>Income-generating during enforcement:</strong> Charter operations continue generating revenue while remarketing proceeds — operationally-current aircraft command materially higher prices</li>
-          <li><strong>FAA-registered:</strong> U.S. registration provides the strongest international lien priority framework, reinforced by Cape Town Convention (Aircraft Protocol) where applicable</li>
-        </ul>
-      </div>
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Infrastructure Mandate Alignment</div>
-        <ul class="blist tight">
-          <li><strong>Operating infrastructure:</strong> Charter aviation fleet = operating aviation infrastructure with contracted revenue, defined maintenance, and quantifiable cash yield — current G4 fleet is fully operational today</li>
-          <li><strong>Dual claim:</strong> Fund holds perfected debt lien AND 40% equity ownership in the operating entity — dual exposure to the asset class</li>
-          <li><strong>SWF relevance:</strong> ADQ (aviation infrastructure mandate), ADIA, GIC, and PIF all maintain active aviation and infrastructure allocation strategies — Layer 4's growing G550 platform depth maps directly to these mandates as the fleet scales</li>
-          <li><strong>Contracted revenue:</strong> Charter utilization generates predictable NOI per aircraft, supporting both asset value preservation and ongoing Fund income above the credit spread</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 9 — FLEET MATH & COVERAGE
-==================================================== -->
-<div class="slide" id="slide-9">
-  <div class="slide-inner">
-    <div class="eyebrow">Collateral Coverage Analysis</div>
-    <div class="slide-title">Aviation Collateral Math: Current G4 Position + Platform G550 Enhancement</div>
-    <div class="slide-sub">Current aviation collateral: 2 unencumbered G4-class aircraft ($8M–$16M). Platform enhancement: Quarter Horse G550 acquisition grows platform coverage to 3.36×–7.1× on a subordinated basis.</div>
-    <div class="gold-rule"></div>
-
-    <div style="background:var(--navy-card);border:1px solid var(--border);border-radius:4px;padding:24px 26px;margin-bottom:20px;">
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:center;text-align:center;">
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold);margin-bottom:6px;">24</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Current Jets</div>
-        </div>
-        <div style="font-size:28px;color:var(--gold-dim);">×</div>
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold);margin-bottom:6px;">$14M</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Per Aircraft</div>
-        </div>
-        <div style="font-size:28px;color:var(--gold-dim);">=</div>
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold-light);margin-bottom:6px;">$8–16M</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Current Fleet Value</div>
-        </div>
-      </div>
-      <div style="height:1px;background:var(--border-dim);margin:18px 0;"></div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:center;text-align:center;">
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold);margin-bottom:6px;">51</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Full Build-Out</div>
-        </div>
-        <div style="font-size:28px;color:var(--gold-dim);">×</div>
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold);margin-bottom:6px;">$14M</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Per Aircraft</div>
-        </div>
-        <div style="font-size:28px;color:var(--gold-dim);">=</div>
-        <div>
-          <div style="font-size:clamp(20px,2.5vw,32px);color:var(--gold-light);margin-bottom:6px;">$714M (platform, future)</div>
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white-dim);">Full Build-Out Value</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-3">
-      <div class="stat-card">
-        <div class="val">3.4×</div>
-        <div class="label">Coverage Today</div>
-        <div class="sub">$8–16M current G4 collateral · 2 unencumbered jets · Current perfected aviation layer</div>
-      </div>
-      <div class="stat-card">
-        <div class="val green">7.1× (platform)</div>
-        <div class="label">Coverage at Build-Out</div>
-        <div class="sub">$714M platform floor ÷ $1B facility · 51 G550 jets (Quarter Horse, subordinated) · Platform aviation layer</div>
-      </div>
-      <div class="stat-card">
-        <div class="val">+4</div>
-        <div class="label">Additional Layers Above Aviation</div>
-        <div class="sub">Cash flows + real estate + equity pledge + PE sponsor guaranty — each independently enforceable</div>
-      </div>
-    </div>
-
-    <div style="margin-top:14px;background:linear-gradient(90deg,rgba(201,168,76,0.1),transparent);border-left:3px solid var(--gold);padding:12px 18px;border-radius:0 3px 3px 0;font-family:'Arial',sans-serif;font-size:13px;color:var(--white);line-height:1.6;">
-      <strong style="color:var(--gold);">Critical insight:</strong> The platform-level aviation collateral narrative is compelling precisely because it grows over time. Today, primary collateral recovery is through cash flows, real estate, equity, and PE sponsor guaranty — plus current G4-class aviation collateral. As Quarter Horse deploys capital and acquires G550 aircraft, Draft Horse gains a subordinated but growing aviation collateral depth. At full platform deployment, the aviation layer alone represents 3.36×–7.1× of the facility — demonstrating the institutional sophistication of a platform where affiliate funds create compounding collateral depth.
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 10 — LIEN PROTECTION
-==================================================== -->
-<div class="slide" id="slide-10">
-  <div class="slide-inner">
-    <div class="eyebrow">Legal Protection Framework</div>
-    <div class="slide-title">Dual-Filed Perfected First-Priority Liens</div>
-    <div class="slide-sub">UCC-1 commercial lien + FAA Civil Aviation Registry notation — the strongest two-track lien framework in U.S. asset-based lending</div>
-    <div class="gold-rule"></div>
-
-    <div class="lien-chain" style="margin-bottom:20px;">
-      <div class="lien-item">
-        <div class="lien-icon">UCC-1<br>Article 9</div>
-        <div class="lien-content">
-          <div class="lien-title">UCC-1 Financing Statement — All Asset Classes</div>
-          <div class="lien-body">
-            Perfected UCC-1 filing against all tangible and intangible personal property of the borrower — including cash flows, receivables, inventory, equipment, and aviation assets. Filed with the Secretary of State in the borrower's state of organization as condition precedent to first disbursement. First-priority, senior-secured position. Subordinates all subsequent creditors. Publicly searchable on the UCC registry — institutional due diligence teams can independently verify filing and priority status. Governed by UCC Article 9 (personal property security) with enforcement rights under §§9-607 (cash sweep) and 9-610 (asset disposition).
-          </div>
-        </div>
-      </div>
-      <div class="lien-item secondary">
-        <div class="lien-icon" style="color:var(--blue);">FAA<br>Registry</div>
-        <div class="lien-content">
-          <div class="lien-title">FAA Civil Aviation Registry — 49 U.S.C. § 44107 / 14 C.F.R. Part 49</div>
-          <div class="lien-body">
-            For aviation collateral specifically, U.S. law requires conveyance notation on the FAA Civil Aviation Registry in Oklahoma City, Oklahoma, to perfect a security interest in U.S.-registered civil aircraft. This filing is separate from and in addition to the UCC-1, and it is the legally controlling instrument for priority of claims in U.S.-registered aircraft. An unfiled interest — regardless of the underlying agreement — is unenforceable against a bona fide purchaser for value without notice. The Fund's FAA Registry filing eliminates this risk entirely. For international enforcement contexts, SCALE LLP evaluates applicability of the Cape Town Convention (Aircraft Protocol), which provides additional cross-border priority protection for interests in qualifying aircraft in contracting states.
-          </div>
-        </div>
-      </div>
-      <div class="lien-item">
-        <div class="lien-icon">Equity<br>Pledge</div>
-        <div class="lien-content">
-          <div class="lien-title">100% Equity Pledge — Control Rights on Breach</div>
-          <div class="lien-body">
-            Separate from the UCC-1 and FAA filings, the Fund holds a pledge of 100% of the PE sponsor's equity interests in all portfolio companies. On a defined default event, the Fund does not petition a court to seize assets — the Fund exercises its pledge rights and steps into ownership control of the operating businesses. Execution managed by SCALE LLP under applicable securities law. Designed as the recovery-maximizing tool in a scenario where cash flows and real assets alone are insufficient to satisfy the outstanding obligation.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-box">
-      <div class="big" style="font-size:clamp(16px,1.8vw,22px);white-space:normal;text-align:center;min-width:120px;">Two<br>Filings.<br>One Priority.</div>
-      <div class="desc">
-        <strong>UCC-1 (commercial) + FAA Registry (aviation) = the strongest dual-lien architecture available under U.S. law.</strong><br>
-        Both filed before first dollar deployed. Both publicly verifiable. Both first-priority. The Fund's collateral position is not contractual — it is statutory. A subsequent creditor cannot displace the Fund's priority without the Fund's express written consent.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 11 — RETURN STRUCTURE
-==================================================== -->
-<div class="slide" id="slide-11">
-  <div class="slide-inner">
-    <div class="eyebrow">Returns</div>
-    <div class="slide-title">Tiered Stated Annual Return — Fixed at Subscription</div>
-    <div class="slide-sub">Larger commitments earn higher stated returns, locked for the full 36-month term — no reset, no repricing, no rate compression risk</div>
-    <div class="gold-rule"></div>
-
-    <div class="bar-chart-wrap" style="margin-bottom:14px;">
-      <div class="bar-axis"></div>
-      <div class="bars-area" id="bars">
-        <div class="bar-grp">
-          <div class="bar-col" id="b1" style="height:0%" data-h="47"><span class="bar-pct">9%</span></div>
-          <div class="bar-label">≤$10M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b2" style="height:0%" data-h="53"><span class="bar-pct">10%</span></div>
-          <div class="bar-label">$10–15M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b3" style="height:0%" data-h="59"><span class="bar-pct">11%</span></div>
-          <div class="bar-label">$15–20M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b4" style="height:0%" data-h="65"><span class="bar-pct">12%</span></div>
-          <div class="bar-label">$20–25M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b5" style="height:0%" data-h="70"><span class="bar-pct">13%</span></div>
-          <div class="bar-label">$25–30M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b6" style="height:0%" data-h="76"><span class="bar-pct">14%</span></div>
-          <div class="bar-label">$30–35M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col" id="b7" style="height:0%" data-h="82"><span class="bar-pct">15%</span></div>
-          <div class="bar-label">$35–50M</div>
-        </div>
-        <div class="bar-grp">
-          <div class="bar-col highlight" id="b8" style="height:0%" data-h="95"><span class="bar-pct">17%</span></div>
-          <div class="bar-label highlight">$50M+ </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bar-callout">
-      At <span class="accent">$50M+ commitment (Tier 8)</span>: <span class="accent">17%/year</span> · $8.5M/year in distributions · $25.5M total income over 36 months · 51% total return on capital · 100% principal returned at maturity
-    </div>
-    <div class="bar-note">Stated Annual Return (Target) to Investor. Quarterly distributions. 36-month fixed term. No early redemption. Returns are targets, not guarantees. Rate fixed at subscription, not subject to reset.</div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 12 — INVESTOR MATH
-==================================================== -->
-<div class="slide" id="slide-12">
-  <div class="slide-inner">
-    <div class="eyebrow">Investor Economics</div>
-    <div class="slide-title">What $50M Looks Like at 17% Over 36 Months</div>
-    <div class="slide-sub">No fees. Fixed rate. Quarterly income. Full principal returned. Illustrative — target yield, not guaranteed.</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-2" style="margin-bottom:20px; align-items:start;">
-      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.10),rgba(201,168,76,0.03));border:2px solid rgba(201,168,76,0.4);border-radius:4px;padding:24px 26px;">
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">$50,000,000 Subscription · Tier 8 · 17% Annual Target</div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-            <span style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--white-dim);">Quarterly distribution (4.25%)</span>
-            <span style="font-size:18px;color:var(--gold);">$2,125,000</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-            <span style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--white-dim);">Annual income</span>
-            <span style="font-size:18px;color:var(--gold);">$8,500,000</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-            <span style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--white-dim);">12 total quarterly payments</span>
-            <span style="font-size:18px;color:var(--gold);">$25,500,000</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-            <span style="font-family:'Arial',sans-serif;font-size:12.5px;color:var(--white-dim);">Principal returned at maturity</span>
-            <span style="font-size:18px;color:var(--white);">$50,000,000</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:14px 0;background:rgba(201,168,76,0.06);margin:4px -12px;padding-left:12px;padding-right:12px;border-radius:3px;">
-            <span style="font-family:'Arial',sans-serif;font-size:13px;color:var(--white);font-weight:700;">Total value returned</span>
-            <span style="font-size:26px;color:var(--gold-light);font-weight:700;">$75,500,000</span>
-          </div>
-        </div>
-        <div style="margin-top:14px;text-align:center;">
-          <span style="font-size:36px;color:var(--gold);">51%</span>
-          <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--white-dim);margin-top:4px;">Total return over 36 months</div>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Scale Table — All Tier 8 Subscriptions</div>
-        <table class="comp-table" style="font-size:11.5px;">
-          <thead>
-            <tr>
-              <th>Subscription</th>
-              <th>Qtrly Distribution</th>
-              <th>Annual</th>
-              <th>3-Year Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="row-label">$200K (Min)</td><td>$8,500</td><td>$34,000</td><td class="dh">$302,000</td></tr>
-            <tr><td class="row-label">$1M</td><td>$42,500</td><td>$170,000</td><td class="dh">$1,510,000</td></tr>
-            <tr><td class="row-label">$5M</td><td>$212,500</td><td>$850,000</td><td class="dh">$7,550,000</td></tr>
-            <tr><td class="row-label">$10M</td><td>$425,000</td><td>$1,700,000</td><td class="dh">$15,100,000</td></tr>
-            <tr><td class="row-label">$25M</td><td>$1,062,500</td><td>$4,250,000</td><td class="dh">$37,750,000</td></tr>
-            <tr><td class="row-label"><strong>$50M</strong></td><td><strong>$2,125,000</strong></td><td><strong>$8,500,000</strong></td><td class="dh"><strong>$75,500,000</strong></td></tr>
-          </tbody>
-        </table>
-        <div style="margin-top:12px;padding:12px 14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:3px;">
-          <div style="font-family:'Arial',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px;">Fee Advantage</div>
-          <div style="font-family:'Arial',sans-serif;font-size:11.5px;color:var(--white-dim);line-height:1.5;">Zero management fee. Zero carry. A 1.5%/20% structure on $50M costs investors $750K/year in fees plus 20% of upside. In Draft Horse: $0/year. Every dollar works for the investor.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 13 — FEE STRUCTURE
-==================================================== -->
-<div class="slide" id="slide-13">
-  <div class="slide-inner">
-    <div class="eyebrow">Fee Structure</div>
-    <div class="slide-title">Zero Fees. The Stated Return Is the Investor Return.</div>
-    <div class="slide-sub">No management fee. No performance carry. No hurdle arbitrage. No fee drag. Every basis point of yield goes to the investor.</div>
-    <div class="gold-rule"></div>
-
-    <table class="comp-table" style="margin-bottom:20px;">
-      <thead>
-        <tr>
-          <th></th>
-          <th class="dh">Draft Horse Capital Partners</th>
-          <th>Typical Private Credit BDC</th>
-          <th>Typical PE Fund</th>
-          <th>Investment-Grade Bonds</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="row-label">Management Fee</td>
-          <td class="dh good">None</td>
-          <td class="bad">1.5%–2.0% annually</td>
-          <td class="bad">1.5%–2.</strong><br>
-        The Fund's economics come exclusively from the spread above the investor's stated yield. This creates a single, aligned incentive: generate more spread by keeping the facility performing and maximizing deployment — not by collecting fees on idle capital. If the Fund earns nothing above the investor yield, the principal earns nothing. That is alignment.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 14 — SOVEREIGN WEALTH FUND POSITIONING
-==================================================== -->
-<div class="slide" id="slide-14">
-  <div class="slide-inner">
-    <div class="eyebrow">Institutional Allocator Targeting</div>
-    <div class="slide-title">Engineered for Sovereign Wealth Fund Mandates</div>
-    <div class="slide-sub">Four primary SWF allocation mandates — Draft Horse satisfies all four simultaneously within a single structure</div>
-    <div class="gold-rule"></div>
-
-    <div class="swf-grid" style="margin-bottom:18px;">
-      <div class="swf-card">
-        <div class="swf-name">ADQ</div>
-        <div class="swf-country">Abu Dhabi · UAE</div>
-        <ul>
-          <li>Aviation infrastructure mandate — G550 fleet = operating aviation infrastructure</li>
-          <li>Real asset investment thesis — hard asset collateral with contracted revenue</li>
-          <li>40% equity per jet + perfected debt claim — dual asset-class exposure</li>
-          <li>U.S. private credit — non-correlated income diversification</li>
-        </ul>
-      </div>
-      <div class="swf-card">
-        <div class="swf-name">ADIA</div>
-        <div class="swf-country">Abu Dhabi Investment Authority · UAE</div>
-        <ul>
-          <li>Private credit allocation — fixed income sleeve diversification</li>
-          <li>Non-correlated quarterly cash flow — liability management utility</li>
-          <li>Hard asset backing — principal protection floor</li>
-          <li>IRC §892 sovereign income tax exemption pathway</li>
-        </ul>
-      </div>
-      <div class="swf-card">
-        <div class="swf-name">GIC</div>
-        <div class="swf-country">Government of Singapore Investment Corp</div>
-        <ul>
-          <li>Alternative credit — bilateral direct lending sleeve</li>
-          <li>Fixed term · Fixed yield — asset-liability matching precision</li>
-          <li>Zero fee structure — net yield clarity for IC presentation</li>
-          <li>IRC §892 analysis applicable for sovereign income</li>
-        </ul>
-      </div>
-      <div class="swf-card">
-        <div class="swf-name">PIF</div>
-        <div class="swf-country">Public Investment Fund · Saudi Arabia</div>
-        <ul>
-          <li>Vision 2030 aviation mandate — G550 fleet infrastructure alignment</li>
-          <li>U.S. private market access — direct market participation</li>
-          <li>Collateral-backed income — hard asset security preference</li>
-          <li>IRC §892 sovereign exemption — efficient U.S. income structure</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="hero-box">
-      <div class="big" style="font-size:clamp(14px,1.6vw,20px);min-width:110px;text-align:center;">Three<br>Mandate<br>Fit</div>
-      <div class="desc">
-        <strong>Draft Horse simultaneously satisfies Private Credit, Real Asset / Infrastructure, and Direct Lending mandates.</strong><br>
-        The G550 fleet is operating aviation infrastructure. The credit facility is private bilateral private credit. The collateral structure is hard-asset-backed real asset lending. Any allocator with exposure across two or three of these mandates can justify a Draft Horse allocation under multiple investment policy frameworks simultaneously — simplifying IC approval and reducing internal mandate-classification friction.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 15 — IRC §892 TAX PATHWAY
-==================================================== -->
-<div class="slide" id="slide-15">
-  <div class="slide-inner">
-    <div class="eyebrow">Sovereign Investor Tax Pathway</div>
-    <div class="slide-title">IRC § 892 — U.S. Federal Income Tax Exemption for Qualifying Sovereigns</div>
-    <div class="slide-sub">Sovereign wealth funds and qualifying government entities may receive U.S. federal income tax exemption on certain Fund income — materially enhancing net returns</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-2" style="margin-bottom:18px;align-items:start;">
-      <div class="tax-framework">
-        <div class="tax-header">§892 Framework — Key Questions for SWF Counsel</div>
-        <div class="tax-row">
-          <div class="tax-q">What is IRC §892?</div>
-          <div class="tax-a">A U.S. Internal Revenue Code provision exempting <strong>foreign governments</strong> (including SWFs that qualify as instrumentalities of a foreign government) from U.S. federal income tax on certain categories of U.S.-sourced income — including interest, dividends, and gains from certain investments.</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-q">Who qualifies?</div>
-          <div class="tax-a">Foreign governments and their wholly-owned instrumentalities and agencies. Most sovereign wealth funds (ADQ, ADIA, GIC, PIF, Mubadala, SAFE, etc.) qualify as government-controlled entities — but specific legal analysis by sovereign's U.S. tax counsel is required for each investor.</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-q">What income is exempt?</div>
-          <div class="tax-a">Interest on debt obligations (e.g., Fund distributions from credit facility interest income), gains from disposition of qualifying assets, and dividends from qualifying investments — subject to the nature of Fund income and specific investor facts. <strong>Income from commercial activities or UBTI is generally excluded from §892 treatment.</strong></div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-q">What is the impact?</div>
-          <div class="tax-a">For a qualifying SWF investor, federal income tax on U.S.-sourced Fund income may be eliminated entirely — converting a 17% pre-tax target yield into a <strong>17% after-tax yield</strong> at the federal level. No U.S. withholding tax on qualifying distributions. Material net return enhancement vs. taxable investors.</div>
-        </div>
-        <div class="tax-row">
-          <div class="tax-q">What does Draft Horse provide?</div>
-          <div class="tax-a">The Fund's structure and income characterization has been developed with awareness of §892 considerations. Draft Horse will work with sovereign investors to provide the income characterization data required for §892 analysis. The Fund makes no representation regarding tax treatment — each sovereign investor's U.S. tax counsel must confirm applicability.</div>
-        </div>
-      </div>
-
-      <div>
-        <div style="background:var(--navy-card);border:1px solid var(--border);border-radius:4px;padding:20px 22px;margin-bottom:14px;">
-          <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Illustrative Net Return Comparison</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-              <span style="font-family:'Arial',sans-serif;font-size:12px;color:var(--white-dim);">Target gross yield (Tier 8)</span>
-              <span style="font-size:18px;color:var(--gold);">17.0%</span>
+    <!-- SLIDE 1: COVER -->
+    <section id="slide-1" class="cover-slide">
+        <div class="reveal">
+            <h1 class="section-title" style="margin-bottom: 10px;">Draft Horse</h1>
+            <h2 class="section-title" style="font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; margin-bottom: 40px;">Capital Partners LLC</h2>
+            <div class="cover-tagline">Multi-Strategy Private Debt Fund</div>
+            <div class="cover-subtitle">$1B Target Raise</div>
+            <div style="margin-top: 60px;">
+                <span class="pill pill-gold">Reg D 506(c)</span>
+                <span class="pill pill-gold">$200K Minimum</span>
+                <span class="pill pill-gold">Zero Fees</span>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-              <span style="font-family:'Arial',sans-serif;font-size:12px;color:var(--white-dim);">Fund management fee drag</span>
-              <span style="font-size:16px;color:var(--green);">$0 (None)</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: EXECUTIVE SUMMARY -->
+    <section id="slide-2">
+        <div class="reveal">
+            <div class="section-label">Overview</div>
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="card">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #c2a44a; margin-bottom: 12px;">$1B</div>
+                    <div class="body-text">Target Raise</div>
+                </div>
+                <div class="card">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #c2a44a; margin-bottom: 12px;">0%</div>
+                    <div class="body-text">Management & Performance Fees</div>
+                </div>
+                <div class="card">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #c2a44a; margin-bottom: 12px;">36M</div>
+                    <div class="body-text">Investment Term</div>
+                </div>
+                <div class="card">
+                    <div style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #c2a44a; margin-bottom: 12px;">Fixed</div>
+                    <div class="body-text">Contractual Rate of Return</div>
+                </div>
             </div>
-            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-dim);">
-              <span style="font-family:'Arial',sans-serif;font-size:12px;color:var(--white-dim);">U.S. tax for non-sovereign investor</span>
-              <span style="font-family:'Arial',sans-serif;font-size:12px;color:var(--white-dim);">Applicable per investor facts</span>
+            <div style="margin-top: 50px; color: rgba(232,228,220,.5); font-size: 14px;">
+                Debt-based fund offering institutional-quality private credit across five diversified asset classes with zero management overhead and complete GP alignment.
             </div>
-            <div style="display:flex;justify-content:space-between;padding:10px 0;">
-              <span style="font-family:'Arial',sans-serif;font-size:12px;color:var(--gold);font-weight:700;">U.S. tax for qualifying SWF (§892)</span>
-              <span style="font-size:18px;color:var(--green);font-weight:700;">Potentially $0</span>
+        </div>
+    </section>    <!-- SLIDE 3: INVESTMENT THESIS -->
+    <section id="slide-3">
+        <div class="reveal">
+            <div class="section-label">Strategy</div>
+            <h2 class="section-title">Investment Thesis</h2>
+            <div class="grid-2" style="margin-top: 50px; max-width: 1000px;">
+                <div class="card">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 12px;">Tangible Assets</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.55);">Debt secured by real, income-producing assets across aviation, mining, e-commerce, real estate, and fine art.</div>
+                </div>
+                <div class="card">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 12px;">Multi-Strategy</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.55);">Diversified across five distinct verticals reduces concentration risk and provides consistent capital deployment.</div>
+                </div>
+                <div class="card">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 12px;">GP Alignment</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.55);">Zero management fees and zero performance fees align GP interests entirely with investor returns.</div>
+                </div>
+                <div class="card">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 12px;">Fixed Returns</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.55);">Contractual rate of return provides predictable income stream and reduced volatility.</div>
+                </div>
             </div>
-          </div>
         </div>
+    </section>
 
-        <ul class="blist tight">
-          <li><strong>Consult U.S. tax counsel:</strong> §892 analysis is highly fact-specific. Each sovereign investor's legal and tax advisors must conduct independent analysis.</li>
-          <li><strong>State taxes:</strong> §892 exemption applies to U.S. federal income tax only. State and local tax treatment varies.</li>
-          <li><strong>UBTI risk:</strong> Income characterized as unrelated business taxable income may not qualify — income characterization from Fund's tax adviser is critical input for §892 analysis.</li>
-          <li><strong>Fund cooperation:</strong> Draft Horse will provide timely income characterization statements and tax reporting data necessary to support sovereign investor §892 analysis.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================
-     SLIDE 16 — TEAM & INFRASTRUCTURE
-==================================================== -->
-<div class="slide" id="slide-16">
-  <div class="slide-inner">
-    <div class="eyebrow">Team &amp; Infrastructure</div>
-    <div class="slide-title">Principal &amp; Institutional Service Providers</div>
-    <div class="slide-sub">Institutional-grade operational infrastructure from day one — administration, custody, audit, and legal from established providers</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-2" style="margin-bottom:20px;align-items:start;">
-      <div style="background:var(--navy-card);border:1px solid rgba(201,168,76,0.25);border-top:3px solid var(--gold);border-radius:3px;padding:24px;">
-        <div style="font-size:clamp(20px,2.2vw,28px);color:var(--white);margin-bottom:4px;">Caleb Caraway</div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Managing Principal &amp; CIO</div>
-        <ul class="blist tight">
-          <li>CEO — Dark Horse Wealth Management (governing family office entity)</li>
-          <li>Managing Partner — Corinthian Capital Partners (private credit predecessor)</li>
-          <li>Managing Partner — Draft Horse Capital Partners LLC (this fund)</li>
-          <li>Multi-entity PE credit operator across private credit, mineral resources, and wealth management</li>
-          <li>Personal capital deployed alongside investor capital — structural principal commitment in same position</li>
-          <li>Direct bilateral relationship with identified borrower — predates Fund formation (borrower identity disclosed under NDA)</li>
-        </ul>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border-dim);font-family:'Arial',sans-serif;font-size:9.5px;color:rgba(143,163,184,0.45);line-height:1.6;">Track record reference at Corinthian Capital entity level. Not independently audited for this presentation. Not a guarantee of Draft Horse performance.</div>
-      </div>
-
-      <div>
-        <div style="font-family:'Arial',sans-serif;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;">Institutional Service Providers</div>
-        <div class="provider-grid">
-          <div class="provider-card">
-            <div class="provider-name">NAV Fund Services</div>
-            <div class="provider-role">Fund Administrator</div>
-            <div class="provider-desc">Independent NAV calculation · Investor records · Capital account maintenance · Quarterly reporting</div>
-          </div>
-          <div class="provider-card">
-            <div class="provider-name">Axos Bank</div>
-            <div class="provider-role">Custodian Bank</div>
-            <div class="provider-desc">Fund custody · Subscription escrow · Wire processing · Investor distribution disbursement</div>
-          </div>
-          <div class="provider-card">
-            <div class="provider-name">Spicer Jeffries LLP</div>
-            <div class="provider-role">Independent Auditor</div>
-            <div class="provider-desc">Annual fund audit · Financial statement preparation · Investor reporting · Covenant compliance certificates</div>
-          </div>
-          <div class="provider-card">
-            <div class="provider-name">SCALE LLP</div>
-            <div class="provider-role">Fund Counsel</div>
-            <div class="provider-desc">Reg D 506(c) structuring · Subscription docs · UCC-1 filing · FAA Registry notation · Ongoing legal support</div>
-          </div>
+    <!-- SLIDE 4: PLATFORM OVERVIEW -->
+    <section id="slide-4">
+        <div class="reveal">
+            <div class="section-label">Organization</div>
+            <h2 class="section-title">Platform Overview</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 12px;">Draft Horse Wealth Management LLC</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5);">Fund manager with 75% Caleb Caraway and 25% Adil Kassam ownership, overseeing five specialized operating verticals through dedicated portfolio companies and partnerships.</div>
+                </div>
+                <div class="grid-3" style="gap: 15px;">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; color: #c2a44a; margin-bottom: 8px; text-transform: uppercase;">Vertical 1</div>
+                        <div style="font-size: 14px; color: #e8e4dc; margin-bottom: 8px;">Aviation</div>
+                        <div class="body-text" style="font-size: 13px;">Pegasus Capital Partners LLC</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; color: #c2a44a; margin-bottom: 8px; text-transform: uppercase;">Vertical 2</div>
+                        <div style="font-size: 14px; color: #e8e4dc; margin-bottom: 8px;">Mining & Energy</div>
+                        <div class="body-text" style="font-size: 13px;">Stateside Resources LLC</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; color: #c2a44a; margin-bottom: 8px; text-transform: uppercase;">Vertical 3</div>
+                        <div style="font-size: 14px; color: #e8e4dc; margin-bottom: 8px;">E-Commerce</div>
+                        <div class="body-text" style="font-size: 13px;">Direct Lending</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; color: #c2a44a; margin-bottom: 8px; text-transform: uppercase;">Vertical 4</div>
+                        <div style="font-size: 14px; color: #e8e4dc; margin-bottom: 8px;">Real Estate</div>
+                        <div class="body-text" style="font-size: 13px;">Dark Horse RE Holdings LLC</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 1px; color: #c2a44a; margin-bottom: 8px; text-transform: uppercase;">Vertical 5</div>
+                        <div style="font-size: 14px; color: #e8e4dc; margin-bottom: 8px;">Fine Art</div>
+                        <div class="body-text" style="font-size: 13px;">Art Bond SPV</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="margin-top:14px;background:rgba(201,168,76,0.05);border:1px solid var(--border-dim);border-radius:3px;padding:14px 16px;">
-          <div style="font-family:'Arial',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Fund Entity Details</div>
-          <div style="font-family:'Arial',sans-serif;font-size:11.5px;color:var(--white-dim);line-height:1.7;">
-            Draft Horse Capital Partners LLC · Texas LLC · Est. February 23, 2026 · Reg D 506(c) · §3(c)(1) · No leverage at fund level · Minimum subscription $200,000 · Verified accredited investors only
-          </div>
+    </section>
+
+    <!-- SLIDE 5: $1B ALLOCATION PLAN -->
+    <section id="slide-5">
+        <div class="reveal">
+            <div class="section-label">Deployment</div>
+            <h2 class="section-title">$1B Allocation Plan</h2>
+            <div style="max-width: 1100px; margin-top: 50px; width: 100%;">
+                <div class="allocation-bar">
+                    <div class="allocation-segment segment-aviation" style="flex: 32%;">32% / $320M</div>
+                    <div class="allocation-segment segment-mining" style="flex: 20%;">20% / $200M</div>
+                    <div class="allocation-segment segment-ecom" style="flex: 20%;">20% / $200M</div>
+                    <div class="allocation-segment segment-realestate" style="flex: 15%;">15% / $150M</div>
+                    <div class="allocation-segment segment-art" style="flex: 13%;">13% / $130M</div>
+                </div>
+                <div class="grid-3" style="gap: 20px; margin-top: 40px;">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">AVIATION</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$320M</div>
+                        <div class="body-text" style="font-size: 13px;">32% of fund</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">MINING & ENERGY</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$200M</div>
+                        <div class="body-text" style="font-size: 13px;">20% of fund</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">E-COMMERCE</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$200M</div>
+                        <div class="body-text" style="font-size: 13px;">20% of fund</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">REAL ESTATE</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$150M</div>
+                        <div class="body-text" style="font-size: 13px;">15% of fund</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">FINE ART</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$130M</div>
+                        <div class="body-text" style="font-size: 13px;">13% of fund</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #c2a44a; margin-bottom: 8px;">TOTAL</div>
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #e8e4dc; margin-bottom: 4px;">$1B</div>
+                        <div class="body-text" style="font-size: 13px;">Target raise</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- ====================================================
-     SLIDE 17 — NEXT STEPS / CTA
-==================================================== -->
-<div class="slide" id="slide-17">
-  <div class="slide-inner">
-    <div class="eyebrow">Investment Process</div>
-    <div class="slide-title">Five Steps from Introduction to First Distribution</div>
-    <div class="slide-sub">Streamlined institutional onboarding — NDA to first quarterly distribution in 90 days</div>
-    <div class="gold-rule"></div>
-
-    <div class="grid-2" style="align-items:start;">
-      <div>
-        <div class="steps">
-          <div class="step-row">
-            <div class="step-num">1</div>
-            <div class="step-text">Execute NDA <span>— Available immediately. Unlocks counterparty identity, full collateral documentation, and complete deal structure.</span></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">2</div>
-            <div class="step-text">Receive PPM &amp; Data Room <span>— Private Placement Memorandum, financial projections, aircraft appraisals, UCC-1 framework, and legal package. Reviewed with own counsel.</span></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">3</div>
-            <div class="step-text">Accredited / Sovereign Verification <span>— Reg D 506(c) investor verification. Sovereign investors: §892 counsel engagement recommended at this stage.</span></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">4</div>
-            <div class="step-text">Execute Subscription Agreement <span>— Standard institutional subscription documents. UCC-1 and FAA filings confirmed by SCALE LLP. Tier rate locked at execution.</span></div>
-          </div>
-          <div class="step-row">
-            <div class="step-num">5</div>
-            <div class="step-text">Wire Capital → First Distribution <span>— Capital deployed immediately. First quarterly distribution within 90 days. No ramp, no idle cash, no J-curve.</span></div>
-          </div>
+    <!-- SLIDE 6: AVIATION VERTICAL -->
+    <section id="slide-6">
+        <div class="reveal">
+            <div class="section-label">Vertical 1</div>
+            <h2 class="section-title">Aviation</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #c2a44a; margin-bottom: 12px;">$320M via Pegasus Capital Partners LLC</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5); line-height: 2;">Aircraft acquisition, leasing, and portfolio finance. Capital deployed to support commercial aviation assets with established income streams and strong collateral backing.</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Strategy</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Debt secured by commercial aircraft assets with lease agreements and established operational history.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Capital Deployment</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Direct lending for fleet acquisition, refinancing existing positions, and portfolio optimization.</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div>
-        <div class="cta-block">
-          <strong>Draft Horse Capital Partners LLC</strong><br>
-          Managed by Draft Horse Wealth Management LLC<br>
-          Under Dark Horse Wealth Management (Governing Entity)<br><br>
-          <strong>Principal:</strong> Caleb Caraway<br>
-          CEO, Dark Horse Wealth Management<br><br>
-          <strong>Minimum Investment:</strong> $200,000<br>
-          <strong>Term:</strong> 36 months · No early redemption<br>
-          <strong>Target Yield:</strong> fixed contractual rate tiered · Fixed at subscription<br>
-          <strong>Distributions:</strong> Quarterly<br>
-          <strong>Fees:</strong> None — zero<br>
-          <strong>Structure:</strong> Reg D 506(c) · §3(c)(1)<br>
-          <strong>IRC §892 Analysis:</strong> Available for qualifying sovereign investors<br><br>
-          <em style="color:rgba(143,163,184,0.65);">To initiate the NDA and data room process, contact Caleb Caraway directly.</em>
+    <!-- SLIDE 7: MINING & ENERGY VERTICAL -->
+    <section id="slide-7">
+        <div class="reveal">
+            <div class="section-label">Vertical 2</div>
+            <h2 class="section-title">Mining & Metals Energy</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #c2a44a; margin-bottom: 12px;">$200M via Stateside Resources LLC</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5); line-height: 2;">Natural resources lending across mining, metals production, and energy infrastructure with 8% allocation to Field Futures Texas. Capital supports operational and development-stage asset financing.</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Focus Areas</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Mining operations, metals refining, energy infrastructure, and commodity-linked debt structures.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Field Futures Texas</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">8% sub-allocation to Field Futures Texas for specialized energy sector lending and infrastructure development.</div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="disclaimer-sm">
-          <strong style="color:rgba(143,163,184,0.6);">IMPORTANT DISCLOSURES</strong> — This presentation has been prepared by Draft Horse Capital Partners LLC solely for informational purposes and does not constitute an offer to sell or solicitation to buy any security. Securities offered under Regulation D Rule 506(c) and §3(c)(1) of the Investment Company Act of 1940 are available only to verified accredited investors. An investment involves significant risks, including possible loss of all principal. All stated annual return figures are targets only and are not guaranteed. The 36-month term includes no early redemption provision for investors. The G550 fleet described represents a planned future acquisition by Quarter Horse Capital Partners and does not constitute current perfected collateral under the Draft Horse facility at closing. Draft Horse's interest in G550 assets is subordinated to Quarter Horse's first-priority claim. Current aviation collateral consists of 2 unencumbered G4-class aircraft. Aviation figures are illustrative and subject to independent appraisal. IRC §892 analysis is not tax advice and sovereign investors must consult their own U.S. tax counsel. Prospective investors should review the complete PPM prepared by SCALE LLP and all offering documents with their own legal and financial advisors before investing. Strictly confidential — may not be reproduced or distributed without prior written consent of Draft Horse Capital Partners LLC.
+    </section>    <!-- SLIDE 8: E-COMMERCE & PRIVATE CREDIT VERTICAL -->
+    <section id="slide-8">
+        <div class="reveal">
+            <div class="section-label">Vertical 3</div>
+            <h2 class="section-title">E-Commerce & Private Credit</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #c2a44a; margin-bottom: 12px;">$200M Direct Lending</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5); line-height: 2;">Direct lending to e-commerce businesses and private credit opportunities. Capital supports working capital, inventory financing, acquisition funding, and growth-stage lending.</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">E-Commerce</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Debt financing for online retail, marketplace platforms, and digital commerce businesses with revenue-based lending structures.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Private Credit</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">General-purpose lending to growing businesses, inventory financing, and operational credit facilities.</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-</div><!-- /deck -->
+    <!-- SLIDE 9: REAL ESTATE VERTICAL -->
+    <section id="slide-9">
+        <div class="reveal">
+            <div class="section-label">Vertical 4</div>
+            <h2 class="section-title">Real Estate</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #c2a44a; margin-bottom: 12px;">$150M via Dark Horse RE Holdings LLC</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5); line-height: 2;">Commercial and residential real estate lending. Capital supports acquisition financing, development projects, refinancing, and stabilized property income streams.</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Commercial Real Estate</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Office, retail, industrial, and mixed-use properties with established tenant leases and stable cash flows.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Residential Real Estate</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Multi-family, single-family rental, and residential development with strong underlying collateral.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-  const TOTAL = 17;
-  let cur = 1;
-  let barsAnimated = false;
+    <!-- SLIDE 10: FINE ART VERTICAL -->
+    <section id="slide-10">
+        <div class="reveal">
+            <div class="section-label">Vertical 5</div>
+            <h2 class="section-title">Fine Art</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="card" style="margin-bottom: 30px;">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #c2a44a; margin-bottom: 12px;">$130M Art Acquisition & Art Bond SPV</h3>
+                    <div class="body-text" style="color: rgba(232,228,220,.5); line-height: 2;">Fine art acquisition, curation, and securitization through specialized Art Bond SPV. Capital deployed for authenticated art collection, exhibition, and yield-generating structures.</div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Art Acquisition</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Direct acquisition of authenticated fine art, contemporary works, and cultural assets with documented provenance.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">Art Bond SPV</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.6);">Securitized structures backing art-linked investments with institutional-grade collateral and financing arrangements.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  /* BUILD DOTS */
-  const dotNav = document.getElementById('dot-nav');
-  for (let i = 1; i <= TOTAL; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 1 ? ' active' : '');
-    d.title = 'Slide ' + i;
-    d.onclick = () => showSlide(i);
-    dotNav.appendChild(d);
-  }
+    <!-- SLIDE 11: TEAM & CAPITAL CHANNELS -->
+    <section id="slide-11">
+        <div class="reveal">
+            <div class="section-label">Leadership</div>
+            <h2 class="section-title">Team & Capital Channels</h2>
+            <div style="max-width: 1000px; margin-top: 50px;">
+                <div class="grid-2" style="margin-bottom: 40px;">
+                    <div class="card">
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 8px;">Caleb Caraway</div>
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(194,164,74,.6); margin-bottom: 12px;">75% Owner</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.55);">Fund founder and principal manager overseeing strategy, capital deployment, and all five operating verticals.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 8px;">Adil Kassam</div>
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(194,164,74,.6); margin-bottom: 12px;">25% Owner</div>
+                        <div class="body-text" style="font-size: 14px; color: rgba(232,228,220,.55);">Co-manager providing operational support and specialized expertise across portfolio verticals.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 16px;">Capital Sourcing Channels</div>
+                    <div class="grid-3">
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Institutional investors and family offices</div>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Accredited individual investors</div>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Financial advisory networks</div>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Direct institutional partnerships</div>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Alternative investment platforms</div>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.6);">Strategic venture networks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  function showSlide(n) {
-    // Hide current
-    const prev = document.getElementById('slide-' + cur);
-    prev.classList.remove('active');
-    prev.style.display = 'none';
+    <!-- SLIDE 12: NEXT STEPS -->
+    <section id="slide-12">
+        <div class="reveal">
+            <div class="section-label">Action</div>
+            <h2 class="section-title">Next Steps</h2>
+            <div style="max-width: 900px; margin-top: 60px;">
+                <div class="card" style="margin-bottom: 30px; background: rgba(194,164,74,.08); border-color: rgba(194,164,74,.15);">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #c2a44a; margin-bottom: 16px;">Investment Contact</h3>
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 1px; color: #e8e4dc; margin-bottom: 8px;">caleb@darkhorse-ventures.com</div>
+                    <div class="body-text" style="color: rgba(232,228,220,.5);">Reach out directly to learn more about fund structure, terms, and how to participate.</div>
+                </div>
+                <div class="grid-2" style="gap: 20px;">
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">1. Schedule Call</div>
+                        <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.55);">Initial conversation to discuss investment thesis, fund structure, and vertical strategies.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">2. Due Diligence</div>
+                        <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.55);">Detailed review of fund documents, investment terms, and management team background.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">3. Legal Review</div>
+                        <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.55);">Your legal counsel reviews agreements and confirms alignment with investment objectives.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">4. Investment</div>
+                        <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.55);">Execute investment agreement and wire funds. Minimum subscription $200,000.</div>
+                    </div>
+                    <div class="card">
+                        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #c2a44a; margin-bottom: 12px;">5. Reporting</div>
+                        <div class="body-text" style="font-size: 13px; color: rgba(232,228,220,.55);">Ongoing quarterly and annual performance reporting with portfolio updates across all verticals.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>    <script>
+        // Initialize navigation dots
+        function initNavDots() {
+            const navDotsContainer = document.getElementById('navDots');
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach((section, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (index === 0) dot.classList.add('active');
+                
+                dot.addEventListener('click', () => {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                navDotsContainer.appendChild(dot);
+            });
+        }
 
-    cur = n;
-    const s = document.getElementById('slide-' + cur);
-    s.style.display = 'flex';
-    requestAnimationFrame(() => s.classList.add('active'));
+        // Update active dot on scroll
+        function updateActiveDot() {
+            const sections = document.querySelectorAll('section');
+            const dots = document.querySelectorAll('.dot');
+            
+            let current = 0;
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2) {
+                    current = index;
+                }
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === current);
+            });
+        }
 
-    // Update chrome
-    document.getElementById('cur').textContent = cur;
-    document.getElementById('progress-fill').style.width = ((cur / TOTAL) * 100) + '%';
-    document.getElementById('btn-prev').disabled = cur === 1;
-    document.getElementById('btn-next').disabled = cur === TOTAL;
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-    // Dots
-    document.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i + 1 === cur);
-    });
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const reveals = entry.target.querySelectorAll('.reveal');
+                    reveals.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('vis');
+                        }, index * 100);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-    // Animate bars on slide 11
-    if (cur === 11 && !barsAnimated) {
-      barsAnimated = true;
-      setTimeout(() => {
-        document.querySelectorAll('.bar-col').forEach(b => {
-          b.style.height = b.getAttribute('data-h') + '%';
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
         });
-      }, 180);
-    }
-  }
 
-  function go(dir) {
-    const next = cur + dir;
-    if (next < 1 || next > TOTAL) return;
-    showSlide(next);
-  }
+        // Initialize on load
+        window.addEventListener('load', initNavDots);
+        window.addEventListener('scroll', updateActiveDot, { passive: true });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    { e.preventDefault(); go(-1); }
-  });
-
-  // Init: show slide 1 properly
-  const init = document.getElementById('slide-1');
-  init.style.display = 'flex';
-  init.classList.add('active');
-</script>
+        // Update dots on initialization
+        setTimeout(updateActiveDot, 100);
+    </script>
 </body>
 </html>
