@@ -1,429 +1,701 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quarter Horse Capital Partners — Tear Sheet</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #0d0f14;
-    --navy2: #141720;
-    --navy3: #1a1e2a;
-    --gold: #c9a84c;
-    --gold2: #e8c96a;
-    --text: #e8e9ed;
-    --muted: #8892a0;
-    --border: rgba(201,168,76,0.18);
-    --border-strong: rgba(201,168,76,0.35);
-  }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--navy);
-    color: var(--text);
-    line-height: 1.5;
-    font-size: 13px;
-  }
-
-  .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 36px;
-  }
-
-  /* HEADER */
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 18px;
-    border-bottom: 2px solid var(--gold);
-    margin-bottom: 22px;
-  }
-  .logo-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1.2;
-  }
-  .logo-tag {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-top: 3px;
-  }
-  .tagline-badge {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 7px 14px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  /* STAT BOXES */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-  .stat-box {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 12px 8px;
-    text-align: center;
-  }
-  .stat-value {
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--gold);
-    line-height: 1.1;
-    margin-bottom: 4px;
-  }
-  .stat-label {
-    font-size: 9px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 1.3;
-  }
-
-  /* TWO COLUMN LAYOUT */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  /* ASSET CLASS GRID */
-  .asset-grid-title {
-    font-size: 9.5px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .asset-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 7px;
-  }
-  .asset-cell {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 10px 8px;
-    text-align: center;
-  }
-  .asset-icon {
-    font-size: 18px;
-    display: block;
-    margin-bottom: 5px;
-  }
-  .asset-name {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--gold2);
-    line-height: 1.3;
-    margin-bottom: 2px;
-  }
-  .asset-yield {
-    font-size: 9px;
-    color: var(--muted);
-  }
-
-  /* YIELD TABLE */
-  .yield-title {
-    font-size: 9.5px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .yield-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11.5px;
-  }
-  .yield-table tr { border-bottom: 1px solid var(--border); }
-  .yield-table tr:last-child { border-bottom: none; }
-  .yield-table td {
-    padding: 7px 10px;
-  }
-  .yield-table tr:nth-child(odd) td { background: var(--navy2); }
-  .yield-table tr:nth-child(even) td { background: var(--navy3); }
-  .yield-table .t-band { color: var(--muted); font-size: 11px; }
-  .yield-table .t-ret { color: var(--gold); font-weight: 700; text-align: right; }
-  .yield-table tr.highlight-row td { background: rgba(201,168,76,0.12) !important; }
-  .yield-table tr.highlight-row .t-band { color: var(--gold2); font-weight: 600; }
-
-  /* CALLOUT BAR */
-  .callout-bar {
-    background: linear-gradient(135deg, rgba(201,168,76,0.14) 0%, rgba(201,168,76,0.04) 100%);
-    border: 1px solid var(--border-strong);
-    border-radius: 8px;
-    padding: 16px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 18px;
-    position: relative;
-    overflow: hidden;
-  }
-  .callout-bar::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .callout-label {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .callout-math {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-  .callout-math .sep {
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    font-size: 14px;
-    margin: 0 8px;
-  }
-
-  /* PROVIDERS */
-  .providers-title {
-    font-size: 9.5px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .providers-row {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 7px;
-  }
-  .prov-item {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 9px 10px;
-  }
-  .prov-name { font-size: 11px; font-weight: 700; color: var(--gold2); margin-bottom: 2px; }
-  .prov-role { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
-
-
-
-  /* FOOTER */
-  .footer {
-    border-top: 1px solid var(--border);
-    padding-top: 12px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    font-size: 9.5px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-  .footer strong { color: var(--text); }
-
-  /* PRINT STYLES */
-  @media print {
-    body { background: #fff !important; color: #111 !important; }
-    .page { padding: 16px 20px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quarter Horse Capital Partners - Tear Sheet</title>
+  <style>
     :root {
-      --navy: #fff;
-      --navy2: #f4f5f7;
-      --navy3: #eaedf0;
-      --text: #111;
-      --muted: #555;
-      --border: rgba(180,140,30,0.3);
-      --border-strong: rgba(180,140,30,0.5);
-      --gold: #9a7215;
-      --gold2: #7a5a10;
+      --navy: #080c18;
+      --navy-mid: #0e1624;
+      --navy-light: #16213a;
+      --navy-card: #1a2840;
+      --gold: #c9a84c;
+      --gold-light: #e8c87a;
+      --gold-dim: #7a5f28;
+      --silver: #8fa3b8;
+      --silver-light: #c8d8e8;
+      --white: #f0f4f8;
+      --text: #cdd8e6;
+      --text-muted: #6a88a0;
+      --border: rgba(201,168,76,0.2);
+      --green: #22c55e;
+      --red: #f87171;
     }
-    .callout-bar, .dist-callout { background: #f9f5e8 !important; }
-    @page { margin: 12mm; }
-  }
-</style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--navy);
+      color: var(--text);
+      font-family: Georgia, serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      background-color: var(--navy);
+      padding: 32px;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .emblem {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 24px;
+      color: var(--navy);
+      font-family: Arial, sans-serif;
+      flex-shrink: 0;
+    }
+
+    .header-title h1 {
+      font-size: 20px;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .header-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: Arial, sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    .badge {
+      background-color: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.4;
+      min-width: 140px;
+    }
+
+    /* ===== TAGLINE STRIP ===== */
+    .tagline-strip {
+      background-color: var(--navy-card);
+      border-left: 3px solid var(--gold);
+      padding: 20px;
+      margin-bottom: 28px;
+      border-radius: 4px;
+    }
+
+    .tagline-eyebrow {
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .tagline-headline {
+      font-size: 24px;
+      font-weight: normal;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .tagline-subline {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ===== 6-STAT GRID ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .stat-box {
+      background-color: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 14px;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .stat-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .stat-value.green {
+      color: var(--green);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+    }
+
+    /* ===== BODY GRID (2 COLUMN) ===== */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .section-content {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .section-content p {
+      margin-bottom: 10px;
+    }
+
+    /* ===== PIPELINE DOTS ===== */
+    .pipeline-list {
+      list-style: none;
+    }
+
+    .pipeline-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      align-items: flex-start;
+    }
+
+    .pipeline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .pipeline-dot.green { background-color: var(--green); }
+    .pipeline-dot.blue { background-color: #3b82f6; }
+    .pipeline-dot.purple { background-color: #a855f7; }
+    .pipeline-dot.gold { background-color: var(--gold); }
+
+    /* ===== KEY FUND TERMS TABLE ===== */
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .terms-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terms-table td:first-child {
+      font-family: Arial, sans-serif;
+      color: var(--text-muted);
+      width: 45%;
+      padding-right: 10px;
+    }
+
+    .terms-table td:last-child {
+      text-align: right;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .terms-table td:last-child.gold {
+      color: var(--gold-light);
+    }
+
+    .terms-table td:last-child.green {
+      color: var(--green);
+    }
+
+    .terms-table td:last-child.red {
+      color: var(--red);
+    }
+
+    /* ===== INVESTOR ADVANTAGES CARDS ===== */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .advantage-card {
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .advantage-card h4 {
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .advantage-card.blue {
+      background-color: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #bfdbfe;
+    }
+
+    .advantage-card.gold {
+      background-color: rgba(201, 168, 76, 0.15);
+      border: 1px solid var(--border);
+      color: var(--gold-light);
+    }
+
+    .advantage-card.green {
+      background-color: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #86efac;
+    }
+
+    /* ===== PLATFORM BOX ===== */
+    .platform-box {
+      background-color: var(--navy-light);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 4px;
+      margin-top: 12px;
+    }
+
+    .platform-box h4 {
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      color: var(--gold);
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .platform-box p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ===== SERVICE PROVIDER ROW ===== */
+    .service-providers {
+      background-color: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .service-providers h3 {
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .providers-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      font-size: 10px;
+    }
+
+    .provider-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .provider-label {
+      font-family: Arial, sans-serif;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    .provider-name {
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ===== FOOTER DISCLAIMER ===== */
+    .footer-disclaimer {
+      background-color: var(--navy-light);
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      font-size: 9px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      border-radius: 4px;
+      text-align: justify;
+    }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: white;
+        color: #333;
+      }
+
+      .page {
+        max-width: 100%;
+        margin: 0;
+        padding: 0.5in;
+        background: white;
+        page-break-after: avoid;
+      }
+
+      .header, .tagline-strip, .stats-grid, .body-grid, .service-providers, .footer-disclaimer {
+        page-break-inside: avoid;
+      }
+
+      :root {
+        --navy: #ffffff;
+        --navy-mid: #f5f5f5;
+        --navy-light: #f9f9f9;
+        --navy-card: #f5f5f5;
+        --gold: #8b6914;
+        --gold-light: #a67c52;
+        --text: #333333;
+        --text-muted: #666666;
+        --border: #cccccc;
+      }
+
+      .emblem {
+        background: #e8d5b7;
+        color: #333;
+      }
+
+      .badge {
+        background-color: #f5f5f5;
+        border: 1px solid #cccccc;
+        color: #8b6914;
+      }
+    }
+
+    /* ===== RESPONSIVE (MOBILE) ===== */
+    @media (max-width: 768px) {
+      .page {
+        padding: 16px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .header-left {
+        width: 100%;
+      }
+
+      .badge {
+        align-self: flex-start;
+      }
+
+      .tagline-headline {
+        font-size: 18px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .stat-box {
+        padding: 12px;
+      }
+
+      .stat-value {
+        font-size: 14px;
+      }
+
+      .stat-label {
+        font-size: 9px;
+      }
+
+      .body-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .providers-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-title {
+        font-size: 13px;
+      }
+
+      .section-content {
+        font-size: 11px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="page">
+  <div class="page">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-left">
+        <div class="emblem">QH</div>
+        <div class="header-title">
+          <h1>Quarter Horse Capital Partners</h1>
+          <p>Private Debt Fund</p>
+        </div>
+      </div>
+      <div class="badge">
+        Tear Sheet<br>April 2026<br>Confidential
+      </div>
+    </div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div>
-      <div class="logo-name">Quarter Horse Capital Partners LLC</div>
-      <div class="logo-tag">Quarter Horse Wealth Management LLC &nbsp;·&nbsp; Texas &nbsp;·&nbsp; Private Credit &nbsp;·&nbsp; Institutional</div>
+    <!-- TAGLINE STRIP -->
+    <div class="tagline-strip">
+      <div class="tagline-eyebrow">Reg D 506(b) · Private Debt · Deal-by-Deal</div>
+      <div class="tagline-headline">Select Your Deals. Fixed Rate. Full Transparency.</div>
+      <div class="tagline-subline">Deal-by-deal private debt vehicle — $50K minimum — zero fees</div>
     </div>
-    <div class="tagline-badge">7 SPV Lending Verticals · Fixed Term · Institutional Grade</div>
-  </div>
 
-  <!-- STATS -->
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-value">$50K</div>
-      <div class="stat-label">Min Investment</div>
+    <!-- 6-STAT GRID -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-value">$50K</div>
+        <div class="stat-label">Minimum Subscription</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Deal-by-Deal</div>
+        <div class="stat-label">Investment Approach</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Per-Deal</div>
+        <div class="stat-label">Fixed Rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Per-Deal</div>
+        <div class="stat-label">Distribution Terms</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value green">Zero</div>
+        <div class="stat-label">Fees & Carry</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">506(b)</div>
+        <div class="stat-label">Reg D Exemption</div>
+      </div>
     </div>
-    <div class="stat-box">
-      <div class="stat-value">9–17%</div>
-      <div class="stat-label">Stated Return Target</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">3-Yr</div>
-      <div class="stat-label">Lockup · No Redemption</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">Qtrly</div>
-      <div class="stat-label">Distributions</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">$0</div>
-      <div class="stat-label">Fees of Any Kind</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">7</div>
-      <div class="stat-label">SPV Lending Verticals</div>
-    </div>
-  </div>
 
-  <!-- CALLOUT BAR -->
-  <div class="callout-bar">
-    <div class="callout-label">$1B Stated Return Target (17% Tier)</div>
-    <div class="callout-math">
-      $1B <span class="sep">→</span> $170M / year <span class="sep">→</span> $42.5M / quarter
-    </div>
-    <div style="font-size:9px;color:var(--muted);text-align:right;line-height:1.4;">Distributions quarterly.<br>Monthly ref: ~$14.2M equiv.</div>
-  </div>
+    <!-- BODY GRID (2-COLUMN) -->
+    <div class="body-grid">
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- Fund Structure -->
+        <div class="section">
+          <h2 class="section-title">Fund Structure</h2>
+          <div class="section-content">
+            <p><strong>Investment Vehicle:</strong> Deal-by-deal private debt fund. Each deal presented independently with its own terms, duration, rate, and risk profile. No blind pool.</p>
+            <p><strong>Regulation:</strong> 506(b) — pre-existing substantive relationship required. No general solicitation. Up to 35 sophisticated non-accredited investors alongside unlimited accredited investors.</p>
+            <p><strong>Principal Alignment:</strong> Caleb Caraway, sole owner and Managing Member, co-invests personal capital alongside investors in every deal.</p>
+          </div>
+        </div>
 
-  <!-- TWO COLUMN: ASSET GRID + YIELD TABLE -->
-  <div class="two-col">
-    <div>
-      <div class="asset-grid-title">7 SPV Lending Verticals</div>
-      <div class="asset-grid">
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Real Estate SPV</div>
-          <div class="asset-yield">12% target</div>
+        <!-- Deal Origination Pipeline -->
+        <div class="section">
+          <h2 class="section-title">Deal Origination Pipeline</h2>
+          <div class="section-content">
+            <ul class="pipeline-list">
+              <li class="pipeline-item">
+                <div class="pipeline-dot green"></div>
+                <div><strong>Private Credit:</strong> Direct lending to operating businesses with tangible asset backing</div>
+              </li>
+              <li class="pipeline-item">
+                <div class="pipeline-dot blue"></div>
+                <div><strong>Art Acquisition Financing:</strong> Secured lending against authenticated fine art and collectibles</div>
+              </li>
+              <li class="pipeline-item">
+                <div class="pipeline-dot purple"></div>
+                <div><strong>Opportunistic Deals:</strong> Time-sensitive opportunities across specialty markets</div>
+              </li>
+              <li class="pipeline-item">
+                <div class="pipeline-dot gold"></div>
+                <div><strong>Platform Deployments:</strong> Alongside Draft Horse Capital Partners on select credit facilities</div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="asset-cell">
-          <span class="asset-icon">🥇</span>
-          <div class="asset-name">Precious Metals Trade Finance SPV</div>
-          <div class="asset-yield">28% target</div>
+
+        <!-- Key Fund Terms -->
+        <div class="section">
+          <h2 class="section-title">Key Fund Terms</h2>
+          <div class="section-content">
+            <table class="terms-table">
+              <tr>
+                <td>Structure</td>
+                <td>Reg D 506(b) · §3(c)(1) · Texas LLC</td>
+              </tr>
+              <tr>
+                <td>Minimum</td>
+                <td class="gold">$50,000</td>
+              </tr>
+              <tr>
+                <td>Lock-Up</td>
+                <td class="red">Per-Deal Term — No Early Redemption</td>
+              </tr>
+              <tr>
+                <td>Distributions</td>
+                <td>Per-Deal Schedule</td>
+              </tr>
+              <tr>
+                <td>Management Fee</td>
+                <td class="green">None</td>
+              </tr>
+              <tr>
+                <td>Principal</td>
+                <td>Caleb Caraway, Managing Member</td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Mining &amp; Mineral Resources SPV</div>
-          <div class="asset-yield">16% target</div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <!-- Deal-by-Deal Approach -->
+        <div class="section">
+          <h2 class="section-title">Deal-by-Deal Approach</h2>
+          <div class="section-content">
+            <p>Each deal is presented to qualified investors individually with full terms disclosed upfront. Investors choose which deals to participate in. No capital calls on uninvested commitments. Rate, duration, collateral description, and risk factors provided per deal memo.</p>
+          </div>
         </div>
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Aviation: Jet Charter Facility</div>
-          <div class="asset-yield">15% target</div>
+
+        <!-- Investor Advantages -->
+        <div class="section">
+          <h2 class="section-title">Investor Advantages</h2>
+          <div class="advantages-grid">
+            <div class="advantage-card blue">
+              <h4>Full Transparency</h4>
+              <p>Every deal presented with complete terms, collateral description, and risk factors before commitment.</p>
+            </div>
+            <div class="advantage-card gold">
+              <h4>Zero Fees</h4>
+              <p>No management fee, no performance fee, no carried interest. Fund economics from borrower-investor spread.</p>
+            </div>
+            <div class="advantage-card green">
+              <h4>Principal Alignment</h4>
+              <p>Managing Member invests alongside every deal. Same position, same risk, same terms.</p>
+            </div>
+          </div>
         </div>
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Energy &amp; Technology Infrastructure SPV</div>
-          <div class="asset-yield">20% target</div>
-        </div>
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Fine Art SPV ($541M Collection)</div>
-          <div class="asset-yield">22% blended</div>
-        </div>
-        <div class="asset-cell">
-          <span class="asset-icon"></span>
-          <div class="asset-name">Structured Private Credit</div>
-          <div class="asset-yield">18% target</div>
+
+        <!-- Platform Integration -->
+        <div class="section">
+          <h2 class="section-title">Platform Integration</h2>
+          <div class="platform-box">
+            <h4>Dark Horse Wealth Management Platform</h4>
+            <p>Quarter Horse sources deals from the broader Dark Horse platform's operating verticals — aviation, mining & metals, real estate, specialty lending, and art-backed securities. Each vertical has dedicated domain expertise and an independent deal pipeline, providing diversified origination for Quarter Horse investors.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div>
-      <div class="yield-title">Tiered Return Schedule (Target)</div>
-      <table class="yield-table">
-        <tr><td class="t-band">$50K – $999K</td><td class="t-ret">9%</td></tr>
-        <tr><td class="t-band">$1M – $4.99M</td><td class="t-ret">11%</td></tr>
-        <tr><td class="t-band">$5M – $24.99M</td><td class="t-ret">13%</td></tr>
-        <tr><td class="t-band">$25M – $49.99M</td><td class="t-ret">15%</td></tr>
-        <tr class="highlight-row"><td class="t-band">$50M+</td><td class="t-ret">17%</td></tr>
-      </table>
-
-      <div style="margin-top:14px;">
-        <div class="yield-title">Structure at a Glance</div>
-        <table class="yield-table">
-          <tr><td class="t-band">Structure</td><td style="color:var(--text);font-size:11px;text-align:right;">Reg D 506(b) + 3(c)(1)</td></tr>
-          <tr><td class="t-band">Eligibility</td><td style="color:var(--text);font-size:11px;text-align:right;">Verified Accredited Only</td></tr>
-          <tr><td class="t-band">Governing Law</td><td style="color:var(--text);font-size:11px;text-align:right;">Texas</td></tr>
-          <tr><td class="t-band">Early Redemption</td><td style="color:#e88a2e;font-weight:700;font-size:11px;text-align:right;">NONE</td></tr>
-          <tr><td class="t-band">Fund Spread</td><td style="color:var(--text);font-size:11px;text-align:right;">Earnings above investor return</td></tr>
-        </table>
+    <!-- SERVICE PROVIDERS -->
+    <div class="service-providers">
+      <h3>Service Providers & Principals</h3>
+      <div class="providers-grid">
+        <div class="provider-item">
+          <div class="provider-label">Fund Administration</div>
+          <div class="provider-name">NAV Fund Services</div>
+        </div>
+        <div class="provider-item">
+          <div class="provider-label">Audit & Tax</div>
+          <div class="provider-name">Spicer Jeffries LLP</div>
+        </div>
+        <div class="provider-item">
+          <div class="provider-label">Institutional Banking</div>
+          <div class="provider-name">Axos Bank</div>
+        </div>
+        <div class="provider-item">
+          <div class="provider-label">Securities Counsel</div>
+          <div class="provider-name">SCALE LLP / Dori Karjian</div>
+        </div>
+        <div class="provider-item">
+          <div class="provider-label">Managing Member</div>
+          <div class="provider-name">Caleb Caraway</div>
+        </div>
       </div>
+    </div>
+
+    <!-- FOOTER DISCLAIMER -->
+    <div class="footer-disclaimer">
+      <strong>CONFIDENTIAL — REG D 506(b) — PRE-EXISTING RELATIONSHIP REQUIRED</strong> — NOT AN OFFER TO SELL SECURITIES. This tear sheet is for informational purposes only and does not constitute an offer to sell or solicitation of an offer to purchase any security. Any offer will be made only through deal-specific offering documents prepared by SCALE LLP. Fixed contractual rates are set per deal and are not guaranteed — returns contingent on individual deal performance. No Early Redemption during deal term. This fund operates under Rule 506(b) of Regulation D — general solicitation is prohibited; all investors must have a pre-existing substantive relationship with the fund manager. Up to 35 sophisticated non-accredited investors may participate. Investing involves risk including loss of principal. © 2026 Quarter Horse Capital Partners LLC. All rights reserved.
     </div>
   </div>
-
-  <!-- SERVICE PROVIDERS -->
-  <div style="margin-bottom:14px;">
-    <div class="providers-title">Fund Service Providers</div>
-    <div class="providers-row">
-      <div class="prov-item">
-        <div class="prov-name">NAV Fund Services</div>
-        <div class="prov-role">Fund Admin · NAV Calc · Investor Reporting</div>
-      </div>
-      <div class="prov-item">
-        <div class="prov-name">Spicer Jeffries LLP</div>
-        <div class="prov-role">Fund Audit · Tax · K-1</div>
-      </div>
-      <div class="prov-item">
-        <div class="prov-name">Axos Bank</div>
-        <div class="prov-role">Institutional Banking · Custody</div>
-      </div>
-      <div class="prov-item">
-        <div class="prov-name">SCALE LLP / D. Karjian</div>
-        <div class="prov-role">Securities Counsel · Reg D Compliance</div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div>
-      <strong>Reg D 506(b) / Section 3(c)(1).</strong> Not an offer to sell or solicitation to buy. Verified accredited investors only. Not SEC registered. No guarantee of return. Principal subject to loss. 3-year lockup with NO early redemption. Governed by Texas law. All stated returns are targets only.
-    </div>
-    <div>
-      <strong>Confidential.</strong> This document is strictly confidential and for the sole use of the intended institutional recipient. Not for distribution. Reproduction prohibited without written consent. © Quarter Horse Capital Partners LLC / Quarter Horse Wealth Management LLC.
-    </div>
-  </div>
-
-</div>
 </body>
 </html>

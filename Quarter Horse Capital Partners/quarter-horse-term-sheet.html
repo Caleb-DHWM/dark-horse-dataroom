@@ -1,674 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quarter Horse Capital Partners — Institutional Term Sheet</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarter Horse Capital Partners — Institutional Term Sheet</title>
+    <style>
+        :root {
+            --navy: #080c18;
+            --navy-mid: #0e1624;
+            --navy-light: #16213a;
+            --navy-card: #1a2840;
+            --gold: #c9a84c;
+            --gold-light: #e8c87a;
+            --gold-dim: #7a5f28;
+            --silver: #8fa3b8;
+            --silver-light: #c8d8e8;
+            --white: #f0f4f8;
+            --text: #cdd8e6;
+            --text-muted: #6a88a0;
+            --border: rgba(201,168,76,0.22);
+            --green: #22c55e;
+            --red: #f87171;
+        }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  :root {
-    --navy: #0d0f14;
-    --navy2: #141720;
-    --navy3: #1a1e2a;
-    --gold: #c9a84c;
-    --gold2: #e8c96a;
-    --gold3: #f5dfa0;
-    --text: #e8e9ed;
-    --muted: #8892a0;
-    --border: rgba(201,168,76,0.18);
-    --border-strong: rgba(201,168,76,0.35);
-  }
+        html, body {
+            background-color: var(--navy);
+            color: var(--text);
+            font-family: Georgia, serif;
+            line-height: 1.6;
+        }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--navy);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
+        body {
+            padding: 0;
+        }
 
-  .page {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 48px 40px;
-  }
+        .ts-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--navy-mid);
+        }
 
-  /* HEADER */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 36px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-strong);
-  }
-  .logo-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--gold);
-  }
-  .logo-sub { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
-  .doc-type {
-    text-align: right;
-  }
-  .doc-badge {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 3px;
-  }
-  .doc-date {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-  .indicative-notice {
-    background: rgba(201,168,76,0.06);
-    border: 1px solid var(--border-strong);
-    border-radius: 4px;
-    padding: 10px 16px;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.5px;
-    margin-bottom: 32px;
-    text-align: center;
-  }
+        /* INDICATIVE BANNER */
+        .ts-banner {
+            background-color: var(--gold);
+            color: var(--navy);
+            padding: 16px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-family: Arial, sans-serif;
+        }
 
-  /* SECTION */
-  .section {
-    margin-bottom: 40px;
-  }
+        /* HEADER BAR */
+        .ts-header {
+            padding: 32px 48px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--navy-light);
+        }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-  .section-number {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 11px;
-    font-weight: 800;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
+        .ts-header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
 
-  /* TERMS TABLE */
-  .terms-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  .terms-table tr {
-    border-bottom: 1px solid var(--border);
-  }
-  .terms-table tr:last-child { border-bottom: none; }
-  .terms-table td {
-    padding: 12px 16px;
-    vertical-align: top;
-  }
-  .terms-table td:first-child {
-    width: 32%;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding-right: 20px;
-    white-space: nowrap;
-  }
-  .terms-table td:last-child {
-    color: var(--text);
-  }
-  .terms-table tr:nth-child(odd) { background: var(--navy2); }
-  .terms-table tr:nth-child(even) { background: var(--navy3); }
+        .ts-emblem {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 22px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
 
-  .highlight-cell {
-    color: var(--gold) !important;
-    font-weight: 700 !important;
-  }
+        .ts-header-title {
+            font-size: 16px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
 
-  .warning-cell {
-    color: #e88a2e !important;
-    font-weight: 700 !important;
-  }
+        .ts-header-badge {
+            background-color: var(--navy-card);
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+        }
 
-  /* YIELD TIERS TABLE */
-  .yield-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  .yield-table th {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 11px 16px;
-    text-align: left;
-  }
-  .yield-table td {
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
-  .yield-table tr:nth-child(odd) td { background: var(--navy2); }
-  .yield-table tr:nth-child(even) td { background: var(--navy3); }
-  .yield-table tr:last-child td { background: rgba(201,168,76,0.1); font-weight: 700; color: var(--gold2); }
+        /* TITLE BLOCK */
+        .ts-title-block {
+            padding: 48px 48px 32px;
+            background-color: var(--navy);
+        }
 
-  .tier-bar {
-    display: inline-block;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--gold);
-    margin-left: 8px;
-    vertical-align: middle;
-    opacity: 0.6;
-  }
+        .ts-eyebrow {
+            font-size: 12px;
+            color: var(--gold);
+            font-family: Arial, sans-serif;
+            letter-spacing: 0.75px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
 
-  /* ASSET CLASS TABLE */
-  .asset-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  .asset-table th {
-    background: var(--navy3);
-    color: var(--gold);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-strong);
-  }
-  .asset-table td {
-    padding: 13px 14px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .asset-table tr:nth-child(odd) td { background: var(--navy2); }
-  .asset-table tr:nth-child(even) td { background: var(--navy3); }
-  .asset-num { color: var(--gold); font-weight: 700; font-size: 13px; }
-  .asset-name { font-weight: 700; color: var(--gold2); font-size: 13px; }
-  .asset-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
-  .asset-yield { color: var(--gold); font-weight: 700; font-size: 13px; white-space: nowrap; }
-  .asset-collateral { font-size: 12px; color: var(--muted); }
+        .ts-headline {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--white);
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
 
-  /* ALLOCATION TABLE */
-  .alloc-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-  }
-  .alloc-table th {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    text-align: left;
-  }
-  .alloc-table td {
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .alloc-table tr:nth-child(odd) td { background: var(--navy2); }
-  .alloc-table tr:nth-child(even) td { background: var(--navy3); }
-  .alloc-table tr.total-row td {
-    background: rgba(201,168,76,0.12) !important;
-    color: var(--gold);
-    font-weight: 700;
-    border-top: 1px solid var(--border-strong);
-    font-size: 14px;
-  }
-  .alloc-bar {
-    display: inline-block;
-    height: 8px;
-    border-radius: 4px;
-    background: var(--gold);
-    margin-left: 6px;
-    vertical-align: middle;
-    opacity: 0.5;
-  }
+        .ts-subline {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
 
-  /* DISTRIBUTION CALLOUT */
-  .dist-callout {
-    background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.03) 100%);
-    border: 1px solid var(--border-strong);
-    border-radius: 10px;
-    padding: 28px 36px;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-  .dist-callout::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--gold);
-  }
-  .dist-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
-  .dist-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-  .dist-item { text-align: center; }
-  .dist-value { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--gold); line-height: 1.1; }
-  .dist-sublabel { font-size: 11px; color: var(--muted); margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-  .dist-note { font-size: 11px; color: var(--muted); margin-top: 14px; font-style: italic; text-align: center; }
+        .ts-gold-rule {
+            height: 3px;
+            background: linear-gradient(to right, var(--gold), transparent);
+            margin-bottom: 32px;
+            max-width: 80px;
+        }
 
-  /* DISCLOSURE BOXES */
-  .disclosure-box {
-    background: rgba(255,160,0,0.05);
-    border: 1px solid rgba(255,160,0,0.2);
-    border-radius: 6px;
-    padding: 16px 20px;
-    font-size: 12px;
-    color: #b8966e;
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-  .disclosure-box strong { color: #d4a843; }
-  .disclosure-box .disc-title {
-    font-size: 10.5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
+        /* CONTENT SECTIONS */
+        .ts-content {
+            padding: 0 48px 48px;
+        }
 
-  /* SERVICE PROVIDERS */
-  .providers-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .provider-card {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 18px;
-  }
-  .provider-name { font-size: 14px; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
-  .provider-role { font-size: 12px; color: var(--muted); line-height: 1.4; }
+        .ts-section {
+            margin-bottom: 48px;
+        }
 
-  /* FOOTER */
-  .footer {
-    border-top: 1px solid var(--border);
-    padding-top: 22px;
-    font-size: 10.5px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-top: 40px;
-  }
-  .footer strong { color: var(--text); }
-</style>
+        .ts-section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            font-family: Arial, sans-serif;
+        }
+
+        /* TABLES */
+        .ts-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--navy-card);
+            border: 1px solid var(--border);
+        }
+
+        .ts-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ts-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .ts-table td {
+            padding: 16px;
+            vertical-align: top;
+        }
+
+        .ts-table td:first-child {
+            width: 35%;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: var(--gold);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background-color: rgba(201, 168, 76, 0.05);
+        }
+
+        .ts-table td:last-child {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .ts-green {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* RISK CARDS */
+        .ts-risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .ts-risk-card {
+            background-color: var(--navy-card);
+            border: 2px solid var(--gold);
+            padding: 24px;
+            border-radius: 4px;
+        }
+
+        .ts-risk-card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-family: Arial, sans-serif;
+        }
+
+        .ts-risk-card-text {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* CTA BOX */
+        .ts-cta-box {
+            background-color: var(--navy-card);
+            border: 2px solid var(--gold);
+            padding: 32px;
+            border-radius: 4px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .ts-cta-box p {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .ts-cta-contact {
+            font-size: 14px;
+            color: var(--gold);
+            margin: 8px 0;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        .ts-footer {
+            padding: 48px;
+            background-color: var(--navy-light);
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .ts-footer-heading {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        .ts-footer-disclaimer {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .ts-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+            }
+
+            .ts-header-badge {
+                margin-left: 0;
+                margin-top: 16px;
+            }
+
+            .ts-title-block {
+                padding: 32px 24px 24px;
+            }
+
+            .ts-headline {
+                font-size: 28px;
+            }
+
+            .ts-content {
+                padding: 0 24px 32px;
+            }
+
+            .ts-table td {
+                padding: 12px;
+                font-size: 13px;
+            }
+
+            .ts-risk-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ts-cta-box {
+                padding: 24px;
+            }
+
+            .ts-footer {
+                padding: 32px 24px;
+            }
+        }
+
+        /* PRINT */
+        @media print {
+            body {
+                background: white;
+                color: #333;
+            }
+
+            .ts-container {
+                background: white;
+                max-width: 100%;
+            }
+
+            .ts-header {
+                background-color: white;
+                page-break-after: avoid;
+            }
+
+            .ts-title-block {
+                background-color: white;
+                page-break-after: avoid;
+            }
+
+            .ts-section {
+                page-break-inside: avoid;
+            }
+
+            a {
+                color: #0066cc;
+                text-decoration: underline;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="page">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div>
-      <div class="logo-name">Quarter Horse Capital Partners LLC</div>
-      <div class="logo-sub">Managed by Quarter Horse Wealth Management LLC · Texas Governing Law</div>
-    </div>
-    <div class="doc-type">
-      <div class="doc-badge">Term Sheet</div>
-      <div class="doc-date">Confidential · Institutional Distribution Only</div>
-    </div>
-  </div>
-
-  <div class="indicative-notice">
-     &nbsp; INDICATIVE ONLY — THIS DOCUMENT IS A SUMMARY TERM SHEET. ALL TERMS ARE SUBJECT TO THE DEFINITIVE PRIVATE PLACEMENT MEMORANDUM (PPM) AND SUBSCRIPTION DOCUMENTS. IN THE EVENT OF ANY CONFLICT, THE PPM SHALL GOVERN.
-  </div>
-
-  <!-- SECTION 1: MATERIAL TERMS -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">1</div>
-      <div class="section-title">Material Fund Terms</div>
-    </div>
-    <table class="terms-table">
-      <tr><td>Fund Name</td><td>Quarter Horse Capital Partners LLC</td></tr>
-      <tr><td>Managing Entity</td><td>Quarter Horse Wealth Management LLC</td></tr>
-      <tr><td>Principal</td><td>Caleb Caraway, CEO — Dark Horse Wealth Management</td></tr>
-      <tr><td>Strategy</td><td>Diversified private private credit across 7 SPV lending verticals</td></tr>
-      <tr><td>Structure</td><td>Regulation D, Rule 506(b) + Section 3(c)(1) of the Investment Company Act of 1940</td></tr>
-      <tr><td>Investor Eligibility</td><td class="warning-cell">Verified accredited investors only. Accreditation verification required prior to subscription.</td></tr>
-      <tr><td>Governing Law</td><td>State of Texas</td></tr>
-      <tr><td>Minimum Investment</td><td class="highlight-cell">$50,000 USD</td></tr>
-      <tr><td>Investment Term</td><td class="warning-cell">3-year lockup. NO EARLY REDEMPTION. 100% of principal is locked until term end. Redemption available only upon term expiration.</td></tr>
-      <tr><td>Stated Return (Target)</td><td class="highlight-cell">9% to 17% per annum, tiered by commitment size (see yield tier table below)</td></tr>
-      <tr><td>Distribution Frequency</td><td class="highlight-cell">Quarterly (4 distributions per year). NOT monthly.</td></tr>
-      <tr><td>Management Fee</td><td class="highlight-cell">NONE</td></tr>
-      <tr><td>Performance Fee</td><td class="highlight-cell">NONE</td></tr>
-      <tr><td>Carried Interest</td><td class="highlight-cell">NONE</td></tr>
-      <tr><td>Fund Spread</td><td>All earnings above stated investor return are retained by the fund. At $1B / 17% tier: $21.4M minimum annual fund spread (19.14% blended gross minus 17% investor tier).</td></tr>
-      <tr><td>Principal Risk</td><td>Principal is subject to loss. No guarantee of return. Stated returns are targets only.</td></tr>
-    </table>
-    <div style="font-size:10.5px; color: var(--muted); margin-top: 10px; font-style: italic; padding: 0 4px;">
-      Indicative only — refer to PPM for complete and binding terms.
-    </div>
-  </div>
-
-  <!-- SECTION 2: TIERED YIELD TABLE -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">2</div>
-      <div class="section-title">Tiered Stated Annual Return Schedule (Target)</div>
-    </div>
-    <table class="yield-table">
-      <thead>
-        <tr>
-          <th>Tier</th>
-          <th>Commitment Band</th>
-          <th>Stated Annual Return (Target)</th>
-          <th>Annual Distribution (Illus.)</th>
-          <th>Quarterly Distribution (Illus.)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>$50,000 – $999,999</td>
-          <td>9% <span class="tier-bar" style="width:32px"></span></td>
-          <td>$18,000 – $89,999</td>
-          <td>$4,500 – $22,500</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>$1,000,000 – $4,999,999</td>
-          <td>11% <span class="tier-bar" style="width:48px"></span></td>
-          <td>$110,000 – $549,999</td>
-          <td>$27,500 – $137,500</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>$5,000,000 – $24,999,999</td>
-          <td>13% <span class="tier-bar" style="width:64px"></span></td>
-          <td>$650,000 – $3,249,999</td>
-          <td>$162,500 – $812,500</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>$25,000,000 – $49,999,999</td>
-          <td>15% <span class="tier-bar" style="width:80px"></span></td>
-          <td>$3,750,000 – $7,499,999</td>
-          <td>$937,500 – $1,875,000</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>$50,000,000+</td>
-          <td>17% <span class="tier-bar" style="width:96px"></span></td>
-          <td>$8,500,000+ (illustrative at $50M)</td>
-          <td>$2,125,000+ (illustrative at $50M)</td>
-        </tr>
-        <tr class="">
-          <td colspan="2" style="color:var(--gold2);font-weight:700;">Sovereign Reference: $1,000,000,000</td>
-          <td style="color:var(--gold);font-weight:700;">17%</td>
-          <td style="color:var(--gold);font-weight:700;">$170,000,000</td>
-          <td style="color:var(--gold);font-weight:700;">$42,500,000</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="font-size:10.5px; color: var(--muted); margin-top: 10px; font-style: italic; padding: 0 4px;">
-      All returns are stated targets only. Not guaranteed. Illustrative distribution figures shown at minimum commitment for each band. Refer to PPM.
-    </div>
-  </div>
-
-  <!-- SECTION 3: QUARTERLY DISTRIBUTION MECHANICS -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">3</div>
-      <div class="section-title">Quarterly Distribution Mechanics — $1B Reference</div>
-    </div>
-    <div class="dist-callout">
-      <div class="dist-label">Stated Annual Return Target at 17% Tier — $1,000,000,000 Commitment (Illustrative)</div>
-      <div class="dist-grid">
-        <div class="dist-item">
-          <div class="dist-value">$170,000,000</div>
-          <div class="dist-sublabel">Annual Distribution</div>
+    <div class="ts-container">
+        <!-- INDICATIVE BANNER -->
+        <div class="ts-banner">
+            INDICATIVE TERM SHEET — SUBJECT TO FINAL DOCUMENTATION BY SCALE LLP
         </div>
-        <div class="dist-item">
-          <div class="dist-value">$42,500,000</div>
-          <div class="dist-sublabel">Per Quarter</div>
+
+        <!-- HEADER BAR -->
+        <div class="ts-header">
+            <div class="ts-header-left">
+                <div class="ts-emblem">QH</div>
+                <div class="ts-header-title">Quarter Horse Capital Partners</div>
+            </div>
+            <div class="ts-header-badge">Term Sheet — April 2026</div>
         </div>
-        <div class="dist-item">
-          <div class="dist-value">~$14,166,667</div>
-          <div class="dist-sublabel">Monthly Reference Only</div>
+
+        <!-- TITLE BLOCK -->
+        <div class="ts-title-block">
+            <div class="ts-eyebrow">Reg D Rule 506(b) · Deal-by-Deal Private Debt</div>
+            <h1 class="ts-headline">Institutional Term Sheet</h1>
+            <p class="ts-subline">Quarter Horse Capital Partners LLC — Indicative Terms — Subject to Final Documentation</p>
+            <div class="ts-gold-rule"></div>
         </div>
-      </div>
-      <div class="dist-note">Distributions are paid quarterly. The monthly reference equivalent (~$14.2M) is provided for comparative purposes only and does not represent a monthly payment schedule. Four distributions per year.</div>
-    </div>
-    <div style="font-size:10.5px; color: var(--muted); font-style: italic; padding: 0 4px;">Indicative only — refer to PPM. $1B illustration assumes full deployment at 17% tier. Gross fund yield: $191.4M (19.14% blended). Fund spread: $21.4M minimum.</div>
-  </div>
 
-  <!-- SECTION 4: ASSET CLASSES -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">4</div>
-      <div class="section-title">7 Lending Verticals — Investment Strategy</div>
-    </div>
-    <table class="asset-table">
-      <thead>
-        <tr>
-          <th style="width:4%">#</th>
-          <th style="width:22%">Asset Class</th>
-          <th style="width:44%">Strategy Description</th>
-          <th style="width:14%">Target Yield</th>
-          <th style="width:16%">Primary Collateral</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="asset-num">1</span></td>
-          <td><span class="asset-name">Real Estate SPV Credit Facility</span></td>
-          <td><span class="asset-desc">QH lends $150M to a Real Estate SPV that acquires, holds, and operates commercial and residential real estate. The SPV returns quarterly distributions to the Fund from rental income, property sales, and appreciation. QH holds first-lien security interest in all SPV real estate assets.</span></td>
-          <td><span class="asset-yield">12%</span></td>
-          <td><span class="asset-collateral">First-lien in all SPV real estate; title insurance</span></td>
-        </tr>
-        <tr>
-          <td><span class="asset-num">2</span></td>
-          <td><span class="asset-name">Precious Metals Trade Finance SPV</span></td>
-          <td><span class="asset-desc">QH lends $200M to a Bullion Trading SPV (operating through Stateside Resources LLC, Texas Noble Metals Broker) executing physical gold/silver trade cycles: buy from U.S. sellers → sell to Dubai (DMCC) and Sharjah. 3.5–5% margin/cycle, 15–20 cycles/month = 35%+ gross. QH holds security interest in physical inventory and trade receivables.</span></td>
-          <td><span class="asset-yield">28%</span></td>
-          <td><span class="asset-collateral">Physical allocated bullion + trade receivables; LBMA-affiliated</span></td>
-        </tr>
-        <tr>
-          <td><span class="asset-num">3</span></td>
-          <td><span class="asset-name">Mining &amp; Mineral Resources SPV</span></td>
-          <td><span class="asset-desc">QH lends $80M to a Mining SPV holding and developing mineral resource assets. Anchor: Field Futures Texas — 670-acre silver ore body, Llano County, TX; 4,431 ppm confirmed by 3 independent labs (ALS ISO/IEC 17025, UT Austin, Rocky Mountain Assay). SPV also deploys into structured royalty agreements. QH holds security interest in mineral rights, surface rights, and resource body.</span></td>
-          <td><span class="asset-yield">16%</span></td>
-          <td><span class="asset-collateral">Mineral rights + surface rights + royalty assignments</span></td>
-        </tr>
-        <tr>
-          <td><span class="asset-num">4</span></td>
-          <td><span class="asset-name">Aviation: Jet Charter Company Credit Facility</span></td>
-          <td><span class="asset-desc">QH lends $200M to a FAA Part 135 certificated jet charter company (identity confidential; disclosed under NDA) for Gulfstream G550 acquisition. Charter company manages fleet, generates charter revenue, returns distributions to QH from NOI. Current fleet: 4 G4-class aircraft. Per-G550 NOI (100%): $2.1M–$3.1M/year. QH holds first-priority lien: UCC-1 + FAA Civil Aviation Registry (49 U.S.C. § 44107) per aircraft.</span></td>
-          <td><span class="asset-yield">15%</span></td>
-          <td><span class="asset-collateral">UCC-1 + FAA Civil Aviation Registry lien per aircraft</span></td>
-        </tr>
-        <tr>
-          <td><span class="asset-num">5</span></td>
-          <td><span class="asset-name">Energy &amp; Technology Infrastructure SPV</span></td>
-          <td><span class="asset-desc">QH lends $1B to Energy &amp; Technology Infrastructure SPVs across two convergent mandates: (A) clean energy transition — wind, solar, battery storage, SMR, grid modernization; and (B) data center &amp; AI power infrastructure — mission-critical power, data center operators, AI computing facilities, edge computing. Both mandates share the same borrower universe and collateral type. Structures: private project finance (18–60 mo), production/capacity royalties, venture debt. QH holds security interest in project assets, offtake/capacity agreements, IP licenses, and government contracts.</span></td>
-          <td><span class="asset-yield">20%</span></td>
-          <td><span class="asset-collateral">Project assets + offtake/capacity agreements + government contracts</span></td>
-        </tr>
-        <tr>
-          <td><span class="asset-num">6</span></td>
-          <td><span class="asset-name">Fine Art SPV ($541M Collection)</span></td>
-          <td><span class="asset-desc"></span></td>
-          <td><span class="asset-yield">20%</span></td>
-          <td><span class="asset-collateral">Mirrors SPV assets: RE, aircraft, mineral rights, art, commodity, energy</span></td>
-        </tr>
-        </tbody>
-    </table>
-  </div>
+        <!-- CONTENT -->
+        <div class="ts-content">
 
-  <!-- SECTION 5: $1B ALLOCATION PLAN -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">5</div>
-      <div class="section-title">$1B Deployment Allocation Plan (Illustrative)</div>
-    </div>
-    <table class="alloc-table">
-      <thead>
-        <tr>
-          <th>Lending Vertical</th>
-          <th>Allocation</th>
-          <th>% of Fund</th>
-          <th>Target Fund Yield</th>
-          <th>Contribution to Blended Return</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Real Estate SPV Credit Facility</td>
-          <td>$150,000,000</td>
-          <td>15% <span class="alloc-bar" style="width:30px"></span></td>
-          <td>12%</td>
-          <td>$18,000,000</td>
-        </tr>
-        <tr>
-          <td>Precious Metals Trade Finance SPV</td>
-          <td>$50,000,000</td>
-          <td>20% <span class="alloc-bar" style="width:40px"></span></td>
-          <td>28%</td>
-          <td>$56,000,000</td>
-        </tr>
-        <tr>
-          <td>Mining &amp; Mineral Resources SPV</td>
-          <td>$80,000,000</td>
-          <td>8% <span class="alloc-bar" style="width:16px"></span></td>
-          <td>16%</td>
-          <td>$12,800,000</td>
-        </tr>
-        <tr>
-          <td>Aviation: Jet Charter Company Credit Facility</td>
-          <td>$50,000,000</td>
-          <td>20% <span class="alloc-bar" style="width:40px"></span></td>
-          <td>15%</td>
-          <td>$30,000,000</td>
-        </tr>
-        <tr>
-          <td>Energy &amp; Technology Infrastructure SPV</td>
-          <td>$100,000,000</td>
-          <td>10% <span class="alloc-bar" style="width:20px"></span></td>
-          <td>20%</td>
-          <td>$20,000,000</td>
-        </tr>
-        <tr>
-          <td>Fine Art SPV ($541M Collection)</td>
-          <td>$150,000,000</td>
-          <td>15% <span class="alloc-bar" style="width:30px"></span></td>
-          <td>22%</td>
-          <td>$33,000,000</td>
-        </tr>
-        <tr>
-          <td>Structured Private Credit</td>
-          <td>$120,000,000</td>
-          <td>12% <span class="alloc-bar" style="width:24px"></span></td>
-          <td>18%</td>
-          <td>$21,600,000</td>
-        </tr>
-        <tr class="total-row">
-          <td>TOTAL — 7 Lending Verticals</td>
-          <td>$1,000,000,000</td>
-          <td>100%</td>
-          <td>19.14% blended</td>
-          <td>$191,400,000 gross</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="font-size:10.5px; color: var(--muted); margin-top: 10px; font-style: italic; padding: 0 4px;">
-      Gross fund return: $191.4M (19.14% blended). Investor distributions at 17% tier: $170.0M. Fund spread retained: $21.4M minimum. Indicative only — refer to PPM. Actual allocations subject to deployment conditions and manager discretion.
-    </div>
-  </div>
+            <!-- FUND OVERVIEW -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Fund Overview</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Fund Name</td>
+                        <td>Quarter Horse Capital Partners LLC</td>
+                    </tr>
+                    <tr>
+                        <td>Fund Type</td>
+                        <td>Deal-by-Deal Private Debt Vehicle</td>
+                    </tr>
+                    <tr>
+                        <td>Domicile</td>
+                        <td>Texas Limited Liability Company</td>
+                    </tr>
+                    <tr>
+                        <td>Managing Member</td>
+                        <td>Caleb Caraway (100% ownership)</td>
+                    </tr>
+                    <tr>
+                        <td>Regulatory Exemption</td>
+                        <td>Regulation D, Rule 506(b) — Securities Act of 1933</td>
+                    </tr>
+                    <tr>
+                        <td>Fund Exemption</td>
+                        <td>§3(c)(1) of the Investment Company Act of 1940</td>
+                    </tr>
+                    <tr>
+                        <td>Investor Eligibility</td>
+                        <td>Pre-existing substantive relationship with Managing Member required. Up to 35 sophisticated non-accredited investors permitted alongside unlimited accredited investors.</td>
+                    </tr>
+                    <tr>
+                        <td>General Solicitation</td>
+                        <td>Prohibited under 506(b). No public advertising, no mass marketing.</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum Investment</td>
+                        <td>$50,000 per deal (may vary by deal)</td>
+                    </tr>
+                    <tr>
+                        <td>Target Strategies</td>
+                        <td>Private credit, art acquisition financing, opportunistic deals, platform co-deployments alongside Draft Horse Capital Partners</td>
+                    </tr>
+                </table>
+            </div>
 
-  <!-- SECTION 6: DISCLOSURES -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">6</div>
-      <div class="section-title">Material Disclosures</div>
-    </div>
+            <!-- DEAL-BY-DEAL STRUCTURE -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Deal-by-Deal Structure</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Investment Approach</td>
+                        <td>Each deal presented independently. Investors evaluate and commit on a per-deal basis. No blind pool commitment.</td>
+                    </tr>
+                    <tr>
+                        <td>Deal Memo</td>
+                        <td>Each opportunity accompanied by a deal-specific memorandum detailing terms, rate, duration, collateral description, risk factors, and use of proceeds.</td>
+                    </tr>
+                    <tr>
+                        <td>Fixed Contractual Rate</td>
+                        <td>Set per deal. Rate locked at investor commitment. Does not reset during deal term.</td>
+                    </tr>
+                    <tr>
+                        <td>Deal Duration</td>
+                        <td>Set per deal. Typical range from short-term bridge loans to multi-year credit facilities.</td>
+                    </tr>
+                    <tr>
+                        <td>Distribution Schedule</td>
+                        <td>Set per deal. May be monthly, quarterly, or at maturity depending on deal structure.</td>
+                    </tr>
+                    <tr>
+                        <td>No Early Redemption</td>
+                        <td>Investor capital locked for full deal duration. No early withdrawal rights.</td>
+                    </tr>
+                    <tr>
+                        <td>Capital Calls</td>
+                        <td>None. Investors fund their commitment at deal closing. No unfunded commitments.</td>
+                    </tr>
+                    <tr>
+                        <td>Deal Pipeline</td>
+                        <td>Sourced from Dark Horse Wealth Management platform verticals — aviation, mining & metals, real estate, specialty lending, art-backed securities.</td>
+                    </tr>
+                </table>
+            </div>
 
-    <div class="disclosure-box">
-      <div class="disc-title">Fine Art — JP Morgan Credit Facility Disclosure</div>
-      The Fine Art allocation involves the use of a third-party institutional credit facility with JP Morgan, utilizing a curated $541M fine art collection (curated by Elena Kohn / Sotheby's) as collateral at loan-to-value ratios of 30–50% on blue-chip works (approximately 70% of the art allocation). The remaining 30% consists of "red-chip" works targeted for sale within 120 days. Credit facility terms, availability, and LTV ratios are subject to JP Morgan's ongoing credit determination and are not guaranteed. The use of leverage in this allocation amplifies both potential returns and potential losses.
-    </div>
+            <!-- FEE STRUCTURE -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Fee Structure</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Management Fee</td>
+                        <td><span class="ts-green">None</span></td>
+                    </tr>
+                    <tr>
+                        <td>Performance Fee</td>
+                        <td><span class="ts-green">None</span></td>
+                    </tr>
+                    <tr>
+                        <td>Carried Interest</td>
+                        <td><span class="ts-green">None</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fund Economics</td>
+                        <td>Spread between borrower cost of capital and investor fixed contractual rate</td>
+                    </tr>
+                    <tr>
+                        <td>Organizational Expenses</td>
+                        <td>Borne by the Fund, capped at reasonable levels</td>
+                    </tr>
+                    <tr>
+                        <td>Deal-Specific Expenses</td>
+                        <td>Legal, diligence, and closing costs allocated per deal</td>
+                    </tr>
+                </table>
+            </div>
 
-    <div class="disclosure-box">
-      <div class="disc-title">No Early Redemption</div>
-      <strong>All capital committed to Quarter Horse Capital Partners LLC is subject to a full 3-year lockup. There is absolutely NO mechanism for early redemption under any circumstances. 100% of principal is locked until the expiration of the 3-year term. Investors must be prepared to have their capital fully illiquid for the entire 3-year period.</strong> Investors should ensure this term is consistent with their liquidity requirements before subscribing. This is not a liquid investment.
-    </div>
+            <!-- PRINCIPAL ALIGNMENT -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Principal Alignment</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Managing Member</td>
+                        <td>Caleb Caraway — sole owner and principal of Quarter Horse Capital Partners LLC</td>
+                    </tr>
+                    <tr>
+                        <td>Co-Investment</td>
+                        <td>Managing Member invests personal capital alongside investor capital in every deal, in the same position and at the same terms</td>
+                    </tr>
+                    <tr>
+                        <td>Platform Ownership</td>
+                        <td>Caleb Caraway is the sole owner of the Dark Horse Wealth Management platform, including all operating verticals and portfolio companies</td>
+                    </tr>
+                    <tr>
+                        <td>Conflicts of Interest</td>
+                        <td>The Managing Member may have interests in borrowers through the Dark Horse platform. All conflicts disclosed per deal memo.</td>
+                    </tr>
+                </table>
+            </div>
 
-    <div class="disclosure-box">
-      <div class="disc-title">Manager Track Record</div>
-      Reference to Caleb Caraway's prior track record at Corinthian Capital Partners is for informational purposes only. That track record is unaudited and has not been verified for purposes of this offering. Past performance of Corinthian Capital Partners is not indicative of and does not guarantee future results at Quarter Horse Capital Partners LLC. These are separate and distinct entities with different strategies, structures, and risk profiles.
-    </div>
-  </div>
+            <!-- RISK FACTORS -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Risk Factors</h2>
+                <div class="ts-risk-grid">
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Deal-Specific Risk</div>
+                        <div class="ts-risk-card-text">Each deal carries its own risk profile. Returns depend on the performance of the individual borrower and the specific collateral arrangement. Past deal performance does not predict future results.</div>
+                    </div>
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Illiquidity Risk</div>
+                        <div class="ts-risk-card-text">Investor capital is locked for the duration of each deal. There is no secondary market for fund interests and no early redemption mechanism.</div>
+                    </div>
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Concentration Risk</div>
+                        <div class="ts-risk-card-text">Individual deals may represent concentrated exposure to a single borrower, sector, or asset class. Investors should consider portfolio-level diversification.</div>
+                    </div>
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Regulatory Risk</div>
+                        <div class="ts-risk-card-text">The fund relies on Regulation D Rule 506(b) exemption. Changes in securities law or interpretive guidance could affect fund operations.</div>
+                    </div>
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Platform Risk</div>
+                        <div class="ts-risk-card-text">Deal origination depends on the Dark Horse Wealth Management platform. Disruption to the platform could affect deal flow.</div>
+                    </div>
+                    <div class="ts-risk-card">
+                        <div class="ts-risk-card-title">Key Person Risk</div>
+                        <div class="ts-risk-card-text">Caleb Caraway is the sole principal. The fund's operations depend entirely on his continued involvement and judgment.</div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- SECTION 7: SERVICE PROVIDERS -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">7</div>
-      <div class="section-title">Fund Service Providers</div>
-    </div>
-    <div class="providers-grid">
-      <div class="provider-card">
-        <div class="provider-name">NAV Fund Services</div>
-        <div class="provider-role">Independent Fund Administrator — Net Asset Value (NAV) calculation, investor reporting, capital account maintenance</div>
-      </div>
-      <div class="provider-card">
-        <div class="provider-name">Spicer Jeffries LLP</div>
-        <div class="provider-role">Fund Auditor and Tax Advisor — Annual fund audit, K-1 preparation, tax compliance and reporting</div>
-      </div>
-      <div class="provider-card">
-        <div class="provider-name">Axos Bank</div>
-        <div class="provider-role">Institutional Banking Partner — Fund custodial banking, institutional account management, wire transfer infrastructure</div>
-      </div>
-      <div class="provider-card">
-        <div class="provider-name">SCALE LLP / Dori Karjian</div>
-        <div class="provider-role">Securities Counsel — Regulatory compliance, Reg D 506(b) offering structure, investor accreditation verification, PPM drafting and maintenance</div>
-      </div>
-    </div>
-  </div>
+            <!-- SERVICE PROVIDERS -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Service Providers</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Fund Administration</td>
+                        <td>NAV Fund Services</td>
+                    </tr>
+                    <tr>
+                        <td>Audit & Tax</td>
+                        <td>Spicer Jeffries LLP</td>
+                    </tr>
+                    <tr>
+                        <td>Institutional Banking</td>
+                        <td>Axos Bank</td>
+                    </tr>
+                    <tr>
+                        <td>Securities Counsel</td>
+                        <td>SCALE LLP / Dori Karjian</td>
+                    </tr>
+                    <tr>
+                        <td>Managing Member</td>
+                        <td>Caleb Caraway</td>
+                    </tr>
+                </table>
+            </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <strong>Important Notices:</strong> This term sheet is indicative only and subject to the definitive PPM and subscription documents. This document does not constitute an offer to sell or solicitation to buy any security. Quarter Horse Capital Partners LLC is offered pursuant to Regulation D, Rule 506(b) and Section 3(c)(1). Verified accredited investors only. Not registered with the SEC. No guarantee of return. Principal subject to loss. 3-year lockup with NO early redemption. Governed by the laws of the State of Texas. Recipient agrees to maintain strict confidentiality. © Quarter Horse Capital Partners LLC / Quarter Horse Wealth Management LLC. All rights reserved.
-  </div>
+            <!-- GOVERNING LAW -->
+            <div class="ts-section">
+                <h2 class="ts-section-title">Governing Law & Dispute Resolution</h2>
+                <table class="ts-table">
+                    <tr>
+                        <td>Governing Law</td>
+                        <td>State of Texas</td>
+                    </tr>
+                    <tr>
+                        <td>Dispute Resolution</td>
+                        <td>Binding arbitration, Dallas County, Texas</td>
+                    </tr>
+                    <tr>
+                        <td>Offering Documents</td>
+                        <td>Deal-specific subscription agreements and PPM supplements prepared by SCALE LLP</td>
+                    </tr>
+                </table>
+            </div>
 
-</div>
+            <!-- CONTACT & NEXT STEPS -->
+            <div class="ts-section">
+                <div class="ts-cta-box">
+                    <p>Investors with a pre-existing relationship with the Managing Member may request deal-specific offering materials and subscription documents.</p>
+                    <div class="ts-cta-contact">Caleb Caraway</div>
+                    <div class="ts-cta-contact">caleb@darkhorse-ventures.com</div>
+                    <div style="margin-top: 16px; color: var(--text-muted);">Securities Counsel:</div>
+                    <div class="ts-cta-contact">SCALE LLP / Dori Karjian</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="ts-footer">
+            <div class="ts-footer-disclaimer">
+                <div class="ts-footer-heading">INDICATIVE TERMS — SUBJECT TO FINAL DOCUMENTATION</div>
+                <p>This term sheet is provided for discussion purposes only and does not constitute an offer to sell or a solicitation to buy any securities. The information contained herein is confidential and proprietary and is intended solely for the review of prospective investors with a pre-existing substantive relationship with Caleb Caraway, the Managing Member of Quarter Horse Capital Partners LLC.</p>
+
+                <p style="margin-top: 12px;">Quarter Horse Capital Partners LLC is offered in reliance upon the exemption from registration provided by Regulation D, Rule 506(b) of the Securities Act of 1933, as amended (the "Securities Act"). This exemption is available only to investors who have a pre-existing substantive relationship with the Managing Member and does not permit general solicitation or advertising. Prospective investors must be either (i) accredited investors as defined under Rule 501(a) of the Securities Act, or (ii) sophisticated investors meeting the requirements of Rule 506(b)(2)(ii). In no event may there be more than 35 non-accredited investors in the Fund.</p>
+
+                <p style="margin-top: 12px;">The Fund is also exempt from registration as an investment company under §3(c)(1) of the Investment Company Act of 1940, which exemption is available only to issuers that do not have more than 100 beneficial owners of their outstanding securities and that do not make or propose to make a public offering of their securities.</p>
+
+                <p style="margin-top: 12px;">Each prospective investor acknowledges that: (i) the securities offered are highly illiquid; (ii) there is no secondary market for fund interests; (iii) investor capital will be locked for the duration of each deal with no early withdrawal or redemption rights; (iv) each deal presents its own distinct risk profile; (v) concentration and platform risks exist; (vi) the fund depends upon the continued participation and judgment of Caleb Caraway; and (vii) all material conflicts of interest will be disclosed in deal-specific offering materials.</p>
+
+                <p style="margin-top: 12px;">No offer or sale of fund interests may proceed without the execution of final offering documents prepared by SCALE LLP, including a deal-specific limited liability company agreement, subscription agreement, and private placement memorandum containing complete risk factors, use of proceeds, and other material information. This term sheet does not replace or supersede those final documents, which will govern the rights and obligations of all parties.</p>
+
+                <p style="margin-top: 12px;">Past performance is not indicative of future results. All investors are advised to consult with their own legal, tax, and financial advisors before making any investment decision. Prospective investors should conduct their own independent due diligence and risk assessment with respect to each deal opportunity presented.</p>
+
+                <p style="margin-top: 12px;"><strong>© 2026 Quarter Horse Capital Partners LLC. All rights reserved. Confidential.</strong></p>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
