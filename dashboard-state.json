@@ -1,0 +1,669 @@
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+{
+  "_meta": {
+    "lastUpdated": "2026-04-05T16:40:00Z",
+    "updatedBy": "Caleb + Claude \u2014 Phase 8/9 build session",
+    "version": "4.0.0",
+    "note": "Phase 8 (n8n workflows) and Phase 9 (Claude Code) complete. All 8 n8n workflows active. launchd manages n8n auto-start. Model stack updated: GPT-5.4 primary."
+  },
+  "timestamp": "2026-04-05T16:40:00Z",
+  "cycle_status": "Build session complete (Apr 5, 2026) \u2014 Phase 8 n8n automation live, Phase 9 Claude Code configured on Toby + Architect. All 8 workflows active, 4 webhook endpoints live. launchd auto-start configured.",
+  "kpis": {
+    "revenueMTD": 0,
+    "revenueChange": 0,
+    "portfolioValue": 0,
+    "portfolioChange": 0,
+    "activeProjects": 9,
+    "projectsNote": "Phases 1-2 complete, Phase 8-9 complete today",
+    "agentTasks24h": 47,
+    "agentTasksCompleted": 44,
+    "complianceScore": 72,
+    "complianceNote": "Form ADV Part 2A in review"
+  },
+  "revenue": {
+    "gross": 0,
+    "grossTarget": 500000,
+    "trend": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "trendLabels": [
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+      "Jan",
+      "Feb",
+      "Mar"
+    ],
+    "breakdown": [
+      {
+        "stream": "Advisory Fees",
+        "mtd": 0,
+        "target": 250000
+      },
+      {
+        "stream": "Fund Mgmt",
+        "mtd": 0,
+        "target": 150000
+      },
+      {
+        "stream": "Performance",
+        "mtd": 0,
+        "target": 100000
+      }
+    ]
+  },
+  "trading": {
+    "status": "paper",
+    "equityLabels": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr"
+    ],
+    "equityCurve": [
+      100000,
+      102400,
+      104100,
+      105800
+    ]
+  },
+  "n8n": {
+    "status": "live",
+    "version": "2.14.2",
+    "host": "toby:5678",
+    "launchd": "io.darkhorse.n8n",
+    "apiKey": "configured",
+    "lastUpdated": "2026-04-05T16:40:00Z",
+    "workflows": [
+      {
+        "id": "0Iib7clJFhzyXJKv",
+        "name": "SEC EDGAR Compliance Monitor",
+        "active": true,
+        "trigger": "cron 12:00 daily",
+        "webhook": null,
+        "lastRun": null
+      },
+      {
+        "id": "VYJ3It1EhuEOWbNo",
+        "name": "Compliance Deadline Tracker",
+        "active": true,
+        "trigger": "cron weekly",
+        "webhook": null,
+        "lastRun": null
+      },
+      {
+        "id": "biHrGeXICsDRivY7",
+        "name": "Deal Flow Intake",
+        "active": true,
+        "trigger": "webhook",
+        "webhook": "/webhook/deal-intake",
+        "lastRun": null
+      },
+      {
+        "id": "MNIhZHsGYmn5GslV",
+        "name": "Daily Intelligence Brief",
+        "active": true,
+        "trigger": "cron 6:00 daily",
+        "webhook": null,
+        "lastRun": null
+      },
+      {
+        "id": "N8W4kxN6puXpuhZr",
+        "name": "Capital Call Notification",
+        "active": true,
+        "trigger": "webhook",
+        "webhook": "/webhook/capital-call",
+        "lastRun": null
+      },
+      {
+        "id": "VUsXuFfbJfCqoFvp",
+        "name": "LP Distribution Notice",
+        "active": true,
+        "trigger": "webhook",
+        "webhook": "/webhook/distribution",
+        "lastRun": null
+      },
+      {
+        "id": "WAQ4xLubVvjSjdzY",
+        "name": "Quarterly LP Report Trigger",
+        "active": true,
+        "trigger": "cron quarterly",
+        "webhook": null,
+        "lastRun": null
+      },
+      {
+        "id": "CmMiHkDWqfG17eBk",
+        "name": "Toby n8n Bridge",
+        "active": true,
+        "trigger": "webhook",
+        "webhook": "/webhook/toby-bridge",
+        "lastRun": null
+      }
+    ]
+  },
+  "agents": {
+    "toby": {
+      "status": "online",
+      "machine": "Mac Studio 192.168.1.246",
+      "model": "GPT-5.4 (primary) / Grok 4.20 (escalation)",
+      "gateway": "OpenClaw port 18789",
+      "lastSeen": "2026-04-05T16:40:00Z",
+      "capabilities": [
+        "n8n automation",
+        "strategic cycles",
+        "LP relations",
+        "deal flow",
+        "compliance monitoring"
+      ]
+    },
+    "architect": {
+      "status": "online",
+      "machine": "Mac Studio 192.168.1.114",
+      "model": "GPT-5.4 (primary) / Grok 4.20 (escalation)",
+      "gateway": "OpenClaw port 18789",
+      "lastSeen": "2026-04-05T16:40:00Z",
+      "capabilities": [
+        "build",
+        "maintain",
+        "deploy",
+        "ComfyUI (pending Phase 4)"
+      ]
+    },
+    "foreman": {
+      "status": "idle",
+      "lastCycle": "2026-03-22",
+      "note": "Awaiting Phase 8 integration to resume autonomous cycles"
+    },
+    "subagents": []
+  },
+  "modelRouting": [
+    {
+      "priority": 1,
+      "model": "GPT-5.4",
+      "provider": "OpenAI",
+      "useCase": "Primary agent work, tool calling",
+      "cost": "$15/1M",
+      "latency": "~1.2s",
+      "status": "active"
+    },
+    {
+      "priority": 2,
+      "model": "Grok 4.20-beta",
+      "provider": "xAI",
+      "useCase": "Escalation, deep reasoning",
+      "cost": "$3/1M",
+      "latency": "~2.1s",
+      "status": "active"
+    },
+    {
+      "priority": 3,
+      "model": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "useCase": "Large context (1M+ tokens)",
+      "cost": "$7/1M",
+      "latency": "~1.8s",
+      "status": "active"
+    },
+    {
+      "priority": 4,
+      "model": "Grok 4.1 Fast",
+      "provider": "xAI",
+      "useCase": "Heartbeats, sub-agents",
+      "cost": "$0.3/1M",
+      "latency": "~0.4s",
+      "status": "active"
+    },
+    {
+      "priority": 5,
+      "model": "Qwen3-Coder 30B",
+      "provider": "Ollama (local)",
+      "useCase": "Private data, offline work",
+      "cost": "$0",
+      "latency": "~3s",
+      "status": "active"
+    }
+  ],
+  "taskHistory": [
+    {
+      "time": "16:40",
+      "agent": "Caleb+Claude",
+      "task": "Phase 9: Configure Claude Code MCPs on Toby + Architect",
+      "status": "completed",
+      "duration": "15m",
+      "output": "n8n + filesystem MCPs live, ANTHROPIC_API_KEY configured"
+    },
+    {
+      "time": "16:20",
+      "agent": "Caleb+Claude",
+      "task": "Phase 8: Fix n8n activeVersionId, all 8 workflows live",
+      "status": "completed",
+      "duration": "45m",
+      "output": "4 webhooks live: deal-intake, toby-bridge, capital-call, distribution"
+    },
+    {
+      "time": "15:30",
+      "agent": "Caleb+Claude",
+      "task": "n8n launchd auto-start service (io.darkhorse.n8n)",
+      "status": "completed",
+      "duration": "10m",
+      "output": "launchd plist deployed, KeepAlive=true"
+    },
+    {
+      "time": "15:00",
+      "agent": "Caleb+Claude",
+      "task": "Import and activate 8 n8n workflows",
+      "status": "completed",
+      "duration": "90m",
+      "output": "Solved activeVersionId bug \u2014 all 8 activate on startup"
+    },
+    {
+      "time": "14:00",
+      "agent": "Caleb+Claude",
+      "task": "Model stack update: GPT-5.4 primary on Toby + Architect",
+      "status": "completed",
+      "duration": "30m",
+      "output": "SOUL.md updated both machines, xAI key corrected"
+    },
+    {
+      "time": "13:00",
+      "agent": "Caleb+Claude",
+      "task": "Phase 3: Obsidian plugins (5 added to vault)",
+      "status": "completed",
+      "duration": "20m",
+      "output": "kanban, projects, infranodus, markmap, lovely-mindmap added"
+    }
+  ],
+  "compliance": {
+    "score": 72,
+    "checklist": [
+      {
+        "item": "Form ADV Part 1A filed",
+        "category": "RIA Registration",
+        "status": "Complete",
+        "due": "Mar 10",
+        "owner": "agent"
+      },
+      {
+        "item": "Form ADV Part 2A \u2014 Caleb review",
+        "category": "RIA Registration",
+        "status": "In Review",
+        "due": "Mar 25",
+        "owner": "caleb"
+      },
+      {
+        "item": "State Registration Fee",
+        "category": "RIA Registration",
+        "status": "Pending",
+        "due": "Apr 1",
+        "owner": "caleb"
+      },
+      {
+        "item": "Compliance Manual Draft",
+        "category": "Policies",
+        "status": "In Progress",
+        "due": "Apr 10",
+        "owner": "agent"
+      },
+      {
+        "item": "Code of Ethics",
+        "category": "Policies",
+        "status": "Not Started",
+        "due": "Apr 15",
+        "owner": "agent"
+      },
+      {
+        "item": "Business Continuity Plan",
+        "category": "Policies",
+        "status": "Not Started",
+        "due": "Apr 30",
+        "owner": "agent"
+      },
+      {
+        "item": "SEC EDGAR Filing Monitor",
+        "category": "Ongoing Compliance",
+        "status": "Active",
+        "due": "Daily",
+        "owner": "agent"
+      }
+    ]
+  },
+  "complianceDocuments": [
+    {
+      "document": "Form ADV Part 1A",
+      "version": "1.0",
+      "status": "Complete",
+      "location": "Vault/Compliance/",
+      "lastModified": "Mar 10",
+      "signatureRequired": "No",
+      "owner": "agent"
+    },
+    {
+      "document": "Form ADV Part 2A",
+      "version": "0.9",
+      "status": "In Review",
+      "location": "Vault/Compliance/",
+      "lastModified": "Mar 18",
+      "signatureRequired": "Yes",
+      "owner": "caleb"
+    },
+    {
+      "document": "Compliance Manual",
+      "version": "0.3",
+      "status": "In Progress",
+      "location": "Vault/Compliance/",
+      "lastModified": "Mar 22",
+      "signatureRequired": "No",
+      "owner": "agent"
+    },
+    {
+      "document": "LP Agreement Template",
+      "version": "1.1",
+      "status": "Active",
+      "location": "Vault/Legal/",
+      "lastModified": "Feb 28",
+      "signatureRequired": "Yes",
+      "owner": "caleb"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Dark Horse AI Build",
+      "status": "In Progress",
+      "progress": 65,
+      "priority": "P0",
+      "owner": "agent",
+      "phases": "1-9 of 10 planned",
+      "notes": "Phase 8+9 completed Apr 5"
+    },
+    {
+      "name": "RIA Registration",
+      "status": "In Progress",
+      "progress": 70,
+      "priority": "P0",
+      "owner": "caleb",
+      "phases": "Form ADV in review",
+      "notes": "State reg fee pending"
+    },
+    {
+      "name": "Deal Flow Pipeline",
+      "status": "Active",
+      "progress": 40,
+      "priority": "P1",
+      "owner": "agent",
+      "phases": "n8n webhook live",
+      "notes": "deal-intake webhook active"
+    },
+    {
+      "name": "LP Onboarding System",
+      "status": "Planning",
+      "progress": 20,
+      "priority": "P1",
+      "owner": "agent",
+      "phases": "n8n workflows ready",
+      "notes": "Awaiting first LP"
+    },
+    {
+      "name": "Executive Dashboard",
+      "status": "In Progress",
+      "progress": 80,
+      "priority": "P1",
+      "owner": "agent",
+      "phases": "Phase 7",
+      "notes": "State update in progress"
+    },
+    {
+      "name": "ComfyUI + FLUX.1",
+      "status": "Not Started",
+      "progress": 0,
+      "priority": "P2",
+      "owner": "agent",
+      "phases": "Phase 4",
+      "notes": "Architect only"
+    },
+    {
+      "name": "Verification Layer",
+      "status": "Not Started",
+      "progress": 0,
+      "priority": "P2",
+      "owner": "agent",
+      "phases": "Phase 6",
+      "notes": "Post-model-stack setup"
+    }
+  ],
+  "improvements": {
+    "skillsInstalled": 3,
+    "installedSkills": [
+      {
+        "name": "n8n-mcp",
+        "riskLevel": "low",
+        "autoInstalled": false,
+        "installedDate": "Apr 5, 2026",
+        "source": "npm",
+        "reason": "Claude Code needs to manage n8n workflows",
+        "capabilities": "List, create, update, activate n8n workflows via MCP"
+      },
+      {
+        "name": "filesystem-mcp",
+        "riskLevel": "low",
+        "autoInstalled": false,
+        "installedDate": "Apr 5, 2026",
+        "source": "npm",
+        "reason": "Claude Code needs vault access",
+        "capabilities": "Read/write Dark Horse Vault Sync and OpenClaw workspace"
+      },
+      {
+        "name": "browser-use",
+        "riskLevel": "low",
+        "autoInstalled": false,
+        "installedDate": "Apr 3",
+        "source": "pip",
+        "reason": "Browser automation for research and compliance",
+        "capabilities": "Web browsing, form filling, data extraction"
+      }
+    ],
+    "researchQueueItems": [
+      {
+        "topic": "ComfyUI + FLUX.1 install on Architect",
+        "priority": "P1",
+        "status": "queued",
+        "reason": "Phase 4 pending"
+      },
+      {
+        "topic": "Verification Layer design",
+        "priority": "P2",
+        "status": "queued",
+        "reason": "Phase 6 pending"
+      },
+      {
+        "topic": "LP portal web interface",
+        "priority": "P2",
+        "status": "queued",
+        "reason": "Client-facing required"
+      }
+    ],
+    "knowledgeBaseCategories": [
+      {
+        "category": "n8n Workflows",
+        "entries": 8,
+        "lastUpdated": "Apr 5, 2026"
+      },
+      {
+        "category": "OpenClaw Config",
+        "entries": 12,
+        "lastUpdated": "Apr 5, 2026"
+      },
+      {
+        "category": "Model Stack",
+        "entries": 5,
+        "lastUpdated": "Apr 5, 2026"
+      },
+      {
+        "category": "RIA Compliance",
+        "entries": 18,
+        "lastUpdated": "Mar 22"
+      }
+    ],
+    "nextPredictedImprovement": {
+      "action": "Install ComfyUI + FLUX.1 on Architect (Phase 4)",
+      "reason": "Image generation capability needed for LP reports and marketing materials",
+      "scheduledFor": "Next session",
+      "estimatedImpact": "Enables AI-generated visuals for client deliverables"
+    },
+    "securityAuditLog": [
+      {
+        "skill": "n8n-mcp",
+        "source": "npm",
+        "riskLevel": "low",
+        "dataAccess": "n8n API only (localhost)",
+        "action": "Approved",
+        "status": "Active",
+        "reviewedBy": "Caleb"
+      },
+      {
+        "skill": "filesystem-mcp",
+        "source": "npm",
+        "riskLevel": "low",
+        "dataAccess": "Vault + workspace dirs only",
+        "action": "Approved",
+        "status": "Active",
+        "reviewedBy": "Caleb"
+      },
+      {
+        "skill": "browser-use",
+        "source": "pip/uv",
+        "riskLevel": "low",
+        "dataAccess": "Public web only",
+        "action": "Approved",
+        "status": "Active",
+        "reviewedBy": "Caleb"
+      }
+    ]
+  },
+  "apis": {
+    "openai": {
+      "status": "active",
+      "model": "gpt-5.4",
+      "lastCheck": "2026-04-05T16:40:00Z"
+    },
+    "xai": {
+      "status": "active",
+      "model": "grok-4-1-fast",
+      "lastCheck": "2026-04-05T16:40:00Z"
+    },
+    "google": {
+      "status": "active",
+      "model": "gemini-3.1-pro",
+      "lastCheck": "2026-04-05T16:40:00Z"
+    },
+    "anthropic": {
+      "status": "emergency-only",
+      "note": "Emergency key only \u2014 not for routine use"
+    },
+    "n8n": {
+      "status": "active",
+      "url": "http://127.0.0.1:5678",
+      "workflows": 8,
+      "active": 8
+    },
+    "openclaw_toby": {
+      "status": "active",
+      "port": 18789,
+      "lastCheck": "2026-04-05T16:40:00Z"
+    },
+    "openclaw_architect": {
+      "status": "active",
+      "port": 18789,
+      "lastCheck": "2026-04-05T16:40:00Z"
+    }
+  },
+  "feed": [
+    {
+      "time": "4:40 PM",
+      "icon": "\u2705",
+      "iconBg": "rgba(52,211,153,0.15)",
+      "text": "Phase 9 COMPLETE \u2014 Claude Code configured on Toby + Architect: n8n-mcp + filesystem MCPs live, ANTHROPIC_API_KEY set, CLAUDE.md context deployed",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "4:20 PM",
+      "icon": "\u2705",
+      "iconBg": "rgba(52,211,153,0.15)",
+      "text": "Phase 8 COMPLETE \u2014 All 8 n8n workflows live. Fixed activeVersionId bug in SQLite. 4 webhook endpoints confirmed 200 OK: deal-intake, toby-bridge, capital-call, distribution",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "3:30 PM",
+      "icon": "\ud83d\udd27",
+      "iconBg": "rgba(96,165,250,0.15)",
+      "text": "n8n launchd service deployed (io.darkhorse.n8n) \u2014 KeepAlive=true, auto-restarts on crash/reboot",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "3:00 PM",
+      "icon": "\ud83d\udd0d",
+      "iconBg": "rgba(251,191,36,0.15)",
+      "text": "Diagnosed n8n startup bug: activeVersionId=NULL on 7 of 8 workflows caused silent skip during init. Fixed via SQLite UPDATE from workflow_history table.",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "2:00 PM",
+      "icon": "\ud83e\udd16",
+      "iconBg": "rgba(139,92,246,0.15)",
+      "text": "Model stack updated: GPT-5.4 primary on both Toby + Architect. SOUL.md rewritten. xAI API key corrected. OpenAI provider added to models.json.",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "1:00 PM",
+      "icon": "\ud83d\udce6",
+      "iconBg": "rgba(96,165,250,0.15)",
+      "text": "5 Obsidian plugins added to vault: kanban, projects, infranodus, markmap, lovely-mindmap. Community plugins count: 16.",
+      "source": "system",
+      "needsAttention": false
+    },
+    {
+      "time": "11:00 AM",
+      "icon": "\u26a0\ufe0f",
+      "iconBg": "rgba(245,158,11,0.15)",
+      "text": "Form ADV Part 2A still pending Caleb review. State registration fee due Apr 1 (overdue). Action required.",
+      "source": "compliance",
+      "needsAttention": true
+    },
+    {
+      "time": "Previous",
+      "icon": "\ud83d\udccb",
+      "iconBg": "rgba(255,255,255,0.05)",
+      "text": "Phase 1 (Ollama cleanup) + Phase 2 (OpenClaw providers) complete. Architect SOUL.md updated. BUILD-GUIDE.md created.",
+      "source": "system",
+      "needsAttention": false
+    }
+  ],
+  "critical_blockers": [
+    {
+      "blocker": "Form ADV Part 2A",
+      "status": "IN REVIEW \u2014 Caleb action needed",
+      "deadline": "ASAP",
+      "action": "Review and sign Form ADV Part 2A for RIA registration completion",
+      "owner": "Caleb"
+    },
+    {
+      "blocker": "State Registration Fee",
+      "status": "OVERDUE",
+      "deadline": "Apr 1 (passed)",
+      "action": "Pay state registration fee to complete RIA registration",
+      "owner": "Caleb"
+    }
+  ],
+  "foreman_status": "IDLE \u2014 Awaiting next strategic cycle. Phase 8+9 complete. Ready to begin autonomous n8n-integrated cycles."
+}
