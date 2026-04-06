@@ -162,7 +162,7 @@ footer {
   </div>
   <div class="header-meta">
     April 2026<br>
-    Scroll / pan to explore
+    Scroll / pan to explore &nbsp;|&nbsp; <button onclick="fitToScreen()" style="font-size:11px;color:#334155;background:none;border:1px solid #1f2937;padding:3px 10px;border-radius:4px;cursor:pointer">Fit to Screen</button>
   </div>
 </header>
 
@@ -404,6 +404,7 @@ root.each(n => {
   chartEl.appendChild(el);
 });
 
+function fitToScreen(){var w=document.getElementById("chart-wrapper"),c=document.getElementById("chart"),s=Math.min(w.clientWidth/c.scrollWidth,w.clientHeight/c.scrollHeight,1)*0.92;c.style.transformOrigin="top left";c.style.transform="scale("+s+")";w.scrollTop=0;w.scrollLeft=0;}
 </script>
 </body>
 </html>
