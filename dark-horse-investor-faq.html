@@ -6,7 +6,6 @@
 <title>Dark Horse Wealth Management — Institutional Investor FAQ</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --navy:      #0d0f14;
     --navy-mid:  #131720;
@@ -22,281 +21,54 @@
     --red:       #c05a5a;
     --green:     #4caf80;
   }
-
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-size: 14px;
-    line-height: 1.72;
-  }
-
-  /*  CONFIDENTIALITY BANNER  */
-  .conf-banner {
-    background: rgba(201,168,76,0.07);
-    border-bottom: 1px solid rgba(201,168,76,0.25);
-    padding: 9px 48px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold-dk);
-  }
-
-  /*  PAGE HEADER  */
-  .page-header {
-    background: rgba(13,15,20,0.98);
-    border-bottom: 2px solid var(--gold-dk);
-    padding: 28px 52px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
+  body { background: var(--navy); color: var(--text); font-family: 'Georgia','Times New Roman',serif; font-size: 14px; line-height: 1.72; }
+  .conf-banner { background: rgba(201,168,76,0.07); border-bottom: 1px solid rgba(201,168,76,0.25); padding: 9px 48px; text-align: center; font-family: Arial,sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dk); }
+  .page-header { background: rgba(13,15,20,0.98); border-bottom: 2px solid var(--gold-dk); padding: 28px 52px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .logo-block { display: flex; align-items: center; gap: 16px; }
-  .logo-emblem {
-    width: 50px; height: 50px;
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: Arial, sans-serif; font-weight: 800; font-size: 16px;
-    color: var(--gold);
-    background: rgba(201,168,76,0.06);
-    flex-shrink: 0;
-  }
-  .logo-text { }
-  .logo-entity {
-    font-family: Arial, sans-serif; font-size: 9px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--gold-dk); margin-bottom: 3px;
-  }
-  .logo-name {
-    font-family: Arial, sans-serif; font-size: 18px;
-    font-weight: 800; color: var(--gold); letter-spacing: 0.04em;
-  }
+  .logo-emblem { width: 50px; height: 50px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Arial,sans-serif; font-weight: 800; font-size: 16px; color: var(--gold); background: rgba(201,168,76,0.06); flex-shrink: 0; }
+  .logo-entity { font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 3px; }
+  .logo-name { font-family: Arial,sans-serif; font-size: 18px; font-weight: 800; color: var(--gold); letter-spacing: 0.04em; }
   .header-right { text-align: right; }
-  .doc-type {
-    font-family: Arial, sans-serif; font-size: 9px;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 5px;
-  }
-  .doc-title {
-    font-family: Arial, sans-serif; font-size: 20px;
-    font-weight: 700; color: var(--text); margin-bottom: 8px;
-  }
+  .doc-type { font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .doc-title { font-family: Arial,sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
   .badge-row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
-  .badge {
-    font-family: Arial, sans-serif; font-size: 9px;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 2px;
-    background: rgba(201,168,76,0.08);
-    border: 1px solid var(--gold-dk);
-    color: var(--gold);
-  }
-  .badge-conf {
-    background: rgba(192,80,80,0.07);
-    border-color: rgba(192,80,80,0.35);
-    color: #c07070;
-  }
-
-  /*  MAIN LAYOUT  */
+  .badge { font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; background: rgba(201,168,76,0.08); border: 1px solid var(--gold-dk); color: var(--gold); }
+  .badge-conf { background: rgba(192,80,80,0.07); border-color: rgba(192,80,80,0.35); color: #c07070; }
   .page-wrap { max-width: 1020px; margin: 0 auto; padding: 48px 52px 80px; }
-
-  /*  PREAMBLE  */
-  .preamble {
-    background: rgba(201,168,76,0.05);
-    border: 1px solid var(--gold-dk);
-    border-radius: 5px;
-    padding: 20px 26px;
-    font-family: Arial, sans-serif;
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.75;
-    margin-bottom: 48px;
-  }
+  .preamble { background: rgba(201,168,76,0.05); border: 1px solid var(--gold-dk); border-radius: 5px; padding: 20px 26px; font-family: Arial,sans-serif; font-size: 12.5px; color: var(--muted); line-height: 1.75; margin-bottom: 48px; }
   .preamble strong { color: var(--gold-lt); }
-
-  /*  FUND SECTION DIVIDERS  */
-  .fund-divider {
-    display: flex; align-items: center; gap: 18px;
-    margin: 56px 0 32px;
-  }
+  .fund-divider { display: flex; align-items: center; gap: 18px; margin: 56px 0 32px; }
   .fund-divider-line { flex: 1; height: 1px; background: var(--gold-dk); }
-  .fund-divider-label {
-    font-family: Arial, sans-serif; font-size: 11px;
-    font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--gold); white-space: nowrap;
-    padding: 6px 18px;
-    border: 1px solid var(--gold-dk);
-    border-radius: 3px;
-    background: rgba(201,168,76,0.06);
-  }
-
-  /*  TOPIC GROUP  */
+  .fund-divider-label { font-family: Arial,sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; padding: 6px 18px; border: 1px solid var(--gold-dk); border-radius: 3px; background: rgba(201,168,76,0.06); }
   .topic-group { margin-bottom: 36px; }
-  .topic-label {
-    font-family: Arial, sans-serif; font-size: 9px;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--gold-dk);
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-lt);
-    margin-bottom: 16px;
-  }
-
-  /*  FAQ ITEM  */
-  .faq-item {
-    background: var(--navy-card);
-    border: 1px solid var(--border-lt);
-    border-radius: 5px;
-    margin-bottom: 10px;
-    overflow: hidden;
-  }
+  .topic-label { font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dk); padding-bottom: 8px; border-bottom: 1px solid var(--border-lt); margin-bottom: 16px; }
+  .faq-item { background: var(--navy-card); border: 1px solid var(--border-lt); border-radius: 5px; margin-bottom: 10px; overflow: hidden; }
   .faq-item:hover { border-color: rgba(201,168,76,0.25); }
-  .faq-q {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 16px 22px 14px;
-    cursor: default;
-  }
-  .faq-num {
-    font-family: Arial, sans-serif; font-size: 11px;
-    font-weight: 700; color: var(--gold-dk);
-    min-width: 26px; padding-top: 2px;
-    flex-shrink: 0;
-  }
-  .faq-question {
-    font-family: Arial, sans-serif; font-size: 13px;
-    font-weight: 700; color: var(--gold-lt);
-    line-height: 1.45; flex: 1;
-  }
-  .faq-a {
-    padding: 0 22px 18px 64px;
-    font-size: 13.5px;
-    color: var(--text);
-    line-height: 1.78;
-    border-top: 1px solid var(--border-lt);
-    padding-top: 14px;
-    margin: 0 22px;
-    margin-bottom: 4px;
-  }
+  .faq-q { display: flex; align-items: flex-start; gap: 16px; padding: 16px 22px 14px; cursor: default; }
+  .faq-num { font-family: Arial,sans-serif; font-size: 11px; font-weight: 700; color: var(--gold-dk); min-width: 26px; padding-top: 2px; flex-shrink: 0; }
+  .faq-question { font-family: Arial,sans-serif; font-size: 13px; font-weight: 700; color: var(--gold-lt); line-height: 1.45; flex: 1; }
+  .faq-a { padding: 0 22px 18px 64px; font-size: 13.5px; color: var(--text); line-height: 1.78; border-top: 1px solid var(--border-lt); padding-top: 14px; margin: 0 22px; margin-bottom: 4px; }
   .faq-a p + p { margin-top: 10px; }
   .faq-a strong { color: var(--gold-lt); }
   .faq-a em { color: var(--muted); }
-
-  /*  RISK NOTE  */
-  .risk-note {
-    background: rgba(192,80,80,0.06);
-    border-left: 3px solid rgba(192,80,80,0.45);
-    border-radius: 0 4px 4px 0;
-    padding: 10px 16px;
-    margin-top: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    color: #c09090;
-    line-height: 1.65;
-  }
+  .risk-note { background: rgba(192,80,80,0.06); border-left: 3px solid rgba(192,80,80,0.45); border-radius: 0 4px 4px 0; padding: 10px 16px; margin-top: 10px; font-family: Arial,sans-serif; font-size: 12px; color: #c09090; line-height: 1.65; }
   .risk-note strong { color: #d08080; }
-
-  /*  CALLOUT  */
-  .callout {
-    background: rgba(201,168,76,0.06);
-    border-left: 3px solid var(--gold-dk);
-    border-radius: 0 4px 4px 0;
-    padding: 10px 16px;
-    margin-top: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+  .callout { background: rgba(201,168,76,0.06); border-left: 3px solid var(--gold-dk); border-radius: 0 4px 4px 0; padding: 10px 16px; margin-top: 10px; font-family: Arial,sans-serif; font-size: 12px; color: var(--muted); line-height: 1.65; }
   .callout strong { color: var(--gold-lt); }
-
-  /*  COLLATERAL LIST  */
-  .collateral-list {
-    margin: 10px 0 0;
-    padding: 0;
-    list-style: none;
-    font-family: Arial, sans-serif;
-    font-size: 12.5px;
-  }
-  .collateral-list li {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border-lt);
-  }
-  .collateral-list li:last-child { border-bottom: none; }
-  .cl-num {
-    font-weight: 700; color: var(--gold);
-    min-width: 22px; font-size: 12px;
-    flex-shrink: 0; padding-top: 1px;
-  }
-  .cl-text { color: var(--text); line-height: 1.55; }
-  .cl-text strong { color: var(--gold-lt); }
-
-  /*  SUBSCRIBE STEPS  */
-  .sub-steps {
-    margin: 10px 0 0;
-    display: flex; flex-direction: column; gap: 8px;
-    font-family: Arial, sans-serif; font-size: 12.5px;
-  }
-  .sub-step {
-    display: flex; align-items: flex-start; gap: 14px;
-    background: var(--navy-mid);
-    border: 1px solid var(--border-lt);
-    border-radius: 4px;
-    padding: 10px 14px;
-  }
-  .sub-step-n {
-    font-weight: 800; color: var(--gold);
-    font-size: 13px; min-width: 20px;
-    flex-shrink: 0;
-  }
-
-  /*  FUND QUICK REF  */
-  .fund-quick-ref {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    margin-bottom: 48px;
-  }
-  .fqr-card {
-    background: var(--navy-card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 18px 20px;
-  }
-  .fqr-label {
-    font-family: Arial, sans-serif; font-size: 9px;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--gold-dk); margin-bottom: 6px;
-  }
-  .fqr-name {
-    font-family: Arial, sans-serif; font-size: 13px;
-    font-weight: 700; color: var(--gold);
-    margin-bottom: 12px; line-height: 1.35;
-  }
-  .fqr-row {
-    display: flex; justify-content: space-between;
-    font-family: Arial, sans-serif; font-size: 11px;
-    padding: 4px 0;
-    border-bottom: 1px solid var(--border-lt);
-  }
+  .sub-steps { margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; font-family: Arial,sans-serif; font-size: 12.5px; }
+  .sub-step { display: flex; align-items: flex-start; gap: 14px; background: var(--navy-mid); border: 1px solid var(--border-lt); border-radius: 4px; padding: 10px 14px; }
+  .sub-step-n { font-weight: 800; color: var(--gold); font-size: 13px; min-width: 20px; flex-shrink: 0; }
+  .fund-quick-ref { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+  .fqr-card { background: var(--navy-card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; }
+  .fqr-label { font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 6px; }
+  .fqr-name { font-family: Arial,sans-serif; font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 12px; line-height: 1.35; }
+  .fqr-row { display: flex; justify-content: space-between; font-family: Arial,sans-serif; font-size: 11px; padding: 4px 0; border-bottom: 1px solid var(--border-lt); }
   .fqr-row:last-child { border-bottom: none; }
   .fqr-k { color: var(--muted); }
   .fqr-v { color: var(--text); font-weight: 600; text-align: right; }
   .fqr-v.gold { color: var(--gold); }
-
-  /*  FOOTER  */
-  .page-footer {
-    background: rgba(13,15,20,0.97);
-    border-top: 1px solid var(--border-lt);
-    padding: 16px 52px;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    color: #454d60;
-    line-height: 1.7;
-  }
+  .page-footer { background: rgba(13,15,20,0.97); border-top: 1px solid var(--border-lt); padding: 16px 52px; font-family: Arial,sans-serif; font-size: 10px; color: #454d60; line-height: 1.7; }
   .page-footer strong { color: #60697a; }
-
-  /*  PRINT  */
   @media print {
     body { background: white; color: #111; font-size: 12px; }
     .conf-banner { background: #fffdf0; color: #7a6020; border-color: #c9a84c; }
@@ -317,9 +89,6 @@
     .faq-a strong { color: #7a5f28; }
     .risk-note { background: #fff5f5; color: #8a4040; border-color: #c06060; }
     .callout { background: #fffdf0; color: #555; border-color: #c9a84c; }
-    .collateral-list li { border-color: #ddd; }
-    .cl-num { color: #c9a84c; }
-    .cl-text strong { color: #7a5f28; }
     .fqr-card { background: #f5f5f0; border-color: #c9a84c; }
     .fqr-name { color: #7a5f28; }
     .fqr-v.gold { color: #7a5f28; }
@@ -359,473 +128,432 @@
 <strong>Purpose of This Document.</strong> This FAQ is prepared by Dark Horse Wealth Management LLC for institutional and qualified investors conducting due diligence on the Dark Horse fund family — Corinthian Capital Fund LLC, Draft Horse Capital Partners LLC, and Quarter Horse Capital Partners LLC. Answers are summaries only; the authoritative source for all terms, conditions, and disclosures is each fund's definitive Private Placement Memorandum (PPM) and Subscription Agreement as prepared by SCALE LLP. <strong>This document does not constitute an offer to sell or solicitation to buy any security.</strong> All investments involve risk, including the potential loss of principal.
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:48px;">
-  <div style="background:var(--navy-card);border:1px solid var(--border-lt);border-radius:5px;padding:16px 20px;">
-    <div class="fqr-label" style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;">Fund I</div>
-    <div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--gold);">Corinthian Capital Fund</div>
-    <div style="font-family:Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:4px;">506(b) &middot; Operational &middot; 2%/mo Fixed</div>
+<!-- ═══════ FUND QUICK REFERENCE CARDS ═══════ -->
+<div class="fund-quick-ref">
+  <div class="fqr-card">
+    <div class="fqr-label">Fund I — Operational</div>
+    <div class="fqr-name">Corinthian Capital Fund LLC</div>
+    <div class="fqr-row"><span class="fqr-k">Manager</span><span class="fqr-v">Corinthian Capital Partners LLC</span></div>
+    <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">506(b)</span></div>
+    <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">Private Lending</span></div>
+    <div class="fqr-row"><span class="fqr-k">Fixed Rate</span><span class="fqr-v gold">2% / mo — 24% / yr</span></div>
+    <div class="fqr-row"><span class="fqr-k">Status</span><span class="fqr-v gold">Operational</span></div>
   </div>
-  <div style="background:var(--navy-card);border:1px solid var(--border-lt);border-radius:5px;padding:16px 20px;">
-    <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;">Fund II</div>
-    <div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--gold);">Draft Horse Capital Partners</div>
-    <div style="font-family:Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:4px;">506(c) &middot; $1B Target &middot; Multi-Strategy</div>
+  <div class="fqr-card">
+    <div class="fqr-label">Fund II — Multi-Strategy</div>
+    <div class="fqr-name">Draft Horse Capital Partners LLC</div>
+    <div class="fqr-row"><span class="fqr-k">Manager</span><span class="fqr-v">Draft Horse Wealth Management LLC</span></div>
+    <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">506(c)</span></div>
+    <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">Multi-Strategy Debt</span></div>
+    <div class="fqr-row"><span class="fqr-k">Target AUM</span><span class="fqr-v gold">$1,000,000,000</span></div>
+    <div class="fqr-row"><span class="fqr-k">Verticals</span><span class="fqr-v">5 Sectors</span></div>
   </div>
-  <div style="background:var(--navy-card);border:1px solid var(--border-lt);border-radius:5px;padding:16px 20px;">
-    <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;">Fund III</div>
-    <div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:var(--gold);">Quarter Horse Capital Partners</div>
-    <div style="font-family:Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:4px;">506(b) &middot; $120M Target &middot; Deal-by-Deal</div>
+  <div class="fqr-card">
+    <div class="fqr-label">Fund III — Deal-by-Deal</div>
+    <div class="fqr-name">Quarter Horse Capital Partners LLC</div>
+    <div class="fqr-row"><span class="fqr-k">Manager</span><span class="fqr-v">Quarter Horse Wealth Management LLC</span></div>
+    <div class="fqr-row"><span class="fqr-k">Exemption</span><span class="fqr-v">506(b)</span></div>
+    <div class="fqr-row"><span class="fqr-k">Strategy</span><span class="fqr-v">Deal-by-Deal Debt</span></div>
+    <div class="fqr-row"><span class="fqr-k">Target AUM</span><span class="fqr-v gold">$120,000,000</span></div>
+    <div class="fqr-row"><span class="fqr-k">Principal</span><span class="fqr-v">100% Caleb Caraway</span></div>
   </div>
 </div>
 
-<!-- SECTION 1 -->
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 1 — Platform Overview</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q1</div>
-    <div class="faq-question">What is Dark Horse Wealth Management?</div>
-  </div>
-  <div class="faq-a">Dark Horse Wealth Management LLC is a Texas-based private family office and investment management firm that serves as the governing entity for the Dark Horse fund family. It operates three fund vehicles — Corinthian Capital Fund LLC, Draft Horse Capital Partners LLC, and Quarter Horse Capital Partners LLC — each managed through dedicated subsidiary management companies. The firm was founded by Caleb Caraway and maintains its principal offices in Granbury, Texas.</div>
+<!-- ═══════ SECTION 1 — PLATFORM OVERVIEW ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 1 — Platform Overview</div>
+  <div class="fund-divider-line"></div>
 </div>
 
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q2</div>
-    <div class="faq-question">What funds does the platform operate?</div>
-  </div>
-  <div class="faq-a">The platform operates three private debt funds. Corinthian Capital Fund LLC is the operational proof-of-concept vehicle offering a 2% monthly fixed return. Draft Horse Capital Partners LLC is the flagship multi-strategy fund targeting a $1 billion raise across five investment verticals. Quarter Horse Capital Partners LLC is a deal-by-deal fund targeting $120 million, 100% owned by the Managing Principal.</div>
-</div>
+<div class="topic-group">
+<div class="topic-label">The Dark Horse Platform</div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q3</div>
-    <div class="faq-question">Who manages the funds?</div>
-  </div>
-  <div class="faq-a">Caleb Caraway serves as Managing Principal and Chief Investment Officer across all three funds. Each fund is managed through its own dedicated management company: Corinthian Capital Partners LLC manages the Corinthian fund, Draft Horse Wealth Management LLC manages Draft Horse, and Quarter Horse Wealth Management LLC manages Quarter Horse.</div>
-</div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q4</div>
-    <div class="faq-question">What is the investment thesis?</div>
-  </div>
-  <div class="faq-a">The platform deploys capital into uncorrelated, appreciating asset classes and cash-flowing businesses — engineered for high compression ratios, consistent fixed-rate returns, and investment opportunities backed by tangible, appreciating collateral. Each investment is selected for three characteristics: the underlying asset must be appreciating, the investment must generate contractual cash flow, and every position must be backed by tangible collateral.</div>
+  <div class="faq-q"><span class="faq-num">01</span><span class="faq-question">What is Dark Horse Wealth Management?</span></div>
+  <div class="faq-a"><p>Dark Horse Wealth Management LLC is a private investment platform headquartered in the United States. It serves as the parent organization overseeing a family of private debt funds, each structured as a separate limited liability company with its own investment mandate, manager, and regulatory filing. The platform's mission is to originate, structure, and manage debt investments across multiple asset classes while providing investors with contractual fixed-rate returns.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q5</div>
-    <div class="faq-question">What asset classes does the platform invest in?</div>
-  </div>
-  <div class="faq-a">The platform invests across five verticals: aviation (via Pegasus Capital Partners LLC), mining, metals, and energy (via Stateside Resources LLC), e-commerce private credit and private equity (cash-flowing businesses), real estate (via Dark Horse RE Holdings LLC), and fine art (via the DHWM art collection and Art Bond SPV).</div>
+  <div class="faq-q"><span class="faq-num">02</span><span class="faq-question">Who manages the platform and its funds?</span></div>
+  <div class="faq-a"><p>The platform is led by <strong>Caleb Caraway</strong>, who serves as the Managing Member of Dark Horse Wealth Management LLC and is the principal across all three funds. Each fund has its own dedicated management entity: <strong>Corinthian Capital Partners LLC</strong> manages Corinthian Capital Fund LLC, <strong>Draft Horse Wealth Management LLC</strong> manages Draft Horse Capital Partners LLC, and <strong>Quarter Horse Wealth Management LLC</strong> manages Quarter Horse Capital Partners LLC. This structure ensures operational separation while maintaining unified strategic oversight.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q6</div>
-    <div class="faq-question">Is Dark Horse Wealth Management a registered investment adviser?</div>
-  </div>
-  <div class="faq-a">Dark Horse Advisers LLC, a sibling entity to DHWM under the same parent structure, is in the process of becoming a fully registered investment adviser (RIA) that will manage oversight of investments for the entire Dark Horse portfolio. All three fund vehicles have filed Form D with the U.S. Securities and Exchange Commission under Regulation D.</div>
+  <div class="faq-q"><span class="faq-num">03</span><span class="faq-question">How many funds operate under the Dark Horse umbrella?</span></div>
+  <div class="faq-a"><p>Three funds currently operate under the platform: <strong>Corinthian Capital Fund LLC</strong> (Fund I — operational, private lending), <strong>Draft Horse Capital Partners LLC</strong> (Fund II — multi-strategy debt, $1B target), and <strong>Quarter Horse Capital Partners LLC</strong> (Fund III — deal-by-deal debt, $120M target). Each fund is a standalone legal entity with its own PPM, subscription documents, and Form D filing.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q7</div>
-    <div class="faq-question">What are the service providers?</div>
-  </div>
-  <div class="faq-a">Legal Counsel: SCALE LLP (Dori Karjian). Auditor and Tax Advisor: Spicer and Jefferies. Fund Administrator: NAV Fund Services. Banking: Axos Bank.</div>
+  <div class="faq-q"><span class="faq-num">04</span><span class="faq-question">What is the overarching investment philosophy?</span></div>
+  <div class="faq-a"><p>All three funds are <strong>debt funds</strong>. Investors provide capital that is deployed as structured debt across various asset classes. In return, investors receive fixed contractual rates of return as defined in each fund's PPM. The platform does not operate equity co-investment vehicles. The philosophy centers on capital preservation through disciplined underwriting, contractual cash flows, and diversification across uncorrelated sectors.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q8</div>
-    <div class="faq-question">How does the fee structure work across all funds?</div>
-  </div>
-  <div class="faq-a">All three funds charge zero management fees, zero performance fees, and zero carried interest. This structure eliminates fee drag entirely and ensures that GP and investor interests are aligned through principal capital commitment rather than fee extraction.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 2 — Corinthian Capital Fund LLC</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q9</div>
-    <div class="faq-question">What is Corinthian Capital Fund LLC?</div>
-  </div>
-  <div class="faq-a">Corinthian Capital Fund LLC is an operational private debt fund offering investors a fixed contractual return of 2% per month (24% per annum) through private lending to qualified borrowers. It is the platform's first fund and serves as the proof-of-concept vehicle demonstrating the Dark Horse private debt thesis at institutional scale.</div>
+  <div class="faq-q"><span class="faq-num">05</span><span class="faq-question">What are the key service providers?</span></div>
+  <div class="faq-a"><p>The platform engages institutional-quality service providers across all three funds: <strong>SCALE LLP</strong> serves as legal counsel and prepares all PPMs and subscription documents, <strong>Spicer &amp; Jefferies</strong> serves as the independent auditor and tax advisor, and <strong>NAV Fund Services</strong> provides third-party fund administration including NAV calculations, investor reporting, and capital account maintenance.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q10</div>
-    <div class="faq-question">What is the regulatory structure?</div>
-  </div>
-  <div class="faq-a">Corinthian operates under Regulation D Rule 506(b). No general solicitation or advertising is permitted. All investors must have a pre-existing substantive relationship with the issuer. The fund relies on the Section 3(c)(1) exemption from registration under the Investment Company Act of 1940.</div>
+  <div class="faq-q"><span class="faq-num">06</span><span class="faq-question">Is Dark Horse Wealth Management a registered investment adviser?</span></div>
+  <div class="faq-a"><p><strong>DH Advisers LLC</strong>, the advisory arm of the platform, is currently in the process of becoming a registered investment adviser (RIA) with the appropriate regulatory authority. Until registration is finalized, each fund operates under applicable private fund exemptions. Investors should refer to each fund's PPM for the current regulatory status and any applicable exemptions relied upon.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q11</div>
-    <div class="faq-question">What is the investment strategy?</div>
-  </div>
-  <div class="faq-a">The fund deploys capital through private lending to cash-flowing e-commerce businesses, generating fixed contractual returns through structured credit facilities. All lending is conducted on a direct, bilateral basis with operational visibility into borrower performance.</div>
+  <div class="faq-q"><span class="faq-num">07</span><span class="faq-question">How are the three funds differentiated from one another?</span></div>
+  <div class="faq-a"><p>Each fund targets a different segment of the private debt market. <strong>Corinthian Capital Fund</strong> is an operational fund focused on private lending to cash-flowing e-commerce businesses at a fixed 2% monthly / 24% annual rate. <strong>Draft Horse Capital Partners</strong> is a large-scale multi-strategy debt fund targeting $1B across five verticals. <strong>Quarter Horse Capital Partners</strong> is a more concentrated deal-by-deal debt fund targeting $120M, managed exclusively by Caleb Caraway with full discretion over every deployment. All three share a common commitment to zero management fees and zero performance fees.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q12</div>
-    <div class="faq-question">Who manages Corinthian?</div>
-  </div>
-  <div class="faq-a">Corinthian Capital Fund LLC is managed by Corinthian Capital Partners LLC, its dedicated management company.</div>
+  <div class="faq-q"><span class="faq-num">08</span><span class="faq-question">What is the minimum investment across the funds?</span></div>
+  <div class="faq-a"><p>Minimum investments vary by fund. Corinthian Capital Fund and Draft Horse Capital Partners each set their own minimums as detailed in their respective PPMs. <strong>Quarter Horse Capital Partners has a minimum investment of $50,000.</strong> The General Partner of each fund retains discretion to waive or reduce minimums on a case-by-case basis. Prospective investors should consult the relevant subscription documents for the most current terms.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 2 — CORINTHIAN CAPITAL FUND LLC ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 2 — Corinthian Capital Fund LLC</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Fund I — Private Lending (Operational)</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">09</span><span class="faq-question">What is Corinthian Capital Fund LLC?</span></div>
+  <div class="faq-a"><p>Corinthian Capital Fund LLC is a private debt fund and the first operational fund within the Dark Horse platform. Managed by <strong>Corinthian Capital Partners LLC</strong>, it focuses on originating private credit facilities to cash-flowing e-commerce businesses. The fund offers investors a <strong>fixed contractual return of 2% per month (24% per annum)</strong>. It is currently operational and accepting subscriptions from qualified investors.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q13</div>
-    <div class="faq-question">What returns do investors receive?</div>
-  </div>
-  <div class="faq-a">Investors receive a fixed contractual return of 2% per month (24% per annum), paid monthly or quarterly as specified in the applicable subscription agreement.</div>
+  <div class="faq-q"><span class="faq-num">10</span><span class="faq-question">What is the fund's investment strategy?</span></div>
+  <div class="faq-a"><p>The fund deploys capital as structured private loans to established, cash-flowing e-commerce businesses. These are operating companies with demonstrable revenue histories and identifiable cash flow. The fund's underwriting process evaluates borrower financials, revenue trends, operating margins, and repayment capacity before committing capital. All loan terms, covenants, and repayment schedules are negotiated on a deal-by-deal basis.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q14</div>
-    <div class="faq-question">What is the fund's track record?</div>
-  </div>
-  <div class="faq-a">Corinthian has maintained consistent fixed-rate distributions to investors throughout its operational history, validating the private debt strategy that is now being deployed at greater scale through Draft Horse Capital Partners.</div>
+  <div class="faq-q"><span class="faq-num">11</span><span class="faq-question">What return does Corinthian offer investors?</span></div>
+  <div class="faq-a"><p>Investors in Corinthian Capital Fund receive a <strong>fixed contractual rate of 2% per month, equivalent to 24% per annum</strong>. This rate is established in the fund's PPM and subscription documents. Returns are contractual obligations of the fund to its investors, paid from the fund's lending revenues and cash reserves. The fixed-rate structure means investor returns do not fluctuate with market conditions.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q15</div>
-    <div class="faq-question">How does Corinthian relate to Draft Horse?</div>
-  </div>
-  <div class="faq-a">Corinthian is the operational predecessor to Draft Horse. It demonstrated the lending thesis at a smaller scale, establishing a track record before the launch of the larger multi-strategy vehicle. The two funds operate independently with separate management companies.</div>
+  <div class="faq-q"><span class="faq-num">12</span><span class="faq-question">What regulatory exemption does Corinthian operate under?</span></div>
+  <div class="faq-a"><p>Corinthian Capital Fund LLC conducts its offering under <strong>Regulation D, Rule 506(b)</strong> of the Securities Act of 1933. Under 506(b), the fund may accept investments from an unlimited number of accredited investors and up to 35 sophisticated non-accredited investors, but may not engage in general solicitation or general advertising. The fund has filed its Form D with the SEC.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q16</div>
-    <div class="faq-question">How do I invest in Corinthian?</div>
-  </div>
-  <div class="faq-a">Contact Caleb Caraway at caleb@corinthian-capital.com or (281) 770-0716. Investors must have a pre-existing substantive relationship with the issuer and will receive subscription documents upon qualification.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 3 — Draft Horse Capital Partners LLC</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q17</div>
-    <div class="faq-question">What is Draft Horse Capital Partners?</div>
-  </div>
-  <div class="faq-a">Draft Horse Capital Partners LLC is a multi-strategy private debt fund targeting a $1 billion raise. The fund deploys capital across five investment verticals — aviation, mining and metals, e-commerce private credit, real estate, and fine art — through dedicated portfolio companies. Investors receive a fixed contractual rate of return.</div>
+  <div class="faq-q"><span class="faq-num">13</span><span class="faq-question">Who are the borrowers in the Corinthian fund?</span></div>
+  <div class="faq-a"><p>Borrowers are cash-flowing e-commerce businesses — operating companies that generate recurring revenue through online commerce channels. The fund does not lend to startups, pre-revenue businesses, or speculative ventures. Each borrower undergoes the fund's proprietary underwriting process, which evaluates historical financial performance, revenue consistency, margin stability, and overall repayment capacity before any capital is committed.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q18</div>
-    <div class="faq-question">What is the regulatory structure?</div>
-  </div>
-  <div class="faq-a">Draft Horse operates under Regulation D Rule 506(c), which permits general solicitation. All investors must be verified accredited investors. The fund relies on the Section 3(c)(1) exemption. Minimum investment is $200,000.</div>
+  <div class="faq-q"><span class="faq-num">14</span><span class="faq-question">How is investor capital protected in Corinthian?</span></div>
+  <div class="faq-a"><p>Capital protection in the Corinthian fund is achieved through rigorous underwriting discipline, conservative loan-to-value structuring, and active portfolio management. The fund maintains reserves and enforces loan covenants that provide early warning of borrower distress. Specific collateral arrangements, if any, are negotiated on a deal-by-deal basis and documented in each loan agreement. Investors should review the PPM for complete details on risk factors and capital protection mechanisms.</p>
+  <div class="risk-note"><strong>Important:</strong> No investment is risk-free. Private lending carries credit risk, liquidity risk, and the risk of borrower default. Past performance of any borrower is not indicative of future results. Please review the fund's PPM for a complete discussion of risk factors.</div></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q19</div>
-    <div class="faq-question">What is the $1 billion allocation plan?</div>
-  </div>
-  <div class="faq-a">Aviation (Pegasus Capital Partners): $320 million (32%). Mining, Metals, and Energy (Stateside Resources): $200 million (20%). E-Commerce Private Credit and Private Equity: $200 million (20%). Real Estate (Dark Horse RE Holdings): $150 million (15%). Fine Art (DHWM Art Collection and Art Bond SPV): $130 million (13%).</div>
+  <div class="faq-q"><span class="faq-num">15</span><span class="faq-question">What is the liquidity profile for Corinthian investors?</span></div>
+  <div class="faq-a"><p>Corinthian Capital Fund is structured as a private fund with limited liquidity. Investments are generally illiquid, and investors should be prepared to hold their positions for the duration specified in the PPM. Any withdrawal or redemption provisions, including notice periods and potential limitations, are detailed in the fund's governing documents. Prospective investors should ensure they are comfortable with the liquidity terms before subscribing.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q20</div>
-    <div class="faq-question">Who manages Draft Horse?</div>
-  </div>
-  <div class="faq-a">Draft Horse Capital Partners LLC is managed by Draft Horse Wealth Management LLC, its dedicated management company.</div>
+  <div class="faq-q"><span class="faq-num">16</span><span class="faq-question">How do I contact the Corinthian fund team directly?</span></div>
+  <div class="faq-a"><p>For inquiries specific to Corinthian Capital Fund LLC, including subscription questions, due diligence requests, and investor relations, contact the fund team at <strong>caleb@corinthian-capital.com</strong>. For general platform inquiries across all three funds, reach out to <strong>caleb@darkhorse-ventures.com</strong>.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 3 — DRAFT HORSE CAPITAL PARTNERS LLC ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 3 — Draft Horse Capital Partners LLC</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Fund II — Multi-Strategy Debt ($1B Target)</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">17</span><span class="faq-question">What is Draft Horse Capital Partners LLC?</span></div>
+  <div class="faq-a"><p>Draft Horse Capital Partners LLC is a multi-strategy private debt fund with a <strong>target capitalization of $1,000,000,000 ($1B)</strong>. Managed by <strong>Draft Horse Wealth Management LLC</strong>, the fund deploys capital across five distinct verticals — aviation, mining and metals, real estate, e-commerce private credit and private equity, and fine art. It is designed for institutional and accredited investors seeking diversified exposure to private debt across uncorrelated sectors.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q21</div>
-    <div class="faq-question">What portfolio companies does Draft Horse invest through?</div>
-  </div>
-  <div class="faq-a">Pegasus Capital Partners LLC (aircraft acquisition, leasing, and management), Stateside Resources LLC (mining, metals, energy — currently holds an 8% interest in Field Futures Texas silver mine), Dark Horse RE Holdings LLC (strategic real estate positions), and direct lending to cash-flowing e-commerce businesses.</div>
+  <div class="faq-q"><span class="faq-num">18</span><span class="faq-question">What are the five investment verticals and target allocations?</span></div>
+  <div class="faq-a"><p>The fund's $1B target is allocated across five verticals, each managed through a dedicated operating entity:</p>
+  <div class="callout">
+    <strong>Aviation — $320M (32%)</strong> via Pegasus Capital Partners LLC. Structured debt facilities for aircraft acquisition, leasing, and fleet financing.<br><br>
+    <strong>Mining, Metals &amp; Energy — $200M (20%)</strong> via Stateside Resources LLC. Debt financing for mining operations, metals production, and energy-related assets.<br><br>
+    <strong>E-Commerce Private Credit &amp; PE — $200M (20%)</strong>. Private credit and private equity positions in cash-flowing e-commerce businesses.<br><br>
+    <strong>Real Estate — $150M (15%)</strong> via Dark Horse RE Holdings LLC. Debt financing across commercial and residential real estate assets.<br><br>
+    <strong>Fine Art — $130M (13%)</strong>. Art portfolio acquisitions and structured lending via the Art Bond SPV.
+  </div></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q22</div>
-    <div class="faq-question">What are the fund terms?</div>
-  </div>
-  <div class="faq-a">Minimum investment: $200,000. Target raise: $1 billion. Term: 36 months. Distributions: quarterly, fixed contractual rate. Management fee: zero. Performance fee: zero.</div>
+  <div class="faq-q"><span class="faq-num">19</span><span class="faq-question">What regulatory exemption does Draft Horse operate under?</span></div>
+  <div class="faq-a"><p>Draft Horse Capital Partners LLC conducts its offering under <strong>Regulation D, Rule 506(c)</strong> of the Securities Act of 1933. Under 506(c), the fund may engage in general solicitation and general advertising, but <strong>all investors must be verified accredited investors</strong>. The fund takes reasonable steps to verify accredited status through third-party verification, financial documentation review, or other SEC-approved methods. The fund has filed its Form D with the SEC.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q23</div>
-    <div class="faq-question">Does Draft Horse have a track record?</div>
-  </div>
-  <div class="faq-a">Draft Horse was formed in 2026 and is currently raising capital. The platform's operational track record is established through Corinthian Capital Fund LLC, which has demonstrated the private lending thesis at scale. The Managing Principal has personal capital deployed across all five asset classes represented in Draft Horse.</div>
+  <div class="faq-q"><span class="faq-num">20</span><span class="faq-question">What returns does Draft Horse target?</span></div>
+  <div class="faq-a"><p>Draft Horse Capital Partners is a multi-strategy debt fund whose returns are a function of the blended performance across its five verticals. Each vertical carries different risk-return characteristics, deal structures, and cash flow profiles. Specific return targets, distribution schedules, and waterfall mechanics are detailed in the fund's PPM. Investors should review the offering documents for complete information on the fund's economic terms.</p>
+  <div class="callout"><strong>Note:</strong> As a debt fund, investors receive contractual fixed-rate returns as defined in the PPM. The fund does not operate as an equity co-investment vehicle.</div></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q24</div>
-    <div class="faq-question">How do I invest in Draft Horse?</div>
-  </div>
-  <div class="faq-a">Contact Caleb Caraway at caleb@darkhorse-ventures.com or (281) 770-0716. As a 506(c) offering, Draft Horse can accept investors who are verified accredited investors regardless of pre-existing relationship.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 4 — Quarter Horse Capital Partners LLC</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q25</div>
-    <div class="faq-question">What is Quarter Horse Capital Partners?</div>
-  </div>
-  <div class="faq-a">Quarter Horse Capital Partners LLC is a deal-by-deal private debt fund targeting a $120 million raise. The fund deploys capital on a per-deal basis across the Dark Horse platform, offering investors the ability to evaluate and commit to individual lending opportunities with full transparency on terms, rate, and duration for each deal.</div>
+  <div class="faq-q"><span class="faq-num">21</span><span class="faq-question">Why does Draft Horse diversify across five uncorrelated sectors?</span></div>
+  <div class="faq-a"><p>The multi-vertical structure is designed to reduce concentration risk and provide portfolio resilience across economic cycles. Aviation, mining, real estate, e-commerce, and fine art each respond differently to macroeconomic forces — interest rate changes, commodity cycles, consumer spending, and alternative asset demand. By deploying across uncorrelated sectors, the fund aims to deliver more consistent aggregate performance than any single-sector strategy could achieve independently.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q26</div>
-    <div class="faq-question">What is the regulatory structure?</div>
-  </div>
-  <div class="faq-a">Quarter Horse operates under Regulation D Rule 506(b). No general solicitation is permitted. All investors must have a pre-existing substantive relationship with the issuer. Up to 35 sophisticated non-accredited investors may participate. Minimum investment is $50,000.</div>
+  <div class="faq-q"><span class="faq-num">22</span><span class="faq-question">What is the role of the operating entities (Pegasus, Stateside, etc.)?</span></div>
+  <div class="faq-a"><p>Each vertical is managed through a dedicated operating entity with domain-specific expertise. <strong>Pegasus Capital Partners LLC</strong> manages aviation debt, <strong>Stateside Resources LLC</strong> manages mining and energy debt, and <strong>Dark Horse RE Holdings LLC</strong> manages real estate debt. These entities handle deal origination, underwriting, structuring, and ongoing asset management within their respective sectors. This structure ensures each vertical benefits from specialized operational knowledge while the fund-level management maintains strategic oversight and allocation discipline.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q27</div>
-    <div class="faq-question">How does Quarter Horse differ from Draft Horse?</div>
-  </div>
-  <div class="faq-a">Draft Horse is a pooled multi-strategy fund where investors commit capital and the GP allocates across verticals. Quarter Horse is a deal-by-deal vehicle where each investment has its own terms, duration, and rate. Quarter Horse is 100% owned by the Managing Principal with no management company partners. It allows faster deployment into individual opportunities.</div>
+  <div class="faq-q"><span class="faq-num">23</span><span class="faq-question">What is the Art Bond SPV?</span></div>
+  <div class="faq-a"><p>The Art Bond SPV is a special purpose vehicle within the fine art vertical that enables the fund to structure debt positions collateralized by fine art assets. The SPV facilitates art-backed lending and portfolio acquisitions, allowing the fund to participate in the art finance market through structured credit rather than speculative art ownership. The $130M allocation supports both direct art portfolio acquisitions and structured art-backed lending facilities.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q28</div>
-    <div class="faq-question">Who manages Quarter Horse?</div>
-  </div>
-  <div class="faq-a">Quarter Horse Capital Partners LLC is managed by Quarter Horse Wealth Management LLC, its dedicated management company, which is 100% owned by Caleb Caraway.</div>
+  <div class="faq-q"><span class="faq-num">24</span><span class="faq-question">What is the liquidity profile for Draft Horse investors?</span></div>
+  <div class="faq-a"><p>Draft Horse Capital Partners is structured as a private fund with limited liquidity, consistent with the long-duration nature of its underlying debt positions across aviation, mining, real estate, e-commerce, and fine art. Investors should expect to commit capital for the fund's stated investment period. Redemption provisions, lock-up periods, and any available liquidity windows are detailed in the fund's PPM and subscription agreement. Prospective investors should ensure the fund's liquidity profile is compatible with their own investment horizon.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 4 — QUARTER HORSE CAPITAL PARTNERS LLC ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 4 — Quarter Horse Capital Partners LLC</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Fund III — Deal-by-Deal Debt ($120M Target)</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">25</span><span class="faq-question">What is Quarter Horse Capital Partners LLC?</span></div>
+  <div class="faq-a"><p>Quarter Horse Capital Partners LLC is a deal-by-deal private debt fund with a <strong>target capitalization of $120,000,000 ($120M)</strong>. Managed by <strong>Quarter Horse Wealth Management LLC</strong>, the fund is <strong>100% managed by Caleb Caraway</strong>, who exercises sole discretion over every capital deployment decision. The fund offers investors access to curated individual debt transactions sourced and structured by Caleb directly.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q29</div>
-    <div class="faq-question">What types of deals does Quarter Horse pursue?</div>
-  </div>
-  <div class="faq-a">The fund pursues private credit and private equity opportunities across the same verticals as Draft Horse — aviation, mining, real estate, e-commerce lending, and art acquisition financing — but on a concentrated, deal-by-deal basis rather than a diversified portfolio approach.</div>
+  <div class="faq-q"><span class="faq-num">26</span><span class="faq-question">What does "deal-by-deal" mean in the context of Quarter Horse?</span></div>
+  <div class="faq-a"><p>Unlike the pooled multi-strategy approach of Draft Horse, Quarter Horse operates on a <strong>deal-by-deal basis</strong>. Each debt transaction is individually sourced, underwritten, structured, and presented on its own merits. This approach allows for maximum flexibility in deal selection and enables investors to benefit from concentrated, high-conviction positions where Caleb has personally evaluated and approved every aspect of the transaction.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q30</div>
-    <div class="faq-question">What are the fund terms?</div>
-  </div>
-  <div class="faq-a">Minimum investment: $50,000. Target raise: $120 million. Term: deal-by-deal (each investment has its own term). Distributions: per-deal, paid monthly from credit deals or upon exit from equity deals. Management fee: zero. Performance fee: zero.</div>
+  <div class="faq-q"><span class="faq-num">27</span><span class="faq-question">Why is Quarter Horse managed exclusively by Caleb Caraway?</span></div>
+  <div class="faq-a"><p>The 100% sole-manager structure reflects the fund's philosophy of concentrated accountability and direct alignment. Every deal that enters the Quarter Horse portfolio has been personally sourced, diligenced, and approved by Caleb. There is no investment committee, no external allocation decisions, and no delegation of deal authority. This provides investors with complete transparency into the decision-making process and ensures that the individual making capital allocation decisions has full personal accountability for outcomes.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q31</div>
-    <div class="faq-question">Can investors choose which deals to participate in?</div>
-  </div>
-  <div class="faq-a">Yes. Quarter Horse operates on a deal-by-deal basis where investors receive subscription documents specific to each opportunity. Investors can evaluate each deal independently and choose to participate or pass.</div>
+  <div class="faq-q"><span class="faq-num">28</span><span class="faq-question">What is the minimum investment for Quarter Horse?</span></div>
+  <div class="faq-a"><p>The minimum investment for Quarter Horse Capital Partners LLC is <strong>$50,000</strong>. This minimum is set in the fund's subscription documents. The General Partner retains discretion to waive or adjust the minimum on a case-by-case basis for certain investors. Prospective investors should consult the PPM and subscription agreement for the most current terms.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q32</div>
-    <div class="faq-question">How do I invest in Quarter Horse?</div>
-  </div>
-  <div class="faq-a">Contact Caleb Caraway at caleb@darkhorse-ventures.com or (281) 770-0716. Investors must have a pre-existing substantive relationship with the issuer.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 5 — Fees and Economics</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q33</div>
-    <div class="faq-question">What are the management fees?</div>
-  </div>
-  <div class="faq-a">Zero across all three funds. None of the Dark Horse fund vehicles charge annual management fees.</div>
+  <div class="faq-q"><span class="faq-num">29</span><span class="faq-question">What regulatory exemption does Quarter Horse operate under?</span></div>
+  <div class="faq-a"><p>Quarter Horse Capital Partners LLC conducts its offering under <strong>Regulation D, Rule 506(b)</strong> of the Securities Act of 1933. Under 506(b), the fund may accept investments from accredited investors and up to 35 sophisticated non-accredited investors, but may not engage in general solicitation or general advertising. The fund has filed its Form D with the SEC.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q34</div>
-    <div class="faq-question">What are the performance fees?</div>
-  </div>
-  <div class="faq-a">Zero across all three funds. There is no carried interest, performance allocation, or incentive fee of any kind.</div>
+  <div class="faq-q"><span class="faq-num">30</span><span class="faq-question">What types of deals does Quarter Horse pursue?</span></div>
+  <div class="faq-a"><p>Quarter Horse deploys capital as structured debt across a range of opportunities that meet Caleb's underwriting criteria. The deal-by-deal structure provides flexibility to pursue transactions across multiple sectors and asset types without being constrained to a single vertical. Each deal is evaluated independently on its risk-return profile, borrower quality, cash flow characteristics, and structural protections. The fund's PPM provides additional detail on the fund's investment mandate and target deal parameters.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q35</div>
-    <div class="faq-question">How does the GP earn money?</div>
-  </div>
-  <div class="faq-a">The GP earns through the spread between what borrowers pay the fund and what the fund pays investors. The GP's economic incentive is aligned with deal performance and borrower repayment rather than assets under management.</div>
+  <div class="faq-q"><span class="faq-num">31</span><span class="faq-question">How does Quarter Horse differ from Corinthian and Draft Horse?</span></div>
+  <div class="faq-a"><p>Quarter Horse is distinguished by three features: <strong>deal-by-deal deployment</strong> (versus Corinthian's sector-specific lending or Draft Horse's multi-vertical pooling), <strong>100% sole management by Caleb Caraway</strong> (versus the broader management structures of the other funds), and a <strong>$120M target</strong> that enables a more concentrated, high-conviction portfolio. The fund also carries a lower minimum investment of $50,000, making it accessible to a broader range of qualified investors.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q36</div>
-    <div class="faq-question">Are there any other fees?</div>
-  </div>
-  <div class="faq-a">Prospective investors should verify in the offering documents that there are no origination fees, administrative fees, or subscription fees that could reduce net returns. The zero-fee structure applies to management and performance fees specifically.</div>
+  <div class="faq-q"><span class="faq-num">32</span><span class="faq-question">What is the liquidity profile for Quarter Horse investors?</span></div>
+  <div class="faq-a"><p>Quarter Horse Capital Partners is a private fund with limited liquidity, consistent with the nature of its underlying deal-by-deal debt positions. Because each transaction has its own maturity and repayment schedule, the fund's overall liquidity profile is a function of the aggregate portfolio. Redemption provisions, lock-up terms, and available liquidity mechanisms are detailed in the fund's PPM. Investors should ensure the fund's liquidity profile aligns with their own investment timeline and cash flow requirements.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 5 — FEES & ECONOMICS ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 5 — Fees &amp; Economics</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Fee Structure &amp; GP Alignment</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">33</span><span class="faq-question">What fees does Dark Horse charge investors?</span></div>
+  <div class="faq-a"><p><strong>Zero management fees. Zero performance fees. Zero carried interest.</strong> This applies across all three funds — Corinthian Capital Fund, Draft Horse Capital Partners, and Quarter Horse Capital Partners. There are no asset-based management fees, no incentive allocations, and no carried interest charged to investors. The funds' operating expenses (legal, audit, administration, and similar third-party costs) are borne by the funds as detailed in each PPM, but no fees are charged to investors for the management of their capital.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q37</div>
-    <div class="faq-question">How does the zero-fee structure benefit investors?</div>
-  </div>
-  <div class="faq-a">A traditional 2-and-20 structure on a fund generating a given gross return delivers materially less to investors after management fees and carry. With zero fees, every basis point of return flows directly to investors. This eliminates the single largest drag on investor returns in the alternative investment industry.</div>
+  <div class="faq-q"><span class="faq-num">34</span><span class="faq-question">Why does the platform charge zero fees?</span></div>
+  <div class="faq-a"><p>The zero-fee structure reflects a deliberate alignment philosophy. Traditional fund fee structures — typically "2 and 20" — create a misalignment where managers earn fees regardless of performance. By eliminating all management and performance fees, the Dark Horse platform ensures that the General Partner's economic interests are fully aligned with investor outcomes. The GP generates returns solely through the spread between what the fund earns on its deployed capital and what it pays investors, creating a direct incentive to underwrite conservatively and manage actively.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q38</div>
-    <div class="faq-question">Does the GP invest alongside investors?</div>
-  </div>
-  <div class="faq-a">Yes. The Managing Principal commits personal capital alongside investors, ensuring alignment between GP and investor outcomes.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 6 — Regulatory and Compliance</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q39</div>
-    <div class="faq-question">What is Reg D 506(c)?</div>
-  </div>
-  <div class="faq-a">Rule 506(c) under Regulation D permits general solicitation and advertising of the offering, provided all investors are verified accredited investors. Draft Horse Capital Partners operates under this exemption.</div>
+  <div class="faq-q"><span class="faq-num">35</span><span class="faq-question">How does the GP generate revenue if there are no fees?</span></div>
+  <div class="faq-a"><p>The General Partner's economics come from the net spread between the fund's lending revenue and the contractual rates paid to investors. For example, if a fund earns a higher rate on its deployed capital than the fixed rate it owes investors, the excess accrues to the GP. This structure means the GP only profits when loans perform and generate returns above the investor's contractual rate — a fundamentally different incentive than fee-based compensation, which rewards asset gathering regardless of investment outcomes.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q40</div>
-    <div class="faq-question">What is Reg D 506(b)?</div>
-  </div>
-  <div class="faq-a">Rule 506(b) under Regulation D prohibits general solicitation but allows up to 35 sophisticated non-accredited investors. All investors must have a pre-existing substantive relationship with the issuer. Corinthian Capital Fund and Quarter Horse Capital Partners operate under this exemption.</div>
+  <div class="faq-q"><span class="faq-num">36</span><span class="faq-question">Are there any fund-level expenses passed through to investors?</span></div>
+  <div class="faq-a"><p>While the funds charge no management or performance fees, each fund does bear its own reasonable operating expenses as customary for private funds. These typically include legal expenses (SCALE LLP), audit and tax preparation (Spicer &amp; Jefferies), fund administration (NAV Fund Services), regulatory filing costs, and other third-party professional fees. All expense categories and limitations are disclosed in each fund's PPM. These are standard fund-level expenses, not additional fees charged by the GP.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q41</div>
-    <div class="faq-question">What is the Section 3(c)(1) exemption?</div>
-  </div>
-  <div class="faq-a">All three funds rely on the Section 3(c)(1) exemption from registration under the Investment Company Act of 1940, which limits each fund to no more than 100 beneficial owners.</div>
+  <div class="faq-q"><span class="faq-num">37</span><span class="faq-question">Is the zero-fee structure permanent or subject to change?</span></div>
+  <div class="faq-a"><p>The fee terms for each fund are established in its governing documents and PPM. Any material changes to the fee structure would require the procedures specified in each fund's operating agreement, which may include investor notice, consent, or other protective provisions. Investors should review the specific amendment provisions in their fund's governing documents. The current zero-fee structure is a foundational element of the platform's investment philosophy and value proposition.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q42</div>
-    <div class="faq-question">Have Form D filings been made?</div>
-  </div>
-  <div class="faq-a">All three fund vehicles have filed Form D with the U.S. Securities and Exchange Commission under Regulation D.</div>
+  <div class="faq-q"><span class="faq-num">38</span><span class="faq-question">How does the zero-fee approach compare to industry norms?</span></div>
+  <div class="faq-a"><p>The traditional private fund fee model charges a 1.5–2.0% annual management fee on committed or invested capital plus 15–20% carried interest above a hurdle rate. On a $100M fund, this means $1.5–2.0M annually in management fees alone — paid regardless of performance — plus a significant share of any profits. The Dark Horse zero-fee model eliminates both layers entirely. Investors retain 100% of their contractual returns, and the GP earns only from the spread on performing investments. This creates one of the most investor-friendly fee structures in the private debt market.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 6 — REGULATORY & COMPLIANCE ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 6 — Regulatory &amp; Compliance</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Securities Exemptions, Filings &amp; Regulatory Status</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">39</span><span class="faq-question">What is the difference between 506(b) and 506(c)?</span></div>
+  <div class="faq-a"><p>Both are exemptions under Regulation D of the Securities Act of 1933 that allow private funds to raise capital without SEC registration. <strong>Rule 506(b)</strong> permits offerings to accredited investors and up to 35 sophisticated non-accredited investors, but prohibits general solicitation and general advertising. <strong>Rule 506(c)</strong> permits general solicitation and advertising, but requires that all investors be verified accredited investors through reasonable verification steps. Corinthian and Quarter Horse operate under 506(b); Draft Horse operates under 506(c).</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q43</div>
-    <div class="faq-question">Is there regulatory oversight?</div>
-  </div>
-  <div class="faq-a">As exempt funds managed by management entities that file as Exempt Reporting Advisors with the applicable state securities authority in Texas, the funds do not receive the same level of regulatory oversight that applies to SEC-registered investment advisers and registered investment companies. Dark Horse Advisers LLC is in the process of becoming a fully registered RIA.</div>
+  <div class="faq-q"><span class="faq-num">40</span><span class="faq-question">What is the 3(c)(1) exemption and how does it apply?</span></div>
+  <div class="faq-a"><p>Section 3(c)(1) of the Investment Company Act of 1940 provides an exemption from registration as an investment company for funds that have no more than 100 beneficial owners and do not make (or propose to make) a public offering of their securities. The Dark Horse funds rely on Section 3(c)(1) (or similar applicable exemptions) to avoid investment company registration, which allows them to operate as private funds. This limits each fund to a maximum of 100 beneficial owners, as defined under the Act.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q44</div>
-    <div class="faq-question">What reporting do investors receive?</div>
-  </div>
-  <div class="faq-a">Investors receive quarterly reports covering fund performance, asset-level updates, distribution summaries, and material developments. Audited annual financial statements are provided following each fiscal year-end. The auditor is Spicer and Jefferies.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 7 — Risk Factors</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q45</div>
-    <div class="faq-question">What are the principal risks?</div>
-  </div>
-  <div class="faq-a">Investing in private debt funds involves substantial risk including possible loss of the entire investment. Key risks include borrower default, asset valuation fluctuation, illiquidity, concentration by vertical or borrower, regulatory changes, and the absence of a secondary market for fund interests.</div>
+  <div class="faq-q"><span class="faq-num">41</span><span class="faq-question">Have the funds filed Form D with the SEC?</span></div>
+  <div class="faq-a"><p>Yes. Each fund — Corinthian Capital Fund LLC, Draft Horse Capital Partners LLC, and Quarter Horse Capital Partners LLC — has filed its Form D with the Securities and Exchange Commission as required under Regulation D. Form D is a notice filing that provides the SEC with basic information about the fund, its management, and the offering. State-level notice filings (blue sky filings) are completed as required by applicable state securities laws. Copies of Form D filings are publicly available through the SEC's EDGAR system.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q46</div>
-    <div class="faq-question">Are the returns guaranteed?</div>
-  </div>
-  <div class="faq-a">No. All stated returns are contractual targets and are not guaranteed. Distributions are contingent on borrower performance and fund cash flow. The funds may not achieve target returns in any given period.</div>
+  <div class="faq-q"><span class="faq-num">42</span><span class="faq-question">What is the status of DH Advisers LLC's RIA registration?</span></div>
+  <div class="faq-a"><p><strong>DH Advisers LLC</strong> is currently in the process of becoming a registered investment adviser (RIA). Upon completion of registration, DH Advisers will be subject to the fiduciary and regulatory requirements applicable to registered advisers, including compliance with the Investment Advisers Act of 1940, periodic examinations, and enhanced disclosure obligations. Until registration is finalized, the funds operate under the private fund exemptions described in their respective PPMs. Investors will be notified of any material changes in the platform's regulatory status.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q47</div>
-    <div class="faq-question">Can I redeem early?</div>
-  </div>
-  <div class="faq-a">There is no public market for interests in any of the three funds and no general early redemption mechanism. Investors should expect to hold their investment for the applicable fund term. Quarter Horse investors hold per-deal until each deal matures or exits.</div>
+  <div class="faq-q"><span class="faq-num">43</span><span class="faq-question">Who is responsible for fund compliance?</span></div>
+  <div class="faq-a"><p>Compliance oversight is maintained at both the platform and fund level. <strong>SCALE LLP</strong> serves as legal counsel and advises on regulatory compliance, securities law, and fund governance. <strong>Spicer &amp; Jefferies</strong> provides independent audit and tax services, ensuring financial reporting integrity. <strong>NAV Fund Services</strong> provides third-party fund administration, including independent NAV calculations and investor reporting. This institutional-quality service provider infrastructure ensures appropriate checks and balances across all three funds.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q48</div>
-    <div class="faq-question">What happens if a borrower defaults?</div>
-  </div>
-  <div class="faq-a">The fund would pursue recovery through the applicable contractual provisions and legal remedies available under the lending agreements. Recovery timelines and amounts are not guaranteed and depend on borrower circumstances and applicable law.</div>
+  <div class="faq-q"><span class="faq-num">44</span><span class="faq-question">Are the funds subject to ongoing SEC reporting requirements?</span></div>
+  <div class="faq-a"><p>As private funds operating under Regulation D exemptions, the funds are not subject to the same public reporting requirements as registered investment companies or public issuers. However, the funds maintain appropriate regulatory filings including Form D amendments as required, and will comply with any reporting obligations that arise upon DH Advisers' completion of RIA registration. Each fund provides periodic investor reporting through NAV Fund Services as detailed in its governing documents.</p></div>
+</div>
+
+</div>
+
+<!-- ═══════ SECTION 7 — RISK FACTORS ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 7 — Risk Factors</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">Key Risks for Multi-Strategy Debt Funds</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">45</span><span class="faq-question">What are the principal risks of investing in the Dark Horse funds?</span></div>
+  <div class="faq-a"><p>All investments in private debt funds carry inherent risks. Principal risks across the Dark Horse platform include: <strong>credit risk</strong> (borrowers may default on their obligations), <strong>liquidity risk</strong> (investments are illiquid and cannot be readily sold or redeemed), <strong>concentration risk</strong> (exposure to specific borrowers, sectors, or deal types), <strong>market risk</strong> (macroeconomic conditions may adversely affect borrower performance), and <strong>manager risk</strong> (the funds depend on the skill and judgment of their managers). Investors may lose some or all of their invested capital. Each fund's PPM contains a comprehensive discussion of risk factors specific to that fund.</p>
+  <div class="risk-note"><strong>Important:</strong> Investment in any Dark Horse fund involves a high degree of risk and is suitable only for investors who can bear the loss of their entire investment. Past performance is not indicative of future results. Prospective investors must read the complete risk factors section of the relevant PPM before investing.</div></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q49</div>
-    <div class="faq-question">How is risk managed across verticals?</div>
-  </div>
-  <div class="faq-a">Draft Horse deploys across five uncorrelated verticals — aviation, mining, real estate, e-commerce, and fine art — which provides diversification at the portfolio level. Each vertical is accessed through a dedicated portfolio company with domain-specific expertise, and each operates with isolated liability structures.</div>
+  <div class="faq-q"><span class="faq-num">46</span><span class="faq-question">How does diversification across sectors mitigate risk?</span></div>
+  <div class="faq-a"><p>Draft Horse Capital Partners' multi-vertical structure is designed to reduce the impact of any single sector downturn on the overall portfolio. Aviation, mining, real estate, e-commerce, and fine art each respond differently to economic cycles, interest rate environments, and market conditions. A downturn in one sector may be offset by stability or growth in another. However, diversification does not eliminate risk — broad economic downturns, systemic credit events, or correlated shocks could adversely affect multiple verticals simultaneously. Diversification is a risk management tool, not a guarantee against loss.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q50</div>
-    <div class="faq-question">Are past performance results indicative of future returns?</div>
-  </div>
-  <div class="faq-a">No. Past performance of Corinthian Capital Fund or any related strategy does not guarantee future results for any fund vehicle. Each fund should be evaluated independently based on its offering documents, structure, and risk factors.</div>
-</div>
-<div class="fund-divider"><div class="fund-divider-line"></div><div class="fund-divider-label">Section 8 — Getting Started</div><div class="fund-divider-line"></div></div>
-
-<div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q51</div>
-    <div class="faq-question">How do I begin the investment process?</div>
-  </div>
-  <div class="faq-a">Contact Caleb Caraway at caleb@darkhorse-ventures.com or (281) 770-0716. For Corinthian-specific inquiries, use caleb@corinthian-capital.com. An introductory conversation will cover fund selection, qualification requirements, and the subscription process.</div>
+  <div class="faq-q"><span class="faq-num">47</span><span class="faq-question">What are the risks specific to private lending and credit?</span></div>
+  <div class="faq-a"><p>Private lending carries risks that differ from public market fixed-income investments. Borrowers in the private market may have limited financial history, less diversified revenue streams, and fewer refinancing options than public issuers. Key credit risks include borrower default, covenant violations, delayed repayment, business deterioration, and inadequate collateral coverage. The funds' underwriting processes are designed to identify and mitigate these risks, but no underwriting process can eliminate credit risk entirely. Recovery rates on defaulted private loans may vary significantly depending on deal structure and borrower circumstances.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q52</div>
-    <div class="faq-question">What documents will I need to review?</div>
-  </div>
-  <div class="faq-a">Each fund has a Private Placement Memorandum (PPM), Subscription Agreement, and Operating Agreement prepared by SCALE LLP. These documents contain the definitive terms, risk disclosures, and legal provisions governing your investment. Independent legal and tax review is strongly recommended.</div>
+  <div class="faq-q"><span class="faq-num">48</span><span class="faq-question">What is the liquidity risk for investors?</span></div>
+  <div class="faq-a"><p>All three funds are structured as private funds with <strong>limited liquidity</strong>. There is no public market for fund interests, and investors should not expect to be able to sell or transfer their interests readily. Withdrawal and redemption rights, if any, are subject to the terms and limitations set forth in each fund's operating agreement and PPM, which may include lock-up periods, notice requirements, and fund-level liquidity constraints. Investors should only commit capital they can afford to have illiquid for the duration of the investment period.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q53</div>
-    <div class="faq-question">What are the qualification requirements?</div>
-  </div>
-  <div class="faq-a">For Draft Horse (506(c)): verified accredited investor status. For Corinthian and Quarter Horse (506(b)): pre-existing substantive relationship with the issuer plus accredited investor status preferred (up to 35 sophisticated non-accredited investors permitted per fund).</div>
+  <div class="faq-q"><span class="faq-num">49</span><span class="faq-question">What is manager or key-person risk?</span></div>
+  <div class="faq-a"><p>The success of the Dark Horse funds depends significantly on the skill, judgment, and continued involvement of their managers — particularly Caleb Caraway, who serves as the principal across all three funds and is the sole manager of Quarter Horse Capital Partners. The loss of key personnel, a change in management capacity, or any impairment of the managers' ability to perform their duties could adversely affect fund performance. Investors should consider key-person risk as part of their overall assessment. The PPMs may contain key-person provisions that address this risk.</p></div>
 </div>
 
 <div class="faq-item">
-  <div class="faq-q">
-    <div class="faq-num">Q54</div>
-    <div class="faq-question">Where can I access offering documents and data rooms?</div>
-  </div>
-  <div class="faq-a">Complete data rooms for each fund are available at caleb-dhwm.github.io/dark-horse-dataroom. Individual fund data rooms, pitch decks, term sheets, tear sheets, and investor teasers are accessible directly from the platform.</div>
-</div>
-
-<div style="margin-top:60px;padding-top:24px;border-top:1px solid var(--border);text-align:center;">
-  <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--muted);line-height:2;">
-    &copy; 2026 Dark Horse Wealth Management LLC &middot; All Rights Reserved &middot; Strictly Confidential<br>
-    <a href="mailto:caleb@darkhorse-ventures.com" style="color:var(--gold);text-decoration:none;">caleb@darkhorse-ventures.com</a> &middot; (281) 770-0716
-  </div>
+  <div class="faq-q"><span class="faq-num">50</span><span class="faq-question">Are there sector-specific risks for Draft Horse's verticals?</span></div>
+  <div class="faq-a"><p>Yes. Each of Draft Horse's five verticals carries sector-specific risks. <strong>Aviation:</strong> regulatory changes, fleet obsolescence, and airline industry volatility. <strong>Mining &amp; Energy:</strong> commodity price fluctuations, environmental regulation, and operational hazards. <strong>Real Estate:</strong> property value declines, vacancy risk, and interest rate sensitivity. <strong>E-Commerce:</strong> competitive pressures, platform dependency, and consumer spending shifts. <strong>Fine Art:</strong> valuation subjectivity, illiquidity of art assets, and market sentiment. These sector risks interact with the general risks described above. Investors should review the PPM for a comprehensive treatment of each vertical's risk profile.</p></div>
 </div>
 
 </div>
+
+<!-- ═══════ SECTION 8 — GETTING STARTED ═══════ -->
+<div class="fund-divider">
+  <div class="fund-divider-line"></div>
+  <div class="fund-divider-label">Section 8 — Getting Started</div>
+  <div class="fund-divider-line"></div>
+</div>
+
+<div class="topic-group">
+<div class="topic-label">How to Invest &amp; Subscription Process</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">51</span><span class="faq-question">How do I begin the investment process?</span></div>
+  <div class="faq-a"><p>The investment process begins with an initial conversation with the Dark Horse team to determine which fund — Corinthian, Draft Horse, or Quarter Horse — best aligns with your investment objectives, risk tolerance, and liquidity requirements. Contact <strong>caleb@darkhorse-ventures.com</strong> to schedule an introductory discussion. For inquiries specific to Corinthian Capital Fund, you may also reach out directly to <strong>caleb@corinthian-capital.com</strong>. The team will provide you with the relevant PPM, subscription documents, and any additional materials needed for your due diligence.</p></div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">52</span><span class="faq-question">What is the subscription process?</span></div>
+  <div class="faq-a"><p>Once you have reviewed the PPM and completed your due diligence, the subscription process follows these steps:</p>
+  <div class="sub-steps">
+    <div class="sub-step"><span class="sub-step-n">1</span><span>Complete the Subscription Agreement and investor questionnaire (prepared by SCALE LLP) for your selected fund.</span></div>
+    <div class="sub-step"><span class="sub-step-n">2</span><span>Provide accredited investor verification documentation. For Draft Horse (506(c)), third-party verification is required. For Corinthian and Quarter Horse (506(b)), self-certification may be sufficient.</span></div>
+    <div class="sub-step"><span class="sub-step-n">3</span><span>Submit KYC/AML documentation as required by the fund's compliance procedures.</span></div>
+    <div class="sub-step"><span class="sub-step-n">4</span><span>Upon acceptance by the General Partner, wire your subscription amount per the instructions provided in the subscription documents.</span></div>
+    <div class="sub-step"><span class="sub-step-n">5</span><span>Receive confirmation of your admission as a Limited Partner from NAV Fund Services, the fund's third-party administrator.</span></div>
+  </div></div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">53</span><span class="faq-question">Can I invest in more than one fund?</span></div>
+  <div class="faq-a"><p>Yes. The three funds are independent legal entities, and investors may subscribe to any combination of Corinthian Capital Fund, Draft Horse Capital Partners, and Quarter Horse Capital Partners, subject to meeting each fund's eligibility requirements and minimum investment thresholds. Each fund requires a separate subscription agreement. Investing in multiple funds provides exposure to different strategies, sectors, and risk-return profiles within the Dark Horse platform.</p></div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-q"><span class="faq-num">54</span><span class="faq-question">Who should I contact with additional questions?</span></div>
+  <div class="faq-a"><p>For all general inquiries, due diligence requests, and investment discussions across the Dark Horse platform:</p>
+  <div class="callout">
+    <strong>General &amp; Platform Inquiries:</strong> caleb@darkhorse-ventures.com<br>
+    <strong>Corinthian Capital Fund:</strong> caleb@corinthian-capital.com<br><br>
+    <strong>Legal Counsel:</strong> SCALE LLP<br>
+    <strong>Auditor &amp; Tax:</strong> Spicer &amp; Jefferies<br>
+    <strong>Fund Administration:</strong> NAV Fund Services
+  </div></div>
+</div>
+
+</div>
+
+</div><!-- end .page-wrap -->
+
+<div class="page-footer">
+  <strong>Dark Horse Wealth Management LLC</strong> — This document is strictly confidential and intended solely for qualified recipients conducting due diligence on the Dark Horse fund family. It does not constitute an offer to sell or a solicitation to purchase any security. All investments involve risk, including the potential loss of principal. Prospective investors must review the complete Private Placement Memorandum for their selected fund before investing. Prepared April 2026. Contact: caleb@darkhorse-ventures.com
+</div>
+
 </body>
 </html>
