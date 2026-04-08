@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Horse Wealth Management — Fund Tech Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#06080c;color:#e8e4dc;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased}
+.ambient{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 20% 40%,rgba(194,164,74,.04) 0%,transparent 50%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(40,50,80,.15) 0%,transparent 50%)}
+.content{position:relative;z-index:1}
+.wrap{max-width:900px;margin:0 auto;padding:40px}
+.top{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:20px;border-bottom:1px solid rgba(194,164,74,.2);margin-bottom:40px}
+.brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;font-weight:600}
+.meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(232,228,220,.25);letter-spacing:1px;text-transform:uppercase}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:400;margin-bottom:8px}
+.sub{font-size:14px;color:rgba(232,228,220,.4);margin-bottom:40px}
+.label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#c2a44a;margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.label::after{content:'';flex:1;height:1px;background:rgba(194,164,74,.15)}
+.card{background:rgba(255,255,255,.02);padding:28px 24px;margin-bottom:12px;border-radius:4px}
+.card:hover{background:rgba(255,255,255,.04)}
+.card-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:500;margin-bottom:4px}
+.card-url{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#c2a44a;margin-bottom:10px}
+.card-url a{color:#c2a44a;text-decoration:none}
+.card-desc{font-size:13px;color:rgba(232,228,220,.45);line-height:1.7;margin-bottom:12px}
+.card-features{font-size:12px;color:rgba(232,228,220,.35);line-height:1.8}
+table{width:100%;border-collapse:collapse;margin:16px 0 32px}
+th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#c2a44a;text-align:left;padding:10px 12px;border-bottom:1px solid rgba(194,164,74,.2)}
+td{font-size:13px;padding:12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;color:rgba(232,228,220,.55)}
+td:first-child{color:#e8e4dc;font-weight:500;white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,.02)}
+.status-tbd{color:#c2a44a;font-family:'IBM Plex Mono',monospace;font-size:11px}
+.status-active{color:#6a9a6a;font-family:'IBM Plex Mono',monospace;font-size:11px}
+.flow-step{background:rgba(255,255,255,.02);padding:16px 20px;margin-bottom:2px;display:flex;gap:16px;align-items:flex-start}
+.flow-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:500;color:#c2a44a;min-width:36px}
+.flow-text{font-size:13px;color:rgba(232,228,220,.45);line-height:1.7}
+.section{margin-bottom:48px}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid rgba(255,255,255,.03);text-align:center}
+footer p{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(232,228,220,.2);line-height:2}
+footer a{color:#c2a44a;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="content">
+<!-- DHWM Nav -->
+<div id="dhwm-nav" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,15,20,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(194,164,74,.15);padding:0 24px;height:44px;display:flex;align-items:center;justify-content:space-between;font-family:Arial,Helvetica,sans-serif;">
+<div style="display:flex;align-items:center;gap:20px;">
+<a href="index.html" style="color:#c2a44a;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.5px;">DHWM</a>
+<span style="color:rgba(255,255,255,.15);">|</span>
+<a href="corinthian.html" style="color:rgba(232,228,220,.4);text-decoration:none;font-size:11px;">Corinthian</a>
+<a href="draft-horse.html" style="color:rgba(232,228,220,.4);text-decoration:none;font-size:11px;">Draft Horse</a>
+<a href="quarter-horse.html" style="color:rgba(232,228,220,.4);text-decoration:none;font-size:11px;">Quarter Horse</a>
+</div>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="javascript:history.back()" style="color:rgba(232,228,220,.35);text-decoration:none;font-size:11px;">Back</a>
+<span style="color:rgba(255,255,255,.1);">|</span>
+<a href="index.html" style="color:rgba(232,228,220,.35);text-decoration:none;font-size:11px;">Home</a>
+</div>
+</div>
+<div style="height:44px;"></div>
+
+<div class="wrap">
+<div class="top">
+<div class="brand">Dark Horse Wealth Management LLC</div>
+<div class="meta">Confidential &middot; April 2026</div>
+</div>
+
+<h1>Fund Tech Stack</h1>
+<div class="sub">Investor onboarding, fund administration, and capital call automation infrastructure</div>
+
+<!-- PLATFORMS -->
+<div class="section">
+<div class="label">Technology Platforms</div>
+
+<div class="card">
+<div class="card-name">Passthrough</div>
+<div class="card-url"><a href="https://www.passthrough.com" target="_blank">passthrough.com</a> &middot; Subscription Docs &amp; KYC/AML</div>
+<div class="card-desc">TurboTax-style guided workflow replacing the traditional email-PDF-DocuSign chain. 80%+ of subscription documents submitted correctly on first attempt.</div>
+<div class="card-features">KYC/AML with nightly sanctions screening &middot; DocuSign integration &middot; Investor data reusable across funds &middot; SOC 2 Type II &middot; Integrates with Juniper Square</div>
+</div>
+
+<div class="card">
+<div class="card-name">Juniper Square</div>
+<div class="card-url"><a href="https://www.junipersquare.com" target="_blank">junipersquare.com</a> &middot; Fund Administration &amp; LP Portal</div>
+<div class="card-desc">Fund operations backbone handling NAV calculations, fund accounting, LP portal, treasury management, capital calls, distributions, and investor reporting.</div>
+<div class="card-features">JunieAI automated workflows &middot; Institutional LP portal &middot; Fund accounting with audit logs &middot; Fundraising CRM &middot; AML/KYC managed service &middot; SOC 2 certified</div>
+</div>
+
+<div class="card">
+<div class="card-name">Flow</div>
+<div class="card-url"><a href="https://www.flowinc.com" target="_blank">flowinc.com</a> &middot; Capital Calls &amp; Distributions</div>
+<div class="card-desc">Auto-generates individualized capital call and distribution documents for the entire LP base. Real-time dashboard showing funding status per investor.</div>
+<div class="card-features">One-click capital call generation &middot; Per-investor wire instructions &middot; Automated email alerts &middot; Integrates with fund administrator &middot; SOC 2 compliant</div>
+</div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div class="section">
+<div class="label">Recommended Architecture</div>
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-text">Investor signs NDA, accesses data room, completes subscription docs via Passthrough. KYC/AML cleared automatically.</div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Investor data flows into Juniper Square. LP position created. Portal access granted. Wire instructions delivered.</div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-text">Monthly: Flow auto-generates distribution notices with individualized wire details. LP confirms and wires. Juniper Square records and updates portal.</div></div>
+</div>
+
+<!-- SERVICE PROVIDERS -->
+<div class="section">
+<div class="label">Professional Service Providers</div>
+<table>
+<tr><th>Role</th><th>Firm</th><th>Notes</th></tr>
+<tr><td>Fund Bank</td><td>JPMorgan Private Bank</td><td>25+ years dedicated fund banking. JP Morgan Access wire controls. User-permissioned transfer authority.</td></tr>
+<tr><td>Securities Counsel</td><td>SCALE LLP (Dori Karjian)</td><td>Fund formation, Reg D compliance, PPM and subscription document review, ongoing fund counsel.</td></tr>
+<tr><td>Tax &amp; Audit</td><td>Spicer &amp; Jefferies</td><td>Annual fund audit, tax prep, K-1 and 1099-INT production, GAAP financial statements for all fund entities.</td></tr>
+<tr><td>Fund Administrator</td><td>NAV Fund Services</td><td>NAV calculation, investor reporting, transfer agency services.</td></tr>
+<tr><td>D&amp;O Insurance</td><td><span class="status-tbd">TBD</span> &mdash; Chubb, AIG, Berkshire Hathaway Specialty, Markel</td><td>Protects management against personal liability for decisions, investor claims, regulatory actions, and breach of fiduciary duty. Required before institutional capital acceptance.</td></tr>
+<tr><td>E&amp;O Insurance</td><td><span class="status-tbd">TBD</span> &mdash; Chubb, Hiscox, CNA Financial, Travelers</td><td>Covers claims from professional negligence, misrepresentation, or failure to perform duties. Covers legal defense costs even if unfounded. Essential for multi-strategy mandate and sovereign wealth investors.</td></tr>
+</table>
+</div>
+
+<!-- PORTFOLIO COMPANIES -->
+<div class="section">
+<div class="label">Portfolio Companies &amp; Investment Verticals</div>
+<table>
+<tr><th>Entity</th><th>Vertical</th><th>Status</th><th>Investments</th></tr>
+<tr><td>Pegasus Capital Partners LLC</td><td>Aviation</td><td><span class="status-tbd">Planned</span></td><td>Aircraft acquisition, leasing, management</td></tr>
+<tr><td>Stateside Resources LLC</td><td>Mining, Metals, Energy</td><td><span class="status-active">Active</span></td><td>8% Field Futures Texas (silver mine), Centuri LLC (mag-lev wind turbine / energy)</td></tr>
+<tr><td>Dark Horse RE Holdings LLC</td><td>Real Estate</td><td><span class="status-tbd">Planned</span></td><td>Supernature equity acquisition (real estate)</td></tr>
+<tr><td>Art Bond SPV</td><td>Art-Backed Securities</td><td><span class="status-tbd">Planned</span></td><td>Bonds backed by DHWM art collection</td></tr>
+</table>
+</div>
+
+<footer>
+<p>&copy; 2026 Dark Horse Wealth Management LLC &middot; Confidential &amp; Proprietary</p>
+<p>1211 Explorer Ln., Granbury, TX 76049 &middot; <a href="mailto:caleb@darkhorse-ventures.com">caleb@darkhorse-ventures.com</a></p>
+</footer>
+</div>
+</div>
+</body>
+</html>
