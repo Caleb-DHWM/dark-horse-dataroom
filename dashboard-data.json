@@ -2,10 +2,10 @@
   "_meta": {
     "version": "1.0.0",
     "lastUpdated": "2026-04-05T16:40:00Z",
-    "updatedBy": "Caleb + Claude — Phase 8/9 build session"
+    "updatedBy": "Caleb + Claude \u2014 Phase 8/9 build session"
   },
   "overview": {
-    "aum": 1549000,
+    "aum": 3550203,
     "aumLabel": "Corinthian AUM",
     "complianceScore": 72,
     "activeWorkflows": 8,
@@ -44,9 +44,9 @@
         "No banking account opened"
       ],
       "keyTerms": {
-        "structure": "Private Credit — Institutional",
+        "structure": "Private Credit \u2014 Institutional",
         "investors": "Family offices, endowments, RIA platforms",
-        "checkRange": "$1M–$5M",
+        "checkRange": "$1M\u2013$5M",
         "returnTarget": "TBD"
       }
     },
@@ -74,11 +74,11 @@
         "State registration fee overdue"
       ],
       "assetClasses": [
-        "Real Estate — $120M",
-        "Energy — $1B",
-        "Mining & Metals — $80M",
-        "Energy Technology — $50M",
-        "Fine Art — $50M"
+        "Real Estate \u2014 $120M",
+        "Energy \u2014 $1B",
+        "Mining & Metals \u2014 $80M",
+        "Energy Technology \u2014 $50M",
+        "Fine Art \u2014 $50M"
       ]
     },
     {
@@ -89,17 +89,17 @@
       "strategy": "Direct lending, private debt / Reg D 506(b)",
       "regStructure": "Reg D 506(b)",
       "generalSolicitation": false,
-      "aum": 1549000,
+      "aum": 3550203,
       "aumLabel": "$3.55M AUM",
       "targetCheckSize": "$500K+",
       "minimum": 500000,
       "minimumLabel": "$500,000",
       "gpSplit": "75% DHWM / 25% Atlas Wealth Mgmt",
-      "status": "Active — Raising",
+      "status": "Active \u2014 Raising",
       "statusColor": "green",
       "managingEntity": "Corinthian Capital Partners LLC",
       "dataRoom": "https://caleb-dhwm.github.io/dark-horse-dataroom/corinthian.html",
-      "criticalIssue": "Reg D amendment OVERDUE since Nov 8, 2025 — Dori must file SEC EDGAR immediately",
+      "criticalIssue": "Reg D amendment OVERDUE since Nov 8, 2025 \u2014 Dori must file SEC EDGAR immediately",
       "avgRate": "24%/yr",
       "monthlyInterest": "$3,800+ active"
     }
@@ -110,11 +110,41 @@
     "totalTarget": 1000000000,
     "description": "CC-1 filing anchors $1B identified deployment pipeline across five collateral sectors",
     "sectors": [
-      { "name": "Energy", "amount": 1000000000, "label": "$1B", "pct": 55, "color": "#c2a44a" },
-      { "name": "Real Estate", "amount": 120000000, "label": "$120M", "pct": 15, "color": "#6366f1" },
-      { "name": "Mining & Metals", "amount": 80000000, "label": "$80M", "pct": 12, "color": "#22d3ee" },
-      { "name": "Energy Technology", "amount": 50000000, "label": "$50M", "pct": 10, "color": "#34d399" },
-      { "name": "Fine Art", "amount": 50000000, "label": "$50M", "pct": 8, "color": "#f472b6" }
+      {
+        "name": "Energy",
+        "amount": 1000000000,
+        "label": "$1B",
+        "pct": 55,
+        "color": "#c2a44a"
+      },
+      {
+        "name": "Real Estate",
+        "amount": 120000000,
+        "label": "$120M",
+        "pct": 15,
+        "color": "#6366f1"
+      },
+      {
+        "name": "Mining & Metals",
+        "amount": 80000000,
+        "label": "$80M",
+        "pct": 12,
+        "color": "#22d3ee"
+      },
+      {
+        "name": "Energy Technology",
+        "amount": 50000000,
+        "label": "$50M",
+        "pct": 10,
+        "color": "#34d399"
+      },
+      {
+        "name": "Fine Art",
+        "amount": 50000000,
+        "label": "$50M",
+        "pct": 8,
+        "color": "#f472b6"
+      }
     ]
   },
   "investorRegistry": [
@@ -122,15 +152,15 @@
       "id": "byrum-personal",
       "name": "Gary Byrum",
       "entity": "William Garrett Byrum Sr.",
-      "contact": "wgbs72@gmail.com · (817) 846-0294",
+      "contact": "wgbs72@gmail.com \u00b7 (817) 846-0294",
       "principal": 190000,
       "rate": "24%/yr",
       "monthlyInterest": 3800,
-      "term": "14 tranches · 12-mo each",
+      "term": "14 tranches \u00b7 12-mo each",
       "status": "Active",
       "statusColor": "yellow",
       "fund": "Corinthian",
-      "notes": "Auto-rollover confirmed (60-day notice). Add. 3: Mar 27 · Add. 4: Apr 25 · Add. 5: May 29"
+      "notes": "Auto-rollover confirmed (60-day notice). Add. 3: Mar 27 \u00b7 Add. 4: Apr 25 \u00b7 Add. 5: May 29"
     },
     {
       "id": "sanders",
@@ -143,7 +173,7 @@
       "status": "Active",
       "statusColor": "green",
       "fund": "Corinthian",
-      "notes": "Also has DHWM PBLA ($100K at 18%/yr) + IGWT trust top-up → ~28% effective yield"
+      "notes": "Also has DHWM PBLA ($100K at 18%/yr) + IGWT trust top-up \u2192 ~28% effective yield"
     },
     {
       "id": "nakis",
@@ -184,7 +214,7 @@
     {
       "id": "parks",
       "name": "Joe Parks + Family",
-      "entity": "Joe Parks IRA · IRA 2 · Trad IRA · Cathye Parks · Dave Parks",
+      "entity": "Joe Parks IRA \u00b7 IRA 2 \u00b7 Trad IRA \u00b7 Cathye Parks \u00b7 Dave Parks",
       "principal": 290000,
       "rate": "TBD",
       "monthlyInterest": null,
@@ -210,7 +240,7 @@
     {
       "id": "caraway-family",
       "name": "Caraway Family",
-      "entity": "Caraway Tr · CM Caraway · C Caraway IRA · Calvin Caraway",
+      "entity": "Caraway Tr \u00b7 CM Caraway \u00b7 C Caraway IRA \u00b7 Calvin Caraway",
       "principal": 98913,
       "rate": "TBD",
       "monthlyInterest": null,
@@ -230,7 +260,7 @@
       "status": "Active",
       "statusColor": "green",
       "fund": "Corinthian",
-      "notes": "Source: Grant Smith · Additional $500K in commit stage"
+      "notes": "Source: Grant Smith \u00b7 Additional $500K in commit stage"
     },
     {
       "id": "isf",
@@ -249,7 +279,7 @@
       "id": "boothe",
       "name": "William Blake Boothe",
       "principal": 80000,
-      "rate": "—",
+      "rate": "\u2014",
       "monthlyInterest": null,
       "term": "~Feb 25, 2026",
       "status": "Exited",
@@ -266,11 +296,11 @@
       "sector": "AgTech / Land",
       "invested": 200000,
       "equityHeld": "6%",
-      "tranche": "Tranche 1 invested · Tranche 3 (+$200K → 8% total) pending",
+      "tranche": "Tranche 1 invested \u00b7 Tranche 3 (+$200K \u2192 8% total) pending",
       "status": "Active Investment",
       "statusColor": "green",
       "contact": "Kenobi Group (50% owner)",
-      "terms": "$200K invested — 6% equity",
+      "terms": "$200K invested \u2014 6% equity",
       "risks": "Definitive Agreements not yet executed. Personal guaranty, drag-along, cognovit, auto equity acceleration removed from term sheet. UCC-1 not filed.",
       "notes": "Tranche 3 would bring equity to 8% total"
     },
@@ -283,41 +313,41 @@
       "equityHeld": "TBD",
       "status": "Under Review",
       "statusColor": "blue",
-      "contact": "Adil Kassam · adil@centuri.energy",
+      "contact": "Adil Kassam \u00b7 adil@centuri.energy",
       "valuation": "$1.4B (DCF, pre-revenue)",
       "terms": "TBD",
-      "notes": "Kenobi Group = 50% owner (same as Field Futures). $5B in LOIs · 5 patents filed."
+      "notes": "Kenobi Group = 50% owner (same as Field Futures). $5B in LOIs \u00b7 5 patents filed."
     },
     {
       "id": "falcon-copper",
       "name": "Falcon Copper Corp.",
       "type": "Bridge Loan",
-      "sector": "Mining (Copper) — MT/NV/AZ",
+      "sector": "Mining (Copper) \u2014 MT/NV/AZ",
       "invested": 0,
       "status": "Under Review",
       "statusColor": "blue",
       "contact": "CEO: Matt Hornor (ex-Ivanhoe Mines)",
-      "terms": "$8–30M bridge · 10% OID + Series B Preferred · 9-mo maturity, converts at IPO",
+      "terms": "$8\u201330M bridge \u00b7 10% OID + Series B Preferred \u00b7 9-mo maturity, converts at IPO",
       "notes": "7 copper projects. Rio Tinto + Freeport JVs. FAST-41 designation. Crescat Capital lead investor. Japan's JBIC #1 critical minerals project."
     },
     {
       "id": "galloper-gold",
       "name": "Galloper Gold (CSE: BOOM)",
       "type": "Public Equity",
-      "sector": "Mining (Gold) — Newfoundland",
+      "sector": "Mining (Gold) \u2014 Newfoundland",
       "invested": 0,
       "status": "Under Review",
       "statusColor": "blue",
       "contact": "CEO: Hratch Jabrayan",
       "terms": "Public equity position",
-      "notes": "178,800 oz gold resource (58.2K Indicated + 120.6K Inferred). OTC: GGDCF · FRA: W9F · Glover Island, NL"
+      "notes": "178,800 oz gold resource (58.2K Indicated + 120.6K Inferred). OTC: GGDCF \u00b7 FRA: W9F \u00b7 Glover Island, NL"
     }
   ],
   "criticalAlerts": [
     {
       "id": "adv-2a",
       "severity": "critical",
-      "title": "Form ADV Part 2A — Caleb Action Required",
+      "title": "Form ADV Part 2A \u2014 Caleb Action Required",
       "body": "Still pending Caleb review and signature. Required for RIA registration completion. Overdue.",
       "owner": "Caleb",
       "deadline": "ASAP"
@@ -325,7 +355,7 @@
     {
       "id": "state-reg-fee",
       "severity": "critical",
-      "title": "State Registration Fee — OVERDUE",
+      "title": "State Registration Fee \u2014 OVERDUE",
       "body": "Due Apr 1, 2026 (passed). Pay state registration fee to complete RIA registration.",
       "owner": "Caleb",
       "deadline": "Apr 1 (passed)"
@@ -333,7 +363,7 @@
     {
       "id": "reg-d-amendment",
       "severity": "critical",
-      "title": "Corinthian Reg D Amendment — OVERDUE since Nov 8, 2025",
+      "title": "Corinthian Reg D Amendment \u2014 OVERDUE since Nov 8, 2025",
       "body": "Form D amendment required annually. Still actively raising. Dori Karjian must file with SEC EDGAR immediately.",
       "owner": "Dori Karjian",
       "deadline": "Nov 8, 2025 (overdue)"
@@ -341,7 +371,7 @@
     {
       "id": "brother-loan",
       "severity": "high",
-      "title": "$90K Brother Loan — NO WRITTEN CONTRACT",
+      "title": "$90K Brother Loan \u2014 NO WRITTEN CONTRACT",
       "body": "5%/month, interest-only, 12 months. Verbal only. Dori must draft retroactive agreement immediately. Potential Reg D exposure.",
       "owner": "Dori Karjian",
       "deadline": "Immediate"
@@ -349,15 +379,15 @@
     {
       "id": "byrum-addendum3",
       "severity": "medium",
-      "title": "Gary Byrum Addendum 3 — Matures March 27, 2026 ($25,000)",
-      "body": "Notice window closed — auto-rollover applies. Confirm Gary has not requested exit. Document rollover with Dori.",
+      "title": "Gary Byrum Addendum 3 \u2014 Matures March 27, 2026 ($25,000)",
+      "body": "Notice window closed \u2014 auto-rollover applies. Confirm Gary has not requested exit. Document rollover with Dori.",
       "owner": "Caleb",
       "deadline": "Mar 27, 2026"
     },
     {
       "id": "calvin-loan",
       "severity": "medium",
-      "title": "Calvin Caraway $106K — Due ~April 27, 2026",
+      "title": "Calvin Caraway $106K \u2014 Due ~April 27, 2026",
       "body": "DHWM borrowed $106K at 6% flat on Jan 27, 2026. Total payback: $112,360. Ensure liquidity to repay.",
       "owner": "Caleb",
       "deadline": "Apr 27, 2026"
@@ -365,7 +395,7 @@
     {
       "id": "corinthian-ownership",
       "severity": "high",
-      "title": "Corinthian Ownership Structure — Wrong",
+      "title": "Corinthian Ownership Structure \u2014 Wrong",
       "body": "CCP LLC currently under wrong entity. Must transfer to DHWM LLC. Dori handling. Fix before next investor conversation.",
       "owner": "Dori Karjian",
       "deadline": "Before next LP meeting"
@@ -373,7 +403,7 @@
     {
       "id": "qhcp-admin",
       "severity": "medium",
-      "title": "QHCP — Fund Administrator Not Named",
+      "title": "QHCP \u2014 Fund Administrator Not Named",
       "body": "Quarter Horse Capital Partners PPM is live (Feb 27, 2026) but fund administrator is TBD. Required before distributing final PPM.",
       "owner": "Caleb",
       "deadline": "Before PPM distribution"
@@ -381,7 +411,7 @@
     {
       "id": "field-futures-legal",
       "severity": "high",
-      "title": "Field Futures — Definitive Agreements Not Executed",
+      "title": "Field Futures \u2014 Definitive Agreements Not Executed",
       "body": "$200K invested / 6% equity. Personal guaranty, drag-along, cognovit removed from term sheet. Must address in Definitive Agreements. UCC-1 not filed.",
       "owner": "Dori Karjian",
       "deadline": "ASAP"
@@ -389,23 +419,93 @@
     {
       "id": "stateside-usury",
       "severity": "medium",
-      "title": "$200K Mining Equity Loan — Usury Analysis Pending",
+      "title": "$200K Mining Equity Loan \u2014 Usury Analysis Pending",
       "body": "2%+/month rate via Stateside Resources. No Reg D, no equity stake, balloon structure. Dori reviewing usury exposure.",
       "owner": "Dori Karjian",
       "deadline": "In review"
     }
   ],
   "legalPunchList": [
-    { "id": "lp1", "priority": "P0", "owner": "Dori Karjian", "task": "File Corinthian Reg D amendment with SEC EDGAR", "status": "Overdue", "deadline": "Nov 8, 2025" },
-    { "id": "lp2", "priority": "P0", "owner": "Dori Karjian", "task": "Draft retroactive $90K brother loan agreement (verbal only)", "status": "Urgent", "deadline": "Immediate" },
-    { "id": "lp3", "priority": "P0", "owner": "Dori Karjian", "task": "Fix Corinthian ownership — transfer CCP LLC to DHWM LLC", "status": "In Progress", "deadline": "Before LP meeting" },
-    { "id": "lp4", "priority": "P1", "owner": "Dori Karjian", "task": "Execute Field Futures Definitive Agreements (personal guaranty, drag-along, cognovit)", "status": "Pending", "deadline": "ASAP" },
-    { "id": "lp5", "priority": "P1", "owner": "Dori Karjian", "task": "File UCC-1 for Field Futures investment", "status": "Not Filed", "deadline": "ASAP" },
-    { "id": "lp6", "priority": "P1", "owner": "Dori Karjian", "task": "Finalize Draft Horse PPM + Subscription Agreement", "status": "In Progress", "deadline": "TBD" },
-    { "id": "lp7", "priority": "P1", "owner": "Dori Karjian", "task": "Complete usury analysis — $200K mining equity loan (Stateside)", "status": "In Review", "deadline": "In review" },
-    { "id": "lp8", "priority": "P1", "owner": "Caleb", "task": "Execute Adil Kassam equity agreement (Draft Horse)", "status": "Pending", "deadline": "Before fund launch" },
-    { "id": "lp9", "priority": "P2", "owner": "Caleb", "task": "Name fund administrator for Quarter Horse Capital Partners", "status": "TBD", "deadline": "Before PPM distribution" },
-    { "id": "lp10", "priority": "P2", "owner": "Caleb", "task": "Document Gary Byrum Addendum 3 auto-rollover", "status": "Pending", "deadline": "Mar 27, 2026" }
+    {
+      "id": "lp1",
+      "priority": "P0",
+      "owner": "Dori Karjian",
+      "task": "File Corinthian Reg D amendment with SEC EDGAR",
+      "status": "Overdue",
+      "deadline": "Nov 8, 2025"
+    },
+    {
+      "id": "lp2",
+      "priority": "P0",
+      "owner": "Dori Karjian",
+      "task": "Draft retroactive $90K brother loan agreement (verbal only)",
+      "status": "Urgent",
+      "deadline": "Immediate"
+    },
+    {
+      "id": "lp3",
+      "priority": "P0",
+      "owner": "Dori Karjian",
+      "task": "Fix Corinthian ownership \u2014 transfer CCP LLC to DHWM LLC",
+      "status": "In Progress",
+      "deadline": "Before LP meeting"
+    },
+    {
+      "id": "lp4",
+      "priority": "P1",
+      "owner": "Dori Karjian",
+      "task": "Execute Field Futures Definitive Agreements (personal guaranty, drag-along, cognovit)",
+      "status": "Pending",
+      "deadline": "ASAP"
+    },
+    {
+      "id": "lp5",
+      "priority": "P1",
+      "owner": "Dori Karjian",
+      "task": "File UCC-1 for Field Futures investment",
+      "status": "Not Filed",
+      "deadline": "ASAP"
+    },
+    {
+      "id": "lp6",
+      "priority": "P1",
+      "owner": "Dori Karjian",
+      "task": "Finalize Draft Horse PPM + Subscription Agreement",
+      "status": "In Progress",
+      "deadline": "TBD"
+    },
+    {
+      "id": "lp7",
+      "priority": "P1",
+      "owner": "Dori Karjian",
+      "task": "Complete usury analysis \u2014 $200K mining equity loan (Stateside)",
+      "status": "In Review",
+      "deadline": "In review"
+    },
+    {
+      "id": "lp8",
+      "priority": "P1",
+      "owner": "Caleb",
+      "task": "Execute Adil Kassam equity agreement (Draft Horse)",
+      "status": "Pending",
+      "deadline": "Before fund launch"
+    },
+    {
+      "id": "lp9",
+      "priority": "P2",
+      "owner": "Caleb",
+      "task": "Name fund administrator for Quarter Horse Capital Partners",
+      "status": "TBD",
+      "deadline": "Before PPM distribution"
+    },
+    {
+      "id": "lp10",
+      "priority": "P2",
+      "owner": "Caleb",
+      "task": "Document Gary Byrum Addendum 3 auto-rollover",
+      "status": "Pending",
+      "deadline": "Mar 27, 2026"
+    }
   ],
   "portfolioCompanies": [
     {
@@ -413,7 +513,7 @@
       "name": "Field Futures",
       "sector": "AgTech / Land",
       "relationship": "Equity Investment",
-      "stake": "6% (Tranche 1) → 8% (post Tranche 3)",
+      "stake": "6% (Tranche 1) \u2192 8% (post Tranche 3)",
       "deployed": 200000,
       "status": "Active",
       "contact": "Kenobi Group (50% owner)",
@@ -426,18 +526,18 @@
       "relationship": "Equity Loan",
       "stake": "Equity stake",
       "deployed": 200000,
-      "status": "Active — Usury review pending",
+      "status": "Active \u2014 Usury review pending",
       "contact": "Via DHWM",
       "notes": "2%+/month rate. No Reg D. Balloon structure. Dori reviewing usury."
     },
     {
       "id": "kamboj-credit",
-      "name": "Draft Horse–Kamboj Credit",
+      "name": "Draft Horse\u2013Kamboj Credit",
       "sector": "Private Credit",
       "relationship": "Direct Lending",
       "stake": "Creditor",
       "deployed": null,
-      "status": "Active — Agreement executed",
+      "status": "Active \u2014 Agreement executed",
       "contact": "Via Draft Horse Capital Partners",
       "notes": "DDR and credit agreement documents on file. See Draft-Horse-Kamboj-DDR.docx"
     }
@@ -450,32 +550,40 @@
       "tag": "Holdings Entity",
       "note": "95% Trust / 5% Caleb Personal",
       "parent": null,
-      "children": ["dhwm"]
+      "children": [
+        "dhwm"
+      ]
     },
     {
       "id": "dhwm",
       "name": "Dark Horse Wealth Management LLC",
       "type": "wealth",
-      "tag": "Family Office — Governing Entity",
-      "note": "Owns art collection · Direct investments",
+      "tag": "Family Office \u2014 Governing Entity",
+      "note": "Owns art collection \u00b7 Direct investments",
       "parent": "caraway-holdings",
-      "children": ["draft-wm", "qh-wm", "ccp"]
+      "children": [
+        "draft-wm",
+        "qh-wm",
+        "ccp"
+      ]
     },
     {
       "id": "draft-wm",
       "name": "Draft Horse Wealth Management LLC",
       "type": "management",
-      "tag": "Management Company — Fund I GP",
+      "tag": "Management Company \u2014 Fund I GP",
       "note": "75% Caleb / 25% Adil Kassam",
       "parent": "dhwm",
-      "children": ["draft-fund"]
+      "children": [
+        "draft-fund"
+      ]
     },
     {
       "id": "draft-fund",
       "name": "Draft Horse Capital Partners LLC",
       "type": "fund",
-      "tag": "Precision Credit Fund — 506(c)",
-      "note": "$1B pipeline · Pre-launch",
+      "tag": "Precision Credit Fund \u2014 506(c)",
+      "note": "$1B pipeline \u00b7 Pre-launch",
       "parent": "draft-wm",
       "children": []
     },
@@ -483,17 +591,19 @@
       "id": "qh-wm",
       "name": "Quarter Horse Wealth Management LLC",
       "type": "management",
-      "tag": "Management Company — Fund II GP",
+      "tag": "Management Company \u2014 Fund II GP",
       "note": "100% Caleb Caraway",
       "parent": "dhwm",
-      "children": ["qh-fund"]
+      "children": [
+        "qh-fund"
+      ]
     },
     {
       "id": "qh-fund",
       "name": "Quarter Horse Capital Partners LLC",
       "type": "fund",
-      "tag": "Diversified Credit Fund — 9 asset classes",
-      "note": "PPM live Feb 27, 2026 · $30M max",
+      "tag": "Diversified Credit Fund \u2014 9 asset classes",
+      "note": "PPM live Feb 27, 2026 \u00b7 $30M max",
       "parent": "qh-wm",
       "children": []
     },
@@ -504,44 +614,142 @@
       "tag": "Management Company",
       "note": "75% DHWM / 25% Atlas Wealth Mgmt",
       "parent": "dhwm",
-      "children": ["ccf"]
+      "children": [
+        "ccf"
+      ]
     },
     {
       "id": "ccf",
       "name": "Corinthian Capital Fund LLC",
       "type": "fund",
-      "tag": "Debt Fund — 506(b)",
-      "note": "$3.55M AUM · 24%/yr avg",
+      "tag": "Debt Fund \u2014 506(b)",
+      "note": "$3.55M AUM \u00b7 24%/yr avg",
       "parent": "ccp",
       "children": []
     }
   ],
   "n8nWorkflows": [
-    { "id": "0Iib7clJFhzyXJKv", "name": "SEC EDGAR Compliance Monitor", "active": true, "trigger": "cron 12:00 daily", "webhook": null },
-    { "id": "VYJ3It1EhuEOWbNo", "name": "Compliance Deadline Tracker", "active": true, "trigger": "cron weekly", "webhook": null },
-    { "id": "biHrGeXICsDRivY7", "name": "Deal Flow Intake", "active": true, "trigger": "webhook", "webhook": "/webhook/deal-intake" },
-    { "id": "MNIhZHsGYmn5GslV", "name": "Daily Intelligence Brief", "active": true, "trigger": "cron 6:00 daily", "webhook": null },
-    { "id": "N8W4kxN6puXpuhZr", "name": "Capital Call Notification", "active": true, "trigger": "webhook", "webhook": "/webhook/capital-call" },
-    { "id": "VUsXuFfbJfCqoFvp", "name": "LP Distribution Notice", "active": true, "trigger": "webhook", "webhook": "/webhook/distribution" },
-    { "id": "WAQ4xLubVvjSjdzY", "name": "Quarterly LP Report Trigger", "active": true, "trigger": "cron quarterly", "webhook": null },
-    { "id": "CmMiHkDWqfG17eBk", "name": "Toby n8n Bridge", "active": true, "trigger": "webhook", "webhook": "/webhook/toby-bridge" }
+    {
+      "id": "0Iib7clJFhzyXJKv",
+      "name": "SEC EDGAR Compliance Monitor",
+      "active": true,
+      "trigger": "cron 12:00 daily",
+      "webhook": null
+    },
+    {
+      "id": "VYJ3It1EhuEOWbNo",
+      "name": "Compliance Deadline Tracker",
+      "active": true,
+      "trigger": "cron weekly",
+      "webhook": null
+    },
+    {
+      "id": "biHrGeXICsDRivY7",
+      "name": "Deal Flow Intake",
+      "active": true,
+      "trigger": "webhook",
+      "webhook": "/webhook/deal-intake"
+    },
+    {
+      "id": "MNIhZHsGYmn5GslV",
+      "name": "Daily Intelligence Brief",
+      "active": true,
+      "trigger": "cron 6:00 daily",
+      "webhook": null
+    },
+    {
+      "id": "N8W4kxN6puXpuhZr",
+      "name": "Capital Call Notification",
+      "active": true,
+      "trigger": "webhook",
+      "webhook": "/webhook/capital-call"
+    },
+    {
+      "id": "VUsXuFfbJfCqoFvp",
+      "name": "LP Distribution Notice",
+      "active": true,
+      "trigger": "webhook",
+      "webhook": "/webhook/distribution"
+    },
+    {
+      "id": "WAQ4xLubVvjSjdzY",
+      "name": "Quarterly LP Report Trigger",
+      "active": true,
+      "trigger": "cron quarterly",
+      "webhook": null
+    },
+    {
+      "id": "CmMiHkDWqfG17eBk",
+      "name": "Toby n8n Bridge",
+      "active": true,
+      "trigger": "webhook",
+      "webhook": "/webhook/toby-bridge"
+    }
   ],
   "compliance": {
     "score": 72,
     "riaRegistration": {
       "formAdv1A": "Complete",
-      "formAdv2A": "In Review — Caleb action needed",
-      "stateRegFee": "Overdue — Apr 1 deadline passed"
+      "formAdv2A": "In Review \u2014 Caleb action needed",
+      "stateRegFee": "Overdue \u2014 Apr 1 deadline passed"
     },
     "checklist": [
-      { "item": "Form ADV Part 1A filed", "category": "RIA Registration", "status": "Complete", "due": "Mar 10", "owner": "agent" },
-      { "item": "Form ADV Part 2A — Caleb review", "category": "RIA Registration", "status": "In Review", "due": "Mar 25", "owner": "Caleb" },
-      { "item": "State Registration Fee", "category": "RIA Registration", "status": "Overdue", "due": "Apr 1", "owner": "Caleb" },
-      { "item": "Compliance Manual Draft", "category": "Policies", "status": "In Progress", "due": "Apr 10", "owner": "agent" },
-      { "item": "Code of Ethics", "category": "Policies", "status": "Not Started", "due": "Apr 15", "owner": "agent" },
-      { "item": "Business Continuity Plan", "category": "Policies", "status": "Not Started", "due": "Apr 30", "owner": "agent" },
-      { "item": "Reg D Amendment (Corinthian)", "category": "Ongoing Compliance", "status": "OVERDUE", "due": "Nov 8, 2025", "owner": "Dori Karjian" },
-      { "item": "SEC EDGAR Filing Monitor", "category": "Ongoing Compliance", "status": "Active", "due": "Daily", "owner": "agent" }
+      {
+        "item": "Form ADV Part 1A filed",
+        "category": "RIA Registration",
+        "status": "Complete",
+        "due": "Mar 10",
+        "owner": "agent"
+      },
+      {
+        "item": "Form ADV Part 2A \u2014 Caleb review",
+        "category": "RIA Registration",
+        "status": "In Review",
+        "due": "Mar 25",
+        "owner": "Caleb"
+      },
+      {
+        "item": "State Registration Fee",
+        "category": "RIA Registration",
+        "status": "Overdue",
+        "due": "Apr 1",
+        "owner": "Caleb"
+      },
+      {
+        "item": "Compliance Manual Draft",
+        "category": "Policies",
+        "status": "In Progress",
+        "due": "Apr 10",
+        "owner": "agent"
+      },
+      {
+        "item": "Code of Ethics",
+        "category": "Policies",
+        "status": "Not Started",
+        "due": "Apr 15",
+        "owner": "agent"
+      },
+      {
+        "item": "Business Continuity Plan",
+        "category": "Policies",
+        "status": "Not Started",
+        "due": "Apr 30",
+        "owner": "agent"
+      },
+      {
+        "item": "Reg D Amendment (Corinthian)",
+        "category": "Ongoing Compliance",
+        "status": "OVERDUE",
+        "due": "Nov 8, 2025",
+        "owner": "Dori Karjian"
+      },
+      {
+        "item": "SEC EDGAR Filing Monitor",
+        "category": "Ongoing Compliance",
+        "status": "Active",
+        "due": "Daily",
+        "owner": "agent"
+      }
     ]
   }
 }
