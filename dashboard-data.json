@@ -90,7 +90,7 @@
       "regStructure": "Reg D 506(b)",
       "generalSolicitation": false,
       "aum": 1549000,
-      "aumLabel": "$1.549M AUM",
+      "aumLabel": "$3.55M AUM",
       "targetCheckSize": "$500K+",
       "minimum": 500000,
       "minimumLabel": "$500,000",
@@ -511,7 +511,7 @@
       "name": "Corinthian Capital Fund LLC",
       "type": "fund",
       "tag": "Debt Fund — 506(b)",
-      "note": "$1.549M AUM · 24%/yr avg",
+      "note": "$3.55M AUM · 24%/yr avg",
       "parent": "ccp",
       "children": []
     }
