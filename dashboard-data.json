@@ -99,7 +99,7 @@
       "statusColor": "green",
       "managingEntity": "Corinthian Capital Partners LLC",
       "dataRoom": "https://caleb-dhwm.github.io/dark-horse-dataroom/corinthian.html",
-      "criticalIssue": "Reg D amendment OVERDUE since Nov 8, 2025 \u2014 Dori must file SEC EDGAR immediately",
+      "criticalIssue": "Reg D amendment FILED April 2, 2026. Compliance current.",
       "avgRate": "24%/yr",
       "monthlyInterest": "$3,800+ active"
     }
@@ -362,11 +362,11 @@
     },
     {
       "id": "reg-d-amendment",
-      "severity": "critical",
+      "severity": "resolved",
       "title": "Corinthian Reg D Amendment \u2014 OVERDUE since Nov 8, 2025",
-      "body": "Form D amendment required annually. Still actively raising. Dori Karjian must file with SEC EDGAR immediately.",
+      "body": "Form D amendment filed April 2, 2026. Compliance current.",
       "owner": "Dori Karjian",
-      "deadline": "Nov 8, 2025 (overdue)"
+      "deadline": "Filed April 2, 2026"
     },
     {
       "id": "brother-loan",
@@ -428,10 +428,10 @@
   "legalPunchList": [
     {
       "id": "lp1",
-      "priority": "P0",
+      "priority": "done",
       "owner": "Dori Karjian",
-      "task": "File Corinthian Reg D amendment with SEC EDGAR",
-      "status": "Overdue",
+      "task": "Corinthian Reg D Form D amendment \u2014 FILED April 2, 2026",
+      "status": "complete",
       "deadline": "Nov 8, 2025"
     },
     {
