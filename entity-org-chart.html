@@ -250,8 +250,7 @@ const orgData = {
                     { id: 'dh-pegasus', name: 'Pegasus Aerospace', type: 'portfolio', tag: 'Aviation', note: 'Capital Allocation' },
                     { id: 'dh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining - Metals - Energy', note: 'Capital Allocation' },
                     { id: 'dh-rehold', name: 'Slipstream Holdings', type: 'portfolio', tag: 'Real Estate', note: 'Capital Allocation' },
-                    { id: 'dh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' },
-                    { id: 'dh-ecomm', name: 'E-Commerce PC & PE', type: 'portfolio', tag: 'Cash-Flowing Businesses', note: 'Capital Allocation' }
+                    { id: 'dh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' }
                   ]
                 }
               ]
@@ -273,8 +272,7 @@ const orgData = {
                     { id: 'qh-pegasus', name: 'Pegasus Aerospace', type: 'portfolio', tag: 'Aviation', note: 'Capital Allocation' },
                     { id: 'qh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining - Metals - Energy', note: 'Capital Allocation' },
                     { id: 'qh-rehold', name: 'Slipstream Holdings', type: 'portfolio', tag: 'Real Estate', note: 'Capital Allocation' },
-                    { id: 'qh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' },
-                    { id: 'qh-ecomm', name: 'E-Commerce PC & PE', type: 'portfolio', tag: 'Cash-Flowing Businesses', note: 'Capital Allocation' }
+                    { id: 'qh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' }
                   ]
                 }
               ]
@@ -317,12 +315,21 @@ const orgData = {
               ]
             },
             {
-              id: 'artbond',
-              name: 'Art Bond SPV',
-              type: 'fund',
-              tag: 'Art-Backed Securities',
-              badge: 'new',
-              note: '$1B Target - Bonds backed by DHWM art collection'
+              id: 'artcollection',
+              name: 'Art Collection',
+              type: 'investment',
+              tag: 'Fine Art Portfolio',
+              note: 'Owned by DHWM - Receives capital from DH and QH',
+              children: [
+                {
+                  id: 'artbond',
+                  name: 'Art Bond SPV',
+                  type: 'fund',
+                  tag: 'Art-Backed Securities',
+                  badge: 'new',
+                  note: '$1B Target - Bonds backed by DHWM art collection'
+                }
+              ]
             },
             {
               id: 'rehold',
@@ -330,24 +337,10 @@ const orgData = {
               type: 'operating',
               tag: 'Real Estate — Portfolio Company',
               badge: 'new',
-              note: 'Planned — Not Yet Formed · Adil-Sourced Deals Only',
+              note: 'Formed 04/21/2026 · SOS #806558962 · Adil-Sourced Deals Only',
               children: [
                 { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate - Affiliated', note: 'Owned by Adil Kassam - Equity TBD' }
               ]
-            },
-            {
-              id: 'artcollection',
-              name: 'Art Collection',
-              type: 'investment',
-              tag: 'Fine Art Portfolio',
-              note: 'Owned by DHWM - Receives capital from DH and QH'
-            },
-            {
-              id: 'ecomm',
-              name: 'E-Commerce Private Credit & PE',
-              type: 'operating',
-              tag: 'Cash-Flowing Businesses',
-              note: 'Receives capital from DH, QH, and Corinthian'
             }
           ]
         },
