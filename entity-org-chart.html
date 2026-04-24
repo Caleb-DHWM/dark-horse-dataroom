@@ -473,11 +473,10 @@ function fitToScreen(){
   var w=document.getElementById("chart-wrapper");
   var c=document.getElementById("chart");
   var s=Math.min(w.clientWidth/window._chartW, w.clientHeight/window._chartH, 1);
-  c.style.transformOrigin="top left";
-  c.style.transform="scale("+s+")";
-  w.scrollTop=0;w.scrollLeft=0;
+  c.style.transform="none";
+  c.style.zoom=s;
+  w.scrollTop=0; w.scrollLeft=0;
 }
-// Defer until browser has finished flex layout
 requestAnimationFrame(function(){ requestAnimationFrame(fitToScreen); });
 </script>
 </body>
