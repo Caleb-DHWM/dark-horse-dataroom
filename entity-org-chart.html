@@ -472,9 +472,14 @@ chartEl.appendChild(sharedEl);
 function fitToScreen(){
   var w=document.getElementById("chart-wrapper");
   var c=document.getElementById("chart");
-  var s=Math.min(w.clientWidth/window._chartW, w.clientHeight/window._chartH, 1);
-  c.style.transform="none";
-  c.style.zoom=s;
+  var cw=window._chartW||c.scrollWidth;
+  var ch=window._chartH||c.scrollHeight;
+  var s=Math.min(w.clientWidth/cw, w.clientHeight/ch, 1);
+  c.style.zoom="";
+  c.style.transformOrigin="top left";
+  c.style.transform="scale("+s+")";
+  c.style.marginRight=Math.round(cw*(s-1))+"px";
+  c.style.marginBottom=Math.round(ch*(s-1))+"px";
   w.scrollTop=0; w.scrollLeft=0;
 }
 requestAnimationFrame(function(){ requestAnimationFrame(fitToScreen); });
