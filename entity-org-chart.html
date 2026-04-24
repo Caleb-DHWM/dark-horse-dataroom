@@ -251,7 +251,12 @@ const orgData = {
                   type: 'management',
                   tag: 'Management Co — Fund II GP',
                   children: [
-                    { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b)' }
+                    { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b)', children: [
+                      { id: 'qh-pegasus',  name: 'Pegasus Aerospace',    type: 'portfolio', tag: 'Aviation · Allocation' },
+                      { id: 'qh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining · Metals · Energy · Allocation' },
+                      { id: 'qh-rehold',   name: 'Slipstream Holdings',  type: 'portfolio', tag: 'Real Estate · Allocation' },
+                      { id: 'qh-art',      name: 'Art Collection',       type: 'portfolio', tag: 'Fine Art · Allocation' }
+                    ]}
                   ]
                 },
                 {
@@ -381,10 +386,17 @@ svg.selectAll('path.lnk')
   .append('path')
   .attr('class', 'lnk')
   .attr('d', linkGen)
-  .attr('stroke', d => linkColor[d.target.data.type] || '#334155')
-  .attr('stroke-opacity', d => d.target.data.type === 'group' ? 0.18 : d.target.data.type === 'portfolio' ? 0.45 : 0.32)
-  .attr('stroke-width', d => d.target.data.type === 'group' ? 1 : 1.5)
-  .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : d.target.data.type === 'group' ? '4,3' : null)
+  .attr('stroke', d => {
+    if (d.target.data.type === 'group') return '#0EA5E9';
+    return linkColor[d.target.data.type] || '#334155';
+  })
+  .attr('stroke-opacity', d => {
+    if (d.target.data.type === 'group') return 0.65;
+    if (d.target.data.type === 'portfolio') return 0.45;
+    return 0.32;
+  })
+  .attr('stroke-width', d => d.target.data.type === 'group' ? 2 : 1.5)
+  .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : null)
   .attr('fill', 'none');
 
 //  Render Node Cards 
