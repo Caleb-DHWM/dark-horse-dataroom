@@ -20,43 +20,51 @@ body {
 
 /*  Header  */
 header {
-  padding: 18px 32px 16px;
+  padding: 20px 32px 18px;
   border-bottom: 1px solid #0F1929;
   flex-shrink: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   background: #0A0F1E;
 }
-.header-left { display: flex; flex-direction: column; gap: 10px; }
 .header-title { display: flex; flex-direction: column; gap: 3px; }
-.header-title h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #F8FAFC;
-  letter-spacing: -0.3px;
-}
+.header-title h1 { font-size: 20px; font-weight: 700; color: #F8FAFC; letter-spacing: -0.3px; }
 .header-title p { font-size: 12px; color: #475569; }
-.header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; flex-shrink: 0; }
-.legend-inline {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; }
+
+/* Legend overlay — floats on canvas */
+#legend-overlay {
+  position: fixed;
+  top: 114px;
+  left: 16px;
+  z-index: 50;
+  background: rgba(6,11,24,0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 10px 12px;
+  pointer-events: none;
 }
-.legend-lbl {
+.legend-lbl { font-size: 9px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 6px; }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #64748B; margin-bottom: 3px; }
+.legend-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+/* Group section node */
+.nc-group {
+  background: rgba(255,255,255,0.025);
+  border: 1px dashed rgba(255,255,255,0.1) !important;
+  border-radius: 7px !important;
+  padding: 5px 15px !important;
+  width: 176px;
+}
+.nc-group-lbl {
   font-size: 9px;
   font-weight: 700;
-  color: #334155;
+  color: #475569;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
-  margin-bottom: 2px;
-}
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #64748B; }
-.legend-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 2px;
-  flex-shrink: 0;
+  letter-spacing: 1.4px;
+  text-align: center;
 }
 #chart-wrapper {
   flex: 1;
@@ -174,25 +182,9 @@ header {
 
 
 <header>
-  <div class="header-left">
-    <div class="header-title">
-      <h1>Caleb Caraway — Entity Organization</h1>
-      <p>Full hierarchy &middot; All entities shown</p>
-    </div>
-    <div class="legend-inline">
-      <span class="legend-lbl">Legend</span>
-      <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Operating</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1F2937"></div>Dormant</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1E293B;border:1px dashed #334155"></div>Advisor / Person</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment</div>
-    </div>
+  <div class="header-title">
+    <h1>Caleb Caraway — Entity Organization</h1>
+    <p>Full hierarchy &middot; All entities shown</p>
   </div>
   <div class="header-meta">
     April 2026<br>
@@ -201,6 +193,19 @@ header {
 </header>
 
 <div id="chart-wrapper">
+  <div id="legend-overlay">
+    <span class="legend-lbl">Legend</span>
+    <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Portfolio Company</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#022C22"></div>RIA / Adviser</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Position</div>
+  </div>
   <div id="chart"></div>
 </div>
 
@@ -225,102 +230,89 @@ const orgData = {
           name: 'Dark Horse Wealth Management LLC',
           type: 'wealth',
           tag: 'Family Office - Governing Entity',
-          note: 'Owns art collection - Direct investments',
           children: [
             {
-              id: 'draft-wm',
-              name: 'Draft Horse Wealth Management LLC',
-              type: 'management',
-              tag: 'Management Company - Fund I GP',
-              note: 'Management Company',
+              id: 'group-funds',
+              name: 'Fund Vehicles',
+              type: 'group',
               children: [
                 {
-                  id: 'draft',
-                  name: 'Draft Horse Capital Partners LLC',
-                  type: 'fund',
-                  tag: 'Multi-Strategy Debt Fund - 506(c)',
-                  note: '$200K Min - $1B Target - Zero Fees',
+                  id: 'draft-wm',
+                  name: 'Draft Horse Wealth Management LLC',
+                  type: 'management',
+                  tag: 'Management Co — Fund I GP',
                   children: [
-                    { id: 'dh-pegasus', name: 'Pegasus Aerospace', type: 'portfolio', tag: 'Aviation', note: 'Capital Allocation' },
-                    { id: 'dh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining - Metals - Energy', note: 'Capital Allocation' },
-                    { id: 'dh-rehold', name: 'Slipstream Holdings', type: 'portfolio', tag: 'Real Estate', note: 'Capital Allocation' },
-                    { id: 'dh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' }
+                    { id: 'draft', name: 'Draft Horse Capital Partners LLC', type: 'fund', tag: 'Multi-Strategy Debt Fund · 506(c)' }
+                  ]
+                },
+                {
+                  id: 'qh-wm',
+                  name: 'Quarter Horse Wealth Management LLC',
+                  type: 'management',
+                  tag: 'Management Co — Fund II GP',
+                  children: [
+                    { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b)' }
+                  ]
+                },
+                {
+                  id: 'ccp',
+                  name: 'Corinthian Capital Partners LLC',
+                  type: 'management',
+                  tag: 'Management Co — Fund III',
+                  note: '75% DHWM / 25% Atlas Wealth',
+                  children: [
+                    { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Debt Fund · 506(b)' }
                   ]
                 }
               ]
             },
             {
-              id: 'qh-wm',
-              name: 'Quarter Horse Wealth Management LLC',
-              type: 'management',
-              tag: 'Management Company - Fund II GP',
-              note: '100% Caleb Caraway',
+              id: 'group-ops',
+              name: 'Portfolio Companies',
+              type: 'group',
               children: [
                 {
-                  id: 'qhcp',
-                  name: 'Quarter Horse Capital Partners LLC',
-                  type: 'fund',
-                  tag: 'Deal-by-Deal Debt Fund - 506(b)',
+                  id: 'stateside',
+                  name: 'Stateside Resources LLC',
+                  type: 'operating',
+                  tag: 'Mining · Metals · Energy',
                   children: [
-                    { id: 'qh-pegasus', name: 'Pegasus Aerospace', type: 'portfolio', tag: 'Aviation', note: 'Capital Allocation' },
-                    { id: 'qh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining - Metals - Energy', note: 'Capital Allocation' },
-                    { id: 'qh-rehold', name: 'Slipstream Holdings', type: 'portfolio', tag: 'Real Estate', note: 'Capital Allocation' },
-                    { id: 'qh-art', name: 'DHWM Art Collection', type: 'portfolio', tag: 'Fine Art Portfolio', note: 'Capital Allocation' }
+                    { id: 'field', name: 'Field Futures Texas', type: 'investment', tag: 'Silver Mine' }
                   ]
-                }
-              ]
-            },
-            {
-              id: 'ccp',
-              name: 'Corinthian Capital Partners LLC',
-              type: 'management',
-              tag: 'Management Company',
-              note: '75% DHWM / 25% Atlas Wealth Mgmt',
-              children: [
-                { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Debt Fund - 506(b)' }
-              ]
-            },
-            {
-              id: 'pegasus',
-              name: 'Pegasus Aerospace Capital LLC',
-              type: 'operating',
-              tag: 'Aviation Portfolio Company · DBA Pegasus Aerospace',
-              badge: 'new'
-            },
-            {
-              id: 'stateside',
-              name: 'Stateside Resources LLC',
-              type: 'operating',
-              tag: 'Mining - Metals - Energy',
-              children: [
-                { id: 'field', name: 'Field Futures Texas', type: 'investment', tag: 'Silver Mine' }
-              ]
-            },
-            {
-              id: 'artcollection',
-              name: 'Art Collection',
-              type: 'investment',
-              tag: 'Fine Art Portfolio',
-              note: 'Owned by DHWM - Receives capital from DH and QH',
-              children: [
+                },
                 {
-                  id: 'artbond',
-                  name: 'Art Bond SPV',
-                  type: 'fund',
-                  tag: 'Art-Backed Securities',
+                  id: 'pegasus',
+                  name: 'Pegasus Aerospace Capital LLC',
+                  type: 'operating',
+                  tag: 'Aviation Portfolio Co · DBA Pegasus Aerospace',
+                  badge: 'new'
+                },
+                {
+                  id: 'rehold',
+                  name: 'Slipstream Holdings LLC',
+                  type: 'operating',
+                  tag: 'Real Estate Portfolio Co',
                   badge: 'new',
-                  note: '$1B Target - Bonds backed by DHWM art collection'
+                  children: [
+                    { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate · Affiliated' }
+                  ]
                 }
               ]
             },
             {
-              id: 'rehold',
-              name: 'Slipstream Holdings LLC',
-              type: 'operating',
-              tag: 'Real Estate — Portfolio Company',
-              badge: 'new',
+              id: 'group-art',
+              name: 'Art & Investment',
+              type: 'group',
               children: [
-                { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate - Affiliated' }
+                {
+                  id: 'artcollection',
+                  name: 'Art Collection',
+                  type: 'investment',
+                  tag: 'Fine Art Portfolio · Owned by DHWM',
+                  children: [
+                    { id: 'artbond', name: 'Art Bond SPV', type: 'fund', tag: 'Art-Backed Securities', badge: 'new' }
+                  ]
+                }
               ]
             }
           ]
@@ -373,7 +365,7 @@ const linkColor = {
   trust: '#7C3AED', holdings: '#3B82F6', ria: '#10B981',
   wealth: '#0EA5E9', management: '#14B8A6', fund: '#F59E0B',
   operating: '#A78BFA', investment: '#38BDF8', dormant: '#6B7280', person: '#475569',
-  portfolio: '#38BDF8'
+  portfolio: '#38BDF8', group: '#1e3a5f'
 };
 
 const svg = d3.select('#chart').append('svg')
@@ -390,19 +382,26 @@ svg.selectAll('path.lnk')
   .attr('class', 'lnk')
   .attr('d', linkGen)
   .attr('stroke', d => linkColor[d.target.data.type] || '#334155')
-  .attr('stroke-opacity', d => d.target.data.type === 'portfolio' ? 0.45 : 0.32)
-  .attr('stroke-width', 1.5)
-  .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : null)
+  .attr('stroke-opacity', d => d.target.data.type === 'group' ? 0.18 : d.target.data.type === 'portfolio' ? 0.45 : 0.32)
+  .attr('stroke-width', d => d.target.data.type === 'group' ? 1 : 1.5)
+  .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : d.target.data.type === 'group' ? '4,3' : null)
   .attr('fill', 'none');
 
 //  Render Node Cards 
 root.each(n => {
   const d  = n.data;
   const el = document.createElement('div');
-  el.className  = `nc nc-${d.type}`;
   el.style.left = (n.x + OX) + 'px';
   el.style.top  = (n.y + OY) + 'px';
 
+  if (d.type === 'group') {
+    el.className = 'nc nc-group';
+    el.innerHTML = `<div class="nc-group-lbl">${d.name}</div>`;
+    document.getElementById('chart').appendChild(el);
+    return;
+  }
+
+  el.className  = `nc nc-${d.type}`;
   let html = '';
 
   if (d.badge) {
