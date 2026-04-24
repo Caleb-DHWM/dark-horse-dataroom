@@ -478,10 +478,18 @@ function zoomAt(ns,cx,cy){
   _s=ns; applyT();
 }
 
-// Mouse wheel zoom
+// Mouse wheel zoom (ctrlKey = trackpad pinch on macOS) / scroll to pan
 _wrap.addEventListener('wheel',function(e){
   e.preventDefault();
-  zoomAt(_s*(e.deltaY<0?1.12:0.88),e.clientX,e.clientY);
+  if(e.ctrlKey){
+    // Trackpad pinch or Ctrl+scroll = zoom, gentle proportional factor
+    var factor=Math.pow(1.003,-e.deltaY);
+    zoomAt(_s*factor,e.clientX,e.clientY);
+  } else {
+    // Two-finger scroll or mouse wheel = pan
+    _tx-=e.deltaX; _ty-=e.deltaY;
+    applyT();
+  }
 },{passive:false});
 
 // Mouse drag pan
