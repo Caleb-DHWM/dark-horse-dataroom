@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Caleb Caraway — Entity Organization</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
@@ -33,24 +33,21 @@ header {
 .header-title p { font-size: 12px; color: #475569; }
 .header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; }
 
-/* Legend overlay — floats on canvas */
-#legend-overlay {
-  position: fixed;
-  top: 114px;
-  left: 16px;
-  z-index: 50;
-  background: rgba(6,11,24,0.88);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px;
-  padding: 10px 12px;
-  pointer-events: none;
+/* Legend removed */
+#chart-wrapper {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  cursor: grab;
+  background: #060B18;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 44px 44px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
-.legend-lbl { font-size: 9px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.8px; display: block; margin-bottom: 6px; }
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #64748B; margin-bottom: 3px; }
-.legend-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
-
-/* Group section node */
 .nc-group {
   background: rgba(255,255,255,0.025);
   border: 1px dashed rgba(255,255,255,0.1) !important;
@@ -77,7 +74,7 @@ header {
   background-size: 44px 44px;
 }
 
-#chart { position: relative; }
+#chart { position: relative; transform-origin: 0 0; }
 
 #chart svg {
   position: absolute;
@@ -193,19 +190,6 @@ header {
 </header>
 
 <div id="chart-wrapper">
-  <div id="legend-overlay">
-    <span class="legend-lbl">Legend</span>
-    <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Portfolio Company</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#022C22"></div>RIA / Adviser</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Position</div>
-  </div>
   <div id="chart"></div>
 </div>
 
@@ -469,19 +453,91 @@ sharedEl.style.top  = sharedPY + 'px';
 sharedEl.innerHTML  = '<div class="nc-name">Private Credit &amp; PE</div><div class="nc-tag">Fund Allocation — Private Markets</div>';
 chartEl.appendChild(sharedEl);
 
-function fitToScreen(){
-  var w=document.getElementById("chart-wrapper");
-  var c=document.getElementById("chart");
-  var cw=window._chartW||c.scrollWidth;
-  var ch=window._chartH||c.scrollHeight;
-  var s=Math.min(w.clientWidth/cw, w.clientHeight/ch, 1);
-  c.style.zoom="";
-  c.style.transformOrigin="top left";
-  c.style.transform="scale("+s+")";
-  c.style.marginRight=Math.round(cw*(s-1))+"px";
-  c.style.marginBottom=Math.round(ch*(s-1))+"px";
-  w.scrollTop=0; w.scrollLeft=0;
+// Pan / Zoom Engine
+var _s=1,_tx=0,_ty=0;
+var _cw=window._chartW, _ch=window._chartH;
+var _wrap=document.getElementById('chart-wrapper');
+var _chart=document.getElementById('chart');
+
+function applyT(){
+  _chart.style.transform='translate('+_tx+'px,'+_ty+'px) scale('+_s+')';
 }
+
+function fitToScreen(){
+  _s=Math.min(_wrap.clientWidth/_cw, _wrap.clientHeight/_ch, 1);
+  _tx=0; _ty=0;
+  applyT();
+}
+
+function zoomAt(ns,cx,cy){
+  ns=Math.max(0.05,Math.min(10,ns));
+  var r=_wrap.getBoundingClientRect();
+  var px=cx-r.left, py=cy-r.top;
+  _tx=px-((px-_tx)/_s)*ns;
+  _ty=py-((py-_ty)/_s)*ns;
+  _s=ns; applyT();
+}
+
+// Mouse wheel zoom
+_wrap.addEventListener('wheel',function(e){
+  e.preventDefault();
+  zoomAt(_s*(e.deltaY<0?1.12:0.88),e.clientX,e.clientY);
+},{passive:false});
+
+// Mouse drag pan
+var _drag=null;
+_wrap.addEventListener('mousedown',function(e){
+  if(e.button!==0)return;
+  _drag={x:e.clientX,y:e.clientY};
+  _wrap.style.cursor='grabbing';
+  e.preventDefault();
+});
+document.addEventListener('mousemove',function(e){
+  if(!_drag)return;
+  _tx+=e.clientX-_drag.x; _ty+=e.clientY-_drag.y;
+  _drag.x=e.clientX; _drag.y=e.clientY;
+  applyT();
+});
+document.addEventListener('mouseup',function(){
+  _drag=null; _wrap.style.cursor='grab';
+});
+
+// Touch pinch-zoom + single-finger pan
+var _touch={d:null,x:null,y:null};
+_wrap.addEventListener('touchstart',function(e){
+  if(e.touches.length===2){
+    _touch.d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  } else if(e.touches.length===1){
+    _touch.x=e.touches[0].clientX; _touch.y=e.touches[0].clientY;
+  }
+},{passive:true});
+_wrap.addEventListener('touchmove',function(e){
+  e.preventDefault();
+  if(e.touches.length===2){
+    var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    if(_touch.d){
+      var mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
+      var my=(e.touches[0].clientY+e.touches[1].clientY)/2;
+      zoomAt(_s*(d/_touch.d),mx,my);
+    }
+    _touch.d=d;
+  } else if(e.touches.length===1&&_touch.x!==null){
+    _tx+=e.touches[0].clientX-_touch.x; _ty+=e.touches[0].clientY-_touch.y;
+    _touch.x=e.touches[0].clientX; _touch.y=e.touches[0].clientY;
+    applyT();
+  }
+},{passive:false});
+_wrap.addEventListener('touchend',function(){
+  _touch.d=null; _touch.x=null; _touch.y=null;
+},{passive:true});
+
+// Fit to screen button still works
+function fitToScreen(){ // redefine so header button calls this same fn
+  _s=Math.min(_wrap.clientWidth/_cw, _wrap.clientHeight/_ch, 1);
+  _tx=0; _ty=0; applyT();
+}
+
+// Auto-fit on load
 requestAnimationFrame(function(){ requestAnimationFrame(fitToScreen); });
 </script>
 </body>
