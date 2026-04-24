@@ -20,14 +20,15 @@ body {
 
 /*  Header  */
 header {
-  padding: 20px 32px 18px;
+  padding: 18px 32px 16px;
   border-bottom: 1px solid #0F1929;
   flex-shrink: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   background: #0A0F1E;
 }
+.header-left { display: flex; flex-direction: column; gap: 10px; }
 .header-title { display: flex; flex-direction: column; gap: 3px; }
 .header-title h1 {
   font-size: 20px;
@@ -36,9 +37,27 @@ header {
   letter-spacing: -0.3px;
 }
 .header-title p { font-size: 12px; color: #475569; }
-.header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; }
-
-/*  Chart Wrapper  */
+.header-meta { font-size: 11px; color: #334155; text-align: right; line-height: 1.7; flex-shrink: 0; }
+.legend-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.legend-lbl {
+  font-size: 9px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 2px;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #64748B; }
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
 #chart-wrapper {
   flex: 1;
   min-height: 0;
@@ -127,30 +146,7 @@ header {
 .badge-dormant { background: #4B5563; color: #D1D5DB; }
 
 /*  Footer Legend  */
-footer {
-  padding: 12px 32px;
-  border-top: 1px solid #0F1929;
-  background: #0A0F1E;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  align-items: center;
-  flex-shrink: 0;
-}
-.legend-lbl {
-  font-size: 10px;
-  font-weight: 700;
-  color: #334155;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-}
-.legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #64748B; }
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
+/* footer removed — legend moved to header */
 </style>
 </head>
 <body>
@@ -178,9 +174,25 @@ footer {
 
 
 <header>
-  <div class="header-title">
-    <h1>Caleb Caraway — Entity Organization</h1>
-    <p>Full hierarchy &middot; All entities shown</p>
+  <div class="header-left">
+    <div class="header-title">
+      <h1>Caleb Caraway — Entity Organization</h1>
+      <p>Full hierarchy &middot; All entities shown</p>
+    </div>
+    <div class="legend-inline">
+      <span class="legend-lbl">Legend</span>
+      <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Operating</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1F2937"></div>Dormant</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1E293B;border:1px dashed #334155"></div>Advisor / Person</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment</div>
+    </div>
   </div>
   <div class="header-meta">
     April 2026<br>
@@ -191,24 +203,6 @@ footer {
 <div id="chart-wrapper">
   <div id="chart"></div>
 </div>
-
-<footer>
-  <span class="legend-lbl">Legend</span>
-  <div class="legend-item"><div class="legend-dot" style="background:#5B21B6"></div>Trust / Estate</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1E3A5F"></div>Holdings</div>
-  
-  
-  <div class="legend-item"><div class="legend-dot" style="background:#065F46"></div>RIA</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#075985"></div>Wealth Management</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#134E4A"></div>Management / GP</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#92400E"></div>Fund Vehicle</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#3B0764"></div>Operating</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0C3560"></div>Investment</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1F2937"></div>Dormant</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#1E293B;border:1px dashed #334155"></div>Advisor / Person</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0F2540;border:1.5px dashed #38BDF8"></div>Portfolio Investment</div>
-  <div class="legend-item"><div class="legend-dot" style="background:transparent;border:1.5px dashed #c2a44a"></div>Capital Flow (DH & QH → Portfolio Cos)</div>
-</footer>
 
 <script>
 //  Entity Data 
@@ -291,8 +285,7 @@ const orgData = {
               name: 'Pegasus Aerospace Capital LLC',
               type: 'operating',
               tag: 'Aviation Portfolio Company · DBA Pegasus Aerospace',
-              badge: 'new',
-              note: 'Formed 04/10/2026 · SOS #806541701'
+              badge: 'new'
             },
             {
               id: 'stateside',
