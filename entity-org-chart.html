@@ -240,9 +240,9 @@ const orgData = {
                   id: 'draft-wm',
                   name: 'Draft Horse Wealth Management LLC',
                   type: 'management',
-                  tag: 'Management Co — Fund I GP',
+                  tag: 'Management Co — Fund III GP',
                   children: [
-                    { id: 'draft', name: 'Draft Horse Capital Partners LLC', type: 'fund', tag: 'Multi-Strategy Debt Fund · 506(c)' }
+                    { id: 'draft', name: 'Draft Horse Capital Partners LLC', type: 'fund', tag: 'Multi-Strategy Debt Fund · 506(c) · Fund III' }
                   ]
                 },
                 {
@@ -251,7 +251,7 @@ const orgData = {
                   type: 'management',
                   tag: 'Management Co — Fund II GP',
                   children: [
-                    { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b)', children: [
+                    { id: 'qhcp', name: 'Quarter Horse Capital Partners LLC', type: 'fund', tag: 'Deal-by-Deal Debt Fund · 506(b) · Fund II', children: [
                       { id: 'qh-pegasus',  name: 'Pegasus Aerospace',    type: 'portfolio', tag: 'Aviation · Allocation' },
                       { id: 'qh-stateside', name: 'Stateside Resources', type: 'portfolio', tag: 'Mining · Metals · Energy · Allocation' },
                       { id: 'qh-rehold',   name: 'Slipstream Holdings',  type: 'portfolio', tag: 'Real Estate · Allocation' },
@@ -263,10 +263,10 @@ const orgData = {
                   id: 'ccp',
                   name: 'Corinthian Capital Partners LLC',
                   type: 'management',
-                  tag: 'Management Co — Fund III',
+                  tag: 'Management Co — Fund I',
                   note: '75% DHWM / 25% Atlas Wealth',
                   children: [
-                    { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Debt Fund · 506(b)' }
+                    { id: 'ccf', name: 'Corinthian Capital Fund LLC', type: 'fund', tag: 'Debt Fund · 506(b) · Fund I' }
                   ]
                 }
               ]
@@ -299,7 +299,7 @@ const orgData = {
                   tag: 'Real Estate Portfolio Co',
                   badge: 'new',
                   children: [
-                    { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate · Affiliated' }
+                    { id: 'super', name: 'Supernature', type: 'portfolio', tag: 'Real Estate' }
                   ]
                 }
               ]
@@ -346,7 +346,15 @@ const treeLayout = d3.tree()
 
 treeLayout(root);
 
-// Bounding box
+// Locate the three fund nodes for shared PE/Credit allocation node
+const fundNodes = {};
+root.each(n => { if (['draft','qhcp','ccf'].includes(n.data.id)) fundNodes[n.data.id] = n; });
+const fxVals = Object.values(fundNodes).map(n => n.x);
+const fyVals = Object.values(fundNodes).map(n => n.y);
+const sharedTX = (Math.min(...fxVals) + Math.max(...fxVals)) / 2;
+const sharedTY = Math.max(...fyVals) + (NH + VG) * 1.6;
+
+// Bounding box (include shared node)
 let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
 root.each(n => {
   minX = Math.min(minX, n.x);
@@ -354,6 +362,9 @@ root.each(n => {
   minY = Math.min(minY, n.y);
   maxY = Math.max(maxY, n.y);
 });
+minX = Math.min(minX, sharedTX - NW / 2);
+maxX = Math.max(maxX, sharedTX + NW / 2);
+maxY = Math.max(maxY, sharedTY);
 
 const PAD = 120;
 const W   = (maxX - minX) + NW + PAD * 2;
@@ -399,6 +410,23 @@ svg.selectAll('path.lnk')
   .attr('stroke-dasharray', d => d.target.data.type === 'portfolio' ? '5,4' : null)
   .attr('fill', 'none');
 
+// Shared PE/Private Credit allocation lines (multi-parent)
+const sharedPX = sharedTX + OX, sharedPY = sharedTY + OY;
+['draft','qhcp','ccf'].forEach(fid => {
+  const fn = fundNodes[fid];
+  if (!fn) return;
+  const fx = fn.x + OX, fy = fn.y + OY;
+  const midY = fy + (sharedPY - fy) * 0.5;
+  const pathEl = document.createElementNS('http://www.w3.org/2000/svg','path');
+  pathEl.setAttribute('d', `M${fx},${fy} C${fx},${midY} ${sharedPX},${midY} ${sharedPX},${sharedPY}`);
+  pathEl.setAttribute('stroke','#F59E0B');
+  pathEl.setAttribute('stroke-opacity','0.4');
+  pathEl.setAttribute('stroke-width','1.5');
+  pathEl.setAttribute('stroke-dasharray','5,4');
+  pathEl.setAttribute('fill','none');
+  svg.node().appendChild(pathEl);
+});
+
 //  Render Node Cards 
 root.each(n => {
   const d  = n.data;
@@ -429,6 +457,14 @@ root.each(n => {
   el.innerHTML = html;
   chartEl.appendChild(el);
 });
+
+// Render shared PE/Private Credit node
+const sharedEl = document.createElement('div');
+sharedEl.className = 'nc nc-portfolio';
+sharedEl.style.left = sharedPX + 'px';
+sharedEl.style.top  = sharedPY + 'px';
+sharedEl.innerHTML  = '<div class="nc-name">Private Credit &amp; PE</div><div class="nc-tag">Fund Allocation — Private Markets</div>';
+chartEl.appendChild(sharedEl);
 
 function fitToScreen(){var w=document.getElementById("chart-wrapper"),c=document.getElementById("chart"),s=Math.min(w.clientWidth/c.scrollWidth,w.clientHeight/c.scrollHeight,1)*0.92;c.style.transformOrigin="top left";c.style.transform="scale("+s+")";w.scrollTop=0;w.scrollLeft=0;}
 </script>
